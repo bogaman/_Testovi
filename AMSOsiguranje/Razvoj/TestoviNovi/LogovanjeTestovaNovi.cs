@@ -47,28 +47,26 @@ namespace Razvoj
 
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
 
-            using (OleDbConnection connection = new OleDbConnection(ConnectionStringLogovi))
+            using (OleDbConnection connection = new(ConnectionStringLogovi))
             {
                 try
                 {
                     connection.Open();
 
-                    using (OleDbCommand command = new OleDbCommand(insertCommand, connection))
-                    {
-                        command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
-                        int rowsAffected = command.ExecuteNonQuery();
-                        Console.WriteLine($"{rowsAffected} red je uspešno unet u tabelu tblSumarniIzvestajTestiranja.");
+                    using OleDbCommand command = new(insertCommand, connection);
+                    command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
+                    int rowsAffected = command.ExecuteNonQuery();
+                    Console.WriteLine($"{rowsAffected} red je uspešno unet u tabelu tblSumarniIzvestajTestiranja.");
 
-                        using (OleDbCommand getIdCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+                    using (OleDbCommand getIdCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+                    {
+                        object? result = getIdCommand.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
                         {
-                            object? result = getIdCommand.ExecuteScalar();
-                            if (result != null && result != DBNull.Value)
-                            {
-                                newRecordId = Convert.ToInt32(result);
-                            }
+                            newRecordId = Convert.ToInt32(result);
                         }
-                        Console.WriteLine($"Novi ID unetog zapisa (redni broj testiranja) je: {newRecordId}");
                     }
+                    Console.WriteLine($"Novi ID unetog zapisa (redni broj testiranja) je: {newRecordId}");
                 }
                 catch (OleDbException ex)
                 {
@@ -102,30 +100,28 @@ namespace Razvoj
                                    @$"VALUES (@IDTestiranja, @nazivTekucegTesta, @pocetakTesta)";
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
 
-            using (OleDbConnection connection = new OleDbConnection(ConnectionStringLogovi))
+            using (OleDbConnection connection = new(ConnectionStringLogovi))
             {
                 try
                 {
                     connection.Open();
 
-                    using (OleDbCommand command = new OleDbCommand(insertCommand, connection))
-                    {
-                        command.Parameters.AddWithValue("@IDTestiranja", IDTestiranja);
-                        command.Parameters.AddWithValue("@nazivTekucegTesta", nazivTekucegTesta);
-                        command.Parameters.AddWithValue("@pocetakTesta", pocetakTesta);
-                        int rowsAffected = command.ExecuteNonQuery();
-                        Console.WriteLine($"{rowsAffected} red je uspešno unet.");
+                    using OleDbCommand command = new(insertCommand, connection);
+                    command.Parameters.AddWithValue("@IDTestiranja", IDTestiranja);
+                    command.Parameters.AddWithValue("@nazivTekucegTesta", nazivTekucegTesta);
+                    command.Parameters.AddWithValue("@pocetakTesta", pocetakTesta);
+                    int rowsAffected = command.ExecuteNonQuery();
+                    Console.WriteLine($"{rowsAffected} red je uspešno unet.");
 
-                        using (OleDbCommand getIdCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+                    using (OleDbCommand getIdCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+                    {
+                        object? result = getIdCommand.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
                         {
-                            object? result = getIdCommand.ExecuteScalar();
-                            if (result != null && result != DBNull.Value)
-                            {
-                                newRecordId = Convert.ToInt32(result);
-                            }
+                            newRecordId = Convert.ToInt32(result);
                         }
-                        Console.WriteLine($"Novi ID unetog zapisa (redni broj testa) je: {newRecordId}");
                     }
+                    Console.WriteLine($"Novi ID unetog zapisa (redni broj testa) je: {newRecordId}");
                 }
                 catch (OleDbException ex)
                 {
@@ -165,35 +161,31 @@ namespace Razvoj
                                    $"krajTestiranja = @krajTestiranja " +
                                    $"WHERE IDTestiranja = @IDTestiranja;";
 
-            using (OleDbConnection connection = new OleDbConnection(ConnectionStringLogovi))
+            using OleDbConnection connection = new(ConnectionStringLogovi);
+            try
             {
-                try
-                {
-                    connection.Open();
+                connection.Open();
 
-                    using (OleDbCommand command = new OleDbCommand(updateCommand, connection))
-                    {
-                        command.Parameters.AddWithValue("@failedTests", paliTestovi);
-                        command.Parameters.AddWithValue("@passTests", prosliTestovi);
-                        command.Parameters.AddWithValue("@skippedTests", preskoceniTestovi);
-                        command.Parameters.AddWithValue("@ukupnoTests", UkupnoTestova);
-                        command.Parameters.AddWithValue("@krajTestiranja", krajTestiranja);
-                        command.Parameters.AddWithValue("@IDTestiranja", newRecordId);
-                        int rowsAffected = command.ExecuteNonQuery();
-                        Console.WriteLine($"{rowsAffected} red je uspešno unet.");
-                    }
-                }
-                catch (OleDbException ex)
+                using OleDbCommand command = new(updateCommand, connection);
+                command.Parameters.AddWithValue("@failedTests", paliTestovi);
+                command.Parameters.AddWithValue("@passTests", prosliTestovi);
+                command.Parameters.AddWithValue("@skippedTests", preskoceniTestovi);
+                command.Parameters.AddWithValue("@ukupnoTests", UkupnoTestova);
+                command.Parameters.AddWithValue("@krajTestiranja", krajTestiranja);
+                command.Parameters.AddWithValue("@IDTestiranja", newRecordId);
+                int rowsAffected = command.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} red je uspešno unet.");
+            }
+            catch (OleDbException ex)
+            {
+                Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
                 {
-                    Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
-                    throw;
-                }
-                finally
-                {
-                    if (connection.State == System.Data.ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
+                    connection.Close();
                 }
             }
         }
@@ -207,34 +199,30 @@ namespace Razvoj
                                    $"StackTrace = @stackTrace " +
                                    $"WHERE IDTesta = @IDTesta;";
 
-            using (OleDbConnection connection = new OleDbConnection(ConnectionStringLogovi))
+            using OleDbConnection connection = new(ConnectionStringLogovi);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    using (OleDbCommand command = new OleDbCommand(updateCommand, connection))
-                    {
-                        command.Parameters.AddWithValue("@krajTesta", krajTesta);
-                        command.Parameters.AddWithValue("@rezultat", StatusTesta.ToString()); // Pretvori enum u string
-                        command.Parameters.AddWithValue("@opisGreske", errorMessage);
-                        command.Parameters.AddWithValue("@stackTrace", stackTrace);
-                        command.Parameters.AddWithValue("@IDTesta", newRecordId);
+                connection.Open();
+                using OleDbCommand command = new(updateCommand, connection);
+                command.Parameters.AddWithValue("@krajTesta", krajTesta);
+                command.Parameters.AddWithValue("@rezultat", StatusTesta.ToString()); // Pretvori enum u string
+                command.Parameters.AddWithValue("@opisGreske", errorMessage);
+                command.Parameters.AddWithValue("@stackTrace", stackTrace);
+                command.Parameters.AddWithValue("@IDTesta", newRecordId);
 
-                        int rowsAffected = command.ExecuteNonQuery();
-                        Console.WriteLine($"{rowsAffected} red je ažuriran.");
-                    }
-                }
-                catch (OleDbException ex)
+                int rowsAffected = command.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} red je ažuriran.");
+            }
+            catch (OleDbException ex)
+            {
+                Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
                 {
-                    Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
-                    throw;
-                }
-                finally
-                {
-                    if (connection.State == System.Data.ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
+                    connection.Close();
                 }
             }
         }

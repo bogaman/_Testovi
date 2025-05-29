@@ -73,9 +73,9 @@ namespace Razvoj
 
 
         #region SetUp 
-        
 
-// Metoda koja se pokreće pre svakog testa
+
+        // Metoda koja se pokreće pre svakog testa
         [SetUp]
         public async Task SetUp()
         {
@@ -564,7 +564,7 @@ namespace Razvoj
                 //await _page.GotoAsync("https://razvojamso-master.eonsystem.rs/BackOffice/BackOffice/1/Putno-osiguranje/4053");
 
                 //await ProveriStampu404(_page, "Štampaj polisu", "Štampa polse DZO: ");
-                await _page.GotoAsync("https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/6978");
+                await _page!.GotoAsync("https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/6978");
                 //await _page.PauseAsync();
                 await ProveriStampuPdf(_page, "Štampaj polisu", "Štampa polse AO: ");
                 await ProveriStampuPdf(_page, "Štampaj uplatnicu/fakturu", "Štampa uplatnice AO: ");
@@ -2739,11 +2739,11 @@ namespace Razvoj
                     await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("123456789");
                     await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").ClickAsync();
                     await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
-                    if(_platilac1 != "")
+                    if (_platilac1 != "")
                     {
                         await _page.Locator("//e-checkbox[@id='chkPlatilacU']").ClickAsync();
                     }
-                    
+
                     if (_platilac1 == "0")
                     {
                         await _page.Locator("//e-checkbox[@id='chkPlatilacK']").ClickAsync();
@@ -2858,16 +2858,16 @@ namespace Razvoj
                 await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
 
-                if(_platilac1 != "")
-                    {
-                        await _page.Locator("//e-checkbox[@id='chkPlatilacU']").ClickAsync();
-                    }
-                    
-                    if (_platilac1 == "0")
-                    {
-                        await _page.Locator("//e-checkbox[@id='chkPlatilacK']").ClickAsync();
-                    }
-                
+                if (_platilac1 != "")
+                {
+                    await _page.Locator("//e-checkbox[@id='chkPlatilacU']").ClickAsync();
+                }
+
+                if (_platilac1 == "0")
+                {
+                    await _page.Locator("//e-checkbox[@id='chkPlatilacK']").ClickAsync();
+                }
+
 
             }
 
@@ -6798,8 +6798,8 @@ if(brojUgovora != "")
                 await ProveriStampuPdf(_page, "Štampaj polisu", "Greška u štampi kreirane polise posle klika na Štampaj polisu.");
             }
             */
-            
-            
+
+
             /****************************
             var page1 = await _page.RunAndWaitForPopupAsync(async () =>
             {
