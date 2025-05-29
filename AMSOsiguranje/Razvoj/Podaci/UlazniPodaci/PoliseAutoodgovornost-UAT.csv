@@ -1,0 +1,37 @@
+﻿Serijski broj obrasca;Tip polise;Broj dana;Premijska grupa;Tegljač;Premijska podgrupa;Zapremina;Snaga motora;Nosivost;Broj mesta;Popusti i doplaci;Broj šasije
+346720444;Regularna;0;Putničko vozilo;0;0;1300;20;0;5;0;KNEDE244266091336
+346720543;Regularna;0;Putničko vozilo;0;0;1300;22;0;5;Taxi vozilo;KNEDE244266091337
+346720139;Regularna;0;Teretno vozilo;0;0;1300;200;18;5;0;KNEDE244266091338
+346720147;Regularna;0;Teretno vozilo;1;0;1300;200;25;12;Taxi vozilo;KNEDE244266091339
+346720576;Regularna;0;Teretno vozilo;1;0;1300;200;19;2;Rent a car;KNEDE244266091340
+346720592;Regularna;0;Autobusi;0;Autobusi za međugradski;2000;300;0;5;0;KNEDE244266091341
+346720170;Regularna;0;Autobusi;0;Autobuske prikolice za međugradski;2000;300;0;10;0;KNEDE244266091342
+346720188;Regularna;0;Vučna vozila;0;0;0;15;0;0;0;KNEDE244266091343
+346720444;Regularna;0;Specijalna motorna vozila;0;Pogrebni automobili koji;0;200;0;0;0;KNEDE244266091344
+346720196;Regularna;0;Motocikli;0;0;40;300;0;2;0;KNEDE244266091345
+346720204;Regularna;0;Motocikli;0;0;50;300;0;2;Rent a car;KNEDE244266091346
+346720212;Regularna;0;Priključna vozila;0;0;0;0;0,5;0;0;KNEDE244266091347
+346613631;Regularna;0;Priključna vozila;0;0;0;0;1;0;Prevoz eksplozivnih i zapaljivih;KNEDE244266091348
+346720220;Regularna;0;Radna vozila;0;Vozila za servisnu službu sa;0;0;0;0;0;KNEDE244266091349
+346720238;Privremeno osiguranje;2;Putničko vozilo;0;0;1300;20;0;5;0;KNEDE244266091350
+346720246;Privremeno osiguranje;3;Putničko vozilo;0;0;1300;22;0;5;Taxi vozilo;KNEDE244266091351
+346720253;Privremeno osiguranje;7;Teretno vozilo;1;0;1300;200;22;5;Prevoz eksplozivnih;KNEDE244266091352
+346720261;Privremeno osiguranje;15;Teretno vozilo;0;0;1300;200;18;5;Prevoz sladoleda;KNEDE244266091353
+346720279;Privremeno osiguranje;250;Autobusi;0;Autobuske prikolice preduzeća i ustanova;2000;300;0;100;0;KNEDE244266091354
+346720287;Privremeno osiguranje;2;Vučna vozila;0;0;0;15;0;0;0;KNEDE244266091355
+346613714;Privremeno osiguranje;7;Specijalna motorna vozila;0;Pogrebni automobili koji;0;200;0;0;0;KNEDE244266091356
+346720295;Privremeno osiguranje;2;Motocikli;0;0;40;300;0;2;0;KNEDE244266091357
+346720303;Privremeno osiguranje;15;Motocikli;0;0;175;300;0;2;Invalidska kolica sa motorom;KNEDE244266091358
+346720311;Privremeno osiguranje;210;Priključna vozila;0;0;0;0;0,5;0;0;KNEDE244266091359
+346720451;Privremeno osiguranje;7;Priključna vozila;0;0;0;0;15;0;Prikolice na dva točka;KNEDE244266091360
+346720469;Privremeno osiguranje;180;Radna vozila;0;Bageri;0;0;0;0;0;KNEDE244266091361
+346720345;Granično osiguranje;90;Putničko vozilo;0;0;1300;55;0;5;0;KNEDE244266091362
+346720352;Granično osiguranje;250;Teretno vozilo;0;0;1300;200;0,3;5;0;KNEDE244266091363
+346720360;Granično osiguranje;2;Teretno vozilo;1;0;1300;200;0,25;5;0;KNEDE244266091364
+346720378;Granično osiguranje;2;Teretno vozilo;0;0;1300;200;26;5;0;KNEDE244266091365
+346720386;Granično osiguranje;3;Autobusi;0;0;2000;300;0;5;0;KNEDE244266091366
+346720394;Granično osiguranje;240;Vučna vozila;0;0;0;114;0;0;0;KNEDE244266091367
+346720402;Granično osiguranje;30;Specijalna motorna vozila;0;0;0;200;0;0;0;KNEDE244266091368
+346720410;Granično osiguranje;2;Motocikli;0;0;40;300;0;2;0;KNEDE244266091369
+346720535;Granično osiguranje;210;Priključna vozila;0;0;0;0;0,5;0;0;KNEDE244266091370
+346720527;Granično osiguranje;60;Radna vozila;0;0;0;0;0;0;0;KNEDE244266091371

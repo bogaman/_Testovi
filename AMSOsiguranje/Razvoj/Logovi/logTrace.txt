@@ -1,0 +1,1019 @@
+-----------------------------------------
+[28.05.2025. 11:05:32] Početak testiranja
+
+[28.05.2025. 11:05:32] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 11:12:07] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 568
+[28.05.2025. 11:12:07] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 11:12:07] kraj testa: _TestTestova, trajanje: 394,7215431 sekundi.
+
+[28.05.2025. 11:12:08] Kraj testiranja, trajanje: 396,2055767 sekundi.
+[28.05.2025. 11:12:08] Kraj testiranja, trajanje: 00:06:36.2055767 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:08:41] Početak testiranja
+
+[28.05.2025. 12:08:42] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 12:09:20] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 568
+[28.05.2025. 12:09:20] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 12:09:20] Kraj testiranja, trajanje: 39,6086097 sekundi.
+[28.05.2025. 12:09:20] Kraj testiranja, trajanje: 00:00:39.6086097 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:14:27] Početak testiranja
+
+[28.05.2025. 12:14:27] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 12:15:03] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 568
+[28.05.2025. 12:15:03] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 12:15:03] Kraj testiranja, trajanje: 36,8541702 sekundi.
+[28.05.2025. 12:15:03] Kraj testiranja, trajanje: 00:00:36.8541702 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:16:54] Početak testiranja
+
+[28.05.2025. 12:16:54] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 12:17:43] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 568
+[28.05.2025. 12:17:43] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 12:17:43] Kraj testiranja, trajanje: 49,1871254 sekundi.
+[28.05.2025. 12:17:43] Kraj testiranja, trajanje: 00:00:49.1871254 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:42:45] Početak testiranja
+
+[28.05.2025. 12:42:46] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 12:43:31] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 568
+[28.05.2025. 12:43:31] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 12:43:31] kraj testa: _TestTestova, trajanje: 44,9663354 sekundi.
+
+[28.05.2025. 12:43:31] Kraj testiranja, trajanje: 46,0589077 sekundi.
+[28.05.2025. 12:43:31] Kraj testiranja, trajanje: 00:00:46.0589077 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:46:32] Početak testiranja
+
+[28.05.2025. 12:46:33] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+[28.05.2025. 12:46:50] kraj testa: _TestTestova, trajanje: 16,9622101 sekundi.
+
+[28.05.2025. 12:46:50] Kraj testiranja, trajanje: 17,9992698 sekundi.
+[28.05.2025. 12:46:50] Kraj testiranja, trajanje: 00:00:17.9992698 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:48:00] Početak testiranja
+
+[28.05.2025. 12:48:01] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+[28.05.2025. 12:48:18] kraj testa: _TestTestova, trajanje: 17,6725908 sekundi.
+
+[28.05.2025. 12:48:19] Kraj testiranja, trajanje: 18,5463845 sekundi.
+[28.05.2025. 12:48:19] Kraj testiranja, trajanje: 00:00:18.5463845 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:49:33] Početak testiranja
+
+[28.05.2025. 12:49:34] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 12:50:10] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 568
+[28.05.2025. 12:50:10] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 12:50:10] kraj testa: _TestTestova, trajanje: 36,0519274 sekundi.
+
+[28.05.2025. 12:50:11] Kraj testiranja, trajanje: 37,1463405 sekundi.
+[28.05.2025. 12:50:11] Kraj testiranja, trajanje: 00:00:37.1463405 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:51:42] Početak testiranja
+
+[28.05.2025. 12:51:43] pokrenut je test: IndividualnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[28.05.2025. 12:52:24] kraj testa: IndividualnoPutno, trajanje: 41,0748653 sekundi.
+
+[28.05.2025. 12:52:24] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[28.05.2025. 12:53:10] kraj testa: PorodicnoPutno, trajanje: 45,5199374 sekundi.
+
+[28.05.2025. 12:53:11] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[28.05.2025. 12:54:01] kraj testa: SaViseUlazaka, trajanje: 50,0194699 sekundi.
+
+[28.05.2025. 12:54:01] Kraj testiranja, trajanje: 138,8292167 sekundi.
+[28.05.2025. 12:54:01] Kraj testiranja, trajanje: 00:02:18.8292167 sekundi.
+
+-----------------------------------------
+[28.05.2025. 12:55:18] Početak testiranja
+
+[28.05.2025. 12:55:19] pokrenut je test: IndividualnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+[28.05.2025. 12:55:50] kraj testa: IndividualnoPutno, trajanje: 31,2525501 sekundi.
+
+[28.05.2025. 12:55:50] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+[28.05.2025. 12:55:58] kraj testa: PorodicnoPutno, trajanje: 7,229536 sekundi.
+
+[28.05.2025. 12:55:58] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+[28.05.2025. 12:56:06] kraj testa: SaViseUlazaka, trajanje: 7,6353636 sekundi.
+
+[28.05.2025. 12:56:06] Kraj testiranja, trajanje: 47,923731 sekundi.
+[28.05.2025. 12:56:06] Kraj testiranja, trajanje: 00:00:47.9237310 sekundi.
+
+-----------------------------------------
+[28.05.2025. 13:28:00] Početak testiranja
+
+[28.05.2025. 13:28:01] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+[28.05.2025. 13:28:10] kraj testa: PorodicnoPutno, trajanje: 9,4036493 sekundi.
+
+[28.05.2025. 13:28:11] Kraj testiranja, trajanje: 10,5491982 sekundi.
+[28.05.2025. 13:28:11] Kraj testiranja, trajanje: 00:00:10.5491982 sekundi.
+
+-----------------------------------------
+[28.05.2025. 13:32:33] Početak testiranja
+
+[28.05.2025. 13:32:33] pokrenut je test: AO_1_SE_PregledPretragaObrazaca
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-obrazaca.
+✅ Grid: Obrasci polisa AO - //e-grid[@id='grid_obrasci'] pronađena.
+✅ Filter na gridu Obrasci polisa AO radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Kartica/34680057.
+[28.05.2025. 13:32:58] Uspešno pronađen tekst boks sa vrednošću: '34680057'
+[28.05.2025. 13:32:58] Uspešno pronađen tekst boks sa vrednošću: 'Autoodgovornost'
+[28.05.2025. 13:32:58] Uspešno pronađen tekst boks sa vrednošću: '90202 - Bogdan Mandarić'
+[28.05.2025. 13:32:58] Uspešno pronađen tekst boks sa vrednošću: '00013666 - storno'
+[28.05.2025. 13:32:58] Svi očekivani tekst boksovi su pronađeni sa tačnim vrednostima.
+[28.05.2025. 13:33:00] ✅ Uspešan test AO_1_SE_PregledPretragaObrazaca 
+[28.05.2025. 13:33:00] kraj testa: AO_1_SE_PregledPretragaObrazaca, trajanje: 26,5143874 sekundi.
+
+[28.05.2025. 13:33:00] Kraj testiranja, trajanje: 27,3127493 sekundi.
+[28.05.2025. 13:33:00] Kraj testiranja, trajanje: 00:00:27.3127493 sekundi.
+
+-----------------------------------------
+[28.05.2025. 13:33:33] Početak testiranja
+
+[28.05.2025. 13:33:33] pokrenut je test: AO_1_SE_PregledPretragaObrazaca
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-obrazaca.
+✅ Grid: Obrasci polisa AO - //e-grid[@id='grid_obrasci'] pronađena.
+✅ Filter na gridu Obrasci polisa AO radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Kartica/34680057.
+[28.05.2025. 13:33:54] Uspešno pronađen tekst boks sa vrednošću: '34680057'
+[28.05.2025. 13:33:54] Uspešno pronađen tekst boks sa vrednošću: 'Autoodgovornost'
+[28.05.2025. 13:33:54] Uspešno pronađen tekst boks sa vrednošću: '90202 - Bogdan Mandarić'
+[28.05.2025. 13:33:54] Uspešno pronađen tekst boks sa vrednošću: '00013666 - storno'
+[28.05.2025. 13:33:54] Svi očekivani tekst boksovi su pronađeni sa tačnim vrednostima.
+[28.05.2025. 13:33:59] ✅ Uspešan test AO_1_SE_PregledPretragaObrazaca 
+[28.05.2025. 13:33:59] kraj testa: AO_1_SE_PregledPretragaObrazaca, trajanje: 25,5186328 sekundi.
+
+[28.05.2025. 13:33:59] Kraj testiranja, trajanje: 26,4563497 sekundi.
+[28.05.2025. 13:33:59] Kraj testiranja, trajanje: 00:00:26.4563497 sekundi.
+
+-----------------------------------------
+[28.05.2025. 13:34:06] Početak testiranja
+
+[28.05.2025. 13:34:06] pokrenut je test: AO_1_SE_PregledPretragaObrazaca
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 13:34:13] ERROR: ❌ Neuspešan test AO_1_SE_PregledPretragaObrazaca - Target page, context or browser has been closed
+Call log:
+  - waiting for GetByRole(AriaRole.Button, new() { Name = "Autoodgovornost" }).First
+    - locator resolved to <button class="left basic default flex main-menu-podmeni flex-center-center">…</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not stable
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not stable
+    - retrying click action
+      - waiting 100ms
+    - waiting for element to be visible, enabled and stable
+[28.05.2025. 13:34:13] kraj testa: AO_1_SE_PregledPretragaObrazaca, trajanje: 7,2062855 sekundi.
+
+[28.05.2025. 13:34:13] Kraj testiranja, trajanje: 7,9079735 sekundi.
+[28.05.2025. 13:34:13] Kraj testiranja, trajanje: 00:00:07.9079735 sekundi.
+
+-----------------------------------------
+[28.05.2025. 13:35:19] Početak testiranja
+
+[28.05.2025. 13:35:19] pokrenut je test: AO_2_SE_PregledPretragaDokumenata
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-dokumenata.
+✅ Grid: Dokumenti Stroge evidencije za polise AO - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Filter na gridu Dokumenti Stroge evidencije za polise AO radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/998.
+[28.05.2025. 13:35:39] Uspešno pronađen element sa vrednošću: 'M-2025-260'
+[28.05.2025. 13:35:39] Uspešno pronađen element sa vrednošću: 'Verifikovan'
+[28.05.2025. 13:35:39] Uspešno pronađen element sa vrednošću: 'Magacin kovnice'
+[28.05.2025. 13:35:39] Uspešno pronađen element sa vrednošću: 'Centralni magacin 1'
+[28.05.2025. 13:35:39] Svi očekivani elementi su pronađeni sa tačnim vrednostima.
+✅ Štampa dokumenta Stroge evidencije za AO: završava sa pdf
+[28.05.2025. 13:35:44] ✅ Uspešan test AO_2_SE_PregledPretragaDokumenata 
+[28.05.2025. 13:35:44] kraj testa: AO_2_SE_PregledPretragaDokumenata, trajanje: 25,0771549 sekundi.
+
+[28.05.2025. 13:35:45] Kraj testiranja, trajanje: 26,006775 sekundi.
+[28.05.2025. 13:35:45] Kraj testiranja, trajanje: 00:00:26.0067750 sekundi.
+
+-----------------------------------------
+[28.05.2025. 13:36:30] Početak testiranja
+
+[28.05.2025. 13:36:30] pokrenut je test: AO_3_SE_UlazPrenosObrazaca
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Grid: grid Polise AO - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-obrazaca.
+✅ Grid: Obrasci polisa AO - //e-grid[@id='grid_obrasci'] pronađena.
+✅ Filter na gridu Obrasci polisa AO radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-dokumenata.
+✅ Grid: Dokumenta stroge evidencije - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Filter na gridu Dokumenta stroge evidencije radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0.
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selZaduzenje'.
+✅ Poslednji serijski broj obrasca polise AO na svim okruženjima je: 34681108.
+✅ Poslednji broj dokumenta u strogoj evidenciji je: 999.
+✅ Snimanje: ulaz u centralni magacin, dokument 1000
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1000.
+✅ Dokument obrisan: 1000
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0.
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selZaduzenje'.
+✅ Poslednji mejl -> ID: 51103, IDMail: 45562, Status: 2, Opis: -, Datum: 28.5.2025. 12:54:02, Subject: Uspešno obavljena kupovina.
+✅ Snimanje: ulaz u centralni magacin, dokument 1000
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1000.
+✅ 1 Poslat mejl -> ID: 51104, IDMail: 45563, Status: 1, Opis: -,  Datum: 28.5.2025. 13:37:12, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ 2 Poslat mejl -> ID: 51105, IDMail: 45563, Status: 2, Opis: -,  Datum: 28.5.2025. 13:37:16, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ Kreiran neverifikovan dokument stroge evidencije AO: završava sa pdf
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Imate novi dokument "Ulaz u centralni magacin" za verifikaciju
+Dokument možete pogledati klikom na link: M-2025-261' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1000.
+✅ Poslednji mejl -> ID: 51105, IDMail: 45563, Status: 2, Opis: -, Datum: 28.5.2025. 13:37:16, Subject: Imate novi Ulaz u centralni magacin za verifikaciju
+✅ 1 Poslat mejl -> ID: 51106, IDMail: 45564, Status: 1, Opis: -,  Datum: 28.5.2025. 13:37:24, Subject: : Vraćen je u izradu Ulaz u centralni magacin
+✅ 2 Poslat mejl -> ID: 51107, IDMail: 45564, Status: 2, Opis: -,  Datum: 28.5.2025. 13:37:28, Subject: : Vraćen je u izradu Ulaz u centralni magacin
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Dokument "Ulaz u centralni magacin" je vraćen u izradu.
+Dokument možete pogledati klikom na link: M-2025-261' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1000.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+❌ Proverava se da li je vest obrisana nakon brisanja dokumenta M-2025-261.
+[28.05.2025. 13:38:09] ERROR: Kontekst: AO_3_SE_UlazPrenosObrazaca
+Exception: Timeout 30000ms exceeded.
+Call log:
+  - waiting for Locator("podaci")
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.InnerTextAsync(String selector, FrameInnerTextOptions options) in /_/src/Playwright/Core/Frame.cs:line 410
+   at Razvoj.OsiguranjeVozilaNovi.ProveraVestNijeObrisana(IPage _page, String ocekivaniTekst) in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\OsnovniDeloviOsiguranjeVozilaNovi.cs:line 1406
+[28.05.2025. 13:38:09] Test 'AO_3_SE_UlazPrenosObrazaca' je završen sa statusom: NEUSPESNO
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest uspešno arhivirana - M-2025-261
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selZaduzenje'.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1000.
+✅ Poslednji mejl -> ID: 51107, IDMail: 45564, Status: 2, Opis: -, Datum: 28.5.2025. 13:37:28, Subject: Vraćen je u izradu Ulaz u centralni magacin
+✅ 1 Poslat mejl -> ID: 51108, IDMail: 45565, Status: 1, Opis: -,  Datum: 28.5.2025. 13:38:33, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ 2 Poslat mejl -> ID: 51109, IDMail: 45565, Status: 2, Opis: -,  Datum: 28.5.2025. 13:38:36, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ Grid: grid: Stroga evidencija AO - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1000.
+✅ Otvaranje dokumenta iz grida: 1000 - M-2025-261.
+✅ Poslednji mejl -> ID: 51109, IDMail: 45565, Status: 2, Opis: -, Datum: 28.5.2025. 13:38:36, Subject: Imate novi Ulaz u centralni magacin za verifikaciju
+✅ Kreiran verifikovan dokument stroge evidencije AO: završava sa pdf
+✅ 1 Poslat mejl -> ID: 51110, IDMail: 45566, Status: 1, Opis: -,  Datum: 28.5.2025. 13:38:43, Subject: : Verifikovan je Ulaz u centralni magacin
+✅ 2 Poslat mejl -> ID: 51111, IDMail: 45566, Status: 2, Opis: -,  Datum: 28.5.2025. 13:38:46, Subject: : Verifikovan je Ulaz u centralni magacin
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Dokument "Ulaz u centralni magacin" je verifikovan.
+Dokument možete pogledati klikom na link: M-2025-261' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest uspešno arhivirana - M-2025-261
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/0.
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selRazduzenje'.
+✅ Opcija '90202 - Bogdan Mandarić' selektovana klikom u '#selZaduzenje'.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1001.
+✅ Poslednji mejl -> ID: 51111, IDMail: 45566, Status: 2, Opis: -, Datum: 28.5.2025. 13:38:46, Subject: Verifikovan je Ulaz u centralni magacin
+✅ 1 Poslat mejl -> ID: 51112, IDMail: 45567, Status: 1, Opis: -,  Datum: 28.5.2025. 13:39:08, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ 2 Poslat mejl -> ID: 51113, IDMail: 45567, Status: 2, Opis: -,  Datum: 28.5.2025. 13:39:09, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ Korisnik izlogovan.
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Tekst 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-231' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1001.
+✅ Poslednji mejl -> ID: 51113, IDMail: 45567, Status: 2, Opis: -, Datum: 28.5.2025. 13:39:09, Subject: Imate novi Prenos zaduženja polisa za verifikaciju
+✅ 1 Poslat mejl -> ID: 51114, IDMail: 45568, Status: 1, Opis: -,  Datum: 28.5.2025. 13:39:19, Subject: : Vraćen je u izradu Prenos zaduženja polisa
+✅ 2 Poslat mejl -> ID: 51115, IDMail: 45568, Status: 2, Opis: -,  Datum: 28.5.2025. 13:39:23, Subject: : Vraćen je u izradu Prenos zaduženja polisa
+❌ Proverava se da li je vest arhivirana za agenta nakon vraćanja u izradu: Z-0-2025-231.
+✅ Vest je obrisana: 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-231'
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Tekst 'Dokument "Prenos zaduženja polisa" je vraćen u izradu.
+Dokument možete pogledati klikom na link: Z-0-2025-231' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1001.
+✅ Poslednji mejl -> ID: 51115, IDMail: 45568, Status: 2, Opis: -, Datum: 28.5.2025. 13:39:23, Subject: Vraćen je u izradu Prenos zaduženja polisa
+✅ 1 Poslat mejl -> ID: 51116, IDMail: 45569, Status: 1, Opis: -,  Datum: 28.5.2025. 13:39:34, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ 2 Poslat mejl -> ID: 51117, IDMail: 45569, Status: 2, Opis: -,  Datum: 28.5.2025. 13:39:35, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest je obrisana: 'Dokument "Prenos zaduženja polisa" je vraćen u izradu.
+Dokument možete pogledati klikom na link: Z-0-2025-231'
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Tekst 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-231' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1001.
+✅ Poslednji mejl -> ID: 51117, IDMail: 45569, Status: 2, Opis: -, Datum: 28.5.2025. 13:39:35, Subject: Imate novi Prenos zaduženja polisa za verifikaciju
+✅ Kreiran verifikovan dokument stroge evidencije AO: završava sa pdf
+✅ 1 Poslat mejl -> ID: 51118, IDMail: 45570, Status: 1, Opis: -,  Datum: 28.5.2025. 13:39:45, Subject: : Verifikovan je dokument Prenos zaduženja polisa
+✅ 2 Poslat mejl -> ID: 51119, IDMail: 45570, Status: 2, Opis: -,  Datum: 28.5.2025. 13:39:49, Subject: : Verifikovan je dokument Prenos zaduženja polisa
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest je obrisana: 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-231'
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Dokument "Prenos zaduženja polisa" je verifikovan.
+Dokument možete pogledati klikom na link: Z-0-2025-231' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 13:40:28] ERROR: ❌ Nema vesti za arhiviranje
+[28.05.2025. 13:40:28] ERROR: ❌ Arhiviranje vesti: Z-0-2025-231 
+ Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByText("A K T U E L N A").First
+    - locator resolved to <e-span class="u-izradi">A K T U E L N A </e-span>
+  - attempting hover action
+    - waiting for element to be visible and stable
+    - element is visible and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div class="vestiBox id_3545 tip-vesti2">…</div> intercepts pointer events
+  - retrying hover action
+    - waiting for element to be visible and stable
+    - element is not visible
+  - retrying hover action
+    - waiting 20ms
+    2 × waiting for element to be visible and stable
+      - element is not visible
+    - retrying hover action
+      - waiting 100ms
+    55 × waiting for element to be visible and stable
+       - element is not visible
+     - retrying hover action
+       - waiting 500ms
+[28.05.2025. 13:40:28] ERROR: ❌ Neuspešan test AO_3_SE_UlazPrenosObrazaca - Timeout 30000ms exceeded.
+Call log:
+  - waiting for GetByText("A K T U E L N A").First
+    - locator resolved to <e-span class="u-izradi">A K T U E L N A </e-span>
+  - attempting hover action
+    - waiting for element to be visible and stable
+    - element is visible and stable
+    - scrolling into view if needed
+    - done scrolling
+    - <div class="vestiBox id_3545 tip-vesti2">…</div> intercepts pointer events
+  - retrying hover action
+    - waiting for element to be visible and stable
+    - element is not visible
+  - retrying hover action
+    - waiting 20ms
+    2 × waiting for element to be visible and stable
+      - element is not visible
+    - retrying hover action
+      - waiting 100ms
+    55 × waiting for element to be visible and stable
+       - element is not visible
+     - retrying hover action
+       - waiting 500ms
+[28.05.2025. 13:40:28] kraj testa: AO_3_SE_UlazPrenosObrazaca, trajanje: 238,5841472 sekundi.
+
+[28.05.2025. 13:40:30] Kraj testiranja, trajanje: 240,5780906 sekundi.
+[28.05.2025. 13:40:30] Kraj testiranja, trajanje: 00:04:00.5780906 sekundi.
+
+-----------------------------------------
+[28.05.2025. 15:03:19] Početak testiranja
+
+[28.05.2025. 15:03:20] kraj testa: AO_4_Polisa("02","Regularna","Putničko vozilo","Rent a car","Vlasnik je i korisnik","Pravno","","","0","0","1500","80","0","5","Ne","08855919","","103697344","","",""), trajanje: 0,0312922 sekundi.
+
+[28.05.2025. 15:03:20] Kraj testiranja, trajanje: 0,7628532 sekundi.
+[28.05.2025. 15:03:20] Kraj testiranja, trajanje: 00:00:00.7628532 sekundi.
+
+-----------------------------------------
+[28.05.2025. 15:05:13] Početak testiranja
+
+[28.05.2025. 15:05:13] kraj testa: AO_4_Polisa("02","Regularna","Putničko vozilo","Rent a car","Vlasnik je i korisnik","Pravno","","","0","0","1500","80","0","5","Ne","08855919","","103697344","","",""), trajanje: 0,0280865 sekundi.
+
+[28.05.2025. 15:05:13] Kraj testiranja, trajanje: 0,3199723 sekundi.
+[28.05.2025. 15:05:13] Kraj testiranja, trajanje: 00:00:00.3199723 sekundi.
+
+-----------------------------------------
+[28.05.2025. 15:06:36] Početak testiranja
+
+[28.05.2025. 15:06:37] pokrenut je test: AO_4_Polisa("02","Regularna","Putničko vozilo","Rent a car","Vlasnik je i korisnik","Pravno","","","0","0","1500","80","0","5","Ne","08855919","","103697344","","","")
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/0.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/7111.
+[28.05.2025. 15:08:10] Pokušaj #1: Klik na dugme 'Izračunaj'
+[28.05.2025. 15:08:12] Kalkulisanje je uspešno.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/7111.
+[28.05.2025. 15:08:42] kraj testa: AO_4_Polisa("02","Regularna","Putničko vozilo","Rent a car","Vlasnik je i korisnik","Pravno","","","0","0","1500","80","0","5","Ne","08855919","","103697344","","",""), trajanje: 124,988276 sekundi.
+
+[28.05.2025. 15:08:43] Kraj testiranja, trajanje: 126,6702716 sekundi.
+[28.05.2025. 15:08:43] Kraj testiranja, trajanje: 00:02:06.6702716 sekundi.
+
+-----------------------------------------
+[28.05.2025. 15:09:30] Početak testiranja
+
+[28.05.2025. 15:09:30] pokrenut je test: AO_4_Polisa("01","Regularna","Putničko vozilo","Rent a car","Vlasnik je i korisnik","Fizičko","","","0","0","1300","80","0","5","Da","","","","","","")
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/0.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/7112.
+[28.05.2025. 15:10:59] Pokušaj #1: Klik na dugme 'Izračunaj'
+[28.05.2025. 15:11:01] Kalkulisanje je uspešno.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Dokument/7112.
+[28.05.2025. 16:24:28] ERROR: ❌ Greška prilikom upisa u bazu: Syntax error in INSERT INTO statement.
+[28.05.2025. 16:24:28] Kraj testiranja, trajanje: 0,436404 sekundi.
+[28.05.2025. 16:24:28] Kraj testiranja, trajanje: 00:00:00.4364040 sekundi.
+
+[28.05.2025. 16:29:24] ERROR: ❌ Greška prilikom upisa u bazu: Syntax error in INSERT INTO statement.
+[28.05.2025. 16:29:24] Kraj testiranja, trajanje: 0,2688704 sekundi.
+[28.05.2025. 16:29:24] Kraj testiranja, trajanje: 00:00:00.2688704 sekundi.
+
+-----------------------------------------
+[28.05.2025. 16:30:01] Početak testiranja
+
+[28.05.2025. 16:30:01] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 16:31:43] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[28.05.2025. 16:31:43] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 16:31:43] kraj testa: _TestTestova, trajanje: 101,7214579 sekundi.
+
+[28.05.2025. 16:31:44] Kraj testiranja, trajanje: 102,4241286 sekundi.
+[28.05.2025. 16:31:44] Kraj testiranja, trajanje: 00:01:42.4241286 sekundi.
+
+-----------------------------------------
+[28.05.2025. 16:45:17] Početak testiranja
+
+[28.05.2025. 16:45:17] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 16:45:57] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[28.05.2025. 16:45:57] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 16:45:57] kraj testa: _TestTestova, trajanje: 39,3283398 sekundi.
+
+[28.05.2025. 16:45:57] Kraj testiranja, trajanje: 40,3102486 sekundi.
+[28.05.2025. 16:45:57] Kraj testiranja, trajanje: 00:00:40.3102486 sekundi.
+
+-----------------------------------------
+[28.05.2025. 16:50:40] Početak testiranja
+
+[28.05.2025. 16:50:40] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 16:51:14] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[28.05.2025. 16:51:14] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 16:51:14] kraj testa: _TestTestova, trajanje: 34,3572175 sekundi.
+
+-----------------------------------------
+[28.05.2025. 16:53:23] Početak testiranja
+
+[28.05.2025. 16:53:24] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 16:53:56] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[28.05.2025. 16:53:56] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 16:53:56] kraj testa: _TestTestova, trajanje: 32,4341133 sekundi.
+
+-----------------------------------------
+[28.05.2025. 16:55:31] Početak testiranja
+
+[28.05.2025. 16:55:31] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 16:58:13] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: net::ERR_NAME_NOT_RESOLVED at https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894
+Call log:
+  - navigating to "https://master-test.ams.co.rs1/BackOffice/BackOffice/1/Putno-osiguranje/3894", waiting until "load"
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[28.05.2025. 16:58:13] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[28.05.2025. 16:58:13] kraj testa: _TestTestova, trajanje: 161,4320056 sekundi.
+
+[28.05.2025. 16:58:13] Kraj testiranja, trajanje: 162,5260271 sekundi.
+[28.05.2025. 16:58:13] Kraj testiranja, trajanje: 00:02:42.5260271 sekundi.
+
+-----------------------------------------
+[28.05.2025. 16:59:18] Početak testiranja
+
+[28.05.2025. 16:59:18] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 16:59:42] ERROR: ❌ Odjavljivanje korisnika. Target page, context or browser has been closed
+Call log:
+  - waiting for Locator(".korisnik")
+[28.05.2025. 16:59:42] kraj testa: _TestTestova, trajanje: 23,4545197 sekundi.
+
+[28.05.2025. 16:59:42] Kraj testiranja, trajanje: 24,1802121 sekundi.
+[28.05.2025. 16:59:42] Kraj testiranja, trajanje: 00:00:24.1802121 sekundi.
+
+-----------------------------------------
+[28.05.2025. 17:18:04] Početak testiranja
+
+[28.05.2025. 17:18:04] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[28.05.2025. 17:18:25] ERROR: ❌ Odjavljivanje korisnika. Target page, context or browser has been closed
+Call log:
+  - waiting for Locator(".korisnik")
+[28.05.2025. 17:18:25] kraj testa: _TestTestova, trajanje: 21,026734 sekundi.
+
+[28.05.2025. 17:18:26] Kraj testiranja, trajanje: 21,7492386 sekundi.
+[28.05.2025. 17:18:26] Kraj testiranja, trajanje: 00:00:21.7492386 sekundi.
+
+-----------------------------------------
+[29.05.2025. 09:19:24] Početak testiranja
+
+[29.05.2025. 09:19:24] pokrenut je test: AO_1_SE_PregledPretragaObrazaca
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-obrazaca.
+✅ Grid: Obrasci polisa AO - //e-grid[@id='grid_obrasci'] pronađena.
+✅ Filter na gridu Obrasci polisa AO radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Kartica/34680057.
+[29.05.2025. 09:19:46] Uspešno pronađen tekst boks sa vrednošću: '34680057'
+[29.05.2025. 09:19:46] Uspešno pronađen tekst boks sa vrednošću: 'Autoodgovornost'
+[29.05.2025. 09:19:46] Uspešno pronađen tekst boks sa vrednošću: '90202 - Bogdan Mandarić'
+[29.05.2025. 09:19:47] Uspešno pronađen tekst boks sa vrednošću: '00013666 - storno'
+[29.05.2025. 09:19:47] Svi očekivani tekst boksovi su pronađeni sa tačnim vrednostima.
+[29.05.2025. 09:19:56] ✅ Uspešan test AO_1_SE_PregledPretragaObrazaca 
+[29.05.2025. 09:19:56] kraj testa: AO_1_SE_PregledPretragaObrazaca, trajanje: 31,5834745 sekundi.
+
+[29.05.2025. 09:19:56] Kraj testiranja, trajanje: 32,7677515 sekundi.
+[29.05.2025. 09:19:56] Kraj testiranja, trajanje: 00:00:32.7677515 sekundi.
+
+-----------------------------------------
+[29.05.2025. 09:20:15] Početak testiranja
+
+[29.05.2025. 09:20:15] pokrenut je test: AO_2_SE_PregledPretragaDokumenata
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-dokumenata.
+✅ Grid: Dokumenti Stroge evidencije za polise AO - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Filter na gridu Dokumenti Stroge evidencije za polise AO radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1000.
+[29.05.2025. 09:20:33] Uspešno pronađen element sa vrednošću: 'M-2025-261'
+[29.05.2025. 09:20:33] Uspešno pronađen element sa vrednošću: 'Verifikovan'
+[29.05.2025. 09:20:33] Uspešno pronađen element sa vrednošću: 'Magacin kovnice'
+[29.05.2025. 09:20:33] Uspešno pronađen element sa vrednošću: 'Centralni magacin 1'
+[29.05.2025. 09:20:33] Svi očekivani elementi su pronađeni sa tačnim vrednostima.
+✅ Štampa dokumenta Stroge evidencije za AO: završava sa pdf
+[29.05.2025. 09:20:54] ✅ Uspešan test AO_2_SE_PregledPretragaDokumenata 
+[29.05.2025. 09:20:54] kraj testa: AO_2_SE_PregledPretragaDokumenata, trajanje: 39,2434741 sekundi.
+
+[29.05.2025. 09:20:55] Kraj testiranja, trajanje: 39,8673052 sekundi.
+[29.05.2025. 09:20:55] Kraj testiranja, trajanje: 00:00:39.8673052 sekundi.
+
+-----------------------------------------
+[29.05.2025. 09:20:59] Početak testiranja
+
+[29.05.2025. 09:20:59] pokrenut je test: AO_3_SE_UlazPrenosObrazaca
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Grid: grid Polise AO - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-obrazaca.
+✅ Grid: Obrasci polisa AO - //e-grid[@id='grid_obrasci'] pronađena.
+✅ Filter na gridu Obrasci polisa AO radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Pregled-dokumenata.
+✅ Grid: Dokumenta stroge evidencije - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Filter na gridu Dokumenta stroge evidencije radi OK
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0.
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selZaduzenje'.
+✅ Poslednji serijski broj obrasca polise AO na svim okruženjima je: 34681111.
+✅ Poslednji broj dokumenta u strogoj evidenciji je: 1001.
+✅ Snimanje: ulaz u centralni magacin, dokument 1002
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1002.
+✅ Dokument obrisan: 1002
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0.
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selZaduzenje'.
+✅ Poslednji mejl -> ID: 51119, IDMail: 45570, Status: 2, Opis: -, Datum: 28.5.2025. 13:39:49, Subject: Verifikovan je dokument Prenos zaduženja polisa
+✅ Snimanje: ulaz u centralni magacin, dokument 1002
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1002.
+✅ 1 Poslat mejl -> ID: 51120, IDMail: 45571, Status: 1, Opis: -,  Datum: 29.5.2025. 09:22:14, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ 2 Poslat mejl -> ID: 51121, IDMail: 45571, Status: 2, Opis: -,  Datum: 29.5.2025. 09:22:18, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ Kreiran neverifikovan dokument stroge evidencije AO: završava sa pdf
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Imate novi dokument "Ulaz u centralni magacin" za verifikaciju
+Dokument možete pogledati klikom na link: M-2025-262' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1002.
+✅ Poslednji mejl -> ID: 51121, IDMail: 45571, Status: 2, Opis: -, Datum: 29.5.2025. 09:22:18, Subject: Imate novi Ulaz u centralni magacin za verifikaciju
+✅ 1 Poslat mejl -> ID: 51122, IDMail: 45572, Status: 1, Opis: -,  Datum: 29.5.2025. 09:22:25, Subject: : Vraćen je u izradu Ulaz u centralni magacin
+✅ 2 Poslat mejl -> ID: 51123, IDMail: 45572, Status: 2, Opis: -,  Datum: 29.5.2025. 09:22:29, Subject: : Vraćen je u izradu Ulaz u centralni magacin
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Dokument "Ulaz u centralni magacin" je vraćen u izradu.
+Dokument možete pogledati klikom na link: M-2025-262' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1002.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+❌ Proverava se da li je vest obrisana nakon brisanja dokumenta M-2025-262.
+[29.05.2025. 09:23:08] ERROR: Kontekst: AO_3_SE_UlazPrenosObrazaca
+Exception: Timeout 30000ms exceeded.
+Call log:
+  - waiting for Locator("podaci")
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.InnerTextAsync(String selector, FrameInnerTextOptions options) in /_/src/Playwright/Core/Frame.cs:line 410
+   at Razvoj.OsiguranjeVozilaNovi.ProveraVestNijeObrisana(IPage _page, String ocekivaniTekst) in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\OsnovniDeloviOsiguranjeVozilaNovi.cs:line 1406
+[29.05.2025. 09:23:08] Test 'AO_3_SE_UlazPrenosObrazaca' je završen sa statusom: NEUSPESNO
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest uspešno arhivirana - M-2025-262
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selZaduzenje'.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1002.
+✅ Poslednji mejl -> ID: 51123, IDMail: 45572, Status: 2, Opis: -, Datum: 29.5.2025. 09:22:29, Subject: Vraćen je u izradu Ulaz u centralni magacin
+✅ 1 Poslat mejl -> ID: 51124, IDMail: 45573, Status: 1, Opis: -,  Datum: 29.5.2025. 09:23:21, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ 2 Poslat mejl -> ID: 51125, IDMail: 45573, Status: 2, Opis: -,  Datum: 29.5.2025. 09:23:25, Subject: : Imate novi Ulaz u centralni magacin za verifikaciju
+✅ Grid: grid: Stroga evidencija AO - //e-grid[@id='grid_dokumenti'] pronađena.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/1002.
+✅ Otvaranje dokumenta iz grida: 1002 - M-2025-262.
+✅ Poslednji mejl -> ID: 51125, IDMail: 45573, Status: 2, Opis: -, Datum: 29.5.2025. 09:23:25, Subject: Imate novi Ulaz u centralni magacin za verifikaciju
+✅ Kreiran verifikovan dokument stroge evidencije AO: završava sa pdf
+✅ 1 Poslat mejl -> ID: 51126, IDMail: 45574, Status: 1, Opis: -,  Datum: 29.5.2025. 09:23:31, Subject: : Verifikovan je Ulaz u centralni magacin
+✅ 2 Poslat mejl -> ID: 51127, IDMail: 45574, Status: 2, Opis: -,  Datum: 29.5.2025. 09:23:34, Subject: : Verifikovan je Ulaz u centralni magacin
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Dokument "Ulaz u centralni magacin" je verifikovan.
+Dokument možete pogledati klikom na link: M-2025-262' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest uspešno arhivirana - M-2025-262
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/0.
+✅ Opcija 'Centralni magacin 1' selektovana klikom u '#selRazduzenje'.
+✅ Opcija '90202 - Bogdan Mandarić' selektovana klikom u '#selZaduzenje'.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1003.
+✅ Poslednji mejl -> ID: 51127, IDMail: 45574, Status: 2, Opis: -, Datum: 29.5.2025. 09:23:34, Subject: Verifikovan je Ulaz u centralni magacin
+✅ 1 Poslat mejl -> ID: 51128, IDMail: 45575, Status: 1, Opis: -,  Datum: 29.5.2025. 09:24:13, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ 2 Poslat mejl -> ID: 51129, IDMail: 45575, Status: 2, Opis: -,  Datum: 29.5.2025. 09:24:15, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ Korisnik izlogovan.
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Tekst 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-232' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1003.
+✅ Poslednji mejl -> ID: 51129, IDMail: 45575, Status: 2, Opis: -, Datum: 29.5.2025. 09:24:15, Subject: Imate novi Prenos zaduženja polisa za verifikaciju
+✅ 1 Poslat mejl -> ID: 51130, IDMail: 45576, Status: 1, Opis: -,  Datum: 29.5.2025. 09:24:25, Subject: : Vraćen je u izradu Prenos zaduženja polisa
+✅ 2 Poslat mejl -> ID: 51131, IDMail: 45576, Status: 2, Opis: -,  Datum: 29.5.2025. 09:24:28, Subject: : Vraćen je u izradu Prenos zaduženja polisa
+❌ Proverava se da li je vest arhivirana za agenta nakon vraćanja u izradu: Z-0-2025-232.
+✅ Vest je obrisana: 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-232'
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Tekst 'Dokument "Prenos zaduženja polisa" je vraćen u izradu.
+Dokument možete pogledati klikom na link: Z-0-2025-232' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1003.
+✅ Poslednji mejl -> ID: 51131, IDMail: 45576, Status: 2, Opis: -, Datum: 29.5.2025. 09:24:28, Subject: Vraćen je u izradu Prenos zaduženja polisa
+✅ 1 Poslat mejl -> ID: 51132, IDMail: 45577, Status: 1, Opis: -,  Datum: 29.5.2025. 09:24:39, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ 2 Poslat mejl -> ID: 51133, IDMail: 45577, Status: 2, Opis: -,  Datum: 29.5.2025. 09:24:40, Subject: : Imate novi Prenos zaduženja polisa za verifikaciju
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest je obrisana: 'Dokument "Prenos zaduženja polisa" je vraćen u izradu.
+Dokument možete pogledati klikom na link: Z-0-2025-232'
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Tekst 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-232' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/1003.
+✅ Poslednji mejl -> ID: 51133, IDMail: 45577, Status: 2, Opis: -, Datum: 29.5.2025. 09:24:40, Subject: Imate novi Prenos zaduženja polisa za verifikaciju
+✅ Kreiran verifikovan dokument stroge evidencije AO: završava sa pdf
+[29.05.2025. 09:26:40] ERROR: ❌ Timeout: Nije stigao mejl sa Status = 1
+✅ 2 Poslat mejl -> ID: 51135, IDMail: 45578, Status: 2, Opis: -,  Datum: 29.5.2025. 09:24:53, Subject: : Verifikovan je dokument Prenos zaduženja polisa
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest je obrisana: 'Imate novi dokument "Prenos zaduženja polisa" za verifikaciju
+Dokument možete pogledati klikom na link: Z-0-2025-232'
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+✅ Ulogovan je korisnik: davor.bulic@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Tekst 'Dokument "Prenos zaduženja polisa" je verifikovan.
+Dokument možete pogledati klikom na link: Z-0-2025-232' je pronađen na stranici.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Vest uspešno arhivirana - Z-0-2025-232
+✅ Korisnik izlogovan.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Login.
+[29.05.2025. 09:27:55] kraj testa: AO_3_SE_UlazPrenosObrazaca, trajanje: 415,7139573 sekundi.
+
+[29.05.2025. 09:27:56] Kraj testiranja, trajanje: 416,8212678 sekundi.
+[29.05.2025. 09:27:56] Kraj testiranja, trajanje: 00:06:56.8212678 sekundi.
+
+-----------------------------------------
+[29.05.2025. 09:49:38] Početak testiranja
+
+[29.05.2025. 09:49:39] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[29.05.2025. 09:50:27] ERROR: ❌ Odjavljivanje korisnika. Target page, context or browser has been closed
+Call log:
+  - waiting for Locator(".korisnik")
+[29.05.2025. 09:50:27] kraj testa: _TestTestova, trajanje: 48,1176318 sekundi.
+
+[29.05.2025. 09:50:28] Kraj testiranja, trajanje: 49,6322041 sekundi.
+[29.05.2025. 09:50:28] Kraj testiranja, trajanje: 00:00:49.6322041 sekundi.
+
+-----------------------------------------
+[29.05.2025. 09:59:46] Početak testiranja
+
+[29.05.2025. 09:59:47] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[29.05.2025. 09:59:59] ERROR: ❌ Odjavljivanje korisnika. Target page, context or browser has been closed
+Call log:
+  - waiting for Locator(".korisnik")
+[29.05.2025. 09:59:59] kraj testa: _TestTestova, trajanje: 12,6512469 sekundi.
+
+[29.05.2025. 10:00:00] Kraj testiranja, trajanje: 13,2211317 sekundi.
+[29.05.2025. 10:00:00] Kraj testiranja, trajanje: 00:00:13.2211317 sekundi.
+
+-----------------------------------------
+[29.05.2025. 10:00:52] Početak testiranja
+
+[29.05.2025. 10:00:53] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[29.05.2025. 10:01:00] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: Target page, context or browser has been closed
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[29.05.2025. 10:01:00] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[29.05.2025. 10:01:00] kraj testa: _TestTestova, trajanje: 7,5551893 sekundi.
+
+[29.05.2025. 10:01:01] Kraj testiranja, trajanje: 8,6037594 sekundi.
+[29.05.2025. 10:01:01] Kraj testiranja, trajanje: 00:00:08.6037594 sekundi.
+
+-----------------------------------------
+[29.05.2025. 10:11:24] Početak testiranja
+
+[29.05.2025. 10:11:24] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+[29.05.2025. 10:11:30] ERROR: ❌ Greška prilikom učitavanja stranice: - https://razvojamso-master.eonsystem.rs/Dashboard
+Target page, context or browser has been closed
+[29.05.2025. 10:11:30] kraj testa: _TestTestova, trajanje: 5,3574579 sekundi.
+
+[29.05.2025. 10:11:30] Kraj testiranja, trajanje: 5,8974896 sekundi.
+[29.05.2025. 10:11:30] Kraj testiranja, trajanje: 00:00:05.8974896 sekundi.
+
+-----------------------------------------
+[29.05.2025. 10:21:33] Početak testiranja
+
+[29.05.2025. 10:21:33] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[29.05.2025. 10:21:41] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: Target page, context or browser has been closed
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[29.05.2025. 10:21:41] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[29.05.2025. 10:21:41] kraj testa: _TestTestova, trajanje: 7,9972857 sekundi.
+
+[29.05.2025. 10:21:41] Kraj testiranja, trajanje: 8,6960483 sekundi.
+[29.05.2025. 10:21:41] Kraj testiranja, trajanje: 00:00:08.6960483 sekundi.
+
+-----------------------------------------
+[29.05.2025. 10:22:13] Početak testiranja
+
+[29.05.2025. 10:22:13] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[29.05.2025. 10:22:26] ERROR: ❌ Odjavljivanje korisnika. Target page, context or browser has been closed
+Call log:
+  - waiting for Locator(".korisnik")
+[29.05.2025. 10:22:26] kraj testa: _TestTestova, trajanje: 12,1718901 sekundi.
+
+[29.05.2025. 10:22:26] Kraj testiranja, trajanje: 12,7541228 sekundi.
+[29.05.2025. 10:22:26] Kraj testiranja, trajanje: 00:00:12.7541228 sekundi.
+
+-----------------------------------------
+[29.05.2025. 10:24:53] Početak testiranja
+
+[29.05.2025. 10:24:54] pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+[29.05.2025. 10:25:08] ERROR: Kontekst: Greška u testu _TestTestova.
+Exception: Target page, context or browser has been closed
+Lokacija: Nepoznata datoteka - linija: 0
+StackTrace:    at Microsoft.Playwright.Transport.Connection.InnerSendMessageToServerAsync[T](ChannelOwner object, String method, Dictionary`2 dictionary, Boolean keepNulls) in /_/src/Playwright/Transport/Connection.cs:line 206
+   at Microsoft.Playwright.Transport.Connection.WrapApiCallAsync[T](Func`1 action, Boolean isInternal) in /_/src/Playwright/Transport/Connection.cs:line 535
+   at Microsoft.Playwright.Core.Frame.GotoAsync(String url, FrameGotoOptions options) in /_/src/Playwright/Core/Frame.cs:line 796
+   at Razvoj.OsiguranjeVozilaNovi._TestTestova() in C:\_Testovi\AMSOsiguranje\Razvoj\TestoviNovi\Test-Autoosiguranje_Novi.cs:line 566
+[29.05.2025. 10:25:08] Test '_TestTestova' je završen sa statusom: NEUSPESNO
+[29.05.2025. 10:25:08] kraj testa: _TestTestova, trajanje: 14,8099925 sekundi.
+
+[29.05.2025. 10:25:09] Kraj testiranja, trajanje: 15,4713224 sekundi.
+[29.05.2025. 10:25:09] Kraj testiranja, trajanje: 00:00:15.4713224 sekundi.
+
+-----------------------------------------
+[29.05.2025. 10:40:30] Početak testiranja
+
+[29.05.2025. 10:40:31] pokrenut je test: TestExample
+[29.05.2025. 10:40:33] kraj testa: TestExample, trajanje: 1,5403262 sekundi.
+
+[29.05.2025. 10:40:33] Kraj testiranja, trajanje: 2,4756058 sekundi.
+[29.05.2025. 10:40:33] Kraj testiranja, trajanje: 00:00:02.4756058 sekundi.
+
+-----------------------------------------
+[29.05.2025. 10:41:55] Početak testiranja
+
+[29.05.2025. 10:41:55] pokrenut je test: IndividualnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[29.05.2025. 10:42:34] kraj testa: IndividualnoPutno, trajanje: 38,9772717 sekundi.
+
+[29.05.2025. 10:42:34] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[29.05.2025. 10:43:26] kraj testa: PorodicnoPutno, trajanje: 51,5005402 sekundi.
+
+[29.05.2025. 10:43:27] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[29.05.2025. 10:44:10] kraj testa: SaViseUlazaka, trajanje: 43,4224479 sekundi.
+
+[29.05.2025. 10:44:10] Kraj testiranja, trajanje: 135,4993051 sekundi.
+[29.05.2025. 10:44:10] Kraj testiranja, trajanje: 00:02:15.4993051 sekundi.
+

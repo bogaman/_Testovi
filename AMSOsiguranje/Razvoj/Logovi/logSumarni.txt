@@ -1,0 +1,114 @@
+[28.5.2025. 11:12:08] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:09:20] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:15:04] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:17:43] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:43:31] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:46:50] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:48:19] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:50:11] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 12:54:01] Sumarni izveštaj:
+Pali: 0    Prošli: 3    Preskočeni: 0    Ukupno: 3    
+
+[28.5.2025. 12:56:06] Sumarni izveštaj:
+Pali: 1    Prošli: 2    Preskočeni: 0    Ukupno: 3    
+
+[28.5.2025. 13:28:11] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 13:33:00] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 13:33:59] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 13:34:13] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 13:35:45] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 13:40:30] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 15:03:20] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 15:05:13] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 15:08:43] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 16:24:28] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 16:29:24] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 16:31:44] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 16:45:57] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 16:58:13] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 16:59:42] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[28.5.2025. 17:18:26] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 09:19:56] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 09:20:55] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 09:27:56] Sumarni izveštaj:
+Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 09:50:28] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:00:00] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:01:01] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:11:30] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:21:41] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:22:26] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:25:09] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:40:33] Sumarni izveštaj:
+Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
+
+[29.5.2025. 10:44:10] Sumarni izveštaj:
+Pali: 0    Prošli: 3    Preskočeni: 0    Ukupno: 3    
+

@@ -1,0 +1,268 @@
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[26.05.2025. 14:27:55] Kraj testa: IndividualnoPutno, trajanje: 53,5784047 sekundi.
+
+[26.05.2025. 14:27:56] Pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[26.05.2025. 14:28:46] Kraj testa: PorodicnoPutno, trajanje: 50,0619868 sekundi.
+
+[26.05.2025. 14:28:46] Pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[26.05.2025. 14:29:39] Kraj testa: SaViseUlazaka, trajanje: 53,0391365 sekundi.
+
+[26.05.2025. 14:29:40] kraj testiranja, trajanje: 158,8515666 sekundi.
+
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+[26.05.2025. 14:34:57] kraj testa: PorodicnoPutno, trajanje: 8,5321051 sekundi.
+
+[26.05.2025. 14:34:58] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+[26.05.2025. 14:35:04] kraj testa: SaViseUlazaka, trajanje: 6,8464365 sekundi.
+
+[26.05.2025. 14:35:05] Kraj testiranja, trajanje: 23,5384892 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:03:16] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:03:59] kraj testa: PorodicnoPutno, trajanje: 43,0831313 sekundi.
+
+[27.05.2025. 13:03:59] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:04:49] kraj testa: SaViseUlazaka, trajanje: 49,4879185 sekundi.
+
+[27.05.2025. 13:04:49] Kraj testiranja, trajanje: 133,1605554 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:19:13] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:19:56] kraj testa: PorodicnoPutno, trajanje: 43,0505696 sekundi.
+
+[27.05.2025. 13:19:56] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:20:40] kraj testa: SaViseUlazaka, trajanje: 44,0078855 sekundi.
+
+[27.05.2025. 13:20:41] Kraj testiranja, trajanje: 127,2011884 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:43:23] kraj testa: IndividualnoPutno, trajanje: 39,3092664 sekundi.
+
+[27.05.2025. 13:43:24] Kraj testiranja, trajanje: 40,1546009 sekundi.
+
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:45:48] kraj testa: PorodicnoPutno, trajanje: 54,3430196 sekundi.
+
+[27.05.2025. 13:45:49] Kraj testiranja, trajanje: 54,9178678 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:54:10] kraj testa: IndividualnoPutno, trajanje: 37,145347 sekundi.
+
+[27.05.2025. 13:54:10] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:54:53] kraj testa: PorodicnoPutno, trajanje: 43,1251264 sekundi.
+
+[27.05.2025. 13:54:54] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 13:55:37] kraj testa: SaViseUlazaka, trajanje: 42,9505296 sekundi.
+
+[27.05.2025. 13:55:37] Kraj testiranja, trajanje: 125,0286004 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 15:19:35] kraj testa: IndividualnoPutno, trajanje: 42,4962017 sekundi.
+
+[27.05.2025. 15:19:36] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 15:20:19] kraj testa: PorodicnoPutno, trajanje: 43,4743893 sekundi.
+
+[27.05.2025. 15:20:20] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 15:21:04] kraj testa: SaViseUlazaka, trajanje: 43,9192402 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 15:23:59] kraj testa: IndividualnoPutno, trajanje: 43,5581386 sekundi.
+
+[27.05.2025. 15:24:00] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 15:24:43] kraj testa: PorodicnoPutno, trajanje: 42,7839937 sekundi.
+
+[27.05.2025. 15:24:43] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[27.05.2025. 15:25:26] kraj testa: SaViseUlazaka, trajanje: 42,8242779 sekundi.
+
+[27.05.2025. 15:25:27] Kraj testiranja, trajanje: 131,0404734 sekundi.
+
+
+[27.05.2025. 15:45:23] Početak testiranja
+[27.05.2025. 15:45:29] Pokrenut je test: _TestTestova
+✅ Ulogovan je korisnik: bogdan.mandaric@eonsystem.com.
+✅ Učitana je strana: https://razvojamso-master.eonsystem.rs/Dashboard.
+✅ Štampa polse AO:  završava sa pdf
+✅ Štampa uplatnice AO:  završava sa pdf
+✅ Štampa prepisa polise AO:  završava sa pdf
+[27.05.2025. 15:45:50] Kraj testa.
+
+[27.05.2025. 15:45:50] Kraj testiranja
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[28.05.2025. 12:52:24] kraj testa: IndividualnoPutno, trajanje: 41,0748653 sekundi.
+
+[28.05.2025. 12:52:24] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[28.05.2025. 12:53:10] kraj testa: PorodicnoPutno, trajanje: 45,5199374 sekundi.
+
+[28.05.2025. 12:53:11] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[28.05.2025. 12:54:01] kraj testa: SaViseUlazaka, trajanje: 50,0194699 sekundi.
+
+[28.05.2025. 12:54:01] Kraj testiranja, trajanje: 138,8292167 sekundi.
+[28.05.2025. 12:54:01] Kraj testiranja, trajanje: 00:02:18.8292167 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+[28.05.2025. 12:55:50] kraj testa: IndividualnoPutno, trajanje: 31,2525501 sekundi.
+
+[28.05.2025. 12:55:50] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+[28.05.2025. 12:55:58] kraj testa: PorodicnoPutno, trajanje: 7,229536 sekundi.
+
+[28.05.2025. 12:55:58] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+[28.05.2025. 12:56:06] kraj testa: SaViseUlazaka, trajanje: 7,6353636 sekundi.
+
+[28.05.2025. 12:56:06] Kraj testiranja, trajanje: 47,923731 sekundi.
+[28.05.2025. 12:56:06] Kraj testiranja, trajanje: 00:00:47.9237310 sekundi.
+
+✅ Opcija 'Doplatak za privremeni rad u inostranstvu' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[29.05.2025. 10:42:34] kraj testa: IndividualnoPutno, trajanje: 38,9772717 sekundi.
+
+[29.05.2025. 10:42:34] pokrenut je test: PorodicnoPutno
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Turistički' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[29.05.2025. 10:43:26] kraj testa: PorodicnoPutno, trajanje: 51,5005402 sekundi.
+
+[29.05.2025. 10:43:27] pokrenut je test: SaViseUlazaka
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno1.
+✅ Opcija 'Doplatak za ekstremne sportove' selektovana klikom u '#selSvrha'.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno2.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno3.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Putno4.
+✅ Učitana je strana: https://razvojamso-webshop.eonsystem.rs/Uspesno.
+[29.05.2025. 10:44:10] kraj testa: SaViseUlazaka, trajanje: 43,4224479 sekundi.
+
+[29.05.2025. 10:44:10] Kraj testiranja, trajanje: 135,4993051 sekundi.
+[29.05.2025. 10:44:10] Kraj testiranja, trajanje: 00:02:15.4993051 sekundi.
+

@@ -1,0 +1,1 @@
+[{"name":"X-MASTER-token","value":"D8084BEED7BE422BADB519C95FA77719","domain":".ams.co.rs","path":"/","expires":1.7379849E+09,"httpOnly":true,"secure":true,"sameSite":2},{"name":"X-MASTER-token-valid","value":"2025-01-27T14%3A35%3A01","domain":"master-test.ams.co.rs","path":"/","expires":1.7379849E+09,"httpOnly":false,"secure":false,"sameSite":1}]

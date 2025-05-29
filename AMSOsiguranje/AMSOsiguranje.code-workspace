@@ -1,0 +1,21 @@
+{
+	"folders": [
+		
+			{
+			"path": "Razvoj"
+		},
+{
+			"path": "Proba2"
+		},
+		{
+			"path": "UAT"
+		},
+{
+			"path": "Produkcija"
+		}
+		}
+	],
+	"settings": {
+		"powershell.cwd": "Skripte"
+	}
+}
