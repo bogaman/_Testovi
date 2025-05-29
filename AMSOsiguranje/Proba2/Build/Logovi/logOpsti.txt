@@ -1,6 +1,0 @@
-[INFO] Test: _TestTestova, Okruženje: razvoj (https://razvojamso-master.eonsystem.rs), 27.05.2025. u 03:44:39
-[REZULTAT] ✅ USPESNO, 27.05.2025. u 03:44:56
-
-[INFO] Test: _TestTestova, Okruženje: razvoj (https://razvojamso-master.eonsystem.rs), 29.05.2025. u 10:07:22
-[REZULTAT] ❌ NEUSPESNO, 29.05.2025. u 10:07:27
-

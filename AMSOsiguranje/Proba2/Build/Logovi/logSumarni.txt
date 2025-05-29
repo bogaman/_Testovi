@@ -1,6 +1,0 @@
-[27.5.2025. 15:44:57] Sumarni izveštaj:
-Pali: 0    Prošli: 1    Preskočeni: 0    Ukupno: 1    
-
-[29.5.2025. 10:07:27] Sumarni izveštaj:
-Pali: 1    Prošli: 0    Preskočeni: 0    Ukupno: 1    
-
