@@ -2,6 +2,8 @@
 **/bin/
 **/obj/
 
+# Ignoriši sve txt fajlove
+*.txt
 # Ignoriši VS Code i VS konfiguracione fajlove
 #.vscode/
 #*.user
