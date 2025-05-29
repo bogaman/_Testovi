@@ -562,6 +562,7 @@ namespace Razvoj
 
                 await _page!.PauseAsync();
 
+
                 //Trace.Write($"////////Provera da li ima 404 ");
                 await _page.GotoAsync("https:master-test.ams.co.rs/BackOffice/BackOffice/1/Putno-osiguranje/3894");
 
