@@ -9,9 +9,6 @@ namespace Razvoj
         public IPage? _page;
         public IPlaywright? _playwright;
 
-
-
-
         public static int IDTestiranja = 0; // ID testiranja, koristi se za povezivanje sa bazom podataka
         public static int IDTesta = 0; // ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka
 
