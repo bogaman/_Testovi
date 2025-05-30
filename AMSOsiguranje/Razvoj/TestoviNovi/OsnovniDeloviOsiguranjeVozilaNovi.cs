@@ -100,24 +100,25 @@ namespace Razvoj
         // Čita poslednji zapis o slanju mejla, uoči provere slanja sledećeg mejla
         static async Task<ZapisOSlanjuMejla> ProcitajPoslednjiZapisMejla()
         {
-            Server = Okruzenje switch
-            {
-                "razvoj" => "10.5.41.99",
-                "test" => "49.13.25.19",
-                "UAT" => "10.41.5.5",
-                "produkcija" => "",
-                _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
-            };
-
-            string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
-            //string qryPoslednjiMejl = "SELECT TOP 1 * FROM [NotificationsDB].[mail].[MailDeliveryStatus] ORDER BY [ID] DESC;";
-            string qryPoslednjiMejl = "SELECT TOP 1 [NotificationsDB].[mail].[MailDeliveryStatus].*, [NotificationsDB].[mail].[MailHeaders].[Subject] " +
-                                      "FROM [NotificationsDB].[mail].[MailDeliveryStatus] " +
-                                      "INNER JOIN [NotificationsDB].[mail].[MailHeaders] ON [NotificationsDB].[mail].[MailDeliveryStatus].[IDMail] = [NotificationsDB].[mail].[MailHeaders].[IDMail] " +
-                                      "ORDER BY [ID] DESC;";
-
             try
             {
+                Server = Okruzenje switch
+                {
+                    "razvoj" => "10.5.41.99",
+                    "test" => "49.13.25.19",
+                    "UAT" => "10.41.5.5",
+                    "produkcija" => "",
+                    _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
+                };
+
+                string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                //string qryPoslednjiMejl = "SELECT TOP 1 * FROM [NotificationsDB].[mail].[MailDeliveryStatus] ORDER BY [ID] DESC;";
+                string qryPoslednjiMejl = "SELECT TOP 1 [NotificationsDB].[mail].[MailDeliveryStatus].*, [NotificationsDB].[mail].[MailHeaders].[Subject] " +
+                                          "FROM [NotificationsDB].[mail].[MailDeliveryStatus] " +
+                                          "INNER JOIN [NotificationsDB].[mail].[MailHeaders] ON [NotificationsDB].[mail].[MailDeliveryStatus].[IDMail] = [NotificationsDB].[mail].[MailHeaders].[IDMail] " +
+                                          "ORDER BY [ID] DESC;";
+
+
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
