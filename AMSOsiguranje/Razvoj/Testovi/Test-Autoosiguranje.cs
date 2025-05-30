@@ -1581,7 +1581,7 @@ namespace Razvoj
         [Test]
         public async Task AO_3_SE_UlazPrenosObrazaca()
         {
-            await _page.PauseAsync();
+            await _page!.PauseAsync();
             long PoslednjiSerijski; //Poslednji iskorišćeni serijski broja obrasca u Strogoj evidenciji
             int PoslednjiDokument; //Poslednji broj dokumenta u Strogoj evidenciji
             string konCifraOd, konCifraDo;

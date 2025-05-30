@@ -9,8 +9,6 @@ namespace Razvoj
         public IPage? _page;
         public IPlaywright? _playwright;
 
-        public static int IDTestiranja = 0; // ID testiranja, koristi se za povezivanje sa bazom podataka
-        public static int IDTesta = 0; // ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka
 
         #region OnTimeSetUp
         // Metoda koja se pokreće samo jednom na početku testiranja
@@ -23,7 +21,7 @@ namespace Razvoj
             // Uzmi vreme kada su pokrenuti svi testovi
             LogovanjeTestaNovi.PocetakTestiranja = DateTime.Now;
             // Unosi se u bazu vreme početka testiranja i uzima ID testiranja
-            IDTestiranja = LogovanjeTestaNovi.UnesiPocetakTestiranja(LogovanjeTestaNovi.PocetakTestiranja);
+            LogovanjeTestaNovi.IDTestiranja = LogovanjeTestaNovi.UnesiPocetakTestiranja(LogovanjeTestaNovi.PocetakTestiranja);
 
 
             // Ovo se upisuje u fajl logTrace.txt
@@ -241,7 +239,7 @@ namespace Razvoj
             LogovanjeTestaNovi.PocetakTesta = DateTime.Now;
             // Odredi naziv trenutnog testa
             nazivTekucegTesta = TestContext.CurrentContext.Test.Name;
-            IDTesta = LogovanjeTestaNovi.UnesiPocetakTesta(IDTestiranja, nazivTekucegTesta, LogovanjeTestaNovi.PocetakTesta);
+            LogovanjeTestaNovi.IDTesta = LogovanjeTestaNovi.UnesiPocetakTesta(LogovanjeTestaNovi.IDTestiranja, nazivTekucegTesta, LogovanjeTestaNovi.PocetakTesta);
             LogovanjeTestaNovi.LogMessage($"[{LogovanjeTestaNovi.PocetakTesta:dd.MM.yyyy. HH:mm:ss}] pokrenut je test: {nazivTekucegTesta}", false);
 
             // Pročitaj Okruženje u kom se testira
@@ -415,7 +413,7 @@ namespace Razvoj
             string errorMessage = TestContext.CurrentContext.Result.Message ?? string.Empty;
             string stackTrace = TestContext.CurrentContext.Result.StackTrace ?? string.Empty;
             //string poruka = TestContext.CurrentContext.Result.
-            LogovanjeTestaNovi.UnesiRezultatTesta(IDTesta, LogovanjeTestaNovi.KrajTesta, StatusTesta, errorMessage, stackTrace);
+            LogovanjeTestaNovi.UnesiRezultatTesta(LogovanjeTestaNovi.IDTesta, LogovanjeTestaNovi.KrajTesta, StatusTesta, errorMessage, stackTrace);
 
             // Upisivanje opšteg rezultata testa u logOpsti.txt
             LogovanjeTestaNovi.UnesiKrajTesta();
@@ -471,13 +469,13 @@ namespace Razvoj
         #endregion TearDown
 
         #region OneTimeTearDown
-        // Ova metoda se pokreće jednom, nakon svih testova
+        // Ova metoda se pokreće jednom, nakon svih testovaS
         [OneTimeTearDown]
         public async Task OneTimeTearDown()
         {
             LogovanjeTestaNovi.KrajTestiranja = DateTime.Now;
             TimeSpan trajanjeTestiranja = LogovanjeTestaNovi.KrajTestiranja - LogovanjeTestaNovi.PocetakTestiranja;
-            LogovanjeTestaNovi.UnesiRezultatTestiranja(IDTestiranja, LogovanjeTestaNovi.failedTests, LogovanjeTestaNovi.passTests, LogovanjeTestaNovi.skippedTests, LogovanjeTestaNovi.ukupnoTests, LogovanjeTestaNovi.KrajTestiranja);
+            LogovanjeTestaNovi.UnesiRezultatTestiranja(LogovanjeTestaNovi.IDTestiranja, LogovanjeTestaNovi.FailedTests, LogovanjeTestaNovi.PassTests, LogovanjeTestaNovi.SkippedTests, LogovanjeTestaNovi.UkupnoTests, LogovanjeTestaNovi.KrajTestiranja);
             LogovanjeTestaNovi.LogMessage($"[{LogovanjeTestaNovi.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {(LogovanjeTestaNovi.KrajTestiranja - LogovanjeTestaNovi.PocetakTestiranja).TotalSeconds} sekundi.", false);
             LogovanjeTestaNovi.LogMessage($"[{LogovanjeTestaNovi.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {trajanjeTestiranja} sekundi.", false);
             // Upiši u sumarni log fajl

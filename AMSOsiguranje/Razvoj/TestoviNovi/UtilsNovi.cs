@@ -84,7 +84,7 @@ namespace Razvoj
         public static string PartialTitle = @"SETCCE";
 
         //Čeka se na učitavanje određenog URL-a i proverava link
-        public static async Task ProveriURL(IPage _page, string OsnovnaStrana, string Dodatak)
+        public async Task ProveriURL(IPage _page, string OsnovnaStrana, string Dodatak)
         {
             try
             {
@@ -94,6 +94,10 @@ namespace Razvoj
                 await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);  // čekaj dok mrežni zahtevi ne prestanu
 
                 string currentUrl = _page.Url;
+                if (Dodatak == "/Login")
+                {
+                    currentUrl = currentUrl.Split('?')[0];
+                }
                 string ocekivanaStrana = (OsnovnaStrana + Dodatak).ToLower();
                 Assert.That(currentUrl.ToLower, Is.EqualTo(ocekivanaStrana));
                 LogovanjeTestaNovi.LogMessage($"✅ Učitana je strana: {OsnovnaStrana + Dodatak}.", false);

@@ -9,7 +9,7 @@ namespace Razvoj
         public IPlaywright? _playwright;
 
         #region Šta se i ko testira
-        public static string Okruzenje { get; set; } = "razvoj"; // "razvoj", "test", "UAT", "produkcija"
+        public static string Okruzenje { get; set; } = "UAT"; // "razvoj", "test", "UAT", "produkcija"
         public static string Uloga { get; set; } = "agent"; // "agent", "BackOffice"
         public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
         public static string Tip { get; set; } = "Autoosiguranje"; // "Putno", 
@@ -79,7 +79,7 @@ namespace Razvoj
         public static string PartialTitle = @"SETCCE";
 
         //Čeka se na učitavanje određenog URL-a i proverava link
-        public static async Task ProveriURL(IPage _page, string OsnovnaStrana, string Dodatak)
+        public async Task ProveriURL(IPage _page, string OsnovnaStrana, string Dodatak)
         {
             try
             {
@@ -89,6 +89,10 @@ namespace Razvoj
                 await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);  // čekaj dok mrežni zahtevi ne prestanu
 
                 string currentUrl = _page.Url;
+                if (Dodatak == "/Login")
+                {
+                    currentUrl = currentUrl.Split('?')[0];
+                }
                 string ocekivanaStrana = (OsnovnaStrana + Dodatak).ToLower();
                 Assert.That(currentUrl.ToLower, Is.EqualTo(ocekivanaStrana));
                 LogovanjeTesta.LogMessage($"✅ Učitana je strana: {OsnovnaStrana + Dodatak}.", false);

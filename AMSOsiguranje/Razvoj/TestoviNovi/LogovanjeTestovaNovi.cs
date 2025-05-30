@@ -3,6 +3,13 @@ namespace Razvoj
 {
     public class LogovanjeTestaNovi : OsiguranjeNovi
     {
+
+        #region Parametri testova
+        public static int IDTestiranja { get; set; } = 0; // ID testiranja, koristi se za povezivanje sa bazom podataka
+        public static int IDTesta { get; set; } = 0; // ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka
+
+
+        #endregion Parametri testova
         public static string LogFolder { get; set; } = Path.Combine(projektFolder, "Logovi");
         public static string LogFajlSumarni { get; set; } = LogFolder + "\\logSumarni.txt";
 
@@ -11,16 +18,16 @@ namespace Razvoj
         public static string LogFajlOpsti { get; set; } = Path.Combine(LogFolder, "logOpsti.txt");
         public static string PutanjaDoBazeIzvestaja { get; set; } = Path.Combine(LogFolder, @"dbRezultatiTestiranja.accdb");
         public static string ConnectionStringLogovi { get; set; } = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={PutanjaDoBazeIzvestaja};";
-        public static int failedTests => TestContext.CurrentContext.Result.FailCount;
-        public static int passTests => TestContext.CurrentContext.Result.PassCount;
-        public static int skippedTests => TestContext.CurrentContext.Result.SkipCount;
-        public static int ukupnoTests => failedTests + passTests + skippedTests;
+        public static int FailedTests => TestContext.CurrentContext.Result.FailCount;
+        public static int PassTests => TestContext.CurrentContext.Result.PassCount;
+        public static int SkippedTests => TestContext.CurrentContext.Result.SkipCount;
+        public static int UkupnoTests => FailedTests + PassTests + SkippedTests;
 
         #region Vremena
-        public static DateTime PocetakTestiranja; // Vreme kada su pokrenuti svi testovi
-        public static DateTime KrajTestiranja; // Vreme kada su svi testovi završeni
-        public static DateTime PocetakTesta; // Vreme kada je pokrenut pojedinačni test
-        public static DateTime KrajTesta; // Vreme kada je pojedinačni test završen
+        public static DateTime PocetakTestiranja { get; set; } = DateTime.MinValue; // Vreme kada su pokrenuti svi testovi
+        public static DateTime KrajTestiranja { get; set; } = DateTime.MinValue; // Vreme kada su svi testovi završeni
+        public static DateTime PocetakTesta { get; set; } = DateTime.MinValue; // Vreme kada je pokrenut pojedinačni test
+        public static DateTime KrajTesta { get; set; } = DateTime.MinValue; // Vreme kada je pojedinačni test završen
         #endregion Vremena
 
 
@@ -318,10 +325,10 @@ namespace Razvoj
 
 
             File.AppendAllText(LogFajlSumarni, $"[{DateTime.Now}] Sumarni izveštaj:{Environment.NewLine}");
-            File.AppendAllText(LogFajlSumarni, $"Pali:".PadRight(6) + $"{failedTests}".PadRight(5));
-            File.AppendAllText(LogFajlSumarni, $"Prošli:".PadRight(8) + $"{passTests}".PadRight(5));
-            File.AppendAllText(LogFajlSumarni, $"Preskočeni:".PadRight(12) + $"{skippedTests}".PadRight(5));
-            File.AppendAllText(LogFajlSumarni, $"Ukupno:".PadRight(8) + $"{ukupnoTests}".PadRight(5));
+            File.AppendAllText(LogFajlSumarni, $"Pali:".PadRight(6) + $"{FailedTests}".PadRight(5));
+            File.AppendAllText(LogFajlSumarni, $"Prošli:".PadRight(8) + $"{PassTests}".PadRight(5));
+            File.AppendAllText(LogFajlSumarni, $"Preskočeni:".PadRight(12) + $"{SkippedTests}".PadRight(5));
+            File.AppendAllText(LogFajlSumarni, $"Ukupno:".PadRight(8) + $"{UkupnoTests}".PadRight(5));
             File.AppendAllText(LogFajlSumarni, $"{Environment.NewLine}");
             File.AppendAllText(LogFajlSumarni, $"{Environment.NewLine}");
         }
