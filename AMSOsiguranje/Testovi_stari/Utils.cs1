@@ -1,0 +1,220 @@
+
+namespace Razvoj
+{
+    public partial class Osiguranje
+    {
+
+        public IBrowser? _browser;
+        public IPage? _page;
+        public IPlaywright? _playwright;
+
+        #region Šta se i ko testira
+        public static string Okruzenje { get; set; } = "UAT"; // "razvoj", "test", "UAT", "produkcija"
+        public static string Uloga { get; set; } = "agent"; // "agent", "BackOffice"
+        public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
+        public static string Tip { get; set; } = "Autoosiguranje"; // "Putno", 
+        #endregion Šta se i ko testira
+
+        #region Putanje i folderi
+
+        public static string radniFolder = AppDomain.CurrentDomain.BaseDirectory; //public static string radniFolder = AppContext.BaseDirectory;
+        public static string projektFolder = Directory.GetParent(radniFolder)!.Parent!.Parent!.Parent!.FullName;  // Ide 3 nivoa gore
+        public static string logFolder = Path.Combine(projektFolder, "Logovi");
+        public static string logFajlOpsti = Path.Combine(logFolder, "logOpsti.txt");
+        public static string logFajlSumarni = logFolder + "\\logSumarni.txt";
+        // Putanja do Access baze
+        // Početna putanja do izvršne datoteke
+
+        //public static string projektDir = Path.GetFullPath(Path.Combine(radniFolder, @"..\..\.."));
+        //public static string logFolder = Path.GetFullPath(Path.Combine(projektFolder, "Logovi"));
+        public static string putanjaDoBaze = Path.Combine(projektFolder, @"Podaci\IzlazniPodaci\dbLogovi.accdb");
+        public static string connectionStringLogovi = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={putanjaDoBaze};";
+
+        #endregion Putanje i folderi
+
+        #region Osnovne promenjive
+        public static string nazivTekucegTesta { get; set; } = TestContext.CurrentContext.Test.Name;
+        public static string baseUrl = Environment.GetEnvironmentVariable("BASE_URL") ?? "ručno";
+
+        public static string PocetnaStrana { get; set; } = "";
+        public static string KorisnikMejl { get; set; } = "";
+        public static string KorisnikIme { get; set; } = "";
+        public static string KorisnikPassword { get; set; } = "";
+        public static string PocetnaStranaWS { get; set; } = "";
+        public static long MinSerijskiAO { get; set; } = 34680001;
+        public static long MaxSerijskiAO { get; set; } = 34690000;
+        #endregion Osnovne promenjive
+
+        #region Početne stranice WebShop-a
+        //public static string pocetnaStranaWS { get; set; } = "https://razvojamso-webshop.eonsystem.rs/Index";
+        //public static string pocetnaStranaWS { get; set; } = "https://proba2amsowebshop.eonsystem.rs/";
+        //public static string pocetnaStranaWS { get; set; } = "https://webshop-test.ams.co.rs/";
+        #endregion Početne stranice WebShop-a
+        public static string Server { get; set; } = "";
+
+        //public static string Database { get; set; }= "StrictEvidenceDB";
+        public static string UserID { get; set; } = "sa";
+        public static string PasswordDB { get; set; } = "Pristup#SQL0";
+        public static string TrustServerCertificate { get; set; } = "True";
+
+        public static int StanjeKontrole { get; set; } = 0;
+        public static DateTime CurrentDate = DateTime.Now.Date; // Današnji dan
+        public static DateTime NextDate = CurrentDate.AddDays(1); // Sledeći dan
+
+        // Folder gde se nalaze fajlovi u koje upisujem i/ili ih čitam
+        //public static string FileFolder { get; set; } = @"C:/_Projekti/AutoMotoSavezSrbije/ulazniPodaci/";
+        public static string FileFolder { get; set; } = @"C:/_Projekti/AutoMotoSavezSrbije/Podaci";
+        // Putanja do CSV fajla
+        //public static string FilePath { get; set; } = "C:/_Projekti/AutoMotoSavezSrbije/ulazniPodaci/PoliseAutoodgovornost-UAT.csv";
+        public static string FilePath { get; set; } = "C:/_Projekti/AutoMotoSavezSrbije/ulazniPodaci/PoliseAutoodgovornost-test.csv";
+
+        public static string CurrentUrl { get; set; } = "";
+        public static FlaUI.Core.Application? _application;
+        public static FlaUI.Core.Application? _application2;
+        public static AutomationBase? _automation;
+        public static AutomationBase? _automation2;
+        public const string AppName = "proxsign"; // Bez ekstenzije .exe
+        public const string AppName2 = "CredentialUIBroker"; // Bez ekstenzije .exe
+        public const string AppPath = @"C:\Program Files (x86)\SETCCE\proXSign\bin\proxsign.exe";
+        public const string AppPath2 = @"C:\Windows\System32\CredentialUIBroker.exe";
+        public static string PartialTitle = @"SETCCE";
+
+        //Čeka se na učitavanje određenog URL-a i proverava link
+        public async Task ProveriURL(IPage _page, string OsnovnaStrana, string Dodatak)
+        {
+            try
+            {
+                await _page.WaitForURLAsync(new Regex($"{OsnovnaStrana + Dodatak}", RegexOptions.IgnoreCase));
+                await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded); // čekaj dok se DOM ne učita
+                await _page.WaitForLoadStateAsync(LoadState.Load); // čekaj da se završi celo učitavanje stranice, uključujući sve resurse poput slika i stilova.
+                await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);  // čekaj dok mrežni zahtevi ne prestanu
+
+                string currentUrl = _page.Url;
+                if (Dodatak == "/Login")
+                {
+                    currentUrl = currentUrl.Split('?')[0];
+                }
+                string ocekivanaStrana = (OsnovnaStrana + Dodatak).ToLower();
+                Assert.That(currentUrl.ToLower, Is.EqualTo(ocekivanaStrana));
+                LogovanjeTesta.LogMessage($"✅ Učitana je strana: {OsnovnaStrana + Dodatak}.", false);
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Greška prilikom učitavanja stranice: - {OsnovnaStrana + Dodatak}.\\n{ex.Message}");
+                throw;
+            }
+        }
+
+        //Bira se početna strana na osnovu zadatog okruženja - razvoj, test, ...
+        public static (string pocetnaStrana, string pocetnaStranaWS) DefinisiPocetnuStranu(string okruzenje)
+        {
+            if (baseUrl == "ručno")
+            {
+                string pocetnaStrana = okruzenje switch
+                {
+                    "razvoj" => "https://razvojamso-master.eonsystem.rs",
+                    "test" => "https://proba2amsomaster.eonsystem.rs",
+                    "UAT" => "https://master-test.ams.co.rs",
+                    "produkcija" => "https://eos.ams.co.rs",
+                    _ => throw new ArgumentException("Nepoznata stranica: " + PocetnaStrana)
+                };
+
+                string pocetnaStranaWS = okruzenje switch
+                {
+                    "razvoj" => "https://razvojamso-webshop.eonsystem.rs",
+                    "test" => "https://proba2amsowebshop.eonsystem.rs",
+                    "UAT" => "https://webshop-test.ams.co.rs",
+                    "produkcija" => "https://webshop.ams.co.rs",
+                    _ => throw new ArgumentException("Nepoznata stranica: " + PocetnaStrana)
+                };
+
+                return (pocetnaStrana, pocetnaStranaWS);
+            }
+            else
+            {
+                string pocetnaStrana = baseUrl;
+                string pocetnaStranaWS = baseUrl;
+                return (pocetnaStrana, pocetnaStranaWS);
+            }
+        }
+
+    }
+
+    public static class Funkcije
+    {
+
+        public static bool IsProcessRunning(string processName)
+        {
+            return Process.GetProcessesByName(processName).Length > 0;
+        }
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern IntPtr FindWindow(string? lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string? lpszClass, string? lpszWindow);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+        public static bool IsWindowOpen(string windowTitle)
+        {
+            //IntPtr windowPtr = FindWindow(null, windowTitle);
+            IntPtr windowPtr = FindWindow(null, windowTitle);
+            return windowPtr != IntPtr.Zero;
+        }
+
+        public static bool IsWindowOpenWithPartialTitle(string partialTitle)
+        {
+            IntPtr hwnd = IntPtr.Zero;
+            while ((hwnd = FindWindowEx(IntPtr.Zero, hwnd, null, null)) != IntPtr.Zero)
+            {
+                StringBuilder windowText = new StringBuilder(256);
+                GetWindowText(hwnd, windowText, 256);
+                if (windowText.ToString().Contains(partialTitle))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        /*public static AutomationElement FindWindowWithPartialTitle(string partialTitle1)
+        {
+            var condition = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Window);
+            var rootElement = AutomationElement.RootElement;
+            foreach (AutomationElement window in rootElement.FindAll(TreeScope.Children, condition))
+            {
+                if (window.Current.Name.Contains(partialTitle1))
+                {
+                    return window;
+                }
+            }
+            return null;
+        }
+        */
+
+        public static T GetValueOrDefault<T>(this SqlDataReader reader, string columnName, T defaultValue)
+        {
+            var ordinal = reader.GetOrdinal(columnName);
+            if (reader.IsDBNull(ordinal))
+            {
+                return defaultValue;
+            }
+
+            object value = reader.GetValue(ordinal);
+
+            // Ako čitaš string i on je prazan, vrati default
+            if (typeof(T) == typeof(string))
+            {
+                string strValue = value as string;
+                if (string.IsNullOrWhiteSpace(strValue))
+                {
+                    return defaultValue;
+                }
+            }
+
+            return (T)value;
+        }
+
+    }
+}

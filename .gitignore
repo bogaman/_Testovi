@@ -1,0 +1,19 @@
+# Ignoriši sve bin i obj foldere rekurzivno
+**/bin/
+**/obj/
+
+# Ignoriši sve txt fajlove
+*.txt
+# Ignoriši VS Code i VS konfiguracione fajlove
+#.vscode/
+#*.user
+#*.suo
+#*.log
+#*.vs/
+
+# Ignoriši backup i system fajlove
+#*.DS_Store
+#Thumbs.db
+
+# Ako koristiš SQLite baze za testiranje
+#*.sqlite

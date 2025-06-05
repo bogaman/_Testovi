@@ -1,0 +1,47 @@
+[
+  {
+    "Uloga": "BackOffice",
+    "Ime": "Davor",
+    "Prezime": "Bulić",
+    "Email": "davor.bulic@eonsystem.com",
+    "Email1": "davor.bulic@eonsystem.com",
+    "KorisnickoIme": "davor.bulic@eonsystem.com",
+    "Lozinka1": "Lozinka1!",
+    "Lozinka2": "MikicaU8ica?",
+    "Sertifikat": "",
+    "Pin": "",
+    "IdLica": "1000",
+    "SaradnickaSifra1": "90200",
+    "SaradnickaSifra2": ""
+  },
+  {
+    "Uloga": "Agent1",
+    "Ime": "Bogdan",
+    "Prezime": "Mandarić",
+    "Email": "bogdan.mandaric@eonsystem.com",
+    "Email1": "bogdan.mandaric@eonsystem.com",
+    "KorisnickoIme": "bogdan.mandaric@eonsystem.com",
+    "Lozinka1": "Lozinka1!",
+    "Lozinka2": "Lozinka1!",
+    "Sertifikat": "Bogdan Mandarić 200035233",
+    "Pin": "73523",
+    "IdLica": "1001",
+    "SaradnickaSifra1": "90202",
+    "SaradnickaSifra2": "90203"
+  },
+  {
+    "Uloga": "Agent2",
+    "Ime": "Mario",
+    "Prezime": "Radomir",
+    "Email": "mario.radomir@eonsystem.com",
+    "Email1": "mario.radomir@eonsystem.com",
+    "KorisnickoIme": "mario.radomir@eonsystem.com",
+    "Lozinka1": "Lozinka1!",
+    "Lozinka2": "Lozinka1!",
+    "Sertifikat": "Stefan Nešković 200091762",
+    "Pin": "091762",
+    "IdLica": "1002",
+    "SaradnickaSifra1": "88888",
+    "SaradnickaSifra2": ""
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Pokreni testove - Razvoj",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/Razvoj/bin/Debug/net6.0/Razvoj.dll",
+      "env": {
+        "OKRUZENJE": "RAZVOJ"
+      }
+    },
+    {
+      "name": "Pokreni testove - Proba2",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/Proba2/bin/Debug/net6.0/Proba2.dll",
+      "env": {
+        "OKRUZENJE": "PROBA2"
+      }
+    },
+    {
+      "name": "Pokreni testove - UAT",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/UAT/bin/Debug/net6.0/UAT.dll",
+      "env": {
+        "OKRUZENJE": "UAT"
+      }
+    },
+    {
+      "name": "Pokreni testove - Produkcija",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/Produkcija/bin/Debug/net6.0/Produkcija.dll",
+      "env": {
+        "OKRUZENJE": "PRODUKCIJA"
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "Razvoj"
+		},
+		{
+			"path": "Proba2"
+		},
+		{
+			"path": "UAT"
+		},
+		{
+			"path": "Produkcija"
+		},
+		{
+			"path": "MigratorTool"
+		}
+	],
+"settings": {
+	"powershell.cwd": "Skripte",
+	"testExplorer.sort": "byLabel"
+}
+}
