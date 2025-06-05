@@ -7,6 +7,8 @@ class Program
     {
         string sourceDir = @"C:\_Testovi\AMSOsiguranje\Razvoj";
         string targetDir = @"C:\_Testovi\AMSOsiguranje\Proba2";
+        string sourceBatDir = @"C:\_Testovi\AMSOsiguranje\Razvoj\BatchFiles";
+        string targetBatDir = @"C:\_Testovi\AMSOsiguranje\Proba2\BatchFiles";
         string oldNamespace = "Razvoj";
         string newNamespace = "Proba2";
 
@@ -20,6 +22,8 @@ class Program
             File.Copy(sourceCsproj, targetCsproj, true);
             Console.WriteLine("✓ .csproj fajl kopiran i preimenovan.");
         }
+
+        
     }
 
     static void KopirajDirektorijum(string source, string target, string oldNamespace, string newNamespace)
@@ -39,8 +43,8 @@ class Program
         {
             if (filePath.Contains("Build") || filePath.Contains("Logovi"))
                 continue;
-if (filePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
-    continue;
+            if (filePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) )
+                continue;
             string newPath = filePath.Replace(source, target);
 
             // Provera ekstenzije
