@@ -33,7 +33,7 @@ namespace Razvoj
         ///  <para>definisaće se da li je Agent1 ili Agent2.</para>
         /// </summary>
         /// <value>"Agent", "BackOffice"</value>
-        public static string OsnovnaUloga { get; set; } = "Agent"; // "Agent", "BackOffice"
+        public static string OsnovnaUloga { get; set; } = ""; // "Agent", "BackOffice"
         /// <summary>
         /// Koristi se za određivanje načina pokretanja testa, ručno/automatski.
         /// <para>ručno - test se pokreće direktno iz IDE-a ili komandne linije.</para>
@@ -165,7 +165,7 @@ namespace Razvoj
                 }
                 else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "Proba2")
                 {
-                    PocetnaStrana = "https://proba2amsomaster.eonsystem.rs/";
+                    PocetnaStrana = "https://proba2amsomaster.eonsystem.rs";
                 }
                 else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "UAT")
                 {

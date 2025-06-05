@@ -104,10 +104,10 @@ namespace Proba2
             {
                 Server = Okruzenje switch
                 {
-                    "razvoj" => "10.5.41.99",
-                    "test" => "49.13.25.19",
+                    "Razvoj" => "10.5.41.99",
+                    "Proba2" => "49.13.25.19",
                     "UAT" => "10.41.5.5",
-                    "produkcija" => "",
+                    "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
 
@@ -1068,7 +1068,7 @@ namespace Proba2
         /// Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
         /// </summary>
         /// <param name="_page"></param>
-        /// <param name="OsnovnaUloga">Može bitib BackOffice ili Agent</param>
+        /// <param name="OsnovnaUloga">Može biti BackOffice ili Agent</param>
         /// <returns></returns>
         public static async Task UlogujSe_1(IPage _page, string OsnovnaUloga)
         {
@@ -1194,12 +1194,19 @@ namespace Proba2
 
         }
 
-
-        public static async Task IzaberiOpcijuIzListe(IPage page, string selektorListe, string vrednostOpcije, bool koristiSelectOption = true)
+        /// <summary>
+        /// Bira se opcija iz padajuće liste ili &lt;select&gt; elementa.
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <param name="selektorListe">Selektor (lokator) padajuće liste</param>
+        /// <param name="vrednostOpcije">Opcija koju treba izabrati</param>
+        /// <param name="koristiSelectOption"></param>
+        /// <returns></returns>
+        public static async Task IzaberiOpcijuIzListe(IPage _page, string selektorListe, string vrednostOpcije, bool koristiSelectOption = true)
         {
             try
             {
-                var lista = page.Locator(selektorListe);
+                var lista = _page.Locator(selektorListe);
 
                 // 1. Proveri da li je opcija već selektovana (korisno ako lista prikazuje selektovani tekst)
                 string trenutnoSelektovano = await lista.InnerTextAsync();
@@ -1212,7 +1219,7 @@ namespace Proba2
                 // 2. Ako je HTML <select> element, koristi SelectOptionAsync
                 if (koristiSelectOption)
                 {
-                    var selectElement = page.Locator(selektorListe);
+                    var selectElement = _page.Locator(selektorListe);
                     var tagName = await selectElement.EvaluateAsync<string>("e => e.tagName");
                     if (tagName.ToLower() == "select")
                     {
@@ -1224,7 +1231,7 @@ namespace Proba2
 
                 // 3. Fallback na klik-based selekciju
                 await lista.ClickAsync();
-                await page.Locator(selektorListe).GetByText(vrednostOpcije, new() { Exact = true }).ClickAsync();
+                await _page.Locator(selektorListe).GetByText(vrednostOpcije, new() { Exact = true }).ClickAsync();
                 LogovanjeTesta.LogMessage($"✅ Opcija '{vrednostOpcije}' selektovana klikom u '{selektorListe}'.", false);
             }
             catch (Exception ex)
@@ -1712,10 +1719,10 @@ namespace Proba2
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
                 Server = Okruzenje switch
                 {
-                    "razvoj" => "10.5.41.99",
-                    "test" => "49.13.25.19",
+                    "Razvoj" => "10.5.41.99",
+                    "Proba2" => "49.13.25.19",
                     "UAT" => "10.41.5.5",
-                    "produkcija" => "",
+                    "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
 

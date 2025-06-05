@@ -83,11 +83,77 @@ namespace Proba2
             Alati.ObrisiTxtFajlove(putanja);
         }
 
+        [Test]
+        public async Task _0TestTestova()
+        {
 
+
+
+
+
+
+
+            try
+            {
+                await IzlogujSe(_page!);
+                await _page!.PauseAsync();
+
+                await UlogujSe_1(_page, OsnovnaUloga);
+                await _page!.PauseAsync();
+                System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+
+                var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
+                foreach (var name in System.Data.OleDb.OleDbEnumerator.GetRootEnumerator())
+                {
+                    Console.WriteLine(name);
+                }
+
+
+
+
+                Console.WriteLine($"******************** RadniFolder:            {RadniFolder}");
+                //Console.WriteLine($"******************** RadniFolder 2:          {RadniFolder2}");
+                Console.WriteLine($"******************** ProjektFolder:          {ProjektFolder}");
+                //Console.WriteLine($"******************** projektDir:             {projektDir}");    
+                Console.WriteLine($"******************** logFolder:              {LogovanjeTesta.LogFolder}");
+                //Console.WriteLine($"******************** logFolder2:             {logFolder2}");
+                Console.WriteLine($"******************** logFajlSumarni:         {LogovanjeTesta.LogFajlSumarni}");
+                Console.WriteLine($"******************** logTrace:               {LogovanjeTesta.LogFajlTrace}");
+                Console.WriteLine($"******************** logFajlOpsti:           {LogovanjeTesta.LogFajlOpsti}");
+                Console.WriteLine($"******************** putanjaDoBazeIzvestaja: {LogovanjeTesta.PutanjaDoBazeIzvestaja}");
+                Console.WriteLine($"******************** Test:                   {NazivTekucegTesta}");
+
+            }
+            catch (Exception ex)
+            {
+                string kontekst = $"Greška u testu {NazivTekucegTesta}.";
+
+                LogovanjeTesta.LogException(ex, kontekst);
+                LogovanjeTesta.LogTestResult(NazivTekucegTesta, false);
+                //Assert.Fail("Došlo je do greške: " + ex.Message);
+                throw;
+            }
+
+            await IzlogujSe(_page);
+            await ProveriURL(_page, PocetnaStrana, "/Login");
+            await _page.PauseAsync();
+            return;
+
+
+        }
 
         [Test]
         public async Task _TestTestova()
         {
+            DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+
+            var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
+            foreach (var name in System.Data.OleDb.OleDbEnumerator.GetRootEnumerator())
+            {
+                Console.WriteLine(name);
+            }
             try
             {
                 await IzlogujSe(_page!);
@@ -1134,12 +1200,11 @@ namespace Proba2
             var PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
             string Magacin = "Centralni magacin 1"; //Magacin u koji se vrši ulaz u centralni magacin
 
-            /**********************************
             if (Okruzenje == "UAT")
             {
                 Magacin = "Centralni magacin"; //Magacin u koji se vrši ulaz u centralni magacin
             }
-            ***********************************/
+
             try
             {
                 //await _page.GetByText("Osiguranje vozila").HoverAsync(); //Pređi mišem preko teksta Osiguranje vozila
@@ -1423,7 +1488,12 @@ namespace Proba2
 
                 //await UnesiMagacin(_page, "#selRazduzenje");
                 await IzaberiOpcijuIzListe(_page, "#selRazduzenje", Magacin, false);
-                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", "90202 - Bogdan Mandarić", false);
+                string Saradnik = "90202 - Bogdan Mandarić"; //Saradnik kome se prenosi zaduženje
+                if (NacinPokretanjaTesta == "automatski")
+                {
+                    Saradnik = "88888 - Mario Radomir"; //Saradnik kome se prenosi zaduženje
+                }
+                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Saradnik, false);
                 //await _page.Locator("#selZaduzenje").ClickAsync();
                 /*
                                 await _page.Locator("#selZaduzenje").ClickAsync();
@@ -1481,7 +1551,8 @@ namespace Proba2
 
                 //await _page.PauseAsync();
                 // Prijavljuje se agent
-                await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                await UlogujSe_1(_page, "Agent");
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 await _page.Locator(".ico-ams-logo").ClickAsync();
@@ -1521,7 +1592,8 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Login");
 
                 // Prijavljuje se BackOffice
-                await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                await UlogujSe_1(_page, "BackOffice");
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1561,7 +1633,8 @@ namespace Proba2
 
 
                 // Prijavljuje se agent
-                await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                await UlogujSe_1(_page, "Agent");
 
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
@@ -1599,7 +1672,8 @@ namespace Proba2
                 await IzlogujSe(_page);
                 await ProveriURL(_page, PocetnaStrana, "/Login");
                 //await _page.PauseAsync();
-                await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                await UlogujSe_1(_page, "BackOffice");
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
 

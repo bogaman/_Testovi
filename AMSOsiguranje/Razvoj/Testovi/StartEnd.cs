@@ -148,7 +148,7 @@ namespace Razvoj
                 Console.WriteLine($"--Korisnik3: {KorisnikLoader.Korisnik3?.Ime} {KorisnikLoader.Korisnik3?.Prezime} {KorisnikLoader.Korisnik3?.KorisnickoIme}");
 
 
-                //OsnovnaUloga = "Agent";
+                OsnovnaUloga = "Agent";
                 //Bira se uloga BackOffice za određene testove, bez obzira na ulogu koja je definisana u fajlu sa podacima Utils.cs
                 switch (NazivTekucegTesta)
                 {
@@ -168,10 +168,10 @@ namespace Razvoj
                         break;
                 }
 
-                OsiguranjeVozila.PodaciZaLogovanje(OsnovnaUloga, Okruzenje, out string mejl, out string ime, out string lozinka);
-                KorisnikMejl = mejl;
-                KorisnikIme = ime;
-                KorisnikPassword = lozinka;
+                //OsiguranjeVozila.PodaciZaLogovanje(OsnovnaUloga, Okruzenje, out string mejl, out string ime, out string lozinka);
+                //KorisnikMejl = mejl;
+                //KorisnikIme = ime;
+                //KorisnikPassword = lozinka;
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     System.Windows.MessageBox.Show($"Okruženje:: {Okruzenje}.\n" +
@@ -187,7 +187,7 @@ namespace Razvoj
 
 
                 await OsiguranjeVozila.UlogujSe_1(_page, OsnovnaUloga);
-
+                //await _page.PauseAsync(); // Pauza za ručno proveravanje da li je korisnik uspešno ulogovan
                 //await OsiguranjeVozila.UlogujSe(_page, KorisnikMejl, KorisnikPassword);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 

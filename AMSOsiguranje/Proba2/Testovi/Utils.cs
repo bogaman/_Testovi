@@ -33,7 +33,7 @@ namespace Proba2
         ///  <para>definisaće se da li je Agent1 ili Agent2.</para>
         /// </summary>
         /// <value>"Agent", "BackOffice"</value>
-        public static string OsnovnaUloga { get; set; } = "Agent"; // "Agent", "BackOffice"
+        public static string OsnovnaUloga { get; set; } = ""; // "Agent", "BackOffice"
         /// <summary>
         /// Koristi se za određivanje načina pokretanja testa, ručno/automatski.
         /// <para>ručno - test se pokreće direktno iz IDE-a ili komandne linije.</para>
@@ -59,7 +59,7 @@ namespace Proba2
         #region Putanje i folderi
 
         public static string RadniFolder { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
-        //public static string RadniFolder2 = AppContext.BaseDirectory;
+        //public static string RadniFolder2 = AppContext.BaseDirectory; 
 
         public static string ProjektFolder { get; set; } = Directory.GetParent(RadniFolder)!.Parent!.Parent!.Parent!.Parent!.FullName;  // Ide 3 nivoa gore
                                                                                                                                         //public static string projektDir = Path.GetFullPath(Path.Combine(RadniFolder, @"..\..\.."));
@@ -165,7 +165,7 @@ namespace Proba2
                 }
                 else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "Proba2")
                 {
-                    PocetnaStrana = "https://proba2amsomaster.eonsystem.rs/";
+                    PocetnaStrana = "https://proba2amsomaster.eonsystem.rs";
                 }
                 else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "UAT")
                 {

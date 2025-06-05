@@ -1,5 +1,5 @@
 cls
-cd "C:\_Testovi\AMSOsiguranje\Proba2\"
+cd "C:\_Testovi\AMSOsiguranje\Proba2\" 
 
 ::@echo off
 set BASE_URL=https://razvojamso-master.eonsystem.rs
@@ -8,10 +8,19 @@ set NACIN_POKRETANJA=automatski
 ::set BASE_URL=https://master-test.ams.co.rs
 ::set BASE_URL=https://eos.ams.co.rs
 
-
 echo. > Logovi\_log_AO_razvoj.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _TestTestova... >> Logovi\_log_AO_razvoj.txt
-dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila._TestTestova | findstr /i "Passed" >> Logovi\_log_AO_razvoj.txt 2>&1 
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _0TestTestova... >> Logovi\_log_AO_razvoj.txt
+dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila._0TestTestova | findstr /i "Passed" >> Logovi\_log_AO_razvoj.txt 2>&1 
+
+
+::echo. > Logovi\_log_AO_razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _TestTestova... >> Logovi\_log_AO_razvoj.txt
+::dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila._TestTestova | findstr /i "Passed" >> Logovi\_log_AO_razvoj.txt 2>&1 
+
+::echo. > Logovi\_log_AO_razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _TestTestova... >> Logovi\_log_AO_razvoj.txt
+::dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_razvoj.txt 2>&1 
+
 
 ::echo. >> Logovi\_log_AO_razvoj.txt
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] BO_PutnoZdravstvenoOsiguranje... >> Logovi\_log_AO_razvoj.txt

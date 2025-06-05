@@ -101,7 +101,7 @@
             Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
             </summary>
             <param name="_page"></param>
-            <param name="OsnovnaUloga">Može bitib BackOffice ili Agent</param>
+            <param name="OsnovnaUloga">Može biti BackOffice ili Agent</param>
             <returns></returns>
         </member>
         <member name="M:Proba2.OsiguranjeVozila.IzlogujSe(Microsoft.Playwright.IPage)">
@@ -109,6 +109,16 @@
             Odjavi se iz aplikacije.
             </summary>
             <param name="_page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Proba2.OsiguranjeVozila.IzaberiOpcijuIzListe(Microsoft.Playwright.IPage,System.String,System.String,System.Boolean)">
+            <summary>
+            Bira se opcija iz padajuće liste ili &lt;select&gt; elementa.
+            </summary>
+            <param name="_page"></param>
+            <param name="selektorListe">Selektor (lokator) padajuće liste</param>
+            <param name="vrednostOpcije">Opcija koju treba izabrati</param>
+            <param name="koristiSelectOption"></param>
             <returns></returns>
         </member>
         <member name="P:Proba2.Osiguranje.NazivNamespace">
