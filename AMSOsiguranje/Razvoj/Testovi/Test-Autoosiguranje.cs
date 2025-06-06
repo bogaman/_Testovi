@@ -1890,12 +1890,12 @@ namespace Razvoj
             string IzvorPodataka;
             if (NacinPokretanjaTesta == "ručno")
             {
-                IzvorPodataka = FileFolder + "/UlazniPodaci/PoliseAutoodgovornost-hand.csv";
+                IzvorPodataka = ProjektFolder + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-hand.csv";
             }
             else
             {
-                IzvorPodataka = FileFolder + "/UlazniPodaci/PoliseAutoodgovornost-auto.csv";
-                //IzvorPodataka = FileFolder + "/UlazniPodaci/PoliseAutoodgovornost-UAT.csv";
+                IzvorPodataka = ProjektFolder + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-auto.csv";
+                //IzvorPodataka = ProjektFolder + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-UAT.csv";
             }
             // Čitanje podataka iz CSV fajla
             //string[] lines = File.ReadAllLines(Variables.FilePath);
@@ -1971,10 +1971,10 @@ namespace Razvoj
             // Pronađi prvi slobodan serijski broj za polisu AO
             Server = Okruzenje switch
             {
-                "razvoj" => "10.5.41.99",
-                "test" => "49.13.25.19",
+                "Razvoj" => "10.5.41.99",
+                "Proba2" => "49.13.25.19",
                 "UAT" => "10.41.5.5",
-                "produkcija" => "",
+                "Produkcija" => "",
                 _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
             };
 

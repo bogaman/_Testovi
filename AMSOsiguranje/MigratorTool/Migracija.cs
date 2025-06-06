@@ -101,17 +101,3 @@ class Program
     }
 }
 
-/***************
-string sourceBatDir = @"C:\_Testovi\AMSOsiguranje\Razvoj\BatchFiles";
-        string targetBatDir = @"C:\_Testovi\AMSOsiguranje\Proba2\BatchFiles";
-
-
-        // Kopiraj i preimenuj .bat fajlove za AO
-        string sourceBatAO = Path.Combine(sourceBatDir, "_test_AO_Razvoj.bat");
-        string targetBatAO = Path.Combine(targetBatDir, "_test_AO_Proba2.bat");
-        if (File.Exists(sourceBatDir))
-        {
-            File.Copy(sourceBatAO, targetBatAO, true);
-            Console.WriteLine("✓ .bat fajl kopiran i preimenovan.");
-        }
-        ****************/
