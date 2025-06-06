@@ -7,10 +7,10 @@ class Program
     {
         string sourceDir = @"C:\_Testovi\AMSOsiguranje\Razvoj";
         string targetDir = @"C:\_Testovi\AMSOsiguranje\Proba2";
-        string sourceBatDir = @"C:\_Testovi\AMSOsiguranje\Razvoj\BatchFiles";
-        string targetBatDir = @"C:\_Testovi\AMSOsiguranje\Proba2\BatchFiles";
         string oldNamespace = "Razvoj";
         string newNamespace = "Proba2";
+
+
 
         KopirajDirektorijum(sourceDir, targetDir, oldNamespace, newNamespace);
 
@@ -23,7 +23,23 @@ class Program
             Console.WriteLine("✓ .csproj fajl kopiran i preimenovan.");
         }
 
-        
+
+        string folder = @"C:\_Testovi\\AMSOsiguranje\Proba2\BatchFiles";
+        string stariDeo = "_Razvoj.bat";
+        string noviDeo = "_Proba2.bat";
+
+        string[] fajlovi = Directory.GetFiles(folder, $"*{stariDeo}", SearchOption.TopDirectoryOnly);
+
+        foreach (var fajl in fajlovi)
+        {
+            string noviNaziv = fajl.Replace(stariDeo, noviDeo);
+            File.Delete(Path.Combine(folder, Path.GetFileName(noviNaziv))); // Ukloni ako postoji fajl sa istim imenom
+            File.Move(fajl, noviNaziv);
+            Console.WriteLine($"✓ Preimenovano: {Path.GetFileName(fajl)} → {Path.GetFileName(noviNaziv)}");
+        }
+
+        Console.WriteLine("Završeno preimenovanje fajlova.");
+
     }
 
     static void KopirajDirektorijum(string source, string target, string oldNamespace, string newNamespace)
@@ -43,7 +59,7 @@ class Program
         {
             if (filePath.Contains("Build") || filePath.Contains("Logovi"))
                 continue;
-            if (filePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase) )
+            if (filePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
                 continue;
             string newPath = filePath.Replace(source, target);
 
@@ -77,8 +93,25 @@ class Program
                 // Ostale fajlove samo kopiraj
                 File.Copy(filePath, newPath, true);
             }
+
+
         }
 
         Console.WriteLine("✓ Kopiranje i zamena imena završeni.");
     }
 }
+
+/***************
+string sourceBatDir = @"C:\_Testovi\AMSOsiguranje\Razvoj\BatchFiles";
+        string targetBatDir = @"C:\_Testovi\AMSOsiguranje\Proba2\BatchFiles";
+
+
+        // Kopiraj i preimenuj .bat fajlove za AO
+        string sourceBatAO = Path.Combine(sourceBatDir, "_test_AO_Razvoj.bat");
+        string targetBatAO = Path.Combine(targetBatDir, "_test_AO_Proba2.bat");
+        if (File.Exists(sourceBatDir))
+        {
+            File.Copy(sourceBatAO, targetBatAO, true);
+            Console.WriteLine("✓ .bat fajl kopiran i preimenovan.");
+        }
+        ****************/

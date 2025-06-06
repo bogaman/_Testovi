@@ -2,73 +2,73 @@ cls
 cd "C:\_Testovi\AMSOsiguranje\Razvoj\" 
 
 ::@echo off
-set BASE_URL=https://razvojamso-master.eonsystem.rs
+set BASE_URL=https://Razvojamso-master.eonsystem.rs
 set NACIN_POKRETANJA=automatski
 ::set BASE_URL=https://proba2amsomaster.eonsystem.rs
 ::set BASE_URL=https://master-test.ams.co.rs
 ::set BASE_URL=https://eos.ams.co.rs
 
-echo. > Logovi\_log_AO_razvoj.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _0TestTestova... >> Logovi\_log_AO_razvoj.txt
-dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila._0TestTestova | findstr /i "Passed" >> Logovi\_log_AO_razvoj.txt 2>&1 
+echo. > Logovi\_log_AO_Razvoj.txt
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _0TestTestova... >> Logovi\_log_AO_Razvoj.txt
+dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila._0TestTestova | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 
 
-::echo. > Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _TestTestova... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila._TestTestova | findstr /i "Passed" >> Logovi\_log_AO_razvoj.txt 2>&1 
+::echo. > Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _TestTestova... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila._TestTestova | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 
-::echo. > Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _TestTestova... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_razvoj.txt 2>&1 
+::echo. > Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] _TestTestova... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] BO_PutnoZdravstvenoOsiguranje... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=BO_PutnoZdravstvenoOsiguranje >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] BO_PutnoZdravstvenoOsiguranje... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=BO_PutnoZdravstvenoOsiguranje >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_1_StrogaEvidencija... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=AO_1_StrogaEvidencija >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_1_StrogaEvidencija... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=AO_1_StrogaEvidencija >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_2_Polisa... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=AO_2_Polisa >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_2_Polisa... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=AO_2_Polisa >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_ZahtevZaIzmenom... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=AO_3_ZahtevZaIzmenom >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_ZahtevZaIzmenom... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=AO_3_ZahtevZaIzmenom >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_5_RazduznaLista... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=AO_5_RazduznaLista >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_5_RazduznaLista... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=AO_5_RazduznaLista >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_6_Otpis... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=AO_6_Otpis >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_6_Otpis... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=AO_6_Otpis >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_StrogaEvidencija... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=ZK_StrogaEvidencija >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_StrogaEvidencija... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=ZK_StrogaEvidencija >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_Polisa... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=ZK_Polisa >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_Polisa... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=ZK_Polisa >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_RazduznaLista... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=ZK_RazduznaLista >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_RazduznaLista... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=ZK_RazduznaLista >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_Otpis... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=ZK_Otpis >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] ZK_Otpis... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=ZK_Otpis >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] JS_Polisa... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=JS_Polisa >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] JS_Polisa... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=JS_Polisa >> Logovi\_log_AO_Razvoj.txt
 
-::echo. >> Logovi\_log_AO_razvoj.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] DK_Polisa... >> Logovi\_log_AO_razvoj.txt
-::dotnet test --filter Name=DK_Polisa >> Logovi\_log_AO_razvoj.txt
+::echo. >> Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] DK_Polisa... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter Name=DK_Polisa >> Logovi\_log_AO_Razvoj.txt
 
 
 
