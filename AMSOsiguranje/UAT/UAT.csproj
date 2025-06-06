@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>Logovi\DokumentacijaKoda.XML</DocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn> <!-- da ne prijavljuje warning za nedokumentovane članove -->
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.2"/>
@@ -26,5 +29,8 @@
   </ItemGroup>
   <ItemGroup>
     <Using Include="NUnit.Framework"/>
+    <None Update="korisnici.json">
+       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
