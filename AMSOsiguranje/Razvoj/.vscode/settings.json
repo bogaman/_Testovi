@@ -92,6 +92,6 @@
     //    "**/obj": true,
     //    "StariKod": true, // Sakriva folder "StariKod" u korenu projekta
     //    "NekiPodfolder/VremenskiFajlovi": true, // Sakriva specifičan folder
-    //    "**/*.tmp": true // Sakriva sve fajlove sa .tmp ekstenzijom
+    //    "**/*.tmp": true // Sakriva sve fajlove sa .tmp ekstenzijom 
     //}
 }
