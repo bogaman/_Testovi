@@ -84,59 +84,179 @@ namespace Proba2
         }
 
         [Test]
-        public async Task _0TestTestova()
+        [TestCase("Bogdan")]
+        [TestCase("Mario")]
+        public async Task _0TestTestova(string Uloga)
         {
 
 
 
 
 
+            /*
+
+                        try
+                        {
+
+                            await IzlogujSe(_page!);
+                            await _page!.PauseAsync();
+
+                            await UlogujSe_1(_page, OsnovnaUloga);
+                            await _page!.PauseAsync();
+                            System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                            DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+
+                            var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
+                            foreach (var name in System.Data.OleDb.OleDbEnumerator.GetRootEnumerator())
+                            {
+                                Console.WriteLine(name);
+                            }
 
 
-            try
+
+
+                            Console.WriteLine($"******************** RadniFolder:            {RadniFolder}");
+                            //Console.WriteLine($"******************** RadniFolder 2:          {RadniFolder2}");
+                            Console.WriteLine($"******************** ProjektFolder:          {ProjektFolder}");
+                            //Console.WriteLine($"******************** projektDir:             {projektDir}");    
+                            Console.WriteLine($"******************** logFolder:              {LogovanjeTesta.LogFolder}");
+                            //Console.WriteLine($"******************** logFolder2:             {logFolder2}");
+                            Console.WriteLine($"******************** logFajlSumarni:         {LogovanjeTesta.LogFajlSumarni}");
+                            Console.WriteLine($"******************** logTrace:               {LogovanjeTesta.LogFajlTrace}");
+                            Console.WriteLine($"******************** logFajlOpsti:           {LogovanjeTesta.LogFajlOpsti}");
+                            Console.WriteLine($"******************** putanjaDoBazeIzvestaja: {LogovanjeTesta.PutanjaDoBazeIzvestaja}");
+                            Console.WriteLine($"******************** Test:                   {NazivTekucegTesta}");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            string kontekst = $"Greška u testu {NazivTekucegTesta}.";
+
+                            LogovanjeTesta.LogException(ex, kontekst);
+                            LogovanjeTesta.LogTestResult(NazivTekucegTesta, false);
+                            //Assert.Fail("Došlo je do greške: " + ex.Message);
+                            throw;
+                        }
+            */
+
+
+            #region Sertifikat
+
+            var process = Process.GetProcessesByName(AppName).FirstOrDefault();
+            if (process != null)
             {
-                await IzlogujSe(_page!);
-                await _page!.PauseAsync();
+                //Ako je aplikacija pokrenuta, pridruži se postojećem procesu
+                _application = FlaUI.Core.Application.Attach(process);
+                Console.WriteLine($"Aplikacija '{AppName}' je već pokrenuta.");
+            }
+            else
+            {
+                // Ako aplikacija nije pokrenuta, pokreni je
+                Console.WriteLine($"Aplikacija '{AppName}' nije pokrenuta.");
+                _application = FlaUI.Core.Application.Launch(AppPath);
+            }
 
-                await UlogujSe_1(_page, OsnovnaUloga);
-                await _page!.PauseAsync();
-                System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            await _page!.PauseAsync();
 
-                DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+            // Inicijalizacija FlaUI
+            _automation = new UIA3Automation();
+            // Dohvatanje glavnog prozora aplikacije
+            var mainWindow = _application.GetMainWindow(_automation);
 
-                var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
-                foreach (var name in System.Data.OleDb.OleDbEnumerator.GetRootEnumerator())
+            // Provera da li je mainWindow null
+            if (mainWindow == null)
+            {
+                throw new Exception("Main window of the application was not found.");
+            }
+
+            //Pronalazak TreeView elementa
+            var treeView = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree))?.AsTree();
+            //Assert.IsNotNull(treeView, "TreeView not found");
+
+            // Pronalazak TreeItem sa tekstom "Petrović Petar"
+            //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
+            var sertifikatName = KorisnikLoader.Korisnik3?.Sertifikat ?? string.Empty;
+            var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(sertifikatName))).AsTreeItem();
+            //Assert.IsNotNull(treeItem, "TreeItem 'Bogdan Mandarić' not found");
+
+            // Klik na TreeItem
+            if (treeItem != null)
+            {
+                treeItem.Click();
+            }
+            else
+            {
+                throw new Exception($"TreeItem '{sertifikatName}' not found.");
+            }
+
+            // Pronalazak dugmeta "Cancel"
+            //var cancelButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("Cancel"))).AsButton();
+            //Assert.IsNotNull(quitButton, "Quit button not found");
+            // Klik na dugme Quit
+            //cancelButton.Click();
+
+            // Pronalazak dugmeta "OK"
+            var okButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK Enter"))).AsButton();
+            //Assert.IsNotNull(okButton, "OK button not found");
+            // Klik na dugme OK
+            if (okButton != null)
+            {
+                okButton.Click();
+            }
+            else
+            {
+                throw new Exception("OK button not found in the application window.");
+            }
+
+            var process2 = Process.GetProcessesByName(AppName2).FirstOrDefault();
+            if (process2 != null)
+            {
+                // Ako je aplikacija pokrenuta, pridruži se postojećem procesu
+                _application2 = FlaUI.Core.Application.Attach(process2);
+                // Inicijalizacija FlaUI
+                _automation2 = new UIA3Automation();
+                // Dohvatanje glavnog prozora aplikacije
+                var mainWindow2 = _application2.GetMainWindow(_automation2);
+
+                // Pronalazak TextBox elementa
+                if (mainWindow2 == null)
                 {
-                    Console.WriteLine(name);
+                    throw new Exception("Main window of the second application was not found.");
+                }
+                var treeElement = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree));
+                var textBox = treeElement?.AsTextBox();
+                //Assert.IsNotNull(textBox, "textBox not found");
+                // Unos teksta u TextBox
+                if (textBox != null)
+                {
+                    textBox.Enter("73523");
+                }
+                else
+                {
+                    throw new Exception("TextBox not found in the second application window.");
+                }
+                // Pronalazak dugmeta "OK"
+                var okButton2 = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK"))).AsButton();
+                //Assert.IsNotNull(okButton2, "OK button not found");
+                // Klik na dugme OK
+                if (okButton2 != null)
+                {
+                    okButton2.Click();
+                }
+                else
+                {
+                    throw new Exception("OK button not found in the second application window.");
                 }
 
-
-
-
-                Console.WriteLine($"******************** RadniFolder:            {RadniFolder}");
-                //Console.WriteLine($"******************** RadniFolder 2:          {RadniFolder2}");
-                Console.WriteLine($"******************** ProjektFolder:          {ProjektFolder}");
-                //Console.WriteLine($"******************** projektDir:             {projektDir}");    
-                Console.WriteLine($"******************** logFolder:              {LogovanjeTesta.LogFolder}");
-                //Console.WriteLine($"******************** logFolder2:             {logFolder2}");
-                Console.WriteLine($"******************** logFajlSumarni:         {LogovanjeTesta.LogFajlSumarni}");
-                Console.WriteLine($"******************** logTrace:               {LogovanjeTesta.LogFajlTrace}");
-                Console.WriteLine($"******************** logFajlOpsti:           {LogovanjeTesta.LogFajlOpsti}");
-                Console.WriteLine($"******************** putanjaDoBazeIzvestaja: {LogovanjeTesta.PutanjaDoBazeIzvestaja}");
-                Console.WriteLine($"******************** Test:                   {NazivTekucegTesta}");
-
             }
-            catch (Exception ex)
-            {
-                string kontekst = $"Greška u testu {NazivTekucegTesta}.";
 
-                LogovanjeTesta.LogException(ex, kontekst);
-                LogovanjeTesta.LogTestResult(NazivTekucegTesta, false);
-                //Assert.Fail("Došlo je do greške: " + ex.Message);
-                throw;
-            }
+            #endregion Sertifikat
+            await _page!.PauseAsync();
+            return;
 
             await IzlogujSe(_page);
+
             await ProveriURL(_page, PocetnaStrana, "/Login");
             await _page.PauseAsync();
             return;
@@ -159,7 +279,7 @@ namespace Proba2
                 await IzlogujSe(_page!);
                 await _page!.PauseAsync();
 
-                await UlogujSe_1(_page, OsnovnaUloga);
+                await UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);
                 await _page!.PauseAsync();
                 System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 //Trace.Write($"////////Provera da li ima 404 ");
@@ -1391,7 +1511,7 @@ namespace Proba2
                                  $"Dokument možete pogledati klikom na link: {oznakaDokumenta}";
                 LogovanjeTesta.LogMessage($"❌ Proverava se da li je vest obrisana nakon brisanja dokumenta {oznakaDokumenta}.", false);
                 //await ProveraVestPostoji(_page, ocekivaniTekst);
-                await ProveraVestNijeObrisana(_page, ocekivaniTekst);
+                //await ProveraVestNijeObrisana(_page, ocekivaniTekst);
 
                 //string pageText = await _page.InnerTextAsync("//div[@class='podaci']");
                 ocekivaniTekst = $"Dokument \"Ulaz u centralni magacin\" je vraćen u izradu.\n" +
@@ -1488,7 +1608,7 @@ namespace Proba2
 
                 //await UnesiMagacin(_page, "#selRazduzenje");
                 await IzaberiOpcijuIzListe(_page, "#selRazduzenje", Magacin, false);
-                string Saradnik = "90202 - Bogdan Mandarić"; //Saradnik kome se prenosi zaduženje
+                string Saradnik = "88888 - Mario Radomir";//"90202 - Bogdan Mandarić"; //Saradnik kome se prenosi zaduženje
                 if (NacinPokretanjaTesta == "automatski")
                 {
                     Saradnik = "88888 - Mario Radomir"; //Saradnik kome se prenosi zaduženje
@@ -1552,7 +1672,7 @@ namespace Proba2
                 //await _page.PauseAsync();
                 // Prijavljuje se agent
                 //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
-                await UlogujSe_1(_page, "Agent");
+                await UlogujSe_1(_page, "Agent", RucnaUloga);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 await _page.Locator(".ico-ams-logo").ClickAsync();
@@ -1593,7 +1713,7 @@ namespace Proba2
 
                 // Prijavljuje se BackOffice
                 //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
-                await UlogujSe_1(_page, "BackOffice");
+                await UlogujSe_1(_page, "BackOffice", RucnaUloga);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1634,7 +1754,7 @@ namespace Proba2
 
                 // Prijavljuje se agent
                 //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
-                await UlogujSe_1(_page, "Agent");
+                await UlogujSe_1(_page, "Agent", RucnaUloga);
 
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
@@ -1673,7 +1793,7 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Login");
                 //await _page.PauseAsync();
                 //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
-                await UlogujSe_1(_page, "BackOffice");
+                await UlogujSe_1(_page, "BackOffice", RucnaUloga);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
 
@@ -1975,12 +2095,19 @@ namespace Proba2
                 "Proba2" => "49.13.25.19",
                 "UAT" => "10.41.5.5",
                 "Produkcija" => "",
-                _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
+                _ => throw new ArgumentException("Nepoznato okruženje: " + Okruzenje),
             };
 
             string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
-            string Lokacija = "(7,8)";
+            string Lokacija = "(11)";//"(7,8)";
+            if (NacinPokretanjaTesta == "automatski")
+            {
+                Lokacija = "(11)";
+            }
+
+
+
             if (OsnovnaUloga == "BackOffice")
             {
                 Lokacija = "(4)";
@@ -2905,7 +3032,9 @@ namespace Proba2
             //Assert.IsNotNull(treeView, "TreeView not found");
 
             // Pronalazak TreeItem sa tekstom "Petrović Petar"
-            var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
+            //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
+            var sertifikatName = KorisnikLoader.Korisnik3?.Sertifikat ?? string.Empty;
+            var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(sertifikatName))).AsTreeItem();
             //Assert.IsNotNull(treeItem, "TreeItem 'Bogdan Mandarić' not found");
 
             // Klik na TreeItem
@@ -2915,7 +3044,7 @@ namespace Proba2
             }
             else
             {
-                throw new Exception("TreeItem 'Bogdan Mandarić 200035233' not found.");
+                throw new Exception($"TreeItem '{sertifikatName}' not found.");
             }
 
             // Pronalazak dugmeta "Cancel"

@@ -85,5 +85,13 @@
     // Insert spaces when pressing Tab.
     "editor.insertSpaces": true,
     // The number of spaces a tab is equal to.
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
+    //"files.exclude": {
+    //    "**/node_modules": true,
+    //    "**/bin": true,
+    //    "**/obj": true,
+    //    "StariKod": true, // Sakriva folder "StariKod" u korenu projekta
+    //    "NekiPodfolder/VremenskiFajlovi": true, // Sakriva specifičan folder
+    //    "**/*.tmp": true // Sakriva sve fajlove sa .tmp ekstenzijom 
+    //}
 }

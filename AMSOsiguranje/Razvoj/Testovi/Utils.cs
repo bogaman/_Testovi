@@ -3,6 +3,20 @@ namespace Razvoj
 {
     public partial class Osiguranje
     {
+        /// <summary>
+        /// Promenljiva koja definiše koji agent se loguje prilikom ručnog pokretanja testa.
+        /// <para>Vrednost se ručno unose pre početka testiranja.</para>
+        /// <para>Ako je prazan string, koriste se vrednosti koje zavise od NacinPokretanjaTesta.</para>
+        /// </summary> 
+        /// <value>"Ne", "Bogdan", "Mario"</value>
+        public static string RucnaUloga { get; set; } = "Ne"; // "Ne", "Bogdan", "Mario"
+        /// <summary>
+        /// Promenljiva koja definiše koji pregledac se koristi za testiranje. 
+        /// <para>Vrednost se ručno unosi pre početka testiranja.</para>
+        /// <para>Podrazumevano je "Chromium".</para>
+        /// </summary>
+        /// <value>"Chromium", "Firefox" ili "Webkit"</value>
+        public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
 
         #region Šta se i ko testira
         /// <summary>
@@ -46,7 +60,7 @@ namespace Razvoj
         /// Definiše se pregledac koji će se koristiti za testiranje.
         /// </summary>
         /// <value>"Chromium", "Firefox" ili "Webkit"</value>
-        public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
+
         /// <summary>
         /// Definiše se početna stranica za testiranje.
         /// <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>

@@ -186,7 +186,7 @@ namespace UAT
 
 
 
-                await OsiguranjeVozila.UlogujSe_1(_page, OsnovnaUloga);
+                await OsiguranjeVozila.UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);
                 //await _page.PauseAsync(); // Pauza za ručno proveravanje da li je korisnik uspešno ulogovan
                 //await OsiguranjeVozila.UlogujSe(_page, KorisnikMejl, KorisnikPassword);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");

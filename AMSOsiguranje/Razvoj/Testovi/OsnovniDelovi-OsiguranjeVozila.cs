@@ -1069,8 +1069,9 @@ namespace Razvoj
         /// </summary>
         /// <param name="_page"></param>
         /// <param name="OsnovnaUloga">Može biti BackOffice ili Agent</param>
+        /// <param name="RucnaUloga">Može biti prazan string ili ime korisnika (npr. Bogdan, Mario)</param>
         /// <returns></returns>
-        public static async Task UlogujSe_1(IPage _page, string OsnovnaUloga)
+        public static async Task UlogujSe_1(IPage _page, string OsnovnaUloga, string RucnaUloga)
         {
             try
             {
@@ -1085,19 +1086,23 @@ namespace Razvoj
                         korisnikPassword = KorisnikLoader.Korisnik1?.Lozinka2 ?? string.Empty;
                     }
                 }
-                else if (OsnovnaUloga == "Agent" && NacinPokretanjaTesta == "ručno")
+                else if (OsnovnaUloga == "Agent")
                 {
-                    korisnickoIme = KorisnikLoader.Korisnik2?.KorisnickoIme ?? string.Empty;
-                    // Unesi lozinku
-                    korisnikPassword = KorisnikLoader.Korisnik2?.Lozinka1 ?? string.Empty;
+                    if ((RucnaUloga == "Ne" && NacinPokretanjaTesta == "ručno") || RucnaUloga == "Bogdan")
+                    {
+                        korisnickoIme = KorisnikLoader.Korisnik2?.KorisnickoIme ?? string.Empty;
+                        // Unesi lozinku
+                        korisnikPassword = KorisnikLoader.Korisnik2?.Lozinka1 ?? string.Empty;
+                    }
+                    else if ((RucnaUloga == "Ne" && NacinPokretanjaTesta == "automatski") || RucnaUloga == "Mario")
+                    {
+                        korisnickoIme = KorisnikLoader.Korisnik3?.KorisnickoIme ?? string.Empty;
+                        // Unesi lozinku
+                        korisnikPassword = KorisnikLoader.Korisnik3?.Lozinka1 ?? string.Empty;
+                    }
 
                 }
-                else if (OsnovnaUloga == "Agent" && NacinPokretanjaTesta == "automatski")
-                {
-                    korisnickoIme = KorisnikLoader.Korisnik3?.KorisnickoIme ?? string.Empty;
-                    // Unesi lozinku
-                    korisnikPassword = KorisnikLoader.Korisnik3?.Lozinka1 ?? string.Empty;
-                }
+
 
                 else
                 {
@@ -1172,7 +1177,6 @@ namespace Razvoj
                 LogovanjeTesta.LogError($"❌ Odjavljivanje korisnika. {ex.Message}");
                 throw;
             }
-
         }
 
 
@@ -1538,12 +1542,12 @@ namespace Razvoj
                     Position = new Position { X = 5, Y = 5 }
                 });
 
-                await _page.GetByText("A K T U E L N A").First.HoverAsync();
+                //await _page.GetByText("A K T U E L N A").First.HoverAsync();
 
-                await _page.GetByText("A K T U E L N A").First.HoverAsync(new LocatorHoverOptions
-                {
-                    Position = new Position { X = 40, Y = 20 }
-                });
+                //await _page.GetByText("A K T U E L N A").First.HoverAsync(new LocatorHoverOptions
+                //{
+                //Position = new Position { X = 40, Y = 20 }
+                //});
 
                 // Sačekaj da dugme postane vidljivo
                 var dugmeArhiviraj = _page.Locator(".btnArhiviraj > .left").First;
