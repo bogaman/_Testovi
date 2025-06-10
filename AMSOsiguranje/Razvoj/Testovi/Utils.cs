@@ -9,7 +9,7 @@ namespace Razvoj
         /// <para>Ako je "Ne"", koriste se vrednosti koje zavise od NacinPokretanjaTesta.</para>
         /// </summary> 
         /// <value>"Ne", "Bogdan", "Mario"</value>
-        public static string RucnaUloga { get; set; } = "Ne"; // "Ne", "Bogdan", "Mario"
+        public static string RucnaUloga { get; set; } = "Bogdan"; // "Ne", "Bogdan", "Mario"
         /// <summary>
         /// Promenljiva koja definiše koji pregledac se koristi za testiranje. 
         /// <para>Vrednost se ručno unosi pre početka testiranja.</para>

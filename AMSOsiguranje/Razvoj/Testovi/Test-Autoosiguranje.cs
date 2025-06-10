@@ -84,61 +84,60 @@ namespace Razvoj
         }
 
         [Test]
-        [TestCase("Bogdan")]
-        [TestCase("Mario")]
-        public async Task _0TestTestova(string Uloga)
+
+        public async Task _0TestTestova()
         {
 
 
 
 
 
-            /*
-
-                        try
-                        {
-
-                            await IzlogujSe(_page!);
-                            await _page!.PauseAsync();
-
-                            await UlogujSe_1(_page, OsnovnaUloga);
-                            await _page!.PauseAsync();
-                            System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                            DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
-
-                            var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
-                            foreach (var name in System.Data.OleDb.OleDbEnumerator.GetRootEnumerator())
-                            {
-                                Console.WriteLine(name);
-                            }
 
 
+            try
+            {
+
+                await IzlogujSe(_page!);
+                await _page!.PauseAsync();
+                await UlogujSe_2(_page, "Agent");
+                //await UlogujSe_1(_page, OsnovnaUloga);
+                await _page!.PauseAsync();
+                System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
+
+                var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
+                foreach (var name in System.Data.OleDb.OleDbEnumerator.GetRootEnumerator())
+                {
+                    Console.WriteLine(name);
+                }
 
 
-                            Console.WriteLine($"******************** RadniFolder:            {RadniFolder}");
-                            //Console.WriteLine($"******************** RadniFolder 2:          {RadniFolder2}");
-                            Console.WriteLine($"******************** ProjektFolder:          {ProjektFolder}");
-                            //Console.WriteLine($"******************** projektDir:             {projektDir}");    
-                            Console.WriteLine($"******************** logFolder:              {LogovanjeTesta.LogFolder}");
-                            //Console.WriteLine($"******************** logFolder2:             {logFolder2}");
-                            Console.WriteLine($"******************** logFajlSumarni:         {LogovanjeTesta.LogFajlSumarni}");
-                            Console.WriteLine($"******************** logTrace:               {LogovanjeTesta.LogFajlTrace}");
-                            Console.WriteLine($"******************** logFajlOpsti:           {LogovanjeTesta.LogFajlOpsti}");
-                            Console.WriteLine($"******************** putanjaDoBazeIzvestaja: {LogovanjeTesta.PutanjaDoBazeIzvestaja}");
-                            Console.WriteLine($"******************** Test:                   {NazivTekucegTesta}");
 
-                        }
-                        catch (Exception ex)
-                        {
-                            string kontekst = $"Greška u testu {NazivTekucegTesta}.";
 
-                            LogovanjeTesta.LogException(ex, kontekst);
-                            LogovanjeTesta.LogTestResult(NazivTekucegTesta, false);
-                            //Assert.Fail("Došlo je do greške: " + ex.Message);
-                            throw;
-                        }
-            */
+                Console.WriteLine($"******************** RadniFolder:            {RadniFolder}");
+                //Console.WriteLine($"******************** RadniFolder 2:          {RadniFolder2}");
+                Console.WriteLine($"******************** ProjektFolder:          {ProjektFolder}");
+                //Console.WriteLine($"******************** projektDir:             {projektDir}");    
+                Console.WriteLine($"******************** logFolder:              {LogovanjeTesta.LogFolder}");
+                //Console.WriteLine($"******************** logFolder2:             {logFolder2}");
+                Console.WriteLine($"******************** logFajlSumarni:         {LogovanjeTesta.LogFajlSumarni}");
+                Console.WriteLine($"******************** logTrace:               {LogovanjeTesta.LogFajlTrace}");
+                Console.WriteLine($"******************** logFajlOpsti:           {LogovanjeTesta.LogFajlOpsti}");
+                Console.WriteLine($"******************** putanjaDoBazeIzvestaja: {LogovanjeTesta.PutanjaDoBazeIzvestaja}");
+                Console.WriteLine($"******************** Test:                   {NazivTekucegTesta}");
+
+            }
+            catch (Exception ex)
+            {
+                string kontekst = $"Greška u testu {NazivTekucegTesta}.";
+
+                LogovanjeTesta.LogException(ex, kontekst);
+                LogovanjeTesta.LogTestResult(NazivTekucegTesta, false);
+                //Assert.Fail("Došlo je do greške: " + ex.Message);
+                throw;
+            }
+
 
 
             #region Sertifikat

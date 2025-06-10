@@ -147,7 +147,34 @@ namespace UAT
                 Console.WriteLine($"--Korisnik2: {KorisnikLoader.Korisnik2?.Ime} {KorisnikLoader.Korisnik2?.Prezime} {KorisnikLoader.Korisnik2?.KorisnickoIme}");
                 Console.WriteLine($"--Korisnik3: {KorisnikLoader.Korisnik3?.Ime} {KorisnikLoader.Korisnik3?.Prezime} {KorisnikLoader.Korisnik3?.KorisnickoIme}");
 
+                var KorisnikBO = KorisnikLoader.Korisnik1;
+                var KorisnikA = KorisnikLoader.Korisnik3;
+                if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Bogdan")
+                {
+                    // Ako je ručno pokretanje testa, koristi korisnika Bogdan
+                    KorisnikA = KorisnikLoader.Korisnik2;
+                }
+                else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Mario")
+                {
+                    // Ako je ručno pokretanje testa, koristi korisnika Mariv
+                    KorisnikA = KorisnikLoader.Korisnik3;
+                }
+                else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Aleksandar")
+                {
+                    // Ako je ručno pokretanje testa, koristi korisnika Aleksandar
+                    KorisnikA = KorisnikLoader.Korisnik3;
+                }
 
+                {
+                    // Proveri da li je korisnik učitan
+                    if (KorisnikBO == null || KorisnikA == null)
+                    {
+                        throw new Exception("Korisnici nisu učitani iz fajla.");
+                    }
+                    // Prikaz informacija o korisnicima
+                    Console.WriteLine($"Korisnik BO: {KorisnikBO.Ime} {KorisnikBO.Prezime}, Uloga: {KorisnikBO.Uloga}, Email: {KorisnikBO.Email}");
+                    Console.WriteLine($"Korisnik A: {KorisnikA.Ime} {KorisnikA.Prezime}, Uloga: {KorisnikA.Uloga}, Email: {KorisnikA.Email}");
+                }
                 OsnovnaUloga = "Agent";
                 //Bira se uloga BackOffice za određene testove, bez obzira na ulogu koja je definisana u fajlu sa podacima Utils.cs
                 switch (NazivTekucegTesta)
@@ -183,7 +210,8 @@ namespace UAT
                 }
 
 
-
+                string korisnikMejl = KorisnikA.Email;
+                string korisnikPassword = KorisnikA.Lozinka1;
 
 
                 await OsiguranjeVozila.UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);

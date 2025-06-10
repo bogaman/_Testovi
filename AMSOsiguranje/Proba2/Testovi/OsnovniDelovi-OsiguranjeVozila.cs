@@ -1062,6 +1062,68 @@ namespace Proba2
         }
 
 
+        // Logovanje na početnoj stranici
+        /// <summary>
+        /// Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <param name="Uloga">Može biti BackOffice ili Agent</param>
+        /// <returns></returns>
+        public static async Task UlogujSe_2(IPage _page, string Uloga)
+        {
+            try
+            {
+                string korisnickoIme = KorisnikLoader.Korisnik3?.KorisnickoIme ?? string.Empty;
+                string korisnikPassword = KorisnikLoader.Korisnik3?.Lozinka1 ?? string.Empty;
+                if (Uloga == "BackOffice")
+                {
+                    korisnickoIme = KorisnikLoader.Korisnik1?.KorisnickoIme ?? string.Empty;
+                    korisnikPassword = KorisnikLoader.Korisnik1?.Lozinka1 ?? string.Empty;
+                    if (Okruzenje == "Produkcija")
+                    {
+                        korisnikPassword = KorisnikLoader.Korisnik1?.Lozinka2 ?? string.Empty;
+                    }
+                }
+                else if (OsnovnaUloga == "Agent")
+                {
+                    if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Bogdan")
+                    {
+                        korisnickoIme = KorisnikLoader.Korisnik2?.KorisnickoIme ?? string.Empty;
+                        korisnikPassword = KorisnikLoader.Korisnik2?.Lozinka1 ?? string.Empty;
+                    }
+                    else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Mario")
+                    {
+                        korisnickoIme = KorisnikLoader.Korisnik3?.KorisnickoIme ?? string.Empty;
+                        korisnikPassword = KorisnikLoader.Korisnik3?.Lozinka1 ?? string.Empty;
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException("Nepoznat korisnik. Molimo proverite unos.");
+                }
+                // Ako nije BackOffice, dodeli podrazumevane vrednosti ili podesi prema potrebi
+                // korisnickoIme = ...; korisnikPassword = ...;
+
+
+                // Unesi korisničko ime
+                await _page.GetByText("Korisničko ime").ClickAsync();
+                await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
+                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync(korisnickoIme);
+                // Unesi lozinku
+                await _page.GetByText("Lozinka").ClickAsync();
+                await _page.Locator("input[type=\"password\"]").FillAsync(korisnikPassword);
+                // Klik na Prijava
+                await _page.Locator("//text[.='Prijava']").ClickAsync();
+
+                LogovanjeTesta.LogMessage($"✅ Ulogovan je korisnik: {KorisnikMejl}.", false);
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Logovanje korisnika {KorisnikMejl} neuspešno. {ex.Message}");
+                throw;
+            }
+        }
 
         // Logovanje na početnoj stranici
         /// <summary>
