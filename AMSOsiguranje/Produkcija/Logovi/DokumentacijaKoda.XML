@@ -96,6 +96,14 @@
         <member name="M:Produkcija.LogovanjeTesta.FormirajSumarniIzvestaj">
             Metoda za kreiranje sumarnog izveštaja, poziva se iz OneTimeTearDown()
         </member>
+        <member name="M:Produkcija.OsiguranjeVozila.UlogujSe_2(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
+            </summary>
+            <param name="_page"></param>
+            <param name="Uloga">Može biti BackOffice ili Agent</param>
+            <returns></returns>
+        </member>
         <member name="M:Produkcija.OsiguranjeVozila.UlogujSe_1(Microsoft.Playwright.IPage,System.String,System.String)">
             <summary>
             Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
