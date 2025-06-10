@@ -102,7 +102,7 @@
             </summary>
             <param name="_page"></param>
             <param name="OsnovnaUloga">Može biti BackOffice ili Agent</param>
-            <param name="RucnaUloga">Može biti prazan string ili ime korisnika (npr. Bogdan, Mario)</param>
+            <param name="RucnaUloga">Može biti "Ne" ili ime korisnika (npr. Bogdan, Mario)</param>
             <returns></returns>
         </member>
         <member name="M:Razvoj.OsiguranjeVozila.IzlogujSe(Microsoft.Playwright.IPage)">
@@ -126,9 +126,9 @@
             <summary>
             Promenljiva koja definiše koji agent se loguje prilikom ručnog pokretanja testa.
             <para>Vrednost se ručno unose pre početka testiranja.</para>
-            <para>Ako je prazan string, koriste se vrednosti koje zavise od NacinPokretanjaTesta.</para>
+            <para>Ako je "Ne"", koriste se vrednosti koje zavise od NacinPokretanjaTesta.</para>
             </summary> 
-            <value>"", "Bogdan", "Mario"</value>
+            <value>"Ne", "Bogdan", "Mario"</value>
         </member>
         <member name="P:Razvoj.Osiguranje.Pregledac">
             <summary>

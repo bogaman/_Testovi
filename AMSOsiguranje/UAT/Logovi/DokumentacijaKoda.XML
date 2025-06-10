@@ -96,12 +96,13 @@
         <member name="M:UAT.LogovanjeTesta.FormirajSumarniIzvestaj">
             Metoda za kreiranje sumarnog izveštaja, poziva se iz OneTimeTearDown()
         </member>
-        <member name="M:UAT.OsiguranjeVozila.UlogujSe_1(Microsoft.Playwright.IPage,System.String)">
+        <member name="M:UAT.OsiguranjeVozila.UlogujSe_1(Microsoft.Playwright.IPage,System.String,System.String)">
             <summary>
             Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
             </summary>
             <param name="_page"></param>
             <param name="OsnovnaUloga">Može biti BackOffice ili Agent</param>
+            <param name="RucnaUloga">Može biti prazan string ili ime korisnika (npr. Bogdan, Mario)</param>
             <returns></returns>
         </member>
         <member name="M:UAT.OsiguranjeVozila.IzlogujSe(Microsoft.Playwright.IPage)">
@@ -120,6 +121,22 @@
             <param name="vrednostOpcije">Opcija koju treba izabrati</param>
             <param name="koristiSelectOption"></param>
             <returns></returns>
+        </member>
+        <member name="P:UAT.Osiguranje.RucnaUloga">
+            <summary>
+            Promenljiva koja definiše koji agent se loguje prilikom ručnog pokretanja testa.
+            <para>Vrednost se ručno unose pre početka testiranja.</para>
+            <para>Ako je prazan string, koriste se vrednosti koje zavise od NacinPokretanjaTesta.</para>
+            </summary> 
+            <value>"Ne", "Bogdan", "Mario"</value>
+        </member>
+        <member name="P:UAT.Osiguranje.Pregledac">
+            <summary>
+            Promenljiva koja definiše koji pregledac se koristi za testiranje. 
+            <para>Vrednost se ručno unosi pre početka testiranja.</para>
+            <para>Podrazumevano je "Chromium".</para>
+            </summary>
+            <value>"Chromium", "Firefox" ili "Webkit"</value>
         </member>
         <member name="P:UAT.Osiguranje.NazivNamespace">
             <summary>
@@ -164,13 +181,11 @@
             <remarks>Koristiti se za prilagođavanje ponašanja testa u zavisnosti od načina pokretanja.</remarks>
             <value>"ručno", "automatski"</value>
         </member>
-        <member name="P:UAT.Osiguranje.Pregledac">
+        <member name="P:UAT.Osiguranje.PocetnaStrana">
             <summary>
             Definiše se pregledac koji će se koristiti za testiranje.
             </summary>
             <value>"Chromium", "Firefox" ili "Webkit"</value>
-        </member>
-        <member name="P:UAT.Osiguranje.PocetnaStrana">
             <summary>
             Definiše se početna stranica za testiranje.
             <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
