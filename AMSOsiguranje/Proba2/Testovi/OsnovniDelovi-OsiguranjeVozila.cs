@@ -1069,7 +1069,7 @@ namespace Proba2
         /// </summary>
         /// <param name="_page"></param>
         /// <param name="OsnovnaUloga">Može biti BackOffice ili Agent</param>
-        /// <param name="RucnaUloga">Može biti prazan string ili ime korisnika (npr. Bogdan, Mario)</param>
+        /// <param name="RucnaUloga">Može biti "Ne" ili ime korisnika (npr. Bogdan, Mario)</param>
         /// <returns></returns>
         public static async Task UlogujSe_1(IPage _page, string OsnovnaUloga, string RucnaUloga)
         {

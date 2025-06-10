@@ -6,7 +6,7 @@ namespace Proba2
         /// <summary>
         /// Promenljiva koja definiše koji agent se loguje prilikom ručnog pokretanja testa.
         /// <para>Vrednost se ručno unose pre početka testiranja.</para>
-        /// <para>Ako je prazan string, koriste se vrednosti koje zavise od NacinPokretanjaTesta.</para>
+        /// <para>Ako je "Ne"", koriste se vrednosti koje zavise od NacinPokretanjaTesta.</para>
         /// </summary> 
         /// <value>"Ne", "Bogdan", "Mario"</value>
         public static string RucnaUloga { get; set; } = "Ne"; // "Ne", "Bogdan", "Mario"
