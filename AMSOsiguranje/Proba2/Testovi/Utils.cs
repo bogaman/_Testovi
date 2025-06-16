@@ -18,6 +18,14 @@ namespace Proba2
         /// <value>"Chromium", "Firefox" ili "Webkit"</value>
         public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
 
+        public static string BOkorisnickoIme = KorisnikLoader.Korisnik1 != null ? KorisnikLoader.Korisnik1.KorisnickoIme : string.Empty;
+        public static string BOlozinka = KorisnikLoader.Korisnik1 != null ? KorisnikLoader.Korisnik1.Lozinka1 : string.Empty;
+
+        public static string AkorisnickoIme = KorisnikLoader.Korisnik2 != null ? KorisnikLoader.Korisnik2.KorisnickoIme : string.Empty;
+        public static string Alozinka = KorisnikLoader.Korisnik2 != null ? KorisnikLoader.Korisnik2.Lozinka1 : string.Empty;
+        public static string Asaradnik = KorisnikLoader.Korisnik2 != null ?
+                           $"{KorisnikLoader.Korisnik2.SaradnickaSifra1} - {KorisnikLoader.Korisnik2?.Ime} {KorisnikLoader.Korisnik2?.Prezime}" : string.Empty;
+
         #region Šta se i ko testira
         /// <summary>
         /// Promenjiva koja definiše naziv prostora (namespace) u kojem se nalaze testovi.
@@ -143,7 +151,16 @@ namespace Proba2
         public static string PartialTitle = @"SETCCE";
 
 
-
+        /// <summary>
+        /// Pauzira samo ako test nije pokrenut automatski.
+        /// </summary>
+        public static async Task Pauziraj(IPage _page)
+        {
+            if (Environment.GetEnvironmentVariable("NACIN_POKRETANJA") != "automatski")
+            {
+                await _page.PauseAsync();
+            }
+        }
 
         /// <summary>
         /// Definiše se početna stranica za testiranje. Ona zavisi od Klase i okruženja
@@ -167,7 +184,7 @@ namespace Proba2
                 }
                 else if (nazivKlase == "WebShop" && okruzenje == "UAT")
                 {
-                    PocetnaStrana = "https://webshop-test.ams.co.rs/";
+                    PocetnaStrana = "https://webshop-test.ams.co.rs";
                 }
                 else if (nazivKlase == "WebShop" && okruzenje == "Produkcija")
                 {

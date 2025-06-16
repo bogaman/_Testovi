@@ -96,9 +96,20 @@
         <member name="M:Proba2.LogovanjeTesta.FormirajSumarniIzvestaj">
             Metoda za kreiranje sumarnog izveštaja, poziva se iz OneTimeTearDown()
         </member>
+        <member name="M:Proba2.OsiguranjeVozila.UlogujSe_3(Microsoft.Playwright.IPage,System.String,System.String)">
+            <summary>
+            Uloguj se koristeći korisničko ime i lozinku.
+            <para>Korisničko ime i lozinka se određuju na osnovu NacinPokretanjaTesta i RucnaUloga </para>
+            </summary>
+            <param name="_page"></param>
+            <param name="korisnickoIme">Može biti BackOffice ili Agent</param>
+            <param name="lozinka">Može biti BackOffice ili Agent</param>
+            <returns></returns>
+        </member>
         <member name="M:Proba2.OsiguranjeVozila.UlogujSe_2(Microsoft.Playwright.IPage,System.String)">
             <summary>
-            Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
+            Uloguj se koristeći korisničko ime i lozinku.
+            <para>Korisničko ime i lozinka se određuju na osnovu NacinPokretanjaTesta i RucnaUloga </para>
             </summary>
             <param name="_page"></param>
             <param name="Uloga">Može biti BackOffice ili Agent</param>
@@ -199,6 +210,11 @@
             <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
             </summary>
             <value></value>
+        </member>
+        <member name="M:Proba2.Osiguranje.Pauziraj(Microsoft.Playwright.IPage)">
+            <summary>
+            Pauzira samo ako test nije pokrenut automatski.
+            </summary>
         </member>
         <member name="M:Proba2.Osiguranje.DefinisiPocetnuStranu(System.String,System.String)">
             <summary>

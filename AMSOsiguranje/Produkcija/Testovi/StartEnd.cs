@@ -147,7 +147,34 @@ namespace Produkcija
                 Console.WriteLine($"--Korisnik2: {KorisnikLoader.Korisnik2?.Ime} {KorisnikLoader.Korisnik2?.Prezime} {KorisnikLoader.Korisnik2?.KorisnickoIme}");
                 Console.WriteLine($"--Korisnik3: {KorisnikLoader.Korisnik3?.Ime} {KorisnikLoader.Korisnik3?.Prezime} {KorisnikLoader.Korisnik3?.KorisnickoIme}");
 
-                var KorisnikBO = KorisnikLoader.Korisnik1;
+                BOkorisnickoIme = KorisnikLoader.Korisnik1 != null ? KorisnikLoader.Korisnik1.KorisnickoIme : string.Empty;
+                BOlozinka = KorisnikLoader.Korisnik1 != null ? KorisnikLoader.Korisnik1.Lozinka1 : string.Empty;
+                if (Prostor == "Produkcija")
+                {
+                    // Ako je radno okruženje produkcija, koristi korisnika 1
+                    BOlozinka = KorisnikLoader.Korisnik1?.Lozinka2 ?? string.Empty;
+                }
+
+                AkorisnickoIme = KorisnikLoader.Korisnik3 != null ? KorisnikLoader.Korisnik3.KorisnickoIme : string.Empty;
+                Alozinka = KorisnikLoader.Korisnik3 != null ? KorisnikLoader.Korisnik3.Lozinka1 : string.Empty;
+                Asaradnik = KorisnikLoader.Korisnik3 != null ?
+                                   $"{KorisnikLoader.Korisnik3.SaradnickaSifra1} - {KorisnikLoader.Korisnik3?.Ime} {KorisnikLoader.Korisnik3?.Prezime}" : string.Empty;
+
+                //Console.WriteLine($"Korisnik BO: {BOkorisnickoIme}, Lozinka: {BOlozinka}");
+                //Console.WriteLine($"Korisnik A: {AkorisnickoIme}, Lozinka: {Alozinka}, Saradnička šifra: {Asaradnik}");
+                if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Bogdan")
+                {
+                    AkorisnickoIme = KorisnikLoader.Korisnik2?.KorisnickoIme ?? string.Empty;
+                    Alozinka = KorisnikLoader.Korisnik2?.Lozinka1 ?? string.Empty;
+                    Asaradnik = KorisnikLoader.Korisnik2 != null ?
+                                   $"{KorisnikLoader.Korisnik2.SaradnickaSifra1} - {KorisnikLoader.Korisnik2?.Ime} {KorisnikLoader.Korisnik2?.Prezime}" : string.Empty;
+                }
+
+
+
+                Console.WriteLine($"*******Korisnik BO: {BOkorisnickoIme}, Lozinka: {BOlozinka}");
+                Console.WriteLine($"*******Korisnik A: {AkorisnickoIme}, Lozinka: {Alozinka}, Saradnička šifra: {Asaradnik}");
+
                 var KorisnikA = KorisnikLoader.Korisnik3;
                 if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Bogdan")
                 {
@@ -159,22 +186,18 @@ namespace Produkcija
                     // Ako je ručno pokretanje testa, koristi korisnika Mariv
                     KorisnikA = KorisnikLoader.Korisnik3;
                 }
-                else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Aleksandar")
-                {
-                    // Ako je ručno pokretanje testa, koristi korisnika Aleksandar
-                    KorisnikA = KorisnikLoader.Korisnik3;
-                }
 
+                var KorisnikBO = KorisnikLoader.Korisnik1;
+
+                // Proveri da li je korisnik učitan
+                if (KorisnikBO == null || KorisnikA == null)
                 {
-                    // Proveri da li je korisnik učitan
-                    if (KorisnikBO == null || KorisnikA == null)
-                    {
-                        throw new Exception("Korisnici nisu učitani iz fajla.");
-                    }
-                    // Prikaz informacija o korisnicima
-                    Console.WriteLine($"Korisnik BO: {KorisnikBO.Ime} {KorisnikBO.Prezime}, Uloga: {KorisnikBO.Uloga}, Email: {KorisnikBO.Email}");
-                    Console.WriteLine($"Korisnik A: {KorisnikA.Ime} {KorisnikA.Prezime}, Uloga: {KorisnikA.Uloga}, Email: {KorisnikA.Email}");
+                    throw new Exception("Korisnici nisu učitani iz fajla.");
                 }
+                // Prikaz informacija o korisnicima
+                //Console.WriteLine($"Korisnik BO: {KorisnikBO.Ime} {KorisnikBO.Prezime}, Uloga: {KorisnikBO.Uloga}, Email: {KorisnikBO.Email}");
+                //Console.WriteLine($"Korisnik A: {KorisnikA.Ime} {KorisnikA.Prezime}, Uloga: {KorisnikA.Uloga}, Email: {KorisnikA.Email}");
+
                 OsnovnaUloga = "Agent";
                 //Bira se uloga BackOffice za određene testove, bez obzira na ulogu koja je definisana u fajlu sa podacima Utils.cs
                 switch (NazivTekucegTesta)
@@ -203,21 +226,23 @@ namespace Produkcija
                 {
                     System.Windows.MessageBox.Show($"Okruženje:: {Okruzenje}.\n" +
                                                    $"URL:: {PocetnaStrana}.\n\n" +
-                                                   $"Osnovna Uloga:: {OsnovnaUloga}.\n" +
-                                                   $"Korisnik:: {KorisnikIme}.\n" +
-                                                   $"Mejl:: {KorisnikMejl}.\n" +
-                                                   $"Lozinka:: {KorisnikPassword}\n", $"Test:: {NazivTekucegTesta}", MessageBoxButton.OK, MessageBoxImage.Information);
+                                                   $"Osnovna Uloga:: {OsnovnaUloga}.\n",
+                                                   $"Test:: {NazivTekucegTesta}", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //$"Korisnik:: {KorisnikIme}.\n" +
+                    //$"Mejl:: {KorisnikMejl}.\n" +
+                    //$"Lozinka:: {KorisnikPassword}
                 }
 
 
-                string korisnikMejl = KorisnikA.Email;
-                string korisnikPassword = KorisnikA.Lozinka1;
+                //string korisnikMejl = KorisnikA.Email;
+                //string korisnikPassword = KorisnikA.Lozinka1;
 
 
-                await OsiguranjeVozila.UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);
+                //await OsiguranjeVozila.UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);
+                //await OsiguranjeVozila.UlogujSe_2(_page, OsnovnaUloga);
                 //await _page.PauseAsync(); // Pauza za ručno proveravanje da li je korisnik uspešno ulogovan
                 //await OsiguranjeVozila.UlogujSe(_page, KorisnikMejl, KorisnikPassword);
-                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                //await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
             }
             else

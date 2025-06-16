@@ -1062,9 +1062,43 @@ namespace Produkcija
         }
 
 
-        // Logovanje na početnoj stranici
         /// <summary>
-        /// Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
+        /// Uloguj se koristeći korisničko ime i lozinku.
+        /// <para>Korisničko ime i lozinka se određuju na osnovu NacinPokretanjaTesta i RucnaUloga </para>
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <param name="korisnickoIme">Može biti BackOffice ili Agent</param>
+        /// <param name="lozinka">Može biti BackOffice ili Agent</param>
+        /// <returns></returns>
+        public static async Task UlogujSe_3(IPage _page, string korisnickoIme, string lozinka)
+        {
+            try
+            {
+
+
+
+                // Unesi korisničko ime
+                await _page.GetByText("Korisničko ime").ClickAsync();
+                await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
+                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync(korisnickoIme);
+                // Unesi lozinku
+                await _page.GetByText("Lozinka").ClickAsync();
+                await _page.Locator("input[type=\"password\"]").FillAsync(lozinka);
+                // Klik na Prijava
+                await _page.Locator("//text[.='Prijava']").ClickAsync();
+
+                LogovanjeTesta.LogMessage($"✅ Ulogovan je korisnik: {KorisnikMejl}.", false);
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Logovanje korisnika {KorisnikMejl} neuspešno. {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Uloguj se koristeći korisničko ime i lozinku.
+        /// <para>Korisničko ime i lozinka se određuju na osnovu NacinPokretanjaTesta i RucnaUloga </para>
         /// </summary>
         /// <param name="_page"></param>
         /// <param name="Uloga">Može biti BackOffice ili Agent</param>
@@ -1435,14 +1469,24 @@ namespace Produkcija
 
 
         //Proveri da li radi filter na gridu
-        private static async Task ProveriFilterGrida(IPage _page, string kriterijum, string tipGrida)
+        private static async Task ProveriFilterGrida(IPage _page, string kriterijum, string tipGrida, int kolona)
         {
             //Trace.Write($"Filter na gridu obrazaca AO za admina - ");
             string ukupanBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
-            await _page.Locator("div:nth-child(3) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
-            await _page.Locator("div:nth-child(3) > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync(kriterijum);
-            await _page.Locator("div:nth-child(3) > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
+            if (kolona == 5)
+            {
+                await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Na verifikacijiU izradiVerifikovan$") }).Locator("div").Nth(2).ClickAsync();
+                await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+            }
+            else
+            {
+                await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+                await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync(kriterijum);
+                await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
+            }
             await Task.Delay(3000); // Pauza od 3 sekunde (3000 ms) da se filter učita
+
             string filtriraniBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
             if ((Convert.ToInt32(ukupanBrojStrana) >= Convert.ToInt32(filtriraniBrojStrana)) && (Convert.ToInt32(filtriraniBrojStrana) > 0))
             {
