@@ -6226,6 +6226,9 @@ namespace Produkcija
         public async Task DK_2_Polisa()
         {
             //await _page.PauseAsync();
+            await _page!.PauseAsync();
+            await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
             // Pređi mišem preko teksta Osiguranje vozila
             //await _page!.GetByText("Osiguranje vozila").HoverAsync();
             await _page!.GetByText("Osiguranje vozila").ClickAsync();
@@ -6459,10 +6462,12 @@ namespace Produkcija
         [Test]
         public async Task DK_6_SE_RazduznaLista()
         {
-            await _page!.PauseAsync();
+            //await _page!.PauseAsync();
             try
             {
-
+                await _page!.PauseAsync();
+                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page!.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
@@ -6613,6 +6618,8 @@ namespace Produkcija
         public async Task BO_1_PutnoZdravstvenoOsiguranje()
         {
             await _page!.PauseAsync();
+            await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
             // Pređi mišem preko teksta Putno zdravstveno
             //await _page!.GetByText("Putno zdravstveno  osiguranje").HoverAsync();
             await _page!.GetByText("Putno zdravstveno  osiguranje").ClickAsync();
