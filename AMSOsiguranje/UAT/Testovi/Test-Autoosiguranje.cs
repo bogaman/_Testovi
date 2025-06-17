@@ -6243,10 +6243,10 @@ namespace UAT
             // Pronađi odgovarajuću polisu AO koja nema ZK
             Server = Okruzenje switch
             {
-                "razvoj" => "10.5.41.99",
-                "test" => "49.13.25.19",
+                "Razvoj" => "10.5.41.99",
+                "Proba2" => "49.13.25.19",
                 "UAT" => "10.41.5.5",
-                "produkcija" => "",
+                "Produkcija" => "",
                 _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
             };
 
@@ -6507,10 +6507,10 @@ namespace UAT
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
                 Server = Okruzenje switch
                 {
-                    "razvoj" => "10.5.41.99",
-                    "test" => "49.13.25.19",
+                    "Razvoj" => "10.5.41.99",
+                    "Proba2" => "49.13.25.19",
                     "UAT" => "10.41.5.5",
-                    "produkcija" => "",
+                    "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
 
@@ -6701,10 +6701,10 @@ namespace UAT
             string qBrojDokumenta = $"SELECT * FROM [WebshopDB].[webshop].[Dokument] WHERE [brojPonude] = {brojPonude};";
             Server = Okruzenje switch
             {
-                "razvoj" => "10.5.41.99",
-                "test" => "49.13.25.19",
+                "Razvoj" => "10.5.41.99",
+                "Proba2" => "49.13.25.19",
                 "UAT" => "10.41.5.5",
-                "produkcija" => "",
+                "Produkcija" => "",
                 _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
             };
 
