@@ -12,18 +12,33 @@ namespace UAT
 
 
         #region OnTimeSetUp
-        // Metoda koja se pokreće samo jednom na početku testiranja
+        //Metoda koja se pokreće samo jednom na početku testiranja
         [OneTimeSetUp]
         public async Task OneTimeSetUp()
         {
-            // Simulacija asinhronog rada
+            //Simulacija asinhronog rada
             await Task.Delay(1);
 
-            // Uzmi vreme kada su pokrenuti svi testovi
+            //Pročitaj vreme kada su pokrenuti svi testovi
             LogovanjeTesta.PocetakTestiranja = DateTime.Now;
-            // Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
-            LogovanjeTesta.IDTestiranja = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja);
+            //Pročitaj radni prostor
+            NazivNamespace = this.GetType().Namespace!;
 
+            if (NacinPokretanjaTesta == "ručno")
+            {
+                System.Windows.MessageBox.Show($"Okruženje:: {NazivNamespace}.\n" +
+                                               $"URL:: {PocetnaStrana}.\n\n" +
+                                               $"Osnovna Uloga:: {OsnovnaUloga}.\n" +
+                                               $"Test:: {NazivTekucegTesta}.\n" +
+                                               $"Korisnik:: {KorisnikIme}.\n" +
+                                               $"Mejl:: {KorisnikMejl}.\n" +
+                                               $"Lozinka:: {KorisnikPassword}.", "Poruka u OneTimeSetUp", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
+            LogovanjeTesta.IDTestiranja = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja);
+            //Unosi se u bazu vreme početka testiranja i okruženje i uzima IDtestiranja
+            LogovanjeTesta.IDTestiranja1 = LogovanjeTesta.UnesiPocetakTestiranja1(LogovanjeTesta.PocetakTestiranja, NazivNamespace);
 
             // Ovo se upisuje u fajl logTrace.txt
             LogovanjeTesta.LogMessage("-----------------------------------------", false);
@@ -47,12 +62,12 @@ namespace UAT
             NazivTekucegTesta = TestContext.CurrentContext.Test.Name;
             // Upisivanje početka testa bazu i uzimanje IDTesta
             LogovanjeTesta.IDTesta = LogovanjeTesta.UnesiPocetakTesta(LogovanjeTesta.IDTestiranja, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
-
+            LogovanjeTesta.IDTesta1 = LogovanjeTesta.UnesiPocetakTesta1(LogovanjeTesta.IDTestiranja1, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
 
             LogovanjeTesta.LogMessage($"[{LogovanjeTesta.PocetakTesta:dd.MM.yyyy. HH:mm:ss}] pokrenut je test: {NazivTekucegTesta}", false);
 
             // Pročitaj radni prostor
-            NazivNamespace = this.GetType().Namespace!;
+            //NazivNamespace = this.GetType().Namespace!;
             Console.WriteLine($"Namespace je ---------------------:: {NazivNamespace}");
             Prostor = NazivNamespace;
             // Pročitaj Okruženje u kom se testira
@@ -195,8 +210,8 @@ namespace UAT
                     throw new Exception("Korisnici nisu učitani iz fajla.");
                 }
                 // Prikaz informacija o korisnicima
-                //Console.WriteLine($"Korisnik BO: {KorisnikBO.Ime} {KorisnikBO.Prezime}, Uloga: {KorisnikBO.Uloga}, Email: {KorisnikBO.Email}");
-                //Console.WriteLine($"Korisnik A: {KorisnikA.Ime} {KorisnikA.Prezime}, Uloga: {KorisnikA.Uloga}, Email: {KorisnikA.Email}");
+                //Console.WriteLine($"Korisnik BO: {KorisnikBO.Ime} {KorisnikBO.Prezime}, Uloga: {KorisnikBO.Uloga}, Email1: {KorisnikBO.Email1}");
+                //Console.WriteLine($"Korisnik A: {KorisnikA.Ime} {KorisnikA.Prezime}, Uloga: {KorisnikA.Uloga}, Email1: {KorisnikA.Email1}");
 
                 OsnovnaUloga = "Agent";
                 //Bira se uloga BackOffice za određene testove, bez obzira na ulogu koja je definisana u fajlu sa podacima Utils.cs
@@ -234,7 +249,7 @@ namespace UAT
                 }
 
 
-                //string korisnikMejl = KorisnikA.Email;
+                //string korisnikMejl = KorisnikA.Email1;
                 //string korisnikPassword = KorisnikA.Lozinka1;
 
 
@@ -243,6 +258,15 @@ namespace UAT
                 //await _page.PauseAsync(); // Pauza za ručno proveravanje da li je korisnik uspešno ulogovan
                 //await OsiguranjeVozila.UlogujSe(_page, KorisnikMejl, KorisnikPassword);
                 //await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
+                var korisnici = KorisnikLoader2.UcitajKorisnikeIzAccessBaze(LogovanjeTesta.PutanjaDoBaze);
+
+                var korisnik1 = korisnici.ElementAtOrDefault(0);
+                var korisnik2 = korisnici.ElementAtOrDefault(1);
+                var korisnik3 = korisnici.ElementAtOrDefault(2);
+                System.Windows.MessageBox.Show($"aaaaaaaaaaaaaaaaK1: {korisnik1?.Ime}\n" +
+                                               $"{korisnik1?.SaradnickaSifra1}\n\n",
+                                                "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
 
             }
             else
@@ -268,6 +292,7 @@ namespace UAT
             string stackTrace = TestContext.CurrentContext.Result.StackTrace ?? string.Empty;
             //string poruka = TestContext.CurrentContext.Result.
             LogovanjeTesta.UnesiRezultatTesta(LogovanjeTesta.IDTesta, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace);
+            LogovanjeTesta.UnesiRezultatTesta1(LogovanjeTesta.IDTesta1, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace);
 
             // Upisivanje opšteg rezultata testa u logOpsti.txt
             LogovanjeTesta.UnesiKrajTesta();
@@ -327,9 +352,16 @@ namespace UAT
         [OneTimeTearDown]
         public async Task OneTimeTearDown()
         {
+            //Pročitaj vreme kada su završeni svi testovi
             LogovanjeTesta.KrajTestiranja = DateTime.Now;
+            //Odreti koliko je trajalo testiranje
             TimeSpan trajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
+            //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
             LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranja, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+            //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
+            LogovanjeTesta.UnesiRezultatTestiranja2(LogovanjeTesta.IDTestiranja1, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+
+
             LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {(LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja).TotalSeconds} sekundi.", false);
             LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {trajanjeTestiranja} sekundi.", false);
             // Upiši u sumarni log fajl

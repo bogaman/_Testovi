@@ -10,11 +10,16 @@ namespace UAT
         /// <value></value>
         public static int IDTestiranja { get; set; } = 0; // ID testiranja, koristi se za povezivanje sa bazom podataka
         /// <summary>
+        /// ID testiranja, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
+        /// </summary>
+        /// <value></value>
+        public static int IDTestiranja1 { get; set; } = 0; // ID testiranja, koristi se za povezivanje sa bazom podataka
+        /// <summary>
         /// ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
         /// </summary>
         /// <value></value>
         public static int IDTesta { get; set; } = 0; // ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka
-
+        public static int IDTesta1 { get; set; } = 0; // ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka
 
         #endregion Parametri testova
         public static string LogFolder { get; set; } = Path.Combine(ProjektFolder, "Logovi");
@@ -24,11 +29,15 @@ namespace UAT
 
         public static string LogFajlOpsti { get; set; } = Path.Combine(LogFolder, "logOpsti.txt");
         public static string PutanjaDoBazeIzvestaja { get; set; } = Path.Combine(LogFolder, @"dbRezultatiTestiranja.accdb");
+
         public static string ConnectionStringLogovi { get; set; } = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={PutanjaDoBazeIzvestaja};";
+        public static string PutanjaDoBaze { get; set; } = Path.Combine(OsnovniFolder, @"dbLogoviTestova.accdb");
+        public static string KonekcijaLogovi { get; set; } = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={PutanjaDoBaze};";
         public static int FailedTests => TestContext.CurrentContext.Result.FailCount;
         public static int PassTests => TestContext.CurrentContext.Result.PassCount;
         public static int SkippedTests => TestContext.CurrentContext.Result.SkipCount;
         public static int UkupnoTests => FailedTests + PassTests + SkippedTests;
+
 
         #region Vremena
         /// <summary>
@@ -114,6 +123,8 @@ namespace UAT
             return newRecordId;
         }
 
+
+
         /// <summary>
         /// Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
         /// </summary>
@@ -167,6 +178,64 @@ namespace UAT
             }
             return newRecordId;
         }
+
+
+        /// <summary>
+        /// Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
+        /// </summary>
+        /// <param name="IDTestiranja">ID testiranja (redni broj testiranja).</param>
+        /// <param name="NazivTekucegTesta">Naziv trenutnog testa.</param>
+        /// <param name="pocetakTesta">Vreme početka testa.</param> 
+        /// <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
+        /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+        /// <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
+        public static int UnesiPocetakTesta1(int IDTestiranja, string NazivTekucegTesta, DateTime pocetakTesta)
+        {
+            string insertCommand = $"INSERT INTO tblPojedinacniIzvestajTestova (IDTestiranja, NazivTesta, PocetakTesta) " +
+                                   @$"VALUES (@IDTestiranja, @nazivTekucegTesta, @pocetakTesta)";
+            int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
+
+            using (OleDbConnection connection = new(KonekcijaLogovi))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using OleDbCommand command = new(insertCommand, connection);
+                    command.Parameters.AddWithValue("@IDTestiranja", IDTestiranja);
+                    command.Parameters.AddWithValue("@nazivTekucegTesta", NazivTekucegTesta);
+                    command.Parameters.AddWithValue("@pocetakTesta", pocetakTesta);
+                    int rowsAffected = command.ExecuteNonQuery();
+                    Console.WriteLine($"{rowsAffected} red je uspešno unet.");
+
+                    using (OleDbCommand getIdCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+                    {
+                        object? result = getIdCommand.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            newRecordId = Convert.ToInt32(result);
+                        }
+                    }
+                    Console.WriteLine($"Novi ID unetog zapisa (redni broj testa) je: {newRecordId}");
+                }
+                catch (OleDbException ex)
+                {
+                    Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
+                    throw;
+                }
+                finally
+                {
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return newRecordId;
+        }
+
+
+
 
         /// <summary>
         /// Unosi se rezultat svih testiranja u bazu podataka.
@@ -229,6 +298,42 @@ namespace UAT
                                    $"WHERE IDTesta = @IDTesta;";
 
             using OleDbConnection connection = new(ConnectionStringLogovi);
+            try
+            {
+                connection.Open();
+                using OleDbCommand command = new(updateCommand, connection);
+                command.Parameters.AddWithValue("@krajTesta", krajTesta);
+                command.Parameters.AddWithValue("@rezultat", StatusTesta.ToString()); // Pretvori enum u string
+                command.Parameters.AddWithValue("@opisGreske", errorMessage);
+                command.Parameters.AddWithValue("@stackTrace", stackTrace);
+                command.Parameters.AddWithValue("@IDTesta", newRecordId);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} red je ažuriran.");
+            }
+            catch (OleDbException ex)
+            {
+                Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+        public static void UnesiRezultatTesta1(int newRecordId, DateTime krajTesta, TestStatus StatusTesta, string errorMessage, string stackTrace)
+        {
+            string updateCommand = $"UPDATE tblPojedinacniIzvestajTestova SET " +
+                                   $"KrajTesta = @krajTesta, " +
+                                   $"Rezultat = @rezultat, " +
+                                   $"OpisGreske = @opisGreske, " +
+                                   $"StackTrace = @stackTrace " +
+                                   $"WHERE IDTesta = @IDTesta;";
+
+            using OleDbConnection connection = new(KonekcijaLogovi);
             try
             {
                 connection.Open();
@@ -386,6 +491,122 @@ namespace UAT
             File.AppendAllText($"{LogFajlOpsti}", $"[REZULTAT] {status}, {DateTime.Now.ToString("dd.MM.yyyy. u hh:mm:ss")}\n");
             File.AppendAllText($"{LogFajlOpsti}", $"\n");
         }
+
+        /// <summary>
+        /// Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
+        /// </summary>
+        /// <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
+        /// <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
+        /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
+        /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+        /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
+        /// 
+        /// <example>
+        /// <code>
+        /// DateTime pocetak = DateTime.Now;    
+        /// int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
+        /// Console.WriteLine($"ID unetog zapisa: {id}");
+        /// </code>
+        /// </example>
+        public static int UnesiPocetakTestiranja1(DateTime pocetakTestiranja, string nazivNamespace)
+        {
+
+            string insertCommand = $"INSERT INTO tblSumarniIzvestajTestiranja (pocetakTestiranja, Okruzenje ) " +
+                                   $"VALUES (@pocetakTestiranja, @nazivNamespace)";
+
+            int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
+
+            using (OleDbConnection connection = new(KonekcijaLogovi))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using OleDbCommand command = new(insertCommand, connection);
+                    command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
+                    command.Parameters.AddWithValue("@nazivNamespace", nazivNamespace);
+                    int rowsAffected = command.ExecuteNonQuery();
+                    Console.WriteLine($"{rowsAffected} red je uspešno unet u tabelu tblSumarniIzvestajTestiranja.");
+
+                    using (OleDbCommand getIdCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+                    {
+                        object? result = getIdCommand.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            newRecordId = Convert.ToInt32(result);
+                        }
+                    }
+                    Console.WriteLine($"Novi ID unetog zapisa (redni broj testiranja) je: {newRecordId}");
+                }
+                catch (OleDbException ex)
+                {
+                    Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
+                    LogError($"❌ Greška prilikom upisa u bazu: {ex.Message}");
+                    throw; // Ponovo baca grešku, da NUnit zna da je test neuspešan
+                }
+                finally
+                {
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return newRecordId;
+        }
+
+        /// <summary>
+        /// Unosi se rezultat svih testiranja u bazu podataka.
+        /// </summary>  
+        /// <param name="newRecordId">ID testiranja (redni broj testiranja).</param>
+        /// <param name="paliTestovi">Broj testova koji su pali.</param>        
+        /// <param name="prosliTestovi">Broj testova koji su prošli.</param>
+        /// <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
+        /// <param name="UkupnoTestova">Ukupan broj testova.</param>
+        /// <param name="krajTestiranja">Vreme završetka testiranja.</param>    
+        /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
+        /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
+        /// <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
+        public static void UnesiRezultatTestiranja2(int newRecordId, int paliTestovi, int prosliTestovi, int preskoceniTestovi, int UkupnoTestova, DateTime krajTestiranja)
+        {
+            string updateCommand = $"UPDATE tblSumarniIzvestajTestiranja SET " +
+                                   $"failedTests = @failedTests, " +
+                                   $"passTests = @passTests, " +
+                                   $"skippedTests = @skippedTests, " +
+                                   $"ukupnoTests = @ukupnoTests, " +
+                                   $"krajTestiranja = @krajTestiranja " +
+                                   $"WHERE IDTestiranja = @IDTestiranja;";
+
+            using OleDbConnection connection = new(KonekcijaLogovi);
+            try
+            {
+                connection.Open();
+
+                using OleDbCommand command = new(updateCommand, connection);
+                command.Parameters.AddWithValue("@failedTests", paliTestovi);
+                command.Parameters.AddWithValue("@passTests", prosliTestovi);
+                command.Parameters.AddWithValue("@skippedTests", preskoceniTestovi);
+                command.Parameters.AddWithValue("@ukupnoTests", UkupnoTestova);
+                command.Parameters.AddWithValue("@krajTestiranja", krajTestiranja);
+                command.Parameters.AddWithValue("@IDTestiranja", newRecordId);
+                int rowsAffected = command.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} red je uspešno unet.");
+            }
+            catch (OleDbException ex)
+            {
+                Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+
 
     }
 

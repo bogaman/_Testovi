@@ -6,7 +6,31 @@ namespace Produkcija
     [TestFixture]
     public partial class OsiguranjeVozila : Osiguranje
     {
+        [Test]
+        public async Task TestSaKorisnicimaIzAccessBaze()
+        {
+            //Simulacija asinhronog rada
+            await Task.Delay(1);
 
+            //var putanjaDoBaze = LogovanjeTesta.PutanjaDoBaze;
+            var korisnici = KorisnikLoader2.UcitajKorisnikeIzAccessBaze(LogovanjeTesta.PutanjaDoBaze);
+
+            var korisnik1 = korisnici.ElementAtOrDefault(0);
+            var korisnik2 = korisnici.ElementAtOrDefault(1);
+            var korisnik3 = korisnici.ElementAtOrDefault(2);
+
+            Console.WriteLine($"K1: {korisnik1?.Ime} - {korisnik1?.SaradnickaSifra1}");
+            Console.WriteLine($"K2: {korisnik2?.Ime} - {korisnik2?.SaradnickaSifra1}");
+            Console.WriteLine($"K3: {korisnik3?.Ime} - {korisnik3?.SaradnickaSifra1}");
+
+            if (NacinPokretanjaTesta == "ručno")
+            {
+                System.Windows.MessageBox.Show($"K1: {korisnik1?.Ime} - {korisnik1?.SaradnickaSifra1}\n" +
+                                               $"K2: {korisnik2?.Ime} - {korisnik2?.SaradnickaSifra1}\n" +
+                                               $"K3: {korisnik3?.Ime} - {korisnik3?.SaradnickaSifra1}.\n",
+                                               "Poruka o korisnicima", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
         //private static string NacinPokretanjaTesta = Environment.GetEnvironmentVariable("BASE_URL") ?? "ručno";
         //private static string logFilePath = "C:/_Projekti/AutoMotoSavezSrbije/Logovi/test_log.txt";
         //private static string logFilePath = Path.Combine("C:/_Projekti/AutoMotoSavezSrbije/Logovi/", "test_log.txt");

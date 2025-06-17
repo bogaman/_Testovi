@@ -87,7 +87,7 @@ namespace UAT
                                                                                                                                         //public static string projektDir = Path.GetFullPath(Path.Combine(RadniFolder, @"..\..\.."));
                                                                                                                                         //public static string logFolder = Path.Combine(ProjektFolder, "Logovi");
                                                                                                                                         //public static string logFolder2 = Path.GetFullPath(Path.Combine(ProjektFolder, "Logovi"));
-
+        public static string OsnovniFolder { get; set; } = Directory.GetParent(ProjektFolder)!.FullName;  // Ide 1 nivo gore
         //public static string logFajlOpsti = Path.Combine(logFolder, "logOpsti.txt");
         //public static string logFajlSumarni = logFolder + "\\logSumarni.txt";
 
@@ -349,8 +349,8 @@ namespace UAT
         public string Uloga { get; set; } = "";
         public string Ime { get; set; } = "";
         public string Prezime { get; set; } = "";
-        public string Email { get; set; } = "";
         public string Email1 { get; set; } = "";
+        public string Email2 { get; set; } = "";
         public string KorisnickoIme { get; set; } = "";
         public string Lozinka1 { get; set; } = "";
         public string Lozinka2 { get; set; } = "";
@@ -359,6 +359,8 @@ namespace UAT
         public string IdLica { get; set; } = "";
         public string SaradnickaSifra1 { get; set; } = "";
         public string SaradnickaSifra2 { get; set; } = "";
+        public string Saradnik1 { get; set; } = "";
+        public string Saradnik2 { get; set; } = "";
 
     }
 
@@ -401,6 +403,50 @@ namespace UAT
             }
         }
     }
+
+    public static class KorisnikLoader2
+    {
+        public static List<Korisnik> UcitajKorisnikeIzAccessBaze(string putanjaDoBaze, string imeTabele = "tblKorisnici")
+        {
+            var korisnici = new List<Korisnik>();
+            string konekcioniString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={putanjaDoBaze};Persist Security Info=False;";
+
+            using var konekcija = new OleDbConnection(konekcioniString);
+            konekcija.Open();
+
+            string upit = $"SELECT * FROM {imeTabele}";
+            using var komanda = new OleDbCommand(upit, konekcija);
+            using var reader = komanda.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var korisnik = new Korisnik
+                {
+                    Uloga = reader["Uloga"]?.ToString() ?? string.Empty,
+                    Ime = reader["Ime"]?.ToString() ?? string.Empty,
+                    Prezime = reader["Prezime"]?.ToString() ?? string.Empty,
+                    Email1 = reader["Email1"]?.ToString() ?? string.Empty,
+                    Email2 = reader["Email2"]?.ToString() ?? string.Empty,
+                    KorisnickoIme = reader["KorisnickoIme"]?.ToString() ?? string.Empty,
+                    Lozinka1 = reader["Lozinka1"]?.ToString() ?? string.Empty,
+                    Lozinka2 = reader["Lozinka2"]?.ToString() ?? string.Empty,
+                    Sertifikat = reader["Sertifikat"]?.ToString() ?? string.Empty,
+                    Pin = reader["Pin"]?.ToString() ?? string.Empty,
+                    IdLica = reader["IdLica"]?.ToString() ?? string.Empty,
+                    SaradnickaSifra1 = reader["SaradnickaSifra1"]?.ToString() ?? string.Empty,
+                    SaradnickaSifra2 = reader["SaradnickaSifra2"]?.ToString() ?? string.Empty,
+                    Saradnik1 = reader["Saradnik1"]?.ToString() ?? string.Empty,
+                    Saradnik2 = reader["Saradnik2"]?.ToString() ?? string.Empty
+                };
+                korisnici.Add(korisnik);
+            }
+
+            return korisnici;
+        }
+    }
+
+
+
     /*
                 public static Korisnik VratiKorisnika(string nacinPokretanja, string nazivTesta)
                 {
