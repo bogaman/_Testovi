@@ -1,4 +1,4 @@
-global using OsnovniParametri;
+//global using OsnovniParametri;
 
 global using System;
 global using System.Data.OleDb;
