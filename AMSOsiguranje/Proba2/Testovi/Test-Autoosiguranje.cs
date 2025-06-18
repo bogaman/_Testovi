@@ -3261,12 +3261,15 @@ namespace Proba2
                 await _page.Locator("#grid_zahtevi_za_izmenu").GetByText(brojZahteva).First.ClickAsync();
                 //await _page.GetByText(brojZahteva).ClickAsync();
                 await _page.Locator("#pregled-zahteva-naslov").GetByText(brojDokumenta).ClickAsync();
+                await _page.PauseAsync();
                 //proveri URL 
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}/{brojZahteva}");
-                await _page.GetByText($"Unos novog zahteva za izmenu podataka Detalji zahteva za izmenu podataka {brojZahteva}").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
-                await _page.GetByText("Pregled / Pretraga zahteva za").ClickAsync();
+                //await _page.GetByText($"Unos novog zahteva za izmenu podataka Detalji zahteva za izmenu podataka {brojZahteva}").ClickAsync();
+
+                //await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).First.ClickAsync();
+                await _page.GetByText("Pregled / Pretraga zahteva za izmenom polisa").ClickAsync();
 
 
 
@@ -3330,8 +3333,8 @@ namespace Proba2
                 await _page.GotoAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/" + BrojDokumenta);
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{BrojDokumenta}");
                 await _page.PauseAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).Nth(1).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).First.ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Novi zahtev za izmenu" }).ClickAsync();
                 await _page.GetByText("Da li ste sigurni da želite").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
@@ -3365,8 +3368,9 @@ namespace Proba2
                 //await _page.GetByText("Menjam opšte podatke").ClickAsync();
                 //await _page.Locator("#grid_zahtevi_za_izmenu").GetByText("2321").ClickAsync();
                 //await _page.Locator($"column column_1 txt-center").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).First.ClickAsync();
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     System.Windows.MessageBox.Show("Proveri da li je i kome otišao mejl", "Info", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -3440,7 +3444,8 @@ namespace Proba2
                 await _page.Locator(".pregled-zahteva-gore").ClickAsync();
                 await _page.Locator("#grid_zahtevi_za_izmenu button").First.ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).First.ClickAsync();
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await _page.Locator("a").Filter(new() { HasText = "Odogovoreno na zahtev za" }).First.ClickAsync();
                 await _page.Locator(".btnArhiviraj > .left").First.ClickAsync();

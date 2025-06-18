@@ -4,147 +4,6 @@
         <name>Proba2</name>
     </assembly>
     <members>
-        <member name="M:Proba2.Alati.ObrisiTxtFajlove(System.String)">
-            <summary>
-            Briše sve .txt fajlove u zadatom folderu.
-            </summary>
-            <param name="folderPath">Putanja do foldera</param>
-        </member>
-        <member name="P:Proba2.LogovanjeTesta.IDTestiranja">
-            <summary>
-            ID testiranja, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Proba2.LogovanjeTesta.IDTestiranja1">
-            <summary>
-            ID testiranja, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Proba2.LogovanjeTesta.IDTesta">
-            <summary>
-            ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Proba2.LogovanjeTesta.PocetakTestiranja">
-            <summary>
-            Zadaje se vreme početka svih testiranja.
-            </summary>
-        </member>
-        <member name="P:Proba2.LogovanjeTesta.KrajTestiranja">
-            <summary>
-            Zadaje se vreme završetka svih testiranja.
-            </summary>
-        </member>
-        <member name="P:Proba2.LogovanjeTesta.PocetakTesta">
-            <summary>
-             Vreme kada je pokrenut pojedinačni test.
-             </summary>
-            <remarks>Ovo vreme se koristi za praćenje trajanja pojedinačnih testova.</remarks>
-        </member>
-        <member name="P:Proba2.LogovanjeTesta.KrajTesta">
-            <summary>
-            Vreme kada je pojedinačni test završen. 
-            <para>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</para>
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja(System.DateTime)">
-            <summary>
-            Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
-            </summary>
-            <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
-            <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
-            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
-            <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
-            
-            <example>
-            <code>
-            DateTime pocetak = DateTime.Now;    
-            int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
-            Console.WriteLine($"ID unetog zapisa: {id}");
-            </code>
-            </example>
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTesta(System.Int32,System.String,System.DateTime)">
-            <summary>
-            Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
-            </summary>
-            <param name="IDTestiranja">ID testiranja (redni broj testiranja).</param>
-            <param name="NazivTekucegTesta">Naziv trenutnog testa.</param>
-            <param name="pocetakTesta">Vreme početka testa.</param> 
-            <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
-            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
-            <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTesta1(System.Int32,System.String,System.DateTime)">
-            <summary>
-            Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
-            </summary>
-            <param name="IDTestiranja">ID testiranja (redni broj testiranja).</param>
-            <param name="NazivTekucegTesta">Naziv trenutnog testa.</param>
-            <param name="pocetakTesta">Vreme početka testa.</param> 
-            <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
-            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
-            <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.UnesiRezultatTestiranja(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime)">
-            <summary>
-            Unosi se rezultat svih testiranja u bazu podataka.
-            </summary>  
-            <param name="newRecordId">ID testiranja (redni broj testiranja).</param>
-            <param name="paliTestovi">Broj testova koji su pali.</param>        
-            <param name="prosliTestovi">Broj testova koji su prošli.</param>
-            <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
-            <param name="UkupnoTestova">Ukupan broj testova.</param>
-            <param name="krajTestiranja">Vreme završetka testiranja.</param>    
-            <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
-            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
-            <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.LogError(System.String)">
-            <summary>
-            
-            </summary>
-            <param name="errorMessage"></param>
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.FormirajSumarniIzvestaj">
-            Metoda za kreiranje sumarnog izveštaja, poziva se iz OneTimeTearDown()
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja1(System.DateTime,System.String)">
-            <summary>
-            Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
-            </summary>
-            <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
-            <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
-            <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
-            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
-            <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
-            
-            <example>
-            <code>
-            DateTime pocetak = DateTime.Now;    
-            int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
-            Console.WriteLine($"ID unetog zapisa: {id}");
-            </code>
-            </example>
-        </member>
-        <member name="M:Proba2.LogovanjeTesta.UnesiRezultatTestiranja2(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime)">
-            <summary>
-            Unosi se rezultat svih testiranja u bazu podataka.
-            </summary>  
-            <param name="newRecordId">ID testiranja (redni broj testiranja).</param>
-            <param name="paliTestovi">Broj testova koji su pali.</param>        
-            <param name="prosliTestovi">Broj testova koji su prošli.</param>
-            <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
-            <param name="UkupnoTestova">Ukupan broj testova.</param>
-            <param name="krajTestiranja">Vreme završetka testiranja.</param>    
-            <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
-            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
-            <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
-        </member>
         <member name="M:Proba2.OsiguranjeVozila.UlogujSe_3(Microsoft.Playwright.IPage,System.String,System.String)">
             <summary>
             Uloguj se koristeći korisničko ime i lozinku.
@@ -285,6 +144,147 @@
             <returns>Ne vraća vrednost</returns>
             <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
+        </member>
+        <member name="M:Proba2.Alati.ObrisiTxtFajlove(System.String)">
+            <summary>
+            Briše sve .txt fajlove u zadatom folderu.
+            </summary>
+            <param name="folderPath">Putanja do foldera</param>
+        </member>
+        <member name="P:Proba2.LogovanjeTesta.IDTestiranja">
+            <summary>
+            ID testiranja, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Proba2.LogovanjeTesta.IDTestiranja1">
+            <summary>
+            ID testiranja, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Proba2.LogovanjeTesta.IDTesta">
+            <summary>
+            ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Proba2.LogovanjeTesta.PocetakTestiranja">
+            <summary>
+            Zadaje se vreme početka svih testiranja.
+            </summary>
+        </member>
+        <member name="P:Proba2.LogovanjeTesta.KrajTestiranja">
+            <summary>
+            Zadaje se vreme završetka svih testiranja.
+            </summary>
+        </member>
+        <member name="P:Proba2.LogovanjeTesta.PocetakTesta">
+            <summary>
+             Vreme kada je pokrenut pojedinačni test.
+             </summary>
+            <remarks>Ovo vreme se koristi za praćenje trajanja pojedinačnih testova.</remarks>
+        </member>
+        <member name="P:Proba2.LogovanjeTesta.KrajTesta">
+            <summary>
+            Vreme kada je pojedinačni test završen. 
+            <para>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</para>
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja(System.DateTime)">
+            <summary>
+            Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
+            </summary>
+            <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
+            <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
+            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+            <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
+            
+            <example>
+            <code>
+            DateTime pocetak = DateTime.Now;    
+            int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
+            Console.WriteLine($"ID unetog zapisa: {id}");
+            </code>
+            </example>
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTesta(System.Int32,System.String,System.DateTime)">
+            <summary>
+            Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
+            </summary>
+            <param name="IDTestiranja">ID testiranja (redni broj testiranja).</param>
+            <param name="NazivTekucegTesta">Naziv trenutnog testa.</param>
+            <param name="pocetakTesta">Vreme početka testa.</param> 
+            <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
+            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+            <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTesta1(System.Int32,System.String,System.DateTime)">
+            <summary>
+            Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
+            </summary>
+            <param name="IDTestiranja">ID testiranja (redni broj testiranja).</param>
+            <param name="NazivTekucegTesta">Naziv trenutnog testa.</param>
+            <param name="pocetakTesta">Vreme početka testa.</param> 
+            <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
+            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+            <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.UnesiRezultatTestiranja(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            Unosi se rezultat svih testiranja u bazu podataka.
+            </summary>  
+            <param name="newRecordId">ID testiranja (redni broj testiranja).</param>
+            <param name="paliTestovi">Broj testova koji su pali.</param>        
+            <param name="prosliTestovi">Broj testova koji su prošli.</param>
+            <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
+            <param name="UkupnoTestova">Ukupan broj testova.</param>
+            <param name="krajTestiranja">Vreme završetka testiranja.</param>    
+            <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
+            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
+            <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.LogError(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="errorMessage"></param>
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.FormirajSumarniIzvestaj">
+            Metoda za kreiranje sumarnog izveštaja, poziva se iz OneTimeTearDown()
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja1(System.DateTime,System.String)">
+            <summary>
+            Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
+            </summary>
+            <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
+            <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
+            <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
+            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+            <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
+            
+            <example>
+            <code>
+            DateTime pocetak = DateTime.Now;    
+            int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
+            Console.WriteLine($"ID unetog zapisa: {id}");
+            </code>
+            </example>
+        </member>
+        <member name="M:Proba2.LogovanjeTesta.UnesiRezultatTestiranja2(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            Unosi se rezultat svih testiranja u bazu podataka.
+            </summary>  
+            <param name="newRecordId">ID testiranja (redni broj testiranja).</param>
+            <param name="paliTestovi">Broj testova koji su pali.</param>        
+            <param name="prosliTestovi">Broj testova koji su prošli.</param>
+            <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
+            <param name="UkupnoTestova">Ukupan broj testova.</param>
+            <param name="krajTestiranja">Vreme završetka testiranja.</param>    
+            <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
+            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
+            <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
         </member>
         <member name="T:Proba2.Korisnik">
             <summary>
