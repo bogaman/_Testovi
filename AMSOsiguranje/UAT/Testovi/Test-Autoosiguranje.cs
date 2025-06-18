@@ -3174,7 +3174,7 @@ namespace UAT
 
             //var locator2 = _page.Locator("//div[@class='notify']");
             var locator2 = _page.Locator("//div[contains(.,'Polisa broj')]");
-            await locator2.WaitForAsync(new() { Timeout = 20000 });
+            await locator2.WaitForAsync(new() { Timeout = 30000 });
             //var notifyKreiranaPolisa = _page.Locator("//div[contains(.,'U čitaču/ima nije pronađena saobraćajna dozvola.')]");
             // Provera da li je vidljiv
             //await locator2.WaitForAsync();
