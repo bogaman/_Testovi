@@ -6,31 +6,7 @@ namespace Proba2
     [TestFixture]
     public partial class OsiguranjeVozila : Osiguranje
     {
-        [Test]
-        public async Task TestSaKorisnicimaIzAccessBaze()
-        {
-            //Simulacija asinhronog rada
-            await Task.Delay(1);
 
-            //var putanjaDoBaze = LogovanjeTesta.PutanjaDoBaze;
-            var korisnici = KorisnikLoader2.UcitajKorisnikeIzAccessBaze(LogovanjeTesta.PutanjaDoBaze);
-
-            var korisnik1 = korisnici.ElementAtOrDefault(0);
-            var korisnik2 = korisnici.ElementAtOrDefault(1);
-            var korisnik3 = korisnici.ElementAtOrDefault(2);
-
-            Console.WriteLine($"K1: {korisnik1?.Ime} - {korisnik1?.SaradnickaSifra1}");
-            Console.WriteLine($"K2: {korisnik2?.Ime} - {korisnik2?.SaradnickaSifra1}");
-            Console.WriteLine($"K3: {korisnik3?.Ime} - {korisnik3?.SaradnickaSifra1}");
-
-            if (NacinPokretanjaTesta == "ručno")
-            {
-                System.Windows.MessageBox.Show($"K1: {korisnik1?.Ime} - {korisnik1?.SaradnickaSifra1}\n" +
-                                               $"K2: {korisnik2?.Ime} - {korisnik2?.SaradnickaSifra1}\n" +
-                                               $"K3: {korisnik3?.Ime} - {korisnik3?.SaradnickaSifra1}.\n",
-                                               "Poruka o korisnicima", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
         //private static string NacinPokretanjaTesta = Environment.GetEnvironmentVariable("BASE_URL") ?? "ručno";
         //private static string logFilePath = "C:/_Projekti/AutoMotoSavezSrbije/Logovi/test_log.txt";
         //private static string logFilePath = Path.Combine("C:/_Projekti/AutoMotoSavezSrbije/Logovi/", "test_log.txt");
@@ -114,10 +90,10 @@ namespace Proba2
 
 
 
-            await Pauziraj(_page!);
+            //await Pauziraj(_page!);
             if (_page == null)
                 throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
-            await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+            await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
             await Pauziraj(_page);
             //await UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);
             //await UlogujSe_2(_page, "Agent");
@@ -1026,7 +1002,8 @@ namespace Proba2
 
             try
             {
-                await UlogujSe_3(_page!, BOkorisnickoIme, BOlozinka);
+                await _page!.PauseAsync();
+                await UlogujSe_3(_page!, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -1181,7 +1158,7 @@ namespace Proba2
         {
             try
             {
-                await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -1366,7 +1343,7 @@ namespace Proba2
 
             try
             {
-                await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.GetByText("Osiguranje vozila").HoverAsync(); //Pređi mišem preko teksta Osiguranje vozila
                 await _page!.GetByText("Osiguranje vozila").ClickAsync(); //Klikni na tekst Osiguranje vozila
@@ -1715,7 +1692,7 @@ namespace Proba2
                 // Prijavljuje se agent
                 //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "Agent", RucnaUloga);
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 await _page.Locator(".ico-ams-logo").ClickAsync();
@@ -1758,7 +1735,7 @@ namespace Proba2
                 // Prijavljuje se BackOffice
                 //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "BackOffice", RucnaUloga);
-                await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1800,7 +1777,7 @@ namespace Proba2
                 // Prijavljuje se agent
                 //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "Agent", RucnaUloga);
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
 
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
@@ -1841,7 +1818,7 @@ namespace Proba2
                 //await _page.PauseAsync();
                 //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "BackOffice", RucnaUloga);
-                await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
 
@@ -2089,7 +2066,7 @@ namespace Proba2
         [TestCaseSource(nameof(ProcitajPodatkeZaPolisuAutoodgovornost))]
         public async Task AO_4_Polisa(string _rb, string _tipPolise, string _premijskaGrupa, string _popusti, string _tipUgovaraca, string _tipLica1, string _tipLica2, string _brojDana, string _tegljac, string _podgrupa, string _zapremina, string _snaga, string _nosivost, string _brojMesta, string _oslobodjenPoreza, string _mb1, string _mb2, string _pib1, string _pib2, string _platilac1, string _platilac2)
         {
-            await UlogujSe_3(_page!, AkorisnickoIme, Alozinka);
+            await UlogujSe_3(_page!, AkorisnickoIme_, Alozinka_);
             await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
             await _page!.Locator(".ico-ams-logo").ClickAsync();
             await ProveriURL(_page, PocetnaStrana, "/Dashboard");
@@ -2152,11 +2129,11 @@ namespace Proba2
 
             string Lokacija = "(11)";//"(7,8)";
 
-            if (AkorisnickoIme == "bogdan.mandaric@eonsystem.com")
+            if (AkorisnickoIme_ == "bogdan.mandaric@eonsystem.com")
             {
                 Lokacija = "(7,8)";
             }
-            else if (AkorisnickoIme == "mario.radomir@eonsystem.com")
+            else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com")
             {
                 Lokacija = "(11)";
             }
@@ -3202,7 +3179,7 @@ namespace Proba2
             await _page!.PauseAsync();
             try
             {
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //Otvori Autoodgovornost
@@ -3493,7 +3470,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
@@ -3669,7 +3646,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
@@ -3934,7 +3911,7 @@ namespace Proba2
 
             try
             {
-                await UlogujSe_3(_page!, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page!, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -4089,7 +4066,7 @@ namespace Proba2
         {
             try
             {
-                await UlogujSe_3(_page!, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page!, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -4258,7 +4235,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page!, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page!, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -4493,7 +4470,7 @@ namespace Proba2
                 //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
                 //await _page.Locator("a").First.ClickAsync();
                 //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.PauseAsync();
                 // Sačekaj na URL posle logovanja
@@ -4534,7 +4511,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page!, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page!, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -4785,7 +4762,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page!, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page!, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -4942,7 +4919,7 @@ namespace Proba2
             {
 
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page!, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page!, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -5188,7 +5165,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -5360,7 +5337,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await NovaPolisa(_page, "Nova polisa JS");
@@ -5908,7 +5885,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page!.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
@@ -6062,7 +6039,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -6232,7 +6209,7 @@ namespace Proba2
         {
             //await _page.PauseAsync();
             await _page!.PauseAsync();
-            await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+            await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
             await ProveriURL(_page, PocetnaStrana, "/Dashboard");
             // Pređi mišem preko teksta Osiguranje vozila
             //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -6471,7 +6448,7 @@ namespace Proba2
             try
             {
                 await _page!.PauseAsync();
-                await UlogujSe_3(_page, AkorisnickoIme, Alozinka);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page!.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
@@ -6623,7 +6600,7 @@ namespace Proba2
         public async Task BO_1_PutnoZdravstvenoOsiguranje()
         {
             await _page!.PauseAsync();
-            await UlogujSe_3(_page, BOkorisnickoIme, BOlozinka);
+            await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
             await ProveriURL(_page, PocetnaStrana, "/Dashboard");
             // Pređi mišem preko teksta Putno zdravstveno
             //await _page!.GetByText("Putno zdravstveno  osiguranje").HoverAsync();

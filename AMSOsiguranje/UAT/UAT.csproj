@@ -6,7 +6,8 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DocumentationFile>Logovi\DokumentacijaKoda.XML</DocumentationFile>
+    <!--<DocumentationFile>Logovi\DokumentacijaKoda.XML</DocumentationFile>-->
+    <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn> <!-- da ne prijavljuje warning za nedokumentovane članove -->
   </PropertyGroup>
   <ItemGroup>

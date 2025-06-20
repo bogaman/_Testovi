@@ -9,7 +9,10 @@ namespace Razvoj
         public IPage? _page;
         public IPlaywright? _playwright;
 
-
+        public string BOkorisnickoIme_ = string.Empty;
+        public string BOlozinka_ = string.Empty;
+        public string AkorisnickoIme_ = string.Empty;
+        public string Alozinka_ = string.Empty;
 
         #region OnTimeSetUp
         //Metoda koja se pokreće samo jednom na početku testiranja
@@ -26,19 +29,14 @@ namespace Razvoj
 
             if (NacinPokretanjaTesta == "ručno")
             {
-                System.Windows.MessageBox.Show($"Okruženje:: {NazivNamespace}.\n" +
-                                               $"URL:: {PocetnaStrana}.\n\n" +
-                                               $"Osnovna Uloga:: {OsnovnaUloga}.\n" +
-                                               $"Test:: {NazivTekucegTesta}.\n" +
-                                               $"Korisnik:: {KorisnikIme}.\n" +
-                                               $"Mejl:: {KorisnikMejl}.\n" +
-                                               $"Lozinka:: {KorisnikPassword}.", "Poruka u OneTimeSetUp", MessageBoxButton.OK, MessageBoxImage.Information);
+                System.Windows.MessageBox.Show($"Okruženje:: {NazivNamespace}.\n",
+                                                "Poruka u OneTimeSetUp",
+                                                MessageBoxButton.OK,
+                                                MessageBoxImage.Information);
             }
 
             //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
-            LogovanjeTesta.IDTestiranja = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja);
-            //Unosi se u bazu vreme početka testiranja i okruženje i uzima IDtestiranja
-            LogovanjeTesta.IDTestiranja1 = LogovanjeTesta.UnesiPocetakTestiranja1(LogovanjeTesta.PocetakTestiranja, NazivNamespace);
+            LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranjaSQL(LogovanjeTesta.PocetakTestiranja, NazivNamespace);
 
             // Ovo se upisuje u fajl logTrace.txt
             LogovanjeTesta.LogMessage("-----------------------------------------", false);
@@ -60,9 +58,11 @@ namespace Razvoj
             LogovanjeTesta.PocetakTesta = DateTime.Now;
             // Odredi naziv trenutnog testa
             NazivTekucegTesta = TestContext.CurrentContext.Test.Name;
+
             // Upisivanje početka testa bazu i uzimanje IDTesta
-            LogovanjeTesta.IDTesta = LogovanjeTesta.UnesiPocetakTesta(LogovanjeTesta.IDTestiranja, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
-            LogovanjeTesta.IDTesta1 = LogovanjeTesta.UnesiPocetakTesta1(LogovanjeTesta.IDTestiranja1, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
+
+
+            LogovanjeTesta.IDTestaSQL = LogovanjeTesta.UnesiPocetakTestaSQL(LogovanjeTesta.IDTestiranje, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
 
             LogovanjeTesta.LogMessage($"[{LogovanjeTesta.PocetakTesta:dd.MM.yyyy. HH:mm:ss}] pokrenut je test: {NazivTekucegTesta}", false);
 
@@ -147,7 +147,7 @@ namespace Razvoj
             }
             else if (nazivKlase == "OsiguranjeVozila")
             {
-
+                /******************************************************
                 var ucitaniKorisnici = KorisnikLoader.UcitajKorisnike();
                 Console.WriteLine("Učitani korisnici:");
                 foreach (var korisnik in ucitaniKorisnici)
@@ -198,7 +198,7 @@ namespace Razvoj
                 }
                 else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Mario")
                 {
-                    // Ako je ručno pokretanje testa, koristi korisnika Mariv
+                    // Ako je ručno pokretanje testa, koristi korisnika Mario
                     KorisnikA = KorisnikLoader.Korisnik3;
                 }
 
@@ -241,8 +241,8 @@ namespace Razvoj
                 {
                     System.Windows.MessageBox.Show($"Okruženje:: {Okruzenje}.\n" +
                                                    $"URL:: {PocetnaStrana}.\n\n" +
-                                                   $"Osnovna Uloga:: {OsnovnaUloga}.\n",
-                                                   $"Test:: {NazivTekucegTesta}", MessageBoxButton.OK, MessageBoxImage.Information);
+                                                   $"Osnovna Uloga:: {OsnovnaUloga}.\n" +
+                                                   $"Test:: {NazivTekucegTesta}", "Poruka u SetUp", MessageBoxButton.OK, MessageBoxImage.Information);
                     //$"Korisnik:: {KorisnikIme}.\n" +
                     //$"Mejl:: {KorisnikMejl}.\n" +
                     //$"Lozinka:: {KorisnikPassword}
@@ -258,20 +258,107 @@ namespace Razvoj
                 //await _page.PauseAsync(); // Pauza za ručno proveravanje da li je korisnik uspešno ulogovan
                 //await OsiguranjeVozila.UlogujSe(_page, KorisnikMejl, KorisnikPassword);
                 //await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                ****************************************/
+                /*************************************************************************
+                var korisnici_ = KorisnikLoader2.UcitajKorisnikeIzAccessBaze();
+                //var korisnik1 = korisnici.ElementAtOrDefault(0);
+                //var korisnik2 = korisnici.ElementAtOrDefault(1);
+                //var korisnik3 = korisnici.ElementAtOrDefault(2);
 
-                var korisnici = KorisnikLoader2.UcitajKorisnikeIzAccessBaze(LogovanjeTesta.PutanjaDoBaze);
+                var BOkorisnik_ = korisnici_.ElementAtOrDefault(0);
+                string BOkorisnickoIme_ = BOkorisnik_?.KorisnickoIme ?? string.Empty;
+                string BOlozinka_ = BOkorisnik_?.Lozinka1 ?? string.Empty;
+                if (Prostor == "Produkcija")
+                {
+                    // Ako je radno okruženje produkcija, koristi korisnika 1
+                    BOlozinka_ = BOkorisnik_?.Lozinka2 ?? string.Empty;
+                }
 
-                var korisnik1 = korisnici.ElementAtOrDefault(0);
-                var korisnik2 = korisnici.ElementAtOrDefault(1);
-                var korisnik3 = korisnici.ElementAtOrDefault(2);
-                System.Windows.MessageBox.Show($"aaaaaaaaaaaaaaaaK1: {korisnik1?.Ime}\n" +
-                                               $"{korisnik1?.SaradnickaSifra1}\n\n",
-                                                "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
+                var Akorisnik_ = korisnici_.ElementAtOrDefault(2); //Agent je Mario
 
+                if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Bogdan")
+                {
+                    //Ako je ručno pokretanje testa, koristi korisnika Bogdan
+                    Akorisnik_ = korisnici_.ElementAtOrDefault(1);
+                }
+                else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Mario")
+                {
+                    //Ako je ručno pokretanje testa, koristi korisnika Mario
+                    Akorisnik_ = korisnici_.ElementAtOrDefault(2);
+
+                }
+                AkorisnickoIme_ = Akorisnik_?.KorisnickoIme ?? string.Empty;
+                Alozinka_ = Akorisnik_?.Lozinka1 ?? string.Empty;
+
+                System.Windows.MessageBox.Show($"Korisnik Back Office: {BOkorisnik_?.Ime}\n" +
+                                               $"Korisnik Back Office: {BOkorisnickoIme_}, Lozinka: {BOlozinka_}\n" +
+                                               $"Agent je {Akorisnik_?.Email1}\n\n" +
+                                               $"Korisnik Agent: {AkorisnickoIme_}, Lozinka: {Alozinka_}\n" +
+                                               $"Saradnik: {Akorisnik_?.Saradnik1}\n",
+                                               $"Ko će se logovati", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Proveri da li je korisnik učitan
+                if (BOkorisnik_ == null || Akorisnik_ == null)
+                {
+                    throw new Exception("Korisnici nisu učitani iz Access baze.");
+                }
+                *****************************************************************************/
+                var korisnici_ = KorisnikLoader2.UcitajKorisnikeIzSQLBaze();
+                //var korisnik1 = korisnici.ElementAtOrDefault(0);
+                //var korisnik2 = korisnici.ElementAtOrDefault(1);
+                //var korisnik3 = korisnici.ElementAtOrDefault(2);
+
+                var BOkorisnik_ = korisnici_.ElementAtOrDefault(0);
+                BOkorisnickoIme_ = BOkorisnik_?.KorisnickoIme ?? string.Empty;
+                BOlozinka_ = BOkorisnik_?.Lozinka1 ?? string.Empty;
+                if (Prostor == "Produkcija")
+                {
+                    // Ako je radno okruženje produkcija, koristi korisnika 1
+                    BOlozinka_ = BOkorisnik_?.Lozinka2 ?? string.Empty;
+                }
+
+                var Akorisnik_ = korisnici_.ElementAtOrDefault(2); //Agent je Mario
+
+                if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Bogdan")
+                {
+                    //Ako je ručno pokretanje testa, koristi korisnika Bogdan
+                    Akorisnik_ = korisnici_.ElementAtOrDefault(1);
+                }
+                else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Mario")
+                {
+                    //Ako je ručno pokretanje testa, koristi korisnika Mario
+                    Akorisnik_ = korisnici_.ElementAtOrDefault(2);
+
+                }
+                AkorisnickoIme_ = Akorisnik_?.KorisnickoIme ?? string.Empty;
+                Alozinka_ = Akorisnik_?.Lozinka1 ?? string.Empty;
+
+                System.Windows.MessageBox.Show($"Korisnik Back Office: {BOkorisnik_?.Ime}\n" +
+                                               $"Korisnik Back Office: {BOkorisnickoIme_}, Lozinka: {BOlozinka_}\n" +
+                                               $"Agent je {Akorisnik_?.Email1}\n\n" +
+                                               $"Korisnik Agent: {AkorisnickoIme_}, Lozinka: {Alozinka_}\n" +
+                                               $"Saradnik: {Akorisnik_?.Saradnik1}\n",
+                                               $"Ko će se logovati", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Proveri da li je korisnik učitan
+                if (BOkorisnik_ == null || Akorisnik_ == null)
+                {
+                    throw new Exception("Korisnici nisu učitani iz SQL baze.");
+                }
             }
             else
             {
                 PocetnaStrana = "";
+            }
+            if (NacinPokretanjaTesta == "ručno")
+            {
+                System.Windows.MessageBox.Show($"Okruženje:: {Okruzenje}.\n" +
+                                               $"URL:: {PocetnaStrana}.\n\n" +
+                                               $"Osnovna Uloga:: {OsnovnaUloga}.\n" +
+                                               $"Test:: {NazivTekucegTesta}", "Poruka u SetUp", MessageBoxButton.OK, MessageBoxImage.Information);
+                //$"Korisnik:: {KorisnikIme}.\n" +
+                //$"Mejl:: {KorisnikMejl}.\n" +
+                //$"Lozinka:: {KorisnikPassword}
             }
         }
 
@@ -291,9 +378,9 @@ namespace Razvoj
             string errorMessage = TestContext.CurrentContext.Result.Message ?? string.Empty;
             string stackTrace = TestContext.CurrentContext.Result.StackTrace ?? string.Empty;
             //string poruka = TestContext.CurrentContext.Result.
-            LogovanjeTesta.UnesiRezultatTesta(LogovanjeTesta.IDTesta, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace);
-            LogovanjeTesta.UnesiRezultatTesta1(LogovanjeTesta.IDTesta1, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace);
 
+            //LogovanjeTesta.UnesiRezultatTesta1(LogovanjeTesta.IDTesta1, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_);
+            LogovanjeTesta.UnesiRezultatTestaSQL(LogovanjeTesta.IDTestaSQL, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_);
             // Upisivanje opšteg rezultata testa u logOpsti.txt
             LogovanjeTesta.UnesiKrajTesta();
 
@@ -357,10 +444,10 @@ namespace Razvoj
             //Odreti koliko je trajalo testiranje
             TimeSpan trajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
             //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
-            LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranja, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+            //LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranja, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
             //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
-            LogovanjeTesta.UnesiRezultatTestiranja2(LogovanjeTesta.IDTestiranja1, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
-
+            //LogovanjeTesta.UnesiRezultatTestiranja2(LogovanjeTesta.IDTestiranja1, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+            LogovanjeTesta.UnesiRezultatTestiranjaSQL(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
 
             LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {(LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja).TotalSeconds} sekundi.", false);
             LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {trajanjeTestiranja} sekundi.", false);
