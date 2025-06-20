@@ -198,7 +198,7 @@
             </summary>
             <value></value>
         </member>
-        <member name="M:Produkcija.LogovanjeTesta.UnesiPocetakTestaSQL(System.Int32,System.String,System.DateTime)">
+        <member name="M:Produkcija.LogovanjeTesta.UnesiPocetakTesta(System.Int32,System.String,System.DateTime)">
             <summary>
             Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
             </summary>
@@ -209,7 +209,7 @@
             <exception cref="T:Microsoft.Data.SqlClient.SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
             <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
         </member>
-        <member name="M:Produkcija.LogovanjeTesta.UnesiRezultatTestaSQL(System.Int32,System.DateTime,NUnit.Framework.Interfaces.TestStatus,System.String,System.String,System.String)">
+        <member name="M:Produkcija.LogovanjeTesta.UnesiRezultatTestaSQL(System.Int32,System.DateTime,NUnit.Framework.Interfaces.TestStatus,System.String,System.String,System.String,System.String)">
             <summary>
             Unosi se rezultat svih testiranja u bazu podataka.
             </summary>  
@@ -219,6 +219,7 @@
             <param name="errorMessage">Poruka o grešci.</param>    
             <param name="stackTrace"></param>
             <param name="agent">Ko je testirao.</param>    
+            <param name="backOffice">Ko je testirao.</param> 
             <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli test.tReportIndividual.</returns>
             <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
@@ -246,12 +247,13 @@
             <exception cref="T:Microsoft.Data.SqlClient.SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
         </member>
-        <member name="M:Produkcija.LogovanjeTesta.UnesiPocetakTestiranjaSQL(System.DateTime,System.String)">
+        <member name="M:Produkcija.LogovanjeTesta.UnesiPocetakTestiranja(System.DateTime,System.String,System.String)">
             <summary>
             Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
             </summary>
             <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
             <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
+            <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
             <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
             <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
             <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>

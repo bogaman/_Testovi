@@ -29,14 +29,15 @@ namespace Produkcija
 
             if (NacinPokretanjaTesta == "ručno")
             {
-                System.Windows.MessageBox.Show($"Okruženje:: {NazivNamespace}.\n",
+                System.Windows.MessageBox.Show($"Okruženje:: {NazivNamespace}.\n" +
+                                                $"Način pokretanja:: {NacinPokretanjaTesta}",
                                                 "Poruka u OneTimeSetUp",
                                                 MessageBoxButton.OK,
                                                 MessageBoxImage.Information);
             }
 
             //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
-            LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranjaSQL(LogovanjeTesta.PocetakTestiranja, NazivNamespace);
+            LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta);
 
             // Ovo se upisuje u fajl logTrace.txt
             LogovanjeTesta.LogMessage("-----------------------------------------", false);
@@ -62,7 +63,7 @@ namespace Produkcija
             // Upisivanje početka testa bazu i uzimanje IDTesta
 
 
-            LogovanjeTesta.IDTestaSQL = LogovanjeTesta.UnesiPocetakTestaSQL(LogovanjeTesta.IDTestiranje, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
+            LogovanjeTesta.IDTestaSQL = LogovanjeTesta.UnesiPocetakTesta(LogovanjeTesta.IDTestiranje, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
 
             LogovanjeTesta.LogMessage($"[{LogovanjeTesta.PocetakTesta:dd.MM.yyyy. HH:mm:ss}] pokrenut je test: {NazivTekucegTesta}", false);
 
@@ -380,7 +381,9 @@ namespace Produkcija
             //string poruka = TestContext.CurrentContext.Result.
 
             //LogovanjeTesta.UnesiRezultatTesta1(LogovanjeTesta.IDTesta1, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_);
-            LogovanjeTesta.UnesiRezultatTestaSQL(LogovanjeTesta.IDTestaSQL, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_);
+            // Adjust the arguments below to match the correct overload of UnesiRezultatTestaSQL
+            // For example, if the method expects 6 arguments, remove one argument (e.g., BOkorisnickoIme_):
+            LogovanjeTesta.UnesiRezultatTestaSQL(LogovanjeTesta.IDTestaSQL, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_, BOkorisnickoIme_);
             // Upisivanje opšteg rezultata testa u logOpsti.txt
             LogovanjeTesta.UnesiKrajTesta();
 

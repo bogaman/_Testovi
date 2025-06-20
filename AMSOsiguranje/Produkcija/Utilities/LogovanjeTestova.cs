@@ -74,7 +74,7 @@ namespace Produkcija
         /// <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
         /// <exception cref="SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
-        public static int UnesiPocetakTestaSQL(int IDTestiranja, string NazivTekucegTesta, DateTime pocetakTesta)
+        public static int UnesiPocetakTesta(int IDTestiranja, string NazivTekucegTesta, DateTime pocetakTesta)
         {
             string insertCommand = @"INSERT INTO test.tReportIndividual (IDTestiranje, NazivTesta, PocetakTesta) 
                                      VALUES (@IDTestiranja, @nazivTekucegTesta, @pocetakTesta) 
@@ -126,6 +126,7 @@ namespace Produkcija
         /// <param name="errorMessage">Poruka o grešci.</param>    
         /// <param name="stackTrace"></param>
         /// <param name="agent">Ko je testirao.</param>    
+        /// <param name="backOffice">Ko je testirao.</param> 
         /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli test.tReportIndividual.</returns>
         /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
         /// <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
@@ -134,14 +135,16 @@ namespace Produkcija
                                                  TestStatus StatusTesta,
                                                  string errorMessage,
                                                  string stackTrace,
-                                                 string agent)
+                                                 string agent,
+                                                 string backOffice)
         {
             string updateCommand = @"UPDATE test.tReportIndividual 
                                      SET KrajTesta = @krajTesta, 
                                          Rezultat = @rezultat, 
                                          OpisGreske = @opisGreske, 
                                          StackTrace = @stackTrace, 
-                                         Agent = @agent 
+                                         Agent = @agent, 
+                                         BackOffice = @backOffice 
                                       WHERE IDTest = @IDTest;";
 
             using SqlConnection connection = new(ConnectionStringSQL);
@@ -158,6 +161,7 @@ namespace Produkcija
                     command.Parameters.AddWithValue("@opisGreske", errorMessage ?? string.Empty);
                     command.Parameters.AddWithValue("@stackTrace", stackTrace ?? string.Empty);
                     command.Parameters.AddWithValue("@agent", agent ?? string.Empty);
+                    command.Parameters.AddWithValue("@backOffice", backOffice ?? string.Empty);
                     command.Parameters.AddWithValue("@IDTest", newRecordId);
 
                     int rowsAffected = command.ExecuteNonQuery();
@@ -378,6 +382,7 @@ namespace Produkcija
         /// </summary>
         /// <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
         /// <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
+        /// <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
         /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
         /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
@@ -389,11 +394,11 @@ namespace Produkcija
         /// Console.WriteLine($"ID unetog zapisa: {id}");
         /// </code>
         /// </example>
-        public static int UnesiPocetakTestiranjaSQL(DateTime pocetakTestiranja, string nazivNamespace)
+        public static int UnesiPocetakTestiranja(DateTime pocetakTestiranja, string nazivNamespace, string nacinPokretanjaTesta)
         {
 
-            string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje ) 
-                                     VALUES (@pocetakTestiranja, @nazivNamespace)
+            string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje, NacinTestiranja ) 
+                                     VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta)
                                      SELECT SCOPE_IDENTITY();"; // Vraća ID poslednje unete vrednosti u okviru iste sesije i scope-a
 
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
@@ -407,6 +412,7 @@ namespace Produkcija
                     using SqlCommand command = new(insertCommand, connection);
                     command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
                     command.Parameters.AddWithValue("@nazivNamespace", nazivNamespace);
+                    command.Parameters.AddWithValue("@nacinPokretanjaTesta", nacinPokretanjaTesta);
                     object? result = command.ExecuteScalar();
                     if (result != null && result != DBNull.Value)
                     {
