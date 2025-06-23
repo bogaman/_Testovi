@@ -1651,6 +1651,7 @@ namespace Razvoj
         {
             try
             {
+                await _page!.PauseAsync();
                 await UlogujSe_3(_page!, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
                 await _page!.Locator(".ico-ams-logo").ClickAsync();
@@ -2518,6 +2519,7 @@ namespace Razvoj
                     brojPokusaja++;
                     LogovanjeTesta.LogMessage($"Pokušaj #{brojPokusaja}: Klik na dugme 'Izračunaj'");
 
+                    await _page.PauseAsync();
                     try
                     {
                         await _page.Locator("button").Filter(new() { HasText = "Kalkuliši" }).ClickAsync();

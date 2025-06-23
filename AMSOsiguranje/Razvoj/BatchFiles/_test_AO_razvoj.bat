@@ -8,9 +8,13 @@ set NACIN_POKRETANJA=automatski
 ::set BASE_URL=https://master-test.ams.co.rs
 ::set BASE_URL=https://eos.ams.co.rs
 
-:echo. > Logovi\_log_AO_Razvoj.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Razvoj.TestDevelopment... >> Logovi\_log_AO_Razvoj.txt
-dotnet test --filter FullyQualifiedName=Razvoj.TestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
+::echo. > Logovi\_log_AO_Razvoj.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Razvoj.TestDevelopment... >> Logovi\_log_AO_Razvoj.txt
+::dotnet test --filter FullyQualifiedName=Razvoj.TestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
+
+echo. > Logovi\_log_AO_Razvoj.txt
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Razvoj.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_Razvoj.txt
+dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 
 
 ::echo. > Logovi\_log_AO_Razvoj.txt
