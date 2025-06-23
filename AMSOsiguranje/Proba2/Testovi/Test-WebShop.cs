@@ -107,8 +107,9 @@ namespace Proba2
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                //Assert.Fail(ex.Message);
-                ;
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
             }
         }
 
@@ -221,7 +222,8 @@ namespace Proba2
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                //Assert.Fail(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
 
@@ -341,7 +343,9 @@ namespace Proba2
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                //Assert.Fail(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
             }
 
         }

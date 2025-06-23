@@ -59,10 +59,67 @@ namespace Proba2
         #endregion Vremena
 
 
+        /// <summary>
+        /// Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
+        /// </summary>
+        /// <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
+        /// <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
+        /// <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
+        /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
+        /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+        /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
+        /// 
+        /// <example>
+        /// <code>
+        /// DateTime pocetak = DateTime.Now;    
+        /// int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
+        /// Console.WriteLine($"ID unetog zapisa: {id}");
+        /// </code>
+        /// </example>
+        public static int UnesiPocetakTestiranja(DateTime pocetakTestiranja, string nazivNamespace, string nacinPokretanjaTesta)
+        {
 
+            string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje, NacinTestiranja ) 
+                                     VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta)
+                                     SELECT SCOPE_IDENTITY();"; // Vraća ID poslednje unete vrednosti u okviru iste sesije i scope-a
 
+            int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
 
+            using (SqlConnection connection = new(ConnectionStringSQL))
+            {
+                try
+                {
+                    connection.Open();
 
+                    using SqlCommand command = new(insertCommand, connection);
+                    command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
+                    command.Parameters.AddWithValue("@nazivNamespace", nazivNamespace);
+                    command.Parameters.AddWithValue("@nacinPokretanjaTesta", nacinPokretanjaTesta);
+                    object? result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        newRecordId = Convert.ToInt32(result);
+                    }
+
+                    Console.WriteLine($"Novi ID unetog zapisa (redni broj testiranja) je: {newRecordId}");
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine($"❌ Greška prilikom upisa u bazu: {ex.Message}");
+                    LogError($"❌ Greška prilikom upisa u bazu: {ex.Message}");
+                    throw;
+                }
+                finally
+                {
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+            return newRecordId;
+        }
 
 
         /// <summary>
@@ -115,8 +172,6 @@ namespace Proba2
             return newRecordId;
         }
 
-
-
         /// <summary>
         /// Unosi se rezultat svih testiranja u bazu podataka.
         /// </summary>  
@@ -130,13 +185,7 @@ namespace Proba2
         /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli test.tReportIndividual.</returns>
         /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
         /// <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
-        public static void UnesiRezultatTestaSQL(int newRecordId,
-                                                 DateTime krajTesta,
-                                                 TestStatus StatusTesta,
-                                                 string errorMessage,
-                                                 string stackTrace,
-                                                 string agent,
-                                                 string backOffice)
+        public static void UnesiRezultatTesta(int newRecordId, DateTime krajTesta, TestStatus StatusTesta, string errorMessage, string stackTrace, string agent, string backOffice)
         {
             string updateCommand = @"UPDATE test.tReportIndividual 
                                      SET KrajTesta = @krajTesta, 
@@ -180,6 +229,84 @@ namespace Proba2
             }
         }
 
+
+        /// <summary>
+        /// Unosi se rezultat svih testiranja u bazu podataka.
+        /// </summary>  
+        /// <param name="newRecordId">ID testiranja (redni broj testiranja).</param>
+        /// <param name="paliTestovi">Broj testova koji su pali.</param>        
+        /// <param name="prosliTestovi">Broj testova koji su prošli.</param>
+        /// <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
+        /// <param name="UkupnoTestova">Ukupan broj testova.</param>
+        /// <param name="krajTestiranja">Vreme završetka testiranja.</param>    
+        /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
+        /// <exception cref="SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
+        /// <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
+        public static void UnesiRezultatTestiranja(int newRecordId, int paliTestovi, int prosliTestovi, int preskoceniTestovi, int UkupnoTestova, DateTime krajTestiranja)
+        {
+            string updateCommand = @"UPDATE test.tReportSumary 
+                                     SET NeuspesnihTestova = @failedTests, 
+                                         UspesnihTestova = @passTests, 
+                                         PreskocenihTestova = @skippedTests, 
+                                         UkupnoTestova = @ukupnoTests, 
+                                         KrajTestiranja = @krajTestiranja 
+                                     WHERE IDTestiranje = @IDTestiranje;";
+
+            using SqlConnection connection = new(ConnectionStringSQL);
+            try
+            {
+                connection.Open();
+
+                using SqlCommand command = new(updateCommand, connection);
+                command.Parameters.AddWithValue("@failedTests", paliTestovi);
+                command.Parameters.AddWithValue("@passTests", prosliTestovi);
+                command.Parameters.AddWithValue("@skippedTests", preskoceniTestovi);
+                command.Parameters.AddWithValue("@ukupnoTests", UkupnoTestova);
+                command.Parameters.AddWithValue("@krajTestiranja", krajTestiranja);
+                command.Parameters.AddWithValue("@IDTestiranje", newRecordId);
+                int rowsAffected = command.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} red je uspešno unet.");
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
+                LogError($"❌ Greška prilikom ažuriranja podataka: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public static void LogException(string lokacija, Exception ex)
+        {
+            try
+            {
+                using var connection = new SqlConnection(ConnectionStringSQL);
+                connection.Open();
+
+                string query = @"INSERT INTO test.tErrorLog (IdTestiranje, IdTest, DatumVremeGreske, Lokacija, Poruka, StackTrace)
+                                 VALUES (@IdTestiranje, @IdTest, @DatumVremeGreske, @Lokacija, @Poruka, @StackTrace)";
+
+                using var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdTest", IDTestaSQL);
+                command.Parameters.AddWithValue("@IdTestiranje", IDTestiranje);
+                command.Parameters.AddWithValue("@DatumVremeGreske", DateTime.Now);
+                command.Parameters.AddWithValue("@Lokacija", lokacija ?? "Nepoznata");
+                command.Parameters.AddWithValue("@Poruka", ex.Message);
+                command.Parameters.AddWithValue("@StackTrace", ex.StackTrace ?? "");
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Greška pri logovanju u bazu: " + e.Message);
+            }
+        }
         static void ProveriLogFolder()
         {
             if (!Directory.Exists(LogFolder))
@@ -317,127 +444,7 @@ namespace Proba2
 
 
 
-        /// <summary>
-        /// Unosi se rezultat svih testiranja u bazu podataka.
-        /// </summary>  
-        /// <param name="newRecordId">ID testiranja (redni broj testiranja).</param>
-        /// <param name="paliTestovi">Broj testova koji su pali.</param>        
-        /// <param name="prosliTestovi">Broj testova koji su prošli.</param>
-        /// <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
-        /// <param name="UkupnoTestova">Ukupan broj testova.</param>
-        /// <param name="krajTestiranja">Vreme završetka testiranja.</param>    
-        /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
-        /// <exception cref="SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
-        /// <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
-        public static void UnesiRezultatTestiranjaSQL(int newRecordId,
-                                                      int paliTestovi,
-                                                      int prosliTestovi,
-                                                      int preskoceniTestovi,
-                                                      int UkupnoTestova,
-                                                      DateTime krajTestiranja)
-        {
-            string updateCommand = @"UPDATE test.tReportSumary 
-                                     SET NeuspesnihTestova = @failedTests, 
-                                         UspesnihTestova = @passTests, 
-                                         PreskocenihTestova = @skippedTests, 
-                                         UkupnoTestova = @ukupnoTests, 
-                                         KrajTestiranja = @krajTestiranja 
-                                     WHERE IDTestiranje = @IDTestiranje;";
 
-            using SqlConnection connection = new(ConnectionStringSQL);
-            try
-            {
-                connection.Open();
-
-                using SqlCommand command = new(updateCommand, connection);
-                command.Parameters.AddWithValue("@failedTests", paliTestovi);
-                command.Parameters.AddWithValue("@passTests", prosliTestovi);
-                command.Parameters.AddWithValue("@skippedTests", preskoceniTestovi);
-                command.Parameters.AddWithValue("@ukupnoTests", UkupnoTestova);
-                command.Parameters.AddWithValue("@krajTestiranja", krajTestiranja);
-                command.Parameters.AddWithValue("@IDTestiranje", newRecordId);
-                int rowsAffected = command.ExecuteNonQuery();
-                Console.WriteLine($"{rowsAffected} red je uspešno unet.");
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine($"Greška prilikom unosa podataka: {ex.Message}");
-                LogError($"❌ Greška prilikom ažuriranja podataka: {ex.Message}");
-                throw;
-            }
-            finally
-            {
-                if (connection.State == System.Data.ConnectionState.Open)
-                {
-                    connection.Close();
-                }
-            }
-        }
-
-
-
-
-        /// <summary>
-        /// Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
-        /// </summary>
-        /// <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
-        /// <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
-        /// <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
-        /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
-        /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
-        /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
-        /// 
-        /// <example>
-        /// <code>
-        /// DateTime pocetak = DateTime.Now;    
-        /// int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
-        /// Console.WriteLine($"ID unetog zapisa: {id}");
-        /// </code>
-        /// </example>
-        public static int UnesiPocetakTestiranja(DateTime pocetakTestiranja, string nazivNamespace, string nacinPokretanjaTesta)
-        {
-
-            string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje, NacinTestiranja ) 
-                                     VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta)
-                                     SELECT SCOPE_IDENTITY();"; // Vraća ID poslednje unete vrednosti u okviru iste sesije i scope-a
-
-            int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
-
-            using (SqlConnection connection = new(ConnectionStringSQL))
-            {
-                try
-                {
-                    connection.Open();
-
-                    using SqlCommand command = new(insertCommand, connection);
-                    command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
-                    command.Parameters.AddWithValue("@nazivNamespace", nazivNamespace);
-                    command.Parameters.AddWithValue("@nacinPokretanjaTesta", nacinPokretanjaTesta);
-                    object? result = command.ExecuteScalar();
-                    if (result != null && result != DBNull.Value)
-                    {
-                        newRecordId = Convert.ToInt32(result);
-                    }
-
-                    Console.WriteLine($"Novi ID unetog zapisa (redni broj testiranja) je: {newRecordId}");
-                }
-                catch (SqlException ex)
-                {
-                    Console.WriteLine($"❌ Greška prilikom upisa u bazu: {ex.Message}");
-                    LogError($"❌ Greška prilikom upisa u bazu: {ex.Message}");
-                    throw;
-                }
-                finally
-                {
-                    if (connection.State == System.Data.ConnectionState.Open)
-                    {
-                        connection.Close();
-                    }
-                }
-            }
-
-            return newRecordId;
-        }
 
     }
 
