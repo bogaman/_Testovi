@@ -697,6 +697,8 @@ namespace Razvoj
             }
             try
             {
+                await _page!.PauseAsync();
+                await OsiguranjeVozila.UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await OsiguranjeVozila.IzlogujSe(_page!);
                 await _page!.PauseAsync();
 
