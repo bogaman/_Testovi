@@ -2,7 +2,7 @@ namespace Produkcija
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class RazvojTestova : Osiguranje
+    public class TestDevelopment : Osiguranje
     {
 
 

@@ -2,7 +2,7 @@ namespace Proba2
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class RazvojTestova : Osiguranje
+    public class TestDevelopment : Osiguranje
     {
 
 

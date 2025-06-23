@@ -159,7 +159,7 @@ namespace UAT
                     await _page.GetByRole(AriaRole.Button, new() { Name = "Da" }).ClickAsync(); // potvrda kolačića
                                                                                                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne" }).ClickAsync(); // odbijanje kolačića
                 }
-                else if (nazivKlase == "OsiguranjeVozila" || nazivKlase == "RazvojTestova")
+                else if (nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment")
                 {
                     /******************************************************
                     var ucitaniKorisnici = KorisnikLoader.UcitajKorisnike();

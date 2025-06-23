@@ -189,19 +189,19 @@ namespace UAT
                 {
                     PocetnaStrana = "https://webshop.ams.co.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "RazvojTestova") && okruzenje == "Razvoj")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "Razvoj")
                 {
                     PocetnaStrana = "https://razvojamso-master.eonsystem.rs";
                 }
-                else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "Proba2")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "Proba2")
                 {
                     PocetnaStrana = "https://proba2amsomaster.eonsystem.rs";
                 }
-                else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "UAT")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "UAT")
                 {
                     PocetnaStrana = "https://master-test.ams.co.rs";
                 }
-                else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "Produkcija")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "Produkcija")
                 {
                     PocetnaStrana = "https://eos.ams.co.rs/Osiguranje-vozila";
                 }
