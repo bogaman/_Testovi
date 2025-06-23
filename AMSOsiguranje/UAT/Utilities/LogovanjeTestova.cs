@@ -449,27 +449,4 @@ namespace UAT
     }
 
 
-    [TestFixture]
-    public class TestSuite : Osiguranje
-    {
-
-        [Test]
-        public async Task TestExample()
-        {
-            string testName = "TestExample";
-            try
-            {
-                await _page!.GotoAsync("https://example.com");
-                bool containsText = await _page.InnerTextAsync("body").ContinueWith(t => t.Result.Contains("Example Domain"));
-                Assert.That(containsText, Is.True, "Očekivani tekst nije pronađen.");
-                LogovanjeTesta.LogTestResult(testName, true);
-            }
-            catch (Exception ex)
-            {
-                LogovanjeTesta.LogException(ex, testName);
-                LogovanjeTesta.LogTestResult(testName, false);
-                throw;
-            }
-        }
-    }
 }

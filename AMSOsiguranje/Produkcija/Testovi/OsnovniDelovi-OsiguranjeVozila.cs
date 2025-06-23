@@ -384,7 +384,7 @@ namespace Produkcija
 
 
 
-        private static void PorukaKrajTesta()
+        public static void PorukaKrajTesta()
         {
             string NazivTekucegTesta = TestContext.CurrentContext.Test.Name;
             System.Windows.MessageBox.Show($"Test #{NazivTekucegTesta}# je završen.", "Informacija", (MessageBoxButton)MessageBoxButtons.OK, (MessageBoxImage)MessageBoxIcon.Information);
@@ -586,7 +586,7 @@ namespace Produkcija
 
 
 
-        private static async Task NovaPolisa(IPage _page, string tipOsiguranja)
+        public static async Task NovaPolisa(IPage _page, string tipOsiguranja)
         {
             await _page.GetByRole(AriaRole.Link, new() { Name = tipOsiguranja }).ClickAsync();
         }
@@ -621,7 +621,7 @@ namespace Produkcija
 
         }
 
-        private static async Task ProveriKontrolu(IPage _page, string kontrola)
+        public static async Task ProveriKontrolu(IPage _page, string kontrola)
         {
             var elementPostoji = await _page.QuerySelectorAsync(kontrola);
 
@@ -1256,7 +1256,7 @@ namespace Produkcija
         /// </summary>
         /// <param name="_page"></param>
         /// <returns></returns>
-        private static async Task IzlogujSe(IPage _page)
+        public static async Task IzlogujSe(IPage _page)
         {
             try
             {

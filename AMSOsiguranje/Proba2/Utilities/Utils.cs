@@ -189,7 +189,7 @@ namespace Proba2
                 {
                     PocetnaStrana = "https://webshop.ams.co.rs";
                 }
-                else if (nazivKlase == "OsiguranjeVozila" && okruzenje == "Razvoj")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "RazvojTestova") && okruzenje == "Razvoj")
                 {
                     PocetnaStrana = "https://razvojamso-master.eonsystem.rs";
                 }
@@ -249,7 +249,10 @@ namespace Proba2
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogError($"❌ Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}\n{ex.Message}");
+                LogovanjeTesta.LogError($"❌ 1Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}\n{ex.Message}");
+
+                LogovanjeTesta.LogException($"❌ 2Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}", ex);
+                LogovanjeTesta.LogException($"❌ 3Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
         }
