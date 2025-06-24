@@ -2,15 +2,19 @@ cls
 cd "C:\_Testovi\AMSOsiguranje\Produkcija\" 
 
 ::@echo off
-set BASE_URL=https://razvojamso-master.eonsystem.rs
+::set BASE_URL=https://razvojamso-master.eonsystem.rs
 set NACIN_POKRETANJA=automatski
 ::set BASE_URL=https://proba2amsomaster.eonsystem.rs
 ::set BASE_URL=https://master-test.ams.co.rs
 ::set BASE_URL=https://eos.ams.co.rs
 
-:echo. > Logovi\_log_AO_Produkcija.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.TestDevelopment... >> Logovi\_log_AO_Produkcija.txt
-dotnet test --filter FullyQualifiedName=Produkcija.TestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+::echo. > Logovi\_log_AO_Produkcija.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.TestDevelopment... >> Logovi\_log_AO_Produkcija.txt
+::dotnet test --filter FullyQualifiedName=Produkcija.TestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+
+echo. > Logovi\_log_AO_Produkcija.txt
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_Produkcija.txt
+dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
 
 ::echo. > Logovi\_log_AO_Produkcija.txt

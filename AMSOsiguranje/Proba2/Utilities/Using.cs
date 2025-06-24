@@ -38,7 +38,10 @@ global using System.Data.Common;
 global using FlaUI;
 global using FlaUI.Core;
 global using FlaUI.Core.AutomationElements;
+global using FlaUI.Core.Conditions;
+global using FlaUI.Core.Definitions;
 global using FlaUI.UIA3;
+global using FlaUI.Core.Tools;
 //global using FlaUI.UIA2;
 //global using Microsoft.VisualStudio.TestTools.UnitTesting; --------- ovo verovatno ne treba
 //global using FlaUI.Core.Conditions;
