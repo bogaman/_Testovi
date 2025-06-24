@@ -109,10 +109,6 @@
         </member>
         <member name="P:Proba2.Osiguranje.PocetnaStrana">
             <summary>
-            Definiše se pregledac koji će se koristiti za testiranje.
-            </summary>
-            <value>"Chromium", "Firefox" ili "Webkit"</value>
-            <summary>
             Definiše se početna stranica za testiranje.
             <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
             </summary>

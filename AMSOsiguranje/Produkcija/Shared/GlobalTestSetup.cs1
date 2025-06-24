@@ -1,0 +1,102 @@
+using NUnit.Framework;
+using Razvoj;
+using System;
+using System.Threading.Tasks;
+
+namespace Razvoj
+{
+    [SetUpFixture] // obavezno!
+    public partial class Osiguranje
+    {
+        [OneTimeSetUp]
+        public void OneTimeSetUp2()
+        {
+            try
+            {
+                Console.WriteLine("📌 GlobalInit: Priprema pre svih testova");
+
+                // npr. inicijalizacija konekcije, učitavanje konfiguracije
+                AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+                {
+                    if (e.ExceptionObject is Exception ex)
+                    {
+                        LogovanjeTesta.LogException("UnhandledException", ex);
+                    }
+                };
+
+                //Pročitaj vreme kada su pokrenuti svi testovi
+                LogovanjeTesta.PocetakTestiranja = DateTime.Now;
+                //Pročitaj radni prostor
+                Osiguranje.NazivNamespace = this.GetType().Namespace!;
+
+                if (Osiguranje.NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.MessageBox.Show($"Okruženje:: {Osiguranje.NazivNamespace}.\n" +
+                                                    $"Način pokretanja:: {Osiguranje.NacinPokretanjaTesta}",
+                                                    "Poruka u OneTimeSetUp",
+                                                    MessageBoxButton.OK,
+                                                    MessageBoxImage.Information);
+                }
+
+                //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
+                LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, Osiguranje.NazivNamespace, Osiguranje.NacinPokretanjaTesta);
+
+                // Ovo se upisuje u fajl logTrace.txt
+                LogovanjeTesta.LogMessage("-----------------------------------------", false);
+                LogovanjeTesta.LogMessage($"[{LogovanjeTesta.PocetakTestiranja:dd.MM.yyyy. HH:mm:ss}] Početak testiranja", false);
+                LogovanjeTesta.LogMessage("", false);
+                //string logFilePath = logFolder + "\\test_Trace_log.txt";
+                //TextWriterTraceListener listener = new TextWriterTraceListener(logFilePath);
+                //Trace.Listeners.Add(listener);
+                //Trace.AutoFlush = true;  // Osigurava da se podaci odmah upisuju
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogException("OneTimeSetUp", ex);
+                throw;
+            }
+        }
+        // Primer: Inicijalizuj pristup bazi
+        //SqlHelper.OpenConnection();
+
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown2()
+        {
+
+
+            // primer: zatvori konekciju, pošalji izveštaj
+            //SqlHelper.CloseConnection();
+            try
+            {
+                Console.WriteLine("🧹 GlobalCleanup: Posle svih testova");
+                //Pročitaj vreme kada su završeni svi testovi
+                LogovanjeTesta.KrajTestiranja = DateTime.Now;
+                //Odreti koliko je trajalo testiranje
+                TimeSpan trajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
+                //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
+                //LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranja, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+                //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
+                //LogovanjeTesta.UnesiRezultatTestiranja2(LogovanjeTesta.IDTestiranja1, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+                LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+
+                LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {(LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja).TotalSeconds} sekundi.", false);
+                LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {trajanjeTestiranja} sekundi.", false);
+                // Upiši u sumarni log fajl
+                LogovanjeTesta.FormirajSumarniIzvestaj();
+                //LogovanjeTesta.LogMessage("Kraj testiranja");
+                LogovanjeTesta.LogMessage($"", false);
+                //Trace.WriteLine($"");
+                //Trace.WriteLine($"");
+
+                // Simulacija asinhronog rada
+                //await Task.Delay(1);
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogException("OneTimeTearDovn", ex);
+                throw;
+            }
+        }
+    }
+}

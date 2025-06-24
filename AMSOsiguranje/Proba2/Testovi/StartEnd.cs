@@ -1,8 +1,9 @@
 
 namespace Proba2
 {
-    [Parallelizable(ParallelScope.Self)]
-    [TestFixture]
+    //[Parallelizable(ParallelScope.Self)]
+    //[TestFixture]
+    //[SetUpFixture]
     public partial class Osiguranje
     {
         public IBrowser? _browser;
@@ -16,16 +17,30 @@ namespace Proba2
 
         public string sertifikatName = string.Empty;
 
+
+
+
         #region OnTimeSetUp
         //Metoda koja se pokreće samo jednom na početku testiranja
         [OneTimeSetUp]
-
-        public async Task OneTimeSetUp()
+        //public async Task OneTimeSetUp()
+        public void OneTimeSetUp()
         {
             try
             {
                 //Simulacija asinhronog rada
-                await Task.Delay(1);
+                //await Task.Delay(1);
+
+                Console.WriteLine("📌 GlobalInit: Priprema pre svih testova");
+
+                // npr. inicijalizacija konekcije, učitavanje konfiguracije
+                AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+                {
+                    if (e.ExceptionObject is Exception ex)
+                    {
+                        LogovanjeTesta.LogException("UnhandledException", ex);
+                    }
+                };
 
                 //Pročitaj vreme kada su pokrenuti svi testovi
                 LogovanjeTesta.PocetakTestiranja = DateTime.Now;
@@ -60,6 +75,9 @@ namespace Proba2
             }
         }
         #endregion OnTimeSetUp
+
+
+
 
         #region SetUp 
         // Metoda koja se pokreće pre svakog pojedinačnog testa
@@ -464,6 +482,8 @@ namespace Proba2
 
         #endregion TearDown
 
+
+
         #region OneTimeTearDown
         // Ova metoda se pokreće jednom, nakon svih testovaS
         [OneTimeTearDown]
@@ -500,6 +520,8 @@ namespace Proba2
             }
         }
         #endregion OneTimeTearDown
+
+
 
     }
 }

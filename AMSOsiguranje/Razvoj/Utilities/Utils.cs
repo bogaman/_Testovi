@@ -63,10 +63,7 @@ namespace Razvoj
         /// <remarks>Koristiti se za prilagođavanje ponašanja testa u zavisnosti od načina pokretanja.</remarks>
         /// <value>"ručno", "automatski"</value>
         public static string NacinPokretanjaTesta { get; set; } = Environment.GetEnvironmentVariable("NACIN_POKRETANJA") ?? "ručno";
-        /// <summary>
-        /// Definiše se pregledac koji će se koristiti za testiranje.
-        /// </summary>
-        /// <value>"Chromium", "Firefox" ili "Webkit"</value>
+
 
         /// <summary>
         /// Definiše se početna stranica za testiranje.
