@@ -121,6 +121,8 @@ class Migracije
                 continue;
             if (filePath.EndsWith(".csproj", StringComparison.OrdinalIgnoreCase))
                 continue;
+                if (filePath.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
+                continue;
             string newPath = filePath.Replace(source, target);
 
             // Provera ekstenzije
