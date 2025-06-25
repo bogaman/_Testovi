@@ -999,7 +999,7 @@ namespace Razvoj
 
                 // Pronalazak TreeItem sa tekstom "Petrović Petar"
                 //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
-                var sertifikatName = KorisnikLoader.Korisnik3?.Sertifikat ?? string.Empty;
+                var sertifikatName = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
                 var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(sertifikatName))).AsTreeItem();
                 //Assert.IsNotNull(treeItem, "TreeItem 'Bogdan Mandarić' not found");
 

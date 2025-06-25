@@ -1107,28 +1107,28 @@ namespace Razvoj
         {
             try
             {
-                string korisnickoIme = KorisnikLoader.Korisnik3?.KorisnickoIme ?? string.Empty;
-                string korisnikPassword = KorisnikLoader.Korisnik3?.Lozinka1 ?? string.Empty;
+                string korisnickoIme = KorisnikLoader5.Korisnik3?.KorisnickoIme ?? string.Empty;
+                string korisnikPassword = KorisnikLoader5.Korisnik3?.Lozinka1 ?? string.Empty;
                 if (Uloga == "BackOffice")
                 {
-                    korisnickoIme = KorisnikLoader.Korisnik1?.KorisnickoIme ?? string.Empty;
-                    korisnikPassword = KorisnikLoader.Korisnik1?.Lozinka1 ?? string.Empty;
+                    korisnickoIme = KorisnikLoader5.Korisnik1?.KorisnickoIme ?? string.Empty;
+                    korisnikPassword = KorisnikLoader5.Korisnik1?.Lozinka1 ?? string.Empty;
                     if (Okruzenje == "Produkcija")
                     {
-                        korisnikPassword = KorisnikLoader.Korisnik1?.Lozinka2 ?? string.Empty;
+                        korisnikPassword = KorisnikLoader5.Korisnik1?.Lozinka2 ?? string.Empty;
                     }
                 }
                 else if (OsnovnaUloga == "Agent")
                 {
                     if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Bogdan")
                     {
-                        korisnickoIme = KorisnikLoader.Korisnik2?.KorisnickoIme ?? string.Empty;
-                        korisnikPassword = KorisnikLoader.Korisnik2?.Lozinka1 ?? string.Empty;
+                        korisnickoIme = KorisnikLoader5.Korisnik2?.KorisnickoIme ?? string.Empty;
+                        korisnikPassword = KorisnikLoader5.Korisnik2?.Lozinka1 ?? string.Empty;
                     }
                     else if (NacinPokretanjaTesta == "ručno" && RucnaUloga == "Mario")
                     {
-                        korisnickoIme = KorisnikLoader.Korisnik3?.KorisnickoIme ?? string.Empty;
-                        korisnikPassword = KorisnikLoader.Korisnik3?.Lozinka1 ?? string.Empty;
+                        korisnickoIme = KorisnikLoader5.Korisnik3?.KorisnickoIme ?? string.Empty;
+                        korisnikPassword = KorisnikLoader5.Korisnik3?.Lozinka1 ?? string.Empty;
                     }
 
                 }
@@ -1175,26 +1175,26 @@ namespace Razvoj
                 string korisnikPassword = string.Empty;
                 if (OsnovnaUloga == "BackOffice")
                 {
-                    korisnickoIme = KorisnikLoader.Korisnik1?.KorisnickoIme ?? string.Empty;
-                    korisnikPassword = KorisnikLoader.Korisnik1?.Lozinka1 ?? string.Empty;
+                    korisnickoIme = KorisnikLoader5.Korisnik1?.KorisnickoIme ?? string.Empty;
+                    korisnikPassword = KorisnikLoader5.Korisnik1?.Lozinka1 ?? string.Empty;
                     if (Okruzenje == "Produkcija")
                     {
-                        korisnikPassword = KorisnikLoader.Korisnik1?.Lozinka2 ?? string.Empty;
+                        korisnikPassword = KorisnikLoader5.Korisnik1?.Lozinka2 ?? string.Empty;
                     }
                 }
                 else if (OsnovnaUloga == "Agent")
                 {
                     if ((RucnaUloga == "Ne" && NacinPokretanjaTesta == "ručno") || RucnaUloga == "Bogdan")
                     {
-                        korisnickoIme = KorisnikLoader.Korisnik2?.KorisnickoIme ?? string.Empty;
+                        korisnickoIme = KorisnikLoader5.Korisnik2?.KorisnickoIme ?? string.Empty;
                         // Unesi lozinku
-                        korisnikPassword = KorisnikLoader.Korisnik2?.Lozinka1 ?? string.Empty;
+                        korisnikPassword = KorisnikLoader5.Korisnik2?.Lozinka1 ?? string.Empty;
                     }
                     else if ((RucnaUloga == "Ne" && NacinPokretanjaTesta == "automatski") || RucnaUloga == "Mario")
                     {
-                        korisnickoIme = KorisnikLoader.Korisnik3?.KorisnickoIme ?? string.Empty;
+                        korisnickoIme = KorisnikLoader5.Korisnik3?.KorisnickoIme ?? string.Empty;
                         // Unesi lozinku
-                        korisnikPassword = KorisnikLoader.Korisnik3?.Lozinka1 ?? string.Empty;
+                        korisnikPassword = KorisnikLoader5.Korisnik3?.Lozinka1 ?? string.Empty;
                     }
 
                 }
@@ -1228,7 +1228,7 @@ namespace Razvoj
         }
 
         // Logovanje na početnoj stranici
-        public static async Task UlogujSe(IPage _page, string KorisnikMejl, string KorisnikPassword)
+        public static async Task UlogujSe_6(IPage _page, string KorisnikMejl, string KorisnikPassword)
         {
             try
             {

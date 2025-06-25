@@ -40,21 +40,21 @@ namespace Produkcija
 
         #region Vremena
         /// <summary>
-        /// Zadaje se vreme početka svih testiranja.</summary>
+        /// Određuje se vreme početka testiranja.
+        /// </summary>
         public static DateTime PocetakTestiranja { get; set; } = DateTime.MinValue; // Vreme kada su pokrenuti svi testovi
         /// <summary>
-        /// Zadaje se vreme završetka svih testiranja.</summary>
+        /// Određuje se vreme završetka testiranja.
+        /// </summary>
         public static DateTime KrajTestiranja { get; set; } = DateTime.MinValue; // Vreme kada su svi testovi završeni
         ///<summary>
-        /// Vreme kada je pokrenut pojedinačni test.
-        /// </summary>
+        /// Vreme kada je pokrenut pojedinačni test.</summary>
         ///<remarks>Ovo vreme se koristi za praćenje trajanja pojedinačnih testova.</remarks>
         public static DateTime PocetakTesta { get; set; } = DateTime.MinValue; // Vreme kada je pokrenut pojedinačni test
         /// <summary>
-        /// Vreme kada je pojedinačni test završen. 
+        /// Vreme kada je završen pojedinačni test. 
         /// <para>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</para>
         /// </summary>
-        /// <value></value>
         public static DateTime KrajTesta { get; set; } = DateTime.MinValue; // Vreme kada je pojedinačni test završen
         #endregion Vremena
 
@@ -68,7 +68,6 @@ namespace Produkcija
         /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
         /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
-        /// 
         /// <example>
         /// <code>
         /// DateTime pocetak = DateTime.Now;    
@@ -125,16 +124,16 @@ namespace Produkcija
         /// <summary>
         /// Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
         /// </summary>
-        /// <param name="IDTestiranja">ID testiranja (redni broj testiranja).</param>
+        /// <param name="IDTestiranje">ID testiranja (redni broj testiranja).</param>
         /// <param name="NazivTekucegTesta">Naziv trenutnog testa.</param>
         /// <param name="pocetakTesta">Vreme početka testa.</param> 
         /// <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
         /// <exception cref="SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks>Ova metoda se koristi za praćenje početka pojedinačnog testa i čuva informacije u bazi podataka.</remarks>
-        public static int UnesiPocetakTesta(int IDTestiranja, string NazivTekucegTesta, DateTime pocetakTesta)
+        public static int UnesiPocetakTesta(int IDTestiranje, string NazivTekucegTesta, DateTime pocetakTesta)
         {
             string insertCommand = @"INSERT INTO test.tReportIndividual (IDTestiranje, NazivTesta, PocetakTesta) 
-                                     VALUES (@IDTestiranja, @nazivTekucegTesta, @pocetakTesta) 
+                                     VALUES (@IDTestiranje, @nazivTekucegTesta, @pocetakTesta) 
                                      SELECT SCOPE_IDENTITY();";
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
 
@@ -145,7 +144,7 @@ namespace Produkcija
                     connection.Open();
 
                     using SqlCommand command = new(insertCommand, connection);
-                    command.Parameters.AddWithValue("@IDTestiranja", IDTestiranja);
+                    command.Parameters.AddWithValue("@IDTestiranje", IDTestiranje);
                     command.Parameters.AddWithValue("@nazivTekucegTesta", NazivTekucegTesta);
                     command.Parameters.AddWithValue("@pocetakTesta", pocetakTesta);
                     object? result = command.ExecuteScalar();

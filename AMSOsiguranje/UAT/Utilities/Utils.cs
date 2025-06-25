@@ -9,6 +9,7 @@ namespace UAT
         /// </summary> 
         /// <value>"Bogdan", "Mario"</value>
         public static string RucnaUloga { get; set; } = "Bogdan"; // "Ne", "Bogdan", "Mario"
+
         /// <summary>
         /// Promenljiva koja definiše koji pregledac se koristi za testiranje. 
         /// <para>Vrednost se ručno unosi pre početka testiranja.</para>
@@ -17,44 +18,57 @@ namespace UAT
         /// <value>"Chromium", "Firefox" ili "Webkit"</value>
         public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
 
-        public static string BOkorisnickoIme = KorisnikLoader.Korisnik1 != null ? KorisnikLoader.Korisnik1.KorisnickoIme : string.Empty;
-        public static string BOlozinka = KorisnikLoader.Korisnik1 != null ? KorisnikLoader.Korisnik1.Lozinka1 : string.Empty;
 
-        public static string AkorisnickoIme = KorisnikLoader.Korisnik2 != null ? KorisnikLoader.Korisnik2.KorisnickoIme : string.Empty;
-        public static string Alozinka = KorisnikLoader.Korisnik2 != null ? KorisnikLoader.Korisnik2.Lozinka1 : string.Empty;
-        public static string Asaradnik = KorisnikLoader.Korisnik2 != null ?
-                           $"{KorisnikLoader.Korisnik2.SaradnickaSifra1} - {KorisnikLoader.Korisnik2?.Ime} {KorisnikLoader.Korisnik2?.Prezime}" : string.Empty;
+
+
+
+
+
+
+        //public static string BOkorisnickoIme = KorisnikLoader5.Korisnik1 != null ? KorisnikLoader5.Korisnik1.KorisnickoIme : string.Empty;
+        //public static string BOlozinka = KorisnikLoader5.Korisnik1 != null ? KorisnikLoader5.Korisnik1.Lozinka1 : string.Empty;
+
+        public static string AkorisnickoIme = KorisnikLoader5.Korisnik2 != null ? KorisnikLoader5.Korisnik2.KorisnickoIme : string.Empty;
+        //public static string Alozinka = KorisnikLoader5.Korisnik2 != null ? KorisnikLoader5.Korisnik2.Lozinka1 : string.Empty;
+        public static string Asaradnik = KorisnikLoader5.Korisnik2 != null ?
+                           $"{KorisnikLoader5.Korisnik2.SaradnickaSifra1} - {KorisnikLoader5.Korisnik2?.Ime} {KorisnikLoader5.Korisnik2?.Prezime}" : string.Empty;
 
         #region Šta se i ko testira
+
         /// <summary>
         /// Promenjiva koja definiše naziv prostora (namespace) u kojem se nalaze testovi.
         /// <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para></summary>
         /// <value>"Razvoj", "Proba2", "UAT", "Produkcija"</value>
-        public static string NazivNamespace { get; set; } = "";
+        public static string? NazivNamespace { get; set; }
+
         /// <summary>
         /// Promenjive Prostor i Okruzenje su sustinski iste kao promenjiva NazivNamespace.
         /// <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para></summary>
         /// <value>"Razvoj", "Proba2", "UAT", "Produkcija"</value>
-        public static string Prostor { get; set; } = "";
+        public static string? Prostor { get; set; }
+
         /// <summary>
         /// Promenjive Prostor i Okruzenje su sustinski iste kao promenjiva NazivNamespace.
         /// <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para>
         /// <para>Može imati vrednosti "Razvoj"/"Proba2"/"UAT"/"Produkcija".</para>
         /// </summary>
-        public static string Okruzenje { get; set; } = "UAT";
+        public static string? Okruzenje { get; set; }
+
         /// <summary>
         /// Kako se zove test koji je pokrenut, na osnovu njega definiše se uloga Agent ili BackOffice
         /// </summary>
         /// <value></value>
         public static string NazivTekucegTesta { get; set; } = TestContext.CurrentContext.Test.Name;
+
         /// <summary>
         /// Zadaje se primarna uloga koju korisnik ima u testiranju.
         /// <para>Primarna uloga zavisi od NazivaTesta.</para>
         /// <para>Ako je uloga Agent, U zavisnosti od NazivTekucegTesta, Okruzenje i NacinPokretanjaTesta</para>
-        ///  <para>definisaće se da li je Agent1 ili Agent2.</para>
+        /// <para>definisaće se da li je Agent1 ili Agent2.</para>
         /// </summary>
         /// <value>"Agent", "BackOffice"</value>
         public static string OsnovnaUloga { get; set; } = ""; // "Agent", "BackOffice"
+
         /// <summary>
         /// Koristi se za određivanje načina pokretanja testa, ručno/automatski.
         /// <para>ručno - test se pokreće direktno iz IDE-a ili komandne linije.</para>
@@ -70,7 +84,7 @@ namespace UAT
         /// <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
         /// </summary>
         /// <value></value>
-        public static string PocetnaStrana { get; set; } = "";
+        public static string? PocetnaStrana { get; set; }
         //public static string Tip { get; set; } = "Autoosiguranje"; // "Putno", 
         #endregion Šta se i ko testira
 
@@ -159,15 +173,16 @@ namespace UAT
         }
 
         /// <summary>
-        /// Definiše se početna stranica za testiranje. Ona zavisi od Klase i okruženja
+        /// Definiše se početna stranica za testiranje. Ona zavisi od klase i okruženja
         /// </summary>
         /// <param name="nazivKlase">OsiguranjeVozila ili WebShop.</param>
         /// <param name="okruzenje">Razvoj, Proba2, UAT ili Produkcija.</param>  
         /// <returns>Vraća string PocetnaStrana, to je URL.</returns>    
         /// <exception cref="Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks></remarks>
-        private static string DefinisiPocetnuStranu(string nazivKlase, string okruzenje)
+        private static string DefinisiPocetnuStranu(string nazivKlase, string? okruzenje)
         {
+            var currentMethodName = MethodBase.GetCurrentMethod() != null ? MethodBase.GetCurrentMethod()!.Name : "UnknownMethod";
             try
             {
                 if (nazivKlase == "WebShop" && okruzenje == "Razvoj")
@@ -202,19 +217,21 @@ namespace UAT
                 {
                     PocetnaStrana = "https://eos.ams.co.rs/Osiguranje-vozila";
                 }
+
+                if (!string.IsNullOrEmpty(PocetnaStrana))
+                { return PocetnaStrana; }
                 else
                 {
-                    PocetnaStrana = "";
+                    LogovanjeTesta.LogException(currentMethodName, new Exception("PocetnaStrana nije određena."));
+                    throw new Exception($"PocetnaStrana nije određena u proceduri {currentMethodName}.");
                 }
-                //return PocetnaStrana;
             }
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"Greška prilikom definisanja početne strane: {ex.Message}");
-                PocetnaStrana = "";
-
+                LogovanjeTesta.LogException(ex, currentMethodName);
+                throw;
             }
-            return PocetnaStrana;
         }
 
         ///<summary>

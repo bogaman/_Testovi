@@ -1,4 +1,3 @@
-//global using OsnovniParametri;
 
 global using System;
 global using System.Data.OleDb;
@@ -9,6 +8,7 @@ global using System.Diagnostics;
 global using System.Security.Cryptography;
 //global using System.Windows.Automation;
 global using System.Globalization;
+global using System.Reflection;
 global using System.Collections.Generic;
 global using System.Linq;
 global using System.Linq.Expressions;

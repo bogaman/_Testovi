@@ -3,6 +3,26 @@ SELECT TOP (10) *
   ORDER BY [IdTestiranje] DESC;
 
 
-  SELECT TOP (10) *
+  SELECT TOP (10) [IdTestiranje], 
+                  [IdTest], 
+                  [NazivTesta], 
+                  [Rezultat], 
+                  [Agent], 
+                  [PocetakTesta], 
+				  [KrajTesta], 
+				  [OpisGreske], 
+				  [StackTrace],
+				  [BackOffice]
   FROM [TestLogDB].[test].[tReportIndividual]
-  ORDER BY [IdTest] DESC;
+  ORDER BY [IdTestiranje] DESC, [IdTest] ASC;
+
+
+  SELECT TOP (10) [IdTestiranje],
+                  [IdGreske],
+                  [IdTest],
+				  [DatumVremeGreske],
+	              [Lokacija],
+				  [Poruka],
+				  [StackTrace]
+             FROM [TestLogDB].[test].[tErrorLog]
+            ORDER BY [IdTestiranje] DESC, [IdGreske] ASC;

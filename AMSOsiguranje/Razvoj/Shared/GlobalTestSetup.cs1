@@ -75,7 +75,7 @@ namespace Razvoj
                 //Odreti koliko je trajalo testiranje
                 TimeSpan trajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
                 //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
-                //LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranja, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+                //LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
                 //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
                 //LogovanjeTesta.UnesiRezultatTestiranja2(LogovanjeTesta.IDTestiranja1, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
                 LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);

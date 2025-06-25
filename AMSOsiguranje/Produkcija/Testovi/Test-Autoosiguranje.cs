@@ -1272,7 +1272,7 @@ namespace Produkcija
                 await IzlogujSe(_page);
 
                 // Prijavljuje se agent
-                //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                //await UlogujSe_6(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "Agent", RucnaUloga);
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 // Sačekaj na URL posle logovanja
@@ -1315,7 +1315,7 @@ namespace Produkcija
                 await ProveriURL(_page, PocetnaStrana, "/Login");
 
                 // Prijavljuje se BackOffice
-                //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                //await UlogujSe_6(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "BackOffice", RucnaUloga);
                 await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 // Sačekaj na URL posle logovanja
@@ -1357,7 +1357,7 @@ namespace Produkcija
 
 
                 // Prijavljuje se agent
-                //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                //await UlogujSe_6(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "Agent", RucnaUloga);
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
 
@@ -1398,7 +1398,7 @@ namespace Produkcija
                 await IzlogujSe(_page);
                 await ProveriURL(_page, PocetnaStrana, "/Login");
                 //await _page.PauseAsync();
-                //await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                //await UlogujSe_6(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "BackOffice", RucnaUloga);
                 await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
@@ -2668,7 +2668,7 @@ namespace Produkcija
 
                     // Pronalazak TreeItem sa tekstom "Petrović Petar"
                     //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
-                    //var sertifikatName = KorisnikLoader.Korisnik3?.Sertifikat ?? string.Empty;
+                    //var sertifikatName = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
                     //var sertifikatName = AKorisnik_?.Sertifikat ?? string.Empty;
                     //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(sertifikatName))).AsTreeItem();
 
@@ -2989,7 +2989,7 @@ namespace Produkcija
 
 
                 //uloguj se kao BO
-                //await UlogujSe(_page, "davor.bulic@eonsystem.com", KorisnikPassword);
+                //await UlogujSe_6(_page, "davor.bulic@eonsystem.com", KorisnikPassword);
                 await UlogujSe_2(_page, "BackOffice");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
@@ -3028,7 +3028,7 @@ namespace Produkcija
                 //await _page.Locator(".korisnik").ClickAsync();
                 //await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
 
-                //await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", KorisnikPassword);
+                //await UlogujSe_6(_page, "bogdan.mandaric@eonsystem.com", KorisnikPassword);
                 await UlogujSe_2(_page, "Agent");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("bogdan.mandaric@eonsystem.com");
@@ -8119,7 +8119,7 @@ Trace.WriteLine($"[TRACE] Test pokrenut: {DateTime.Now}");
 // Osveži stranicu nakon brisanja tokena - simulacija standardnog F5
 //await _page.ReloadAsync();
 
-//await UlogujSe(_page, KorisnikMejl, KorisnikPassword);
+//await UlogujSe_6(_page, KorisnikMejl, KorisnikPassword);
 //await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
 // Očisti keš

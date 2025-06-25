@@ -1,8 +1,6 @@
 
 namespace Proba2
 {
-
-
     /// <summary>
     /// Klasa koja predstavlja korisnika sa svim potrebnim informacijama.
     /// </summary>
@@ -26,10 +24,53 @@ namespace Proba2
     }
 
     /// <summary>
-    /// Klasa koja učitava korisnike iz Access baze podataka.
+    /// Klasa koja učitava korisnike iz baze podataka.
     /// </summary>
-    public static class KorisnikLoader2
+    public static class KorisnikLoader
     {
+
+        /// <summary>
+        /// Vraća iz SQL baze, tabela tTesteri, listu testera koji se loguju i testiraju 
+        /// </summary>
+        /// <returns>korisnici</returns> <summary>
+        /// </summary>
+        public static List<Korisnik> UcitajKorisnike()
+        {
+            var korisnici = new List<Korisnik>();
+
+            using var konekcija = new SqlConnection(LogovanjeTesta.ConnectionStringSQL);
+            konekcija.Open();
+
+            string upit = $"SELECT * FROM test.tTesteri";
+            using var komanda = new SqlCommand(upit, konekcija);
+            using var reader = komanda.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var korisnik = new Korisnik
+                {
+                    Uloga = reader["UlogaTester"]?.ToString() ?? string.Empty,
+                    Ime = reader["ImeTester"]?.ToString() ?? string.Empty,
+                    Prezime = reader["PrezimeTester"]?.ToString() ?? string.Empty,
+                    Email1 = reader["Email_1"]?.ToString() ?? string.Empty,
+                    Email2 = reader["Email_2"]?.ToString() ?? string.Empty,
+                    KorisnickoIme = reader["KorisnickoIme"]?.ToString() ?? string.Empty,
+                    Lozinka1 = reader["Lozinka_1"]?.ToString() ?? string.Empty,
+                    Lozinka2 = reader["Lozinka_2"]?.ToString() ?? string.Empty,
+                    Sertifikat = reader["Sertifikat"]?.ToString() ?? string.Empty,
+                    Pin = reader["PIN"]?.ToString() ?? string.Empty,
+                    IdLica = reader["IdLica"]?.ToString() ?? string.Empty,
+                    SaradnickaSifra1 = reader["SaradnickaSifra_1"]?.ToString() ?? string.Empty,
+                    SaradnickaSifra2 = reader["SaradnickaSifra_2"]?.ToString() ?? string.Empty,
+                    Saradnik1 = reader["Saradnik_1"]?.ToString() ?? string.Empty,
+                    Saradnik2 = reader["Saradnik_2"]?.ToString() ?? string.Empty
+                };
+                korisnici.Add(korisnik);
+            }
+
+            return korisnici;
+        }
+
         public static List<Korisnik> UcitajKorisnikeIzAccessBaze()
         {
             var korisnici = new List<Korisnik>();
@@ -67,54 +108,18 @@ namespace Proba2
             return korisnici;
         }
 
-        public static List<Korisnik> UcitajKorisnikeIzSQLBaze()
-        {
-            var korisnici = new List<Korisnik>();
-
-            using var konekcija = new SqlConnection(LogovanjeTesta.ConnectionStringSQL);
-            konekcija.Open();
-
-            string upit = $"SELECT * FROM test.tTesteri";
-            using var komanda = new SqlCommand(upit, konekcija);
-            using var reader = komanda.ExecuteReader();
-
-            while (reader.Read())
-            {
-                var korisnik = new Korisnik
-                {
-                    Uloga = reader["UlogaTester"]?.ToString() ?? string.Empty,
-                    Ime = reader["ImeTester"]?.ToString() ?? string.Empty,
-                    Prezime = reader["PrezimeTester"]?.ToString() ?? string.Empty,
-                    Email1 = reader["Email_1"]?.ToString() ?? string.Empty,
-                    Email2 = reader["Email_2"]?.ToString() ?? string.Empty,
-                    KorisnickoIme = reader["KorisnickoIme"]?.ToString() ?? string.Empty,
-                    Lozinka1 = reader["Lozinka_1"]?.ToString() ?? string.Empty,
-                    Lozinka2 = reader["Lozinka_2"]?.ToString() ?? string.Empty,
-                    Sertifikat = reader["Sertifikat"]?.ToString() ?? string.Empty,
-                    Pin = reader["PIN"]?.ToString() ?? string.Empty,
-                    IdLica = reader["IdLica"]?.ToString() ?? string.Empty,
-                    SaradnickaSifra1 = reader["SaradnickaSifra_1"]?.ToString() ?? string.Empty,
-                    SaradnickaSifra2 = reader["SaradnickaSifra_2"]?.ToString() ?? string.Empty,
-                    Saradnik1 = reader["Saradnik_1"]?.ToString() ?? string.Empty,
-                    Saradnik2 = reader["Saradnik_2"]?.ToString() ?? string.Empty
-                };
-                korisnici.Add(korisnik);
-            }
-
-            return korisnici;
-        }
     }
 
 
     /// <summary>
     /// čita JSON fajl sa korisnicima i vraća odgovarajućeg korisnika na osnovu uslova.
     /// </summary>
-    public static class KorisnikLoader
+    public static class KorisnikLoader5
     {
         public static Korisnik? Korisnik1 { get; private set; }
         public static Korisnik? Korisnik2 { get; private set; }
         public static Korisnik? Korisnik3 { get; private set; }
-        public static List<Korisnik> UcitajKorisnike()
+        public static List<Korisnik> UcitajKorisnike5()
         {
             string pathDoJsonFajla = Path.Combine(Osiguranje.ProjektFolder, "korisnici.json");
             if (!File.Exists(pathDoJsonFajla))
@@ -168,12 +173,12 @@ namespace Proba2
     // Ova metoda može biti u nekoj servisnoj klasi
 
     /*
-            public static void UcitajKorisnike()
+            public static void UcitajKorisnike5()
             {
                 //string path = Path.Combine(ProjektFolder, "korisnici.json");
                 //string path = "C:\\_Testovi\\AMSOsiguranje\\Razvoj\\korisnici.json";
                 //string json = File.ReadAllText(path);
-                var korisnici = KorisnikLoader.UcitajKorisnike();
+                var korisnici = KorisnikLoader5.UcitajKorisnike5();
 
 
                 // Filtriranje po korisničkom imenu
