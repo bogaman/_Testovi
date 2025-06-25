@@ -94,7 +94,7 @@
             Zadaje se primarna uloga koju korisnik ima u testiranju.
             <para>Primarna uloga zavisi od NazivaTesta.</para>
             <para>Ako je uloga Agent, U zavisnosti od NazivTekucegTesta, Okruzenje i NacinPokretanjaTesta</para>
-             <para>definisaće se da li je Agent1 ili Agent2.</para>
+            <para>definisaće se da li je Agent1 ili Agent2.</para>
             </summary>
             <value>"Agent", "BackOffice"</value>
         </member>
@@ -121,7 +121,7 @@
         </member>
         <member name="M:Proba2.Osiguranje.DefinisiPocetnuStranu(System.String,System.String)">
             <summary>
-            Definiše se početna stranica za testiranje. Ona zavisi od Klase i okruženja
+            Definiše se početna stranica za testiranje. Ona zavisi od klase i okruženja
             </summary>
             <param name="nazivKlase">OsiguranjeVozila ili WebShop.</param>
             <param name="okruzenje">Razvoj, Proba2, UAT ili Produkcija.</param>  
@@ -151,12 +151,19 @@
             Klasa koja predstavlja korisnika sa svim potrebnim informacijama.
             </summary>
         </member>
-        <member name="T:Proba2.KorisnikLoader2">
+        <member name="T:Proba2.KorisnikLoader">
             <summary>
-            Klasa koja učitava korisnike iz Access baze podataka.
+            Klasa koja učitava korisnike iz baze podataka.
             </summary>
         </member>
-        <member name="T:Proba2.KorisnikLoader">
+        <member name="M:Proba2.KorisnikLoader.UcitajKorisnike">
+            <summary>
+            Vraća iz SQL baze, tabela tTesteri, listu testera koji se loguju i testiraju 
+            </summary>
+            <returns>korisnici</returns> <summary>
+            </summary>
+        </member>
+        <member name="T:Proba2.KorisnikLoader5">
             <summary>
             čita JSON fajl sa korisnicima i vraća odgovarajućeg korisnika na osnovu uslova.
             </summary>
@@ -175,24 +182,24 @@
         </member>
         <member name="P:Proba2.LogovanjeTesta.PocetakTestiranja">
             <summary>
-            Zadaje se vreme početka svih testiranja.</summary>
+            Određuje se vreme početka testiranja.
+            </summary>
         </member>
         <member name="P:Proba2.LogovanjeTesta.KrajTestiranja">
             <summary>
-            Zadaje se vreme završetka svih testiranja.</summary>
+            Određuje se vreme završetka testiranja.
+            </summary>
         </member>
         <member name="P:Proba2.LogovanjeTesta.PocetakTesta">
             <summary>
-             Vreme kada je pokrenut pojedinačni test.
-             </summary>
+             Vreme kada je pokrenut pojedinačni test.</summary>
             <remarks>Ovo vreme se koristi za praćenje trajanja pojedinačnih testova.</remarks>
         </member>
         <member name="P:Proba2.LogovanjeTesta.KrajTesta">
             <summary>
-            Vreme kada je pojedinačni test završen. 
+            Vreme kada je završen pojedinačni test. 
             <para>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</para>
             </summary>
-            <value></value>
         </member>
         <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja(System.DateTime,System.String,System.String)">
             <summary>
@@ -204,7 +211,6 @@
             <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
             <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
             <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
-            
             <example>
             <code>
             DateTime pocetak = DateTime.Now;    
@@ -217,7 +223,7 @@
             <summary>
             Unosi se vreme početka pojedinačnog testa u bazu podataka i vraća ID unetog zapisa. 
             </summary>
-            <param name="IDTestiranja">ID testiranja (redni broj testiranja).</param>
+            <param name="IDTestiranje">ID testiranja (redni broj testiranja).</param>
             <param name="NazivTekucegTesta">Naziv trenutnog testa.</param>
             <param name="pocetakTesta">Vreme početka testa.</param> 
             <returns>Vraća ID unetog zapisa u tabeli tblPojedinacniIzvestajTestova. To je redni broj pojedinačnog testa</returns>
