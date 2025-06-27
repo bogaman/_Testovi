@@ -136,7 +136,7 @@ REM === [5/7] Pokretanje testova ===
 echo.
 echo [6/7] Pokrecem testove...
 
-cd "C:\_Testovi\AMSOsiguranje\UAT\"
+cd "C:\_Testovi\AMSOsiguranje\Razvoj\"
 
 ::@echo off
 set BASE_URL=https://master-test.ams.co.rs/
@@ -144,8 +144,8 @@ set NACIN_POKRETANJA=automatski
 
 echo. >> Logovi\_log_WS_Razvoj.txt
 echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] WebShopNovi... >> Logovi\_log_WS_Razvoj.txt
-dotnet test --filter FullyQualifiedName=UAT.WebShop >> Logovi\_log_WS_Razvoj.txt
-echo dotnet test --filter FullyQualifiedName=UAT.WebShop | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
+dotnet test --filter FullyQualifiedName=Razvoj.WebShop >> Logovi\_log_WS_Razvoj.txt
+echo dotnet test --filter FullyQualifiedName=Razvoj.WebShop | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 
 echo.
 

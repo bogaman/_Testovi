@@ -118,7 +118,7 @@ echo [6/7] Pokrecem testove...
 cd "C:\_Testovi\AMSOsiguranje\UAT\"
 
 ::@echo off
-set BASE_URL=https://master-test.ams.co.rs/
+::set BASE_URL=https://master-test.ams.co.rs/
 set NACIN_POKRETANJA=automatski
 
 echo. >> Logovi\_log_WS_UAT.txt

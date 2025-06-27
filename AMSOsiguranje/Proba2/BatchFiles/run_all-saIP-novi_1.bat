@@ -71,7 +71,7 @@ REM === Kopiranje .ovpn. auth.txt. .key i .P12 fajla u Config folder ===
 
 
 
-pause 
+::pause 
 echo.
 echo [0/6] Citam trenutnu IP adresu...
 for /f "delims=" %%i in ('powershell -Command "(Invoke-WebRequest -Uri 'https://api.ipify.org').Content"') do set ORIGINAL_IP=%%i
@@ -146,16 +146,16 @@ REM === [5/7] Pokretanje testova ===
 echo.
 echo [6/7] Pokrecem testove...
 
-cd "C:\_Testovi\AMSOsiguranje\UAT\"
+cd "C:\_Testovi\AMSOsiguranje\Proba2\"
 
 ::@echo off
-set BASE_URL=https://master-test.ams.co.rs/
+::set BASE_URL=https://master-test.ams.co.rs/
 set NACIN_POKRETANJA=automatski
 
 echo. >> Logovi\_log_WS_Proba2.txt
 echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] WebShopNovi... >> Logovi\_log_WS_Proba2.txt
-dotnet test --filter FullyQualifiedName=UAT.WebShop >> Logovi\_log_WS_Proba2.txt
-echo dotnet test --filter FullyQualifiedName=UAT.WebShop | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+dotnet test --filter FullyQualifiedName=Proba2.WebShop >> Logovi\_log_WS_Proba2.txt
+echo dotnet test --filter FullyQualifiedName=Proba2.WebShop | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
 
 echo.
 
@@ -180,5 +180,5 @@ echo Pocetak: %START_TIME% >> %LOG_FILE%
 echo Kraj:    %END_TIME%   >> %LOG_FILE%
 echo. >> %LOG_FILE%
 
-pause
+::pause
 endlocal

@@ -41,7 +41,7 @@ echo 🚀 [3/4] Pokrećem testove...
 cd "C:\_Testovi\AMSOsiguranje\Produkcija\"
 
 ::@echo off
-set BASE_URL=https://master-test.ams.co.rs/
+::set BASE_URL=https://master-test.ams.co.rs/
 set NACIN_POKRETANJA=automatski
 
 echo. >> Logovi\_log_WS_Produkcija.txt

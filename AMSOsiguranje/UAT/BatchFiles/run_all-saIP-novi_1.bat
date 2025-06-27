@@ -71,7 +71,7 @@ REM === Kopiranje .ovpn. auth.txt. .key i .P12 fajla u Config folder ===
 
 
 
-pause 
+::pause 
 echo.
 echo [0/6] Citam trenutnu IP adresu...
 for /f "delims=" %%i in ('powershell -Command "(Invoke-WebRequest -Uri 'https://api.ipify.org').Content"') do set ORIGINAL_IP=%%i
@@ -149,7 +149,7 @@ echo [6/7] Pokrecem testove...
 cd "C:\_Testovi\AMSOsiguranje\UAT\"
 
 ::@echo off
-set BASE_URL=https://master-test.ams.co.rs/
+::set BASE_URL=https://master-test.ams.co.rs/
 set NACIN_POKRETANJA=automatski
 
 echo. >> Logovi\_log_WS_UAT.txt
@@ -180,5 +180,5 @@ echo Pocetak: %START_TIME% >> %LOG_FILE%
 echo Kraj:    %END_TIME%   >> %LOG_FILE%
 echo. >> %LOG_FILE%
 
-pause
+::pause
 endlocal

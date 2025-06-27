@@ -2,7 +2,7 @@ cls
 cd "C:\_Testovi\AMSOsiguranje\UAT\"
 
 ::@echo off
-set BASE_URL=https://UATamso-webshop.eonsystem.rs/
+::set BASE_URL=https://UATamso-webshop.eonsystem.rs/
 set NACIN_POKRETANJA=automatski
 ::set BASE_URL=https://proba2amsomaster.eonsystem.rs
 ::set BASE_URL=https://master-test.ams.co.rs

@@ -6,32 +6,31 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <!--<DocumentationFile>Logovi\DokumentacijaKoda.XML</DocumentationFile>-->
     <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn> <!-- da ne prijavljuje warning za nedokumentovane članove -->
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="6.0.2"/>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
-    <PackageReference Include="NUnit" Version="4.2.2"/>
-    <PackageReference Include="NUnit.Analyzers" Version="4.4.0"/>
-    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0"/>
+    <PackageReference Include="coverlet.collector" Version="6.0.4"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
+    <PackageReference Include="NUnit" Version="4.3.2"/>
+    <PackageReference Include="NUnit.Analyzers" Version="4.9.2"/>
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0"/>
     <PackageReference Include="FlaUI.Core" Version="5.0.0"/>
     <PackageReference Include="FlaUI.UIA2" Version="5.0.0"/>
     <PackageReference Include="FlaUI.UIA3" Version="5.0.0"/>
-    <PackageReference Include="Microsoft.Playwright" Version="1.52.0"/>
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.52.0"/>
-    <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.52.0"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0"/>
+    <PackageReference Include="Microsoft.Playwright" Version="1.53.0"/>
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.53.0"/>
+    <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.53.0"/>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1"/>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-    <PackageReference Include="System.Data.OleDb" Version="9.0.4"/>
+    <PackageReference Include="System.Data.OleDb" Version="9.0.6"/>
     <PackageReference Include="HtmlAgilityPack" Version="1.12.1"/>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2"/>
   </ItemGroup>
   <ItemGroup>
     <Using Include="NUnit.Framework"/>
     <None Update="korisnici.json">
-       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>
