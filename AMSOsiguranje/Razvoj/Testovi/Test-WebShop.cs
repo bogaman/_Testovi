@@ -102,7 +102,7 @@ namespace Razvoj
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne" }).ClickAsync(); // odbijanje kolačića
                 //await Expect(_page).ToHaveTitleAsync(RegexAMSOsiguranjeWebshop());
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Da" }).ClickAsync();
-                Assert.Pass();
+                //Assert.Pass();
             }
             catch (Exception ex)
             {
@@ -338,7 +338,7 @@ namespace Razvoj
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne" }).ClickAsync(); // odbijanje kolačića
                 //await Expect(_page).ToHaveTitleAsync(RegexAMSOsiguranjeWebshop());
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Da" }).ClickAsync();
-                Assert.Pass();
+                //Assert.Pass();
             }
             catch (Exception ex)
             {

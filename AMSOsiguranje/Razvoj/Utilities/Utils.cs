@@ -45,7 +45,7 @@ namespace Razvoj
         /// <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para>
         /// <para>Može imati vrednosti "Razvoj"/"Proba2"/"UAT"/"Produkcija".</para>
         /// </summary>
-        public static string? Okruzenje { get; set; }
+        public static string Okruzenje { get; set; } = "";
 
         /// <summary>
         /// Kako se zove test koji je pokrenut, na osnovu njega definiše se uloga Agent ili BackOffice
@@ -77,7 +77,7 @@ namespace Razvoj
         /// <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
         /// </summary>
         /// <value></value>
-        public static string? PocetnaStrana { get; set; }
+        public static string PocetnaStrana { get; set; } = "";
         //public static string Tip { get; set; } = "Autoosiguranje"; // "Putno", 
         #endregion Šta se i ko testira
 

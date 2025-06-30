@@ -19,7 +19,7 @@ namespace Razvoj
             };
             return server;
         }
-        public async Task<string> ProcitajCeliju(int red, int kolona)
+        private async Task<string> ProcitajCeliju(int red, int kolona)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Razvoj
         }
 
         //Definišu se podaci potrebni za logovanje - mejl, ime i kozinka
-        public static void PodaciZaLogovanje(string uloga, string okruzenje, out string mejl, out string ime, out string lozinka)
+        private static void PodaciZaLogovanje(string uloga, string okruzenje, out string mejl, out string ime, out string lozinka)
         {
             switch (uloga, okruzenje)
             {

@@ -65,6 +65,7 @@ namespace UAT
         /// <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
         /// <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
         /// <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
+        /// <param name="nazivKompjutera">Naziv računara na kojem se testira. Ako nije prosleđen, koristi se Environment.MachineName.</param>
         /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
         /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
