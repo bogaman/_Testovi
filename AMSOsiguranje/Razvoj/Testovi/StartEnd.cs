@@ -52,12 +52,18 @@ namespace Razvoj
                 Prostor = NazivNamespace;
                 Okruzenje = Prostor;
 
+                // Deklarisanje string promenljive za čuvanje naziva uređaja
+                string deviceName;
+
+                // Dodeljivanje naziva računara promenljivoj
+                deviceName = Environment.MachineName;
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     System.Windows.MessageBox.Show($"Način pokretanja:: {NacinPokretanjaTesta}\n" +
                                                    $"Namespace:: {NazivNamespace}.\n" +
                                                    $"Prostor:: {Prostor}\n" +
-                                                   $"Okruženje:: {Okruzenje}\n",
+                                                   $"Okruženje:: {Okruzenje}\n" +
+                                                   $"Računar:: {deviceName}\n",
                                                     "Poruka u OneTimeSetUp",
                                                     MessageBoxButton.OK,
                                                     MessageBoxImage.Information);
@@ -65,6 +71,7 @@ namespace Razvoj
 
                 if (NazivNamespace == "UAT" || NazivNamespace == "Produkcija")
                 {
+
                     Alati.PokreniVpnAkoTreba();
                 }
 
