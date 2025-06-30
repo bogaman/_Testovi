@@ -1703,14 +1703,17 @@ namespace Proba2
                 #region Serijski broj obrasca polise
 
                 // Pronađi prvi slobodan serijski broj za polisu AO
-                Server = Okruzenje switch
-                {
-                    "Razvoj" => "10.5.41.99",
-                    "Proba2" => "49.13.25.19",
-                    "UAT" => "10.41.5.5",
-                    "Produkcija" => "",
-                    _ => throw new ArgumentException("Nepoznato okruženje: " + Okruzenje),
-                };
+                /*
+                 Server = Okruzenje switch
+                 {
+                     "Razvoj" => "10.5.41.99",
+                     "Proba2" => "49.13.25.19",
+                     "UAT" => "10.41.5.5",
+                     "Produkcija" => "",
+                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
+                 };
+                 */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -2896,6 +2899,8 @@ namespace Proba2
                                                         $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = 1001 AND {Partner};";
         */
                 await _page.PauseAsync();
+
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -2904,6 +2909,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 int BrojDokumenta;
                 int idKorisnik = 0;
@@ -3149,6 +3156,7 @@ namespace Proba2
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
                 int PoslednjiDokumentStroga;
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -3157,6 +3165,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -3306,14 +3316,17 @@ namespace Proba2
                 await _page.PauseAsync();
 
                 // Pronađi prvi slobodan serijski broj za polisu AO
-                Server = Okruzenje switch
-                {
-                    "Razvoj" => "10.5.41.99",
-                    "Proba2" => "49.13.25.19",
-                    "UAT" => "10.41.5.5",
-                    "Produkcija" => "",
-                    _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
-                };
+                /*
+                 Server = Okruzenje switch
+                 {
+                     "Razvoj" => "10.5.41.99",
+                     "Proba2" => "49.13.25.19",
+                     "UAT" => "10.41.5.5",
+                     "Produkcija" => "",
+                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
+                 };
+                 */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 /*
@@ -3439,6 +3452,7 @@ namespace Proba2
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
                 int PoslednjiDokumentStroga;
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -3447,6 +3461,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -3936,6 +3952,7 @@ namespace Proba2
                 long PoslednjiSerijskiZK;
                 string qMaksimalniSerijskiZK = $"SELECT MAX ([SerijskiBroj]) FROM [StrictEvidenceDB].[strictevidence].[tObrasci] " +
                                                $"WHERE [IdTipObrasca] = 4 AND [SerijskiBroj] < 1234567;";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -3944,6 +3961,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 // Konekcija sa bazom StrictEvidenceDB
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -4158,6 +4177,7 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/4/Zeleni-karton/Dokument/0");
 
                 // Pronađi odgovarajuću polisu AO koja nema ZK
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -4166,6 +4186,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -4440,6 +4462,7 @@ namespace Proba2
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
                 int PoslednjiDokumentStroga;
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -4448,6 +4471,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -4588,6 +4613,7 @@ namespace Proba2
                 //await _page.PauseAsync();
 
                 // Pronađi prvi slobodan serijski broj za polisu ZK
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -4596,6 +4622,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -4708,6 +4736,7 @@ namespace Proba2
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
                 int PoslednjiDokumentStroga;
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -4716,6 +4745,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -4986,6 +5017,7 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/6/Osiguranje-putnika/Dokument/0");
 
                 // Pronađi odgovarajuću polisu AO koja nema ZK
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -4994,6 +5026,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -5568,6 +5602,7 @@ namespace Proba2
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
                 int PoslednjiDokumentStroga;
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -5576,6 +5611,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -5872,6 +5909,7 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Dokument/0");
 
                 // Pronađi odgovarajuću polisu AO koja nema ZK
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -5880,6 +5918,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -6143,6 +6183,7 @@ namespace Proba2
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
                 int PoslednjiDokumentStroga;
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -6151,6 +6192,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
@@ -6339,6 +6382,7 @@ namespace Proba2
                 // Pročitaj iz baze idDokument za odgovarajući broj ugovora
                 int BrojDokumenta;
                 string qBrojDokumenta = $"SELECT * FROM [WebshopDB].[webshop].[Dokument] WHERE [brojPonude] = {brojPonude};";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -6347,6 +6391,8 @@ namespace Proba2
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
+                */
+                Server = OdrediServer(Okruzenje);
 
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";

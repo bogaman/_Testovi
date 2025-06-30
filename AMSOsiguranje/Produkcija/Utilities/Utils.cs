@@ -18,13 +18,6 @@ namespace Produkcija
         /// <value>"Chromium", "Firefox" ili "Webkit"</value>
         public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
 
-
-
-
-
-
-
-
         //public static string BOkorisnickoIme = KorisnikLoader5.Korisnik1 != null ? KorisnikLoader5.Korisnik1.KorisnickoIme : string.Empty;
         //public static string BOlozinka = KorisnikLoader5.Korisnik1 != null ? KorisnikLoader5.Korisnik1.Lozinka1 : string.Empty;
 

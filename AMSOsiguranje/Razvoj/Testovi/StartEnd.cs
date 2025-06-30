@@ -14,9 +14,7 @@ namespace Razvoj
         public string BOlozinka_ = string.Empty;
         public string AkorisnickoIme_ = string.Empty;
         public string Alozinka_ = string.Empty;
-
         public string sertifikatName = string.Empty;
-
 
 
 
@@ -28,12 +26,27 @@ namespace Razvoj
         {
             try
             {
-
                 //Pročitaj vreme kada je pokrenuto testiranje
                 LogovanjeTesta.PocetakTestiranja = DateTime.Now;
 
-                Console.WriteLine("📌 GlobalInit: Priprema pre svih testova");
+                //Console.WriteLine("📌 GlobalInit: Priprema pre svih testova");
 
+
+
+
+                /*
+                if (!Alati.DaLiJeOpenVpnGuiPokrenut())
+                {
+                    Process.Start(Alati.OVPN_GUI_PATH);
+                    Task.Delay(3000).Wait(); // sačekaj da se GUI digne
+                }
+
+                if (!Alati.DaLiJeVpnIpUOpsegu())
+                {
+                    Alati.PokreniVpnKonekciju();
+                    Alati.CekajNaVpnIp();
+                }
+                */
                 //Pročitaj radni prostor
                 NazivNamespace = this.GetType().Namespace!;
                 Prostor = NazivNamespace;
@@ -49,6 +62,13 @@ namespace Razvoj
                                                     MessageBoxButton.OK,
                                                     MessageBoxImage.Information);
                 }
+
+                if (NazivNamespace == "UAT" || NazivNamespace == "Produkcija")
+                {
+                    Alati.PokreniVpnAkoTreba();
+                }
+
+
 
                 //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
                 LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta);
@@ -368,6 +388,9 @@ namespace Razvoj
 
                 // Simulacija asinhronog rada
                 //await Task.Delay(1);
+                Console.WriteLine("🧹 [GlobalniSetup] Isključujem VPN konekciju...");
+                Alati.IskljuciVpn();
+
             }
             catch (Exception ex)
             {

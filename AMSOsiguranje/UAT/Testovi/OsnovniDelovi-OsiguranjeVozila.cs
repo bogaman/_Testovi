@@ -4,6 +4,21 @@ namespace UAT
 
     public partial class OsiguranjeVozila : Osiguranje
     {
+
+
+        private static string OdrediServer(string okruzenje)
+        {
+            string server;
+            server = okruzenje switch
+            {
+                "Razvoj" => "10.5.41.99",
+                "Proba2" => "49.13.25.19",
+                "UAT" => "10.41.5.5",
+                "Produkcija" => "",
+                _ => throw new ArgumentException($"Nepoznato okruženje: {okruzenje}.\nIP adresa servera nije dobro određena."),
+            };
+            return server;
+        }
         public async Task<string> ProcitajCeliju(int red, int kolona)
         {
             try
@@ -102,6 +117,7 @@ namespace UAT
         {
             try
             {
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -110,7 +126,8 @@ namespace UAT
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
-
+                */
+                Server = OdrediServer(Okruzenje);
                 string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 //string qryPoslednjiMejl = "SELECT TOP 1 * FROM [NotificationsDB].[mail].[MailDeliveryStatus] ORDER BY [ID] DESC;";
                 string qryPoslednjiMejl = "SELECT TOP 1 [NotificationsDB].[mail].[MailDeliveryStatus].*, [NotificationsDB].[mail].[MailHeaders].[Subject] " +
@@ -241,6 +258,7 @@ namespace UAT
             //int maxPokusaja = 10;
             //int intervalCekanjaMs = 1000; // 1 sekunda
             string logFile1 = @"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\log_mejl.txt";
+            /*
             Server = Okruzenje switch
             {
                 "razvoj" => "10.5.41.99",
@@ -249,7 +267,8 @@ namespace UAT
                 "produkcija" => "",
                 _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
             };
-
+            */
+            Server = OdrediServer(Okruzenje);
             string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
             string qryPoslednjiMejl = "SELECT TOP 1 * FROM [NotificationsDB].[mail].[MailDeliveryStatus] ORDER BY ID DESC;";
 
@@ -452,6 +471,7 @@ namespace UAT
             string qPoslednjiDokumentMtplHistory = "SELECT MAX([idDokument]) FROM [MtplDB].[mtpl].[DokumentHistory];";
             int PoslednjiDokumentMtpl;
             int PoslednjiDokumentMtplHistory;
+            /*
             Server = Okruzenje switch
             {
                 "Razvoj" => "10.5.41.99",
@@ -460,7 +480,8 @@ namespace UAT
                 "Produkcija" => "",
                 _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
             };
-
+            */
+            Server = OdrediServer(Okruzenje);
             string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
             using (SqlConnection konekcija = new(connectionStringStroga))
@@ -1827,6 +1848,7 @@ namespace UAT
             {
                 int PoslednjiDokument = 0;
                 string qPoslednjiDokumentStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
+                /*
                 Server = Okruzenje switch
                 {
                     "Razvoj" => "10.5.41.99",
@@ -1835,7 +1857,8 @@ namespace UAT
                     "Produkcija" => "",
                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                 };
-
+                */
+                Server = OdrediServer(Okruzenje);
                 string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
