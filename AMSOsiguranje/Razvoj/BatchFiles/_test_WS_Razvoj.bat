@@ -22,9 +22,9 @@ REM echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] SaViseUlazaka... >> Logo
 REM dotnet test --filter Name=SaViseUlazaka | findstr /i "Passed" >> Logovi\_log_WS_Razvoj.txt 2>&1  
 
 echo. >> Logovi\_log_WS_Razvoj.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] WebShopNovi... >> Logovi\_log_WS_Razvoj.txt
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] WebShop... >> Logovi\_log_WS_Razvoj.txt
 dotnet test --filter FullyQualifiedName=Razvoj.WebShop >> Logovi\_log_WS_Razvoj.txt
-echo dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozilaNovi._TestTestova | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
+::echo dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozilaNovi._TestTestova | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 
 ::PAUSE
 

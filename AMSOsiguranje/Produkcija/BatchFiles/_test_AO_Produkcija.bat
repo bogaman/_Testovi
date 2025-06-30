@@ -12,10 +12,13 @@ set NACIN_POKRETANJA=automatski
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.TestDevelopment... >> Logovi\_log_AO_Produkcija.txt
 ::dotnet test --filter FullyQualifiedName=Produkcija.TestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
-echo. > Logovi\_log_AO_Produkcija.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_Produkcija.txt
-dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+::echo. > Logovi\_log_AO_Produkcija.txt
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_Produkcija.txt
+::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
+echo. > Logovi\_log_AO_Produkcija.txt
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila... >> Logovi\_log_AO_Produkcija.txt
+dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
 ::echo. > Logovi\_log_AO_Produkcija.txt
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Produkcija.txt

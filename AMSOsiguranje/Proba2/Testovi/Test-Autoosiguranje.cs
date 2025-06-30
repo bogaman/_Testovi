@@ -1624,7 +1624,6 @@ namespace Proba2
             else
             {
                 IzvorPodataka = ProjektFolder + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-auto.csv";
-                //IzvorPodataka = ProjektFolder + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-UAT.csv";
             }
             // Čitanje podataka iz CSV fajla
             //string[] lines = File.ReadAllLines(Variables.FilePath);
