@@ -78,7 +78,7 @@ namespace Razvoj
 
 
                 //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
-                LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta);
+                LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta, deviceName);
 
                 // Ovo se upisuje u fajl logTrace.txt
                 LogovanjeTesta.LogMessage("-----------------------------------------", false);

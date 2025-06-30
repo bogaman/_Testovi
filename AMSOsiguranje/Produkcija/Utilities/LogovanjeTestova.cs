@@ -75,11 +75,11 @@ namespace Produkcija
         /// Console.WriteLine($"ID unetog zapisa: {id}");
         /// </code>
         /// </example>
-        public static int UnesiPocetakTestiranja(DateTime pocetakTestiranja, string nazivNamespace, string nacinPokretanjaTesta)
+        public static int UnesiPocetakTestiranja(DateTime pocetakTestiranja, string nazivNamespace, string nacinPokretanjaTesta, string nazivKompjutera)
         {
 
-            string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje, NacinTestiranja ) 
-                                     VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta)
+            string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje, NacinTestiranja, NazivKompjutera) 
+                                     VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta, @NazivKompjutera)
                                      SELECT SCOPE_IDENTITY();"; // Vraća ID poslednje unete vrednosti u okviru iste sesije i scope-a
 
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
@@ -94,6 +94,7 @@ namespace Produkcija
                     command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
                     command.Parameters.AddWithValue("@nazivNamespace", nazivNamespace);
                     command.Parameters.AddWithValue("@nacinPokretanjaTesta", nacinPokretanjaTesta);
+                    command.Parameters.AddWithValue("@NazivKompjutera", nazivKompjutera ?? Environment.MachineName); // Dodeljuje naziv računara ako nije prosleđen
                     object? result = command.ExecuteScalar();
                     if (result != null && result != DBNull.Value)
                     {

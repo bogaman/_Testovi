@@ -52,12 +52,18 @@ namespace UAT
                 Prostor = NazivNamespace;
                 Okruzenje = Prostor;
 
+                // Deklarisanje string promenljive za čuvanje naziva uređaja
+                string deviceName;
+
+                // Dodeljivanje naziva računara promenljivoj
+                deviceName = Environment.MachineName;
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     System.Windows.MessageBox.Show($"Način pokretanja:: {NacinPokretanjaTesta}\n" +
                                                    $"Namespace:: {NazivNamespace}.\n" +
                                                    $"Prostor:: {Prostor}\n" +
-                                                   $"Okruženje:: {Okruzenje}\n",
+                                                   $"Okruženje:: {Okruzenje}\n" +
+                                                   $"Računar:: {deviceName}\n",
                                                     "Poruka u OneTimeSetUp",
                                                     MessageBoxButton.OK,
                                                     MessageBoxImage.Information);
@@ -65,13 +71,14 @@ namespace UAT
 
                 if (NazivNamespace == "UAT" || NazivNamespace == "Produkcija")
                 {
+
                     Alati.PokreniVpnAkoTreba();
                 }
 
 
 
                 //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
-                LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta);
+                LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta, deviceName);
 
                 // Ovo se upisuje u fajl logTrace.txt
                 LogovanjeTesta.LogMessage("-----------------------------------------", false);

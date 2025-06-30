@@ -201,7 +201,7 @@
             <para>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</para>
             </summary>
         </member>
-        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja(System.DateTime,System.String,System.String)">
+        <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja(System.DateTime,System.String,System.String,System.String)">
             <summary>
             Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
             </summary>
