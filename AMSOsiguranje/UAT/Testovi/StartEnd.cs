@@ -69,13 +69,14 @@ namespace UAT
                                                     MessageBoxImage.Information);
                 }
 
+                /************************************
                 if (NazivNamespace == "UAT" || NazivNamespace == "Produkcija")
                 {
 
                     Alati.PokreniVpnAkoTreba();
                 }
-
-
+                ************************************/
+                Alati.PokreniVpnAkoTreba();
 
                 //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
                 LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta, deviceName);
