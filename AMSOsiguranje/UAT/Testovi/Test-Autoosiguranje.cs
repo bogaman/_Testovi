@@ -2829,13 +2829,13 @@ namespace UAT
 
 
                 await _page.Locator("e-calendar input[type=\"text\"]").ClickAsync();
-                await _page.GetByLabel(NextDate.ToString("MMMM d")).ClickAsync();
+                await _page.GetByLabel(NextDate.ToString("MMMM d")).First.ClickAsync();
                 await _page.Locator("e-calendar input[type=\"text\"]").ClickAsync();
-                await _page.GetByLabel(CurrentDate.ToString("MMMM d")).ClickAsync();
+                await _page.GetByLabel(CurrentDate.ToString("MMMM d")).First.ClickAsync();
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik).ClickAsync();
+                await _page.GetByText(Asaradnik_).ClickAsync();
 
                 await _page.Locator("textarea").First.ClickAsync();
                 await _page.Locator("textarea").First.ClickAsync();
@@ -2869,11 +2869,11 @@ namespace UAT
 
                 string Lokacija = "(11)";//"(7,8)";
 
-                if (AkorisnickoIme == "bogdan.mandaric@eonsystem.com")
+                if (AkorisnickoIme_ == "bogdan.mandaric@eonsystem.com")
                 {
                     Lokacija = "(7,8)";
                 }
-                else if (AkorisnickoIme == "mario.radomir@eonsystem.com")
+                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com")
                 {
                     Lokacija = "(11)";
                 }
@@ -2950,7 +2950,7 @@ namespace UAT
 
                 //await _page.GetByText("Brojevi obrazaca: ").ClickAsync();
                 //await _page.Locator("#notify0 button").ClickAsync();
-
+                await Pauziraj(_page!);
                 await _page.Locator("#inpDoBroja input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync(strSerijskiBrojAO);
                 konCifraDo = IzracunajKontrolnuCifru($"{SerijskiBrojAO}");
@@ -5124,13 +5124,13 @@ namespace UAT
 
 
                 await _page.Locator("e-calendar input[type=\"text\"]").ClickAsync();
-                await _page.GetByLabel(NextDate.ToString("MMMM d")).ClickAsync();
+                await _page.GetByLabel(NextDate.ToString("MMMM d")).First.ClickAsync();
                 await _page.Locator("e-calendar input[type=\"text\"]").FillAsync(CurrentDate.ToString("dd.mm.yyyy."));
 
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik).ClickAsync();
+                await _page.GetByText(Asaradnik_).ClickAsync();
                 //await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
