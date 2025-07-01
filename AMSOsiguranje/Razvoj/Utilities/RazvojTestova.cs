@@ -156,7 +156,7 @@ namespace Razvoj
 
             #region Pregled prodaje 
             /*************************
-                        if (Okruzenje == "razvoj")
+                        if (Okruzenje == "Razvoj")
                         {
                             //await _page.Locator("h2").Filter(new() { HasText = "Pregled prodaje u izabranom periodu" }).ClickAsync();
 

@@ -734,11 +734,11 @@ namespace Razvoj
                 //await _page.Locator("#selZaduzenje").ClickAsync();
                 /*
                                 await _page.Locator("#selZaduzenje").ClickAsync();
-                                if (Okruzenje == "razvoj")
+                                if (Okruzenje == "Razvoj")
                                 {
                                     await _page.Locator("#selZaduzenje").GetByText("90202 - Bogdan Mandarić").ClickAsync();
                                 }
-                                else if (Okruzenje == "test")
+                                else if (Okruzenje == "Proba2")
                                 {
                                     await _page.Locator("#selZaduzenje").GetByText("Bogdan Mandarić").ClickAsync();
                                 }
@@ -1014,10 +1014,10 @@ namespace Razvoj
                         // Konekcija sa bazom StrictEvidenceDB
                         Server = Okruzenje switch
                         {
-                            "razvoj" => "10.5.41.99",
-                            "test" => "49.13.25.19",
+                            "Razvoj" => "10.5.41.99",
+                            "Proba2" => "49.13.25.19",
                             "UAT" => "10.41.5.5",
-                            "produkcija" => "",
+                            "Produkcija" => "",
                             _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                         };
                         //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -5437,11 +5437,11 @@ namespace Razvoj
                 string istekla = DateTime.Now.ToString("yyyy-MM-dd");
                 Console.WriteLine(istekla);
                 int GranicniBrojdokumenta;
-                if (Okruzenje == "razvoj")
+                if (Okruzenje == "Razvoj")
                 {
                     GranicniBrojdokumenta = 1882;
                 }
-                else if (Okruzenje == "test")
+                else if (Okruzenje == "Proba2")
                 {
                     GranicniBrojdokumenta = 0;
                 }
@@ -5987,7 +5987,7 @@ namespace Razvoj
                 int grBrojdokumenta = 0;
                 //Provera polise bez ugovora
                 Trace.WriteLine($"Proveri zašto postoji dugme Štampaj polisu za polisu koja nije kreirana?");
-                if (Okruzenje == "razvoj")
+                if (Okruzenje == "Razvoj")
                 {
                     grBrojdokumenta = 82;
                 }
@@ -6019,7 +6019,7 @@ namespace Razvoj
                 await _page.GotoAsync(PocetnaStrana + $"/BackOffice/BackOffice/1/Putno-osiguranje/{BrojDokumenta}");
                 await ProveriURL(_page, PocetnaStrana, $"/BackOffice/BackOffice/1/Putno-osiguranje/{BrojDokumenta}");
                 Trace.Write($"Kreiranje polise za dokument {BrojDokumenta} kreirana - ");
-
+                await Pauziraj(_page!);
                 //Obradi polisu bez ugovora
                 await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();
                 await _page.Locator("#inpJmbg input[type=\"text\"]").ClickAsync();

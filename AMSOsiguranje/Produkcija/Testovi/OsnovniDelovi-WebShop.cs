@@ -2,15 +2,15 @@ namespace Produkcija
 {
     public partial class WebShop
     {
-        //Bira se početna strana Web shopa na osnovu zadatog okruženja - razvoj, test, ...
+        //Bira se početna strana Web shopa na osnovu zadatog okruženja - Razvoj, test, ...
         private static string DefinisiPocetnuStranuWS(string okruzenje)
         {
             string pocetnaStranaWS = okruzenje switch
             {
-                "razvoj" => "https://razvojamso-webshop.eonsystem.rs",
-                "test" => "https://proba2amsowebshop.eonsystem.rs",
+                "Razvoj" => "https://razvojamso-webshop.eonsystem.rs",
+                "Proba2" => "https://proba2amsowebshop.eonsystem.rs",
                 "UAT" => "https://webshop-test.ams.co.rs",
-                "produkcija" => "https://webshop.ams.co.rs",
+                "Produkcija" => "https://webshop.ams.co.rs",
                 _ => throw new ArgumentException("Nepoznata stranica: " + PocetnaStrana)
             };
             return pocetnaStranaWS;

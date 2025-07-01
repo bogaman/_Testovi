@@ -261,10 +261,10 @@ namespace Proba2
             /*
             Server = Okruzenje switch
             {
-                "razvoj" => "10.5.41.99",
-                "test" => "49.13.25.19",
+                "Razvoj" => "10.5.41.99",
+                Proba2 => "49.13.25.19",
                 "UAT" => "10.41.5.5",
-                "produkcija" => "",
+                "Produkcija" => "",
                 _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
             };
             */
@@ -591,10 +591,10 @@ namespace Proba2
         {
             string pocetnaStrana = okruzenje switch
             {
-                "razvoj" => "https://razvojamso-master.eonsystem.rs",
-                "test" => "https://proba2amsomaster.eonsystem.rs",
+                "Razvoj" => "https://razvojamso-master.eonsystem.rs",
+                "Proba2" => "https://proba2amsomaster.eonsystem.rs",
                 "UAT" => "https://master-test.ams.co.rs",
-                "produkcija" => "https://eos.ams.co.rs",
+                "Produkcija" => "https://eos.ams.co.rs",
                 _ => throw new ArgumentException("Nepoznata stranica: " + PocetnaStrana)
             };
             return pocetnaStrana;
