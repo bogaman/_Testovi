@@ -6,6 +6,498 @@ namespace Razvoj
     {
 
 
+
+        [Test]
+        public async Task _AO_4_ZamenaSerijskihBrojeva()
+        {
+            await _page!.PauseAsync();
+
+            await _page!.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
+            await _page.Locator("button").Filter(new() { HasText = "Autoodgovornost" }).ClickAsync();
+            await _page.GetByText("Zamena serijskih brojeva").ClickAsync();
+            await _page.GetByText("---Zamena serijskih brojevaPogrešno izdata polisa ---").ClickAsync();
+            await _page.Locator("#razlogZamene").GetByText("Zamena serijskih brojeva").ClickAsync();
+
+            //Uzmi serijske brojeve dveju kreiranih polisa 
+            await _page.Locator("#unos1 input[type=\"text\"]").ClickAsync();
+            await _page.GetByText("Serijski broj polise 2").ClickAsync();
+            await _page.Locator(".lista").ClickAsync();
+            await _page.Locator("#unos1").GetByText("Niste uneli validan serijski").ClickAsync();
+            await _page.Locator("#unos2").GetByText("Niste uneli validan serijski").ClickAsync();
+            await _page.GetByText("---Zamena serijskih brojevaPogrešno izdata polisa Zamena serijskih brojeva").ClickAsync();
+
+            // uzmi serijski broj polise koja je izdata i serijski broj polise koja je odštampana
+            await _page.Locator("#razlogZamene").GetByText("Pogrešno izdata polisa").ClickAsync();
+            await _page.GetByText("Serijski broj obrasca unetog").ClickAsync();
+            await _page.GetByText("Serijski broj odštampanog").ClickAsync();
+            await _page.GetByText("Pogrešno izdata polisa se").ClickAsync();
+
+
+            await _page.Locator("button").Filter(new() { HasText = "Zameni brojeve" }).ClickAsync();
+
+            OsiguranjeVozila.PorukaKrajTesta();
+        }
+
+        [Test]
+        public async Task _ProveraDashboard()
+        {
+            //await _page.PauseAsync();
+            string[] tekstZaProveru; // Definiše šta se proverava na stranici
+
+            #region Dashboard
+            await _page!.Locator(".ico-ams-logo").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
+            #region Glavni i meni
+            tekstZaProveru = ["Osiguranje vozila", "Putno zdravstveno osiguranje", "Administracija"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            tekstZaProveru = ["Davor Buli", "Korisnik broj: 1000"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            // Da li je ikona korisnika vidljiva
+            await OsiguranjeVozila.ProveriVidljivostKontrole(_page, "//i[@class='ico-user-secret']", "ikona korisnika");
+            #endregion Glavni i meni
+
+            #region Administracija
+            // Pređi mišem preko teksta Administracija
+            await _page.GetByText("Administracija").HoverAsync();
+            await _page.GetByText("Administracija").ClickAsync();
+            // Klikni u meniju na Pregled korisnika
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Pregled korisnika" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Pregled-korisnika");
+            //await _page.PauseAsync();
+            await _page.GetByText("Opšti podaci Id Korisničko").ClickAsync();
+            await _page.Locator(".col-12 > div:nth-child(2)").ClickAsync();
+            await _page.Locator(".col-12 > div:nth-child(2)").ClickAsync();
+            await _page.GetByText("Id lica - Korisnik - Korisničko ime - ").ClickAsync();
+
+            //await _page.PauseAsync();
+            await _page.Locator("button").Filter(new() { HasText = "Administracija" }).ClickAsync();
+            await _page.Locator("button").Filter(new() { HasText = "Pregled tendera" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Pregled-tendera");
+            await _page.GetByText("Naziv -").ClickAsync();
+            await _page.GetByText("Ugovarač -").ClickAsync();
+            await _page.GetByText("Naziv tendera").ClickAsync();
+            await _page.Locator("#aktivan div").Nth(3).ClickAsync();
+            await _page.Locator("#aktivan i").ClickAsync();
+            await _page.GetByText("Valuta plaćanja [dana]").ClickAsync();
+
+            await _page.GetByText("Opšti podaci Id Naziv tendera").ClickAsync();
+            await _page.GetByText("Opšti podaci Id Naziv tendera").ClickAsync();
+            await _page.Locator("div").Filter(new() { HasText = "idTender - Naziv - Ugovara" }).Nth(3).ClickAsync();
+            //await _page.GetByText("Naziv tendera").Nth(2).ClickAsync();
+            //await _page.GetByText("Naziv tendera").Nth(3).ClickAsync();
+
+            await _page.Locator(".ico-ams-logo").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+            #endregion Administracija
+
+
+
+
+            #region Brzi linkovi
+            tekstZaProveru = ["Brzi linkovi", "Nova polisa AO", "Novi zeleni karton", "Nova Polisa JS", "Nova polisa - lom stakla, auto nezgoda"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.Locator("//a[contains(.,'Nova polisa AO')]").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
+            //await _page.PauseAsync();
+
+            await _page.Locator(".ico-ams-logo").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
+            await _page.Locator("//a[contains(.,'Novi zeleni karton')]").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/4/Zeleni-karton/Dokument/0");
+
+            await _page.Locator(".ico-ams-logo").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
+            await _page.Locator("//a[contains(.,'Nova polisa JS')]").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/6/Osiguranje-putnika/Dokument/0");
+
+            await _page.Locator(".ico-ams-logo").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
+            await _page.Locator("//a[contains(.,'Nova polisa - lom')]").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Dokument/0");
+
+            await _page.Locator(".ico-ams-logo").ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+            #endregion Brzi linkovi
+
+            #region Vesti i obaveštenja
+            //tekstZaProveru = ["Vesti i obaveštenja", "Pretraga vesti", "Nova vest"];
+            tekstZaProveru = ["Vesti i obaveštenja", "Pretraga vesti"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            // Proveri da li stranica sadrži dugme Nova vest
+            await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//e-button[@id='btnNovaVest']", "dugme Nova vest");
+
+            // Proveri da li stranica sadrži grid Vesti
+            await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_vesti']", "grid Vesti");
+
+            // Provera postojanja barem jedne vesti
+            await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//div[starts-with(@class, 'vestiBox id_')]", "barem jedna vest");
+
+            // Provera postojanja brojaca
+            await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//button[@class='left primary flat btn-page-num num-1 flex-center-center']", "levi brojač");
+            await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//button[@class='left primary flat flex-center-center']", "znak -");
+            await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//div[@class='control']//input[@class='input']", "aktuelna strana vesti");
+            await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//button[@class='left primary flat right flex-center-center']", "znak +");
+            await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//button[@class='left primary flat btn-page-num num-max flex-center-center']", "desni brojač");
+
+            #endregion Vesti i obaveštenja
+
+            // Provera budućih funkcionalnosti
+            await _page.Locator("h3").Filter(new() { HasText = "Funkcionalnost će uskoro biti" }).ClickAsync();
+            //await _page.Locator("h2").Filter(new() { HasText = "Funkcionalnost će uskoro biti" }).ClickAsync();
+
+
+            #region Pregled prodaje 
+            /*************************
+                        if (Okruzenje == "razvoj")
+                        {
+                            //await _page.Locator("h2").Filter(new() { HasText = "Pregled prodaje u izabranom periodu" }).ClickAsync();
+
+
+                            await _page.Locator("div").Filter(new() { HasText = "Pregled prodaje u izabranom" }).Nth(4).ClickAsync();
+                            await _page.GetByText("Pregled prodaje u izabranom").ClickAsync();
+                            await _page.Locator("#cal_calendarVreme1 input[type=\"text\"]").ClickAsync();
+                            await _page.Locator("#cal_calendarVreme2 input[type=\"text\"]").ClickAsync();
+                            await _page.Locator("#selektRezolucija > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+
+                            //await _page.GetByText("Meseci").ClickAsync();
+                            //await _page.Locator("//div[@etitle='Meseci']").ClickAsync();
+                            //await _page.Locator("#canvas").ClickAsync(new LocatorClickOptions{Position = new Position{X = 144, Y = 11,},});
+                            await _page.Locator("//canvas[@class='platno']").ClickAsync(new LocatorClickOptions { Position = new Position { X = 144, Y = 11, }, });
+
+                            await _page.Locator("div").Filter(new() { HasText = "Pregled prodaje u izabranom" }).Nth(4).ClickAsync();
+
+                            System.Windows.MessageBox.Show("Doradi proveru #Pregled prodaje#", "Info", (MessageBoxButton)MessageBoxButtons.OK, (MessageBoxImage)MessageBoxIcon.Warning);
+
+                        }
+                        else
+                        {
+                            await _page.Locator("h2").Filter(new() { HasText = "Funkcionalnost će uskoro biti" }).ClickAsync();
+                        }
+            *****************/
+            #endregion Pregled prodaje
+
+
+            // Provera futera
+            tekstZaProveru = ["Status mreže: Online", "Sesija aktivna još:"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            #endregion Dashboard
+
+
+            #region Autoodgovornost
+
+            // Pređi mišem preko teksta Osiguranje vozila
+            await _page.GetByText("Osiguranje vozila").HoverAsync();
+            await _page.GetByText("Osiguranje vozila").ClickAsync();
+            // Klikni u meniju na Autoodgovornost
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Autoodgovornost" }).ClickAsync();
+
+
+            /***************************************************************************************
+            Ovo je isto kao gornje dve naredbe, ali se klikće na Autoodgovornost
+            await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
+            await _page.Locator("button").Filter(new() { HasText = "Autoodgovornost" }).ClickAsync();
+            ***************************************************************************************/
+
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata");
+
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "Osiguranje vozila" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "Autoodgovornost" }).ClickAsync();
+
+            tekstZaProveru = ["Informativno kalkulisanje", "Polise autoodgovornosti", "Nova polisa",
+                              "Pregled / Pretraga polisa", "Zamena serijskih brojeva", "Pregled / Pretraga zahteva za izmenom polisa",
+                              "Razdužne liste", "Nova razdužna lista", "Pregled / Pretraga razdužnih listi", "Pregled tokova sa UOS",
+                              "Pregled / Pretraga zahteva ka UOS", "Pregled / Pretraga paketa za kompletiranje", "Stroga evidencija",
+                              "Pregled / Pretraga obrazaca", "Pregled / Pretraga dokumenata", "Novi ulaz u centralni magacin",
+                              "Novi prenos", "Novi otpis"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            // Proveri da li stranica sadrži grid Autoodgovornost
+            await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_dokumenti']", "grid Dokumenti - polise AO");
+
+            //Informativno kalkulisanje
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Informativno kalkulisanje" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Informativno-kalkulisanje");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+            tekstZaProveru = ["Dodaj", "Obriši poslednjeg", "Procena cene", "Vrsta osiguranja", "Broj vozila"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            // Polise Autoodgovornosti
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Polise autoodgovornosti" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Nova polisa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
+            tekstZaProveru = ["Informativno kalkulisanje", "Polise autoodgovornosti", "Nova polisa", "Pregled / Pretraga polisa", "Zamena serijskih brojeva", "Pregled / Pretraga zahteva za izmenom polisa", "Razdužne liste", "Nova razdužna lista", "Pregled / Pretraga razdužnih listi", "Pregled tokova sa UOS", "Pregled / Pretraga zahteva ka UOS", "Pregled / Pretraga paketa za kompletiranje", "Stroga evidencija", "Pregled / Pretraga obrazaca", "Pregled / Pretraga dokumenata", "Novi ulaz u centralni magacin", "Novi prenos", "Novi otpis"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Zamena serijskih brojeva" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Zamena-serijskih-brojeva");
+            //await ProveriSadrzajNaStrani(_page, textLevoAutoodgovornost);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga zahteva za izmenom polisa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-zahteva/Izmene-polisa");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            //Razdužne liste
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Razdužne liste" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Nova razdužna lista" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Dokument/4/0");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga razduž" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Pregled-dokumenata/4");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            //Pregled tokova ka UOS
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled tokova sa UOS" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga zahteva ka UOS" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-zahteva/Izmene-UOS");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga paketa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-kompletiranja");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            //Stroga evidencija
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Stroga evidencija" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga obrazaca" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Pregled-obrazaca");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga dokumenata" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Pregled-dokumenata");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Novi ulaz u centralni" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Novi prenos" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/0");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Novi otpis" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Dokument/3/0");
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+            #endregion Autoodgovornost
+
+            #region Zeleni karton
+
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Osiguranje vozila" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Zeleni karton" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/4/Zeleni-karton/Pregled-dokumenata");
+
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "Osiguranje vozila" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "Zeleni karton" }).ClickAsync();
+
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Zeleni kartoni" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Novi zeleni karton" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/4/Zeleni-karton/Dokument/0");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga zelenih kartona" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/4/Zeleni-karton/Pregled-dokumenata");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga zahteva" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/4/Zeleni-karton/Pregled-zahteva/Izmene-polisa");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Razdužne liste" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Nova razdužna lista" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Dokument/4/0");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga razduž" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Pregled-dokumenata/4");
+
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Stroga evidencija" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga obrazaca" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Pregled-obrazaca");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga dokumenata" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Pregled-dokumenata");
+
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Novi ulaz u centralni" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Dokument/1/0");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Novi prenos" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Dokument/2/0");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Novi otpis" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Dokument/3/0");
+
+            #endregion Zeleni karton
+
+            #region Javni saobraćaj
+
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Osiguranje vozila" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Osiguranje putnika u javnom" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/6/Osiguranje-putnika/Pregled-dokumenata");
+            tekstZaProveru = ["Nova polisa",
+                              "Pregled / Pretraga polisa", "Pregled / Pretraga zahteva za izmenom polisa",
+                              "Razdužne liste (OSK)", "Nova razdužna lista (OSK)", "Pregled / Pretraga razdužnih listi (OSK)"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "Osiguranje vozila" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "OSiguranje putnika" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Osiguranje putnika u javnom" }).ClickAsync();
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Nova polisa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/6/Osiguranje-putnika/Dokument/0");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/6/Osiguranje-putnika/Pregled-dokumenata");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga zahteva" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/6/Osiguranje-putnika/Pregled-zahteva/Izmene-polisa");
+
+
+            #endregion Javni saobraćaj
+
+
+            #region Delimični kasko
+
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Osiguranje vozila" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Lom stakla i auto nezgoda" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Pregled-dokumenata");
+            tekstZaProveru = ["Nova polisa",
+                              "Pregled / Pretraga polisa", "Pregled / Pretraga zahteva za izmenom polisa",
+                              "Razdužne liste (OSK)", "Nova razdužna lista (OSK)", "Pregled / Pretraga razdužnih listi (OSK)"];
+            await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Lom stakla i auto nezgoda" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Nova polisa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Dokument/0");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Pregled-dokumenata");
+
+            await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga zahteva" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Pregled-zahteva/Izmene-polisa");
+
+            #endregion Delimični kasko
+
+
+            /********************************************
+                        #region Kasko
+                        // Pređi mišem preko teksta Osiguranje vozila
+                        //await _page.GetByText("Osiguranje vozila").HoverAsync();
+                        await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
+                        await _page.Locator("button").Filter(new() { HasText = "Kasko" }).ClickAsync();
+
+                        // Klikni u meniju na Autoodgovornost
+                        //await _page.GetByRole(AriaRole.Button, new() { Name = "Kasko" }).ClickAsync();
+                        await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/0");
+
+                        await _page.GetByRole(AriaRole.Heading, new() { Name = "Osiguranje vozila" }).ClickAsync();
+                        await _page.GetByRole(AriaRole.Heading, new() { Name = "Kasko osiguranje" }).ClickAsync();
+
+                        tekstZaProveru = ["Informativno kalkulisanje", "Polise kasko osiguranja", "Nova polisa",
+                                          "Pregled / Pretraga polisa", "Pregled / Pretraga zahteva za izmenom polisa"];
+                        await ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+                        await _page.PauseAsync();
+                        //Informativno kalkulisanje
+                        await _page.GetByRole(AriaRole.Link, new() { Name = "Informativno kalkulisanje" }).ClickAsync();
+                        await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Informativno-kalkulisanje");
+                        await ProveriSadrzajNaStrani(_page, tekstZaProveru);
+                        tekstZaProveru = ["Dodaj", "Obriši poslednjeg", "Procena cene", "Vrsta osiguranja", "Broj vozila"];
+                        await ProveriSadrzajNaStrani(_page, tekstZaProveru);
+
+                        // Proveri da li stranica sadrži grid Autoodgovornost
+                        //await ProveraPostojiGrid(_page, "//e-grid[@id='grid_dokumenti']", "grid Dokumenti - polise AO");
+
+                        System.Windows.Forms.MessageBox.Show("Kasko treba doraditi kada bude završen", "", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                        #endregion Kasko
+
+            *************************************************/
+            #region Putno zdravstveno
+            // Pređi mišem preko teksta Putno zdravstveno osiguranje
+            await _page.GetByText("Putno zdravstveno osiguranje").HoverAsync();
+            await _page.GetByText("Putno zdravstveno osiguranje").ClickAsync();
+            // Klikni u meniju na Autoodgovornost
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Webshop backoffice" }).ClickAsync();
+            await ProveriURL(_page, PocetnaStrana, "/Backoffice/Backoffice/1/Pregled-dokumenata");
+
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "WEBSHOP BACKOFFICE" }).ClickAsync();
+            await _page.GetByRole(AriaRole.Heading, new() { Name = "Putno zdravstveno" }).ClickAsync();
+
+            //tekstZaProveru = ["Informativno kalkulisanje", "Polise autoodgovornosti", "Nova polisa", "Pregled / Pretraga polisa", "Zamena serijskih brojeva", "Pregled / Pretraga zahteva za izmenom polisa", "Razdužne liste", "Nova razdužna lista", "Pregled / Pretraga razdužnih listi", "Pregled tokova sa UOS", "Pregled / Pretraga zahteva ka UOS", "Pregled / Pretraga paketa za kompletiranje", "Stroga evidencija", "Pregled / Pretraga obrazaca", "Pregled / Pretraga dokumenata", "Novi ulaz u centralni magacin", "Novi prenos", "Novi otpis"];
+            //await ProveriSadrzajNaStrani(_page, tekstZaProveru);
+            // Proveri da li stranica sadrži grid Dokumenti
+            await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_dokumenti']", "grid Dokumenti - polise putnog osiguranja");
+
+            #endregion Putno zdravstveno
+
+            //await _page.PauseAsync();
+
+
+            if (KorisnikMejl == "davor.bulic@eonsystem.com")
+            {
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Putno zdravstveno" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new Regex("Putno zdravstveno") .ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Webshop backoffice" }).ClickAsync();
+            }
+
+            if (_page.Url == PocetnaStrana + "/Error")
+            {
+                await _page.GotoAsync(PocetnaStrana + "/Dashboard");
+            }
+
+            //await _page.GetByRole(AriaRole.Button, new() { Name = "Početna" }).ClickAsync();
+            await _page.Locator(".ico-ams-logo").ClickAsync();
+            await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+            CurrentUrl = _page.Url;
+            Assert.That(PocetnaStrana + "/Dashboard", Is.EqualTo(CurrentUrl));
+
+            //Klik na korisnika
+            await _page.GetByText(KorisnikIme[..5]).ClickAsync();
+
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Podešavanja" }).ClickAsync();
+
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Promena lozinke" }).ClickAsync();
+            await _page.WaitForURLAsync(PocetnaStrana + "/Nova-lozinka");
+            CurrentUrl = _page.Url;
+            Assert.That(PocetnaStrana + "/Nova-lozinka", Is.EqualTo(CurrentUrl));
+            await _page.Locator("e-input").Filter(new() { HasText = "Unesite novu lozinku" }).GetByRole(AriaRole.Textbox).ClickAsync();
+            await _page.Locator("e-input").Filter(new() { HasText = "Ponovite novu lozinku" }).GetByRole(AriaRole.Textbox).ClickAsync();
+            await _page.Locator("e-input").Filter(new() { HasText = "Unesite novu lozinku Obavezno" }).GetByRole(AriaRole.Textbox).ClickAsync();
+            await _page.Locator("e-input").Filter(new() { HasText = "Unesite staru lozinku" }).GetByRole(AriaRole.Textbox).ClickAsync();
+
+            //await _page.GetByRole(AriaRole.Button, new() { Name = "Početna" }).ClickAsync();
+            await _page.Locator(".ico-ams-logo").ClickAsync();
+            await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+            CurrentUrl = _page.Url;
+            Assert.That(PocetnaStrana + "/Dashboard", Is.EqualTo(CurrentUrl));
+
+            await _page.Locator(".korisnik").ClickAsync();
+            await _page.GetByRole(AriaRole.Button, new() { Name = "Odjavljivanje" }).ClickAsync();
+            await _page.WaitForURLAsync(PocetnaStrana + "/Login");
+            CurrentUrl = _page.Url;
+            Assert.That(PocetnaStrana + "/Login", Is.EqualTo(CurrentUrl));
+
+            if (NacinPokretanjaTesta == "ručno")
+            {
+                OsiguranjeVozila.PorukaKrajTesta();
+            }
+            //await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
+
+            Assert.Pass();
+
+        }
+
+
         [Test]
         public async Task UcitavanjeStranice()
         {

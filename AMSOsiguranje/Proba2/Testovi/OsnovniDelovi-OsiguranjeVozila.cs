@@ -612,7 +612,7 @@ namespace Proba2
             await _page.GetByRole(AriaRole.Link, new() { Name = tipOsiguranja }).ClickAsync();
         }
 
-        private static async Task ProveriSadrzajNaStrani(IPage _page, string[] tekstZaProveru)
+        public static async Task ProveriSadrzajNaStrani(IPage _page, string[] tekstZaProveru)
         {
             foreach (var text in tekstZaProveru)
             {
@@ -626,7 +626,7 @@ namespace Proba2
             }
         }
 
-        private static async Task ProveriVidljivostKontrole(IPage _page, string kontrola, string tip)
+        public static async Task ProveriVidljivostKontrole(IPage _page, string kontrola, string tip)
         {
             bool isVisible = await _page.IsVisibleAsync(kontrola);
             if (isVisible)
@@ -682,7 +682,7 @@ namespace Proba2
                 System.Windows.MessageBox.Show($"Element NE postoji", $"Element je {kontrolaSkracena1944}", (MessageBoxButton)MessageBoxButtons.OK);
             }
         }
-        private static async Task ProveriStanjeKontrole(IPage _page, string kontrola)
+        public static async Task ProveriStanjeKontrole(IPage _page, string kontrola)
         {
             bool isVisible = await _page.IsVisibleAsync(kontrola);
             string pattern = @"'sel[^']*'";
@@ -1407,7 +1407,7 @@ namespace Proba2
 
 
         //Provera da li postoji grid
-        private static async Task ProveraPostojiGrid(IPage _page, string lokatorGrid, string tipGrida)
+        public static async Task ProveraPostojiGrid(IPage _page, string lokatorGrid, string tipGrida)
         {
             try
             {
@@ -1425,7 +1425,7 @@ namespace Proba2
         }
 
         //Proveri postojanje kontrole
-        private static async Task ProveriPostojanjeKontrole(IPage _page, string kontrola, string tip)
+        public static async Task ProveriPostojanjeKontrole(IPage _page, string kontrola, string tip)
         {
             try
             {

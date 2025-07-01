@@ -1,9 +1,9 @@
-SELECT TOP (10) *
+SELECT *
   FROM [TestLogDB].[test].[tReportSumary]
   ORDER BY [IdTestiranje] DESC;
 
 
-  SELECT TOP (10) [IdTestiranje], 
+  SELECT [IdTestiranje], 
                   [IdTest], 
                   [NazivTesta], 
                   [Rezultat], 
@@ -17,7 +17,7 @@ SELECT TOP (10) *
   ORDER BY [IdTestiranje] DESC, [IdTest] ASC;
 
 
-  SELECT TOP (10) [IdTestiranje],
+  SELECT [IdTestiranje],
                   [IdGreske],
                   [IdTest],
 				  [DatumVremeGreske],
