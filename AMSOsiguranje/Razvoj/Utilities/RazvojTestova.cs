@@ -1260,7 +1260,6 @@ namespace Razvoj
             await OsiguranjeVozila.IzlogujSe(_page);
             await ProveriURL(_page, PocetnaStrana, "/Login");
             await _page.PauseAsync();
-            return;
             // Vrednosti koje unosimo
             string Prom1 = DateTime.Now.ToString("dd.MM.yyyy. HH:mm:ss.fffffff");
             string Prom2 = NazivTekucegTesta;
@@ -1568,13 +1567,13 @@ namespace Razvoj
 
                 #endregion Sertifikat
                 await _page!.PauseAsync();
-                return;
+                //return;
 
                 await OsiguranjeVozila.IzlogujSe(_page);
 
                 await ProveriURL(_page, PocetnaStrana, "/Login");
                 await _page.PauseAsync();
-                return;
+                //return;
             }
             catch (Exception ex)
             {

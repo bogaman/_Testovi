@@ -248,6 +248,10 @@ namespace UAT
         {
             try
             {
+
+
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
@@ -437,7 +441,8 @@ namespace UAT
                     Magacin = "Centralni magacin"; //Magacin u koji se vrši ulaz u centralni magacin
                 }
 
-
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.GetByText("Osiguranje vozila").HoverAsync(); //Pređi mišem preko teksta Osiguranje vozila
@@ -652,8 +657,8 @@ namespace UAT
                 await _page.Locator("#inpOdBroja input[type=\"text\"]").FillAsync($"{PoslednjiSerijski + 1}");
                 konCifraOd = IzracunajKontrolnuCifru($"{PoslednjiSerijski + 1}");
                 await _page.Locator("#inpOdBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraOd);
-                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{PoslednjiSerijski + 3}");
-                konCifraDo = IzracunajKontrolnuCifru($"{PoslednjiSerijski + 3}");
+                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{PoslednjiSerijski + 1}");
+                konCifraDo = IzracunajKontrolnuCifru($"{PoslednjiSerijski + 1}");
                 await _page.Locator("#inpDoBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraDo);
                 //await _page.Locator("button").Filter(new() { HasText = "Dodaj" }).ClickAsync();
                 await _page.Locator("//e-button[@id='btnDodaj']").ClickAsync();
@@ -725,12 +730,14 @@ namespace UAT
 
                 //await UnesiMagacin(_page, "#selRazduzenje");
                 await IzaberiOpcijuIzListe(_page, "#selRazduzenje", Magacin, false);
+                /**************************
                 string Saradnik = "88888 - Mario Radomir";//"90202 - Bogdan Mandarić"; //Saradnik kome se prenosi zaduženje
                 if (NacinPokretanjaTesta == "automatski")
                 {
                     Saradnik = "88888 - Mario Radomir"; //Saradnik kome se prenosi zaduženje
                 }
-                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik, false);
+                ****************************/
+                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik_, false);
                 //await _page.Locator("#selZaduzenje").ClickAsync();
                 /*
                                 await _page.Locator("#selZaduzenje").ClickAsync();
@@ -751,7 +758,7 @@ namespace UAT
                 await _page.Locator("#inpOdBroja input[type=\"text\"]").FillAsync($"{PoslednjiSerijski + 1}");
                 await _page.Locator("#inpOdBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraOd);
                 await _page.Locator("#inpDoBroja input[type=\"text\"]").ClickAsync();
-                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{PoslednjiSerijski + 3}");
+                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{PoslednjiSerijski + 1}");
                 await _page.Locator("#inpDoBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraDo);
 
                 //await _page.Locator("button").Filter(new() { HasText = "Dodaj" }).ClickAsync();
@@ -787,6 +794,10 @@ namespace UAT
                 // Prijavljuje se agent
                 //await UlogujSe_6(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
                 //await UlogujSe_1(_page, "Agent", RucnaUloga);
+
+
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
@@ -2320,6 +2331,8 @@ namespace UAT
             await Pauziraj(_page!);
             try
             {
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
@@ -2617,6 +2630,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
@@ -2797,6 +2812,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
@@ -3519,8 +3536,8 @@ namespace UAT
                 await _page.Locator("//e-button[@id='btnDodaj']").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();
                 await _page.Locator("#inpDoBroja input[type=\"text\"]").ClickAsync();
-                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{(PoslednjiSerijskiZK + 3).ToString("D8")}");
-                konCifraDo = IzracunajKontrolnuCifruZK($"{PoslednjiSerijskiZK + 3}");
+                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{(PoslednjiSerijskiZK + 1).ToString("D8")}");
+                konCifraDo = IzracunajKontrolnuCifruZK($"{PoslednjiSerijskiZK + 1}");
                 await _page.Locator("#inpDoBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraDo);
                 await _page.Locator("#inpOdBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraOd);
                 //await _page.Locator("button").Filter(new() { HasText = "Dodaj" }).ClickAsync();
@@ -3586,17 +3603,17 @@ namespace UAT
                 await _page.Locator("#selZaduzenje").ClickAsync();
                 if (Okruzenje == "Razvoj")
                 {
-                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik).ClickAsync();
+                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik_).ClickAsync();
                 }
                 else if (Okruzenje == "Proba2")
                 {
                     //await _page.GetByText("Centralni magacin 2").ClickAsync(); 
-                    await _page.Locator("#selZaduzenje").GetByText("Bogdan Mandarić").ClickAsync();
+                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik_).ClickAsync();
                 }
                 else
                 {
                     //await _page.GetByText("90202 - Bogdan Mandarić", new() { Exact = true }).ClickAsync();
-                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik).ClickAsync();
+                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik_).ClickAsync();
                 }
 
                 //await _page.PauseAsync();
@@ -3607,7 +3624,7 @@ namespace UAT
                 await _page.Locator("#inpOdBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraOd);
 
                 await _page.Locator("#inpDoBroja input[type=\"text\"]").ClickAsync();
-                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{(PoslednjiSerijskiZK + 3).ToString("D8")}");
+                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync($"{(PoslednjiSerijskiZK + 1).ToString("D8")}");
                 await _page.Locator("#inpDoBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraDo);
                 //await _page.Locator("button").Filter(new() { HasText = "Dodaj" }).ClickAsync();
                 await _page.Locator("//e-button[@id='btnDodaj']").ClickAsync();
@@ -4347,6 +4364,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
@@ -4521,6 +4540,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
@@ -5074,6 +5095,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
@@ -5232,6 +5255,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
@@ -5406,6 +5431,8 @@ namespace UAT
             {
 
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
@@ -5655,6 +5682,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
@@ -5812,6 +5841,8 @@ namespace UAT
             try
             {
                 await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Putno zdravstveno

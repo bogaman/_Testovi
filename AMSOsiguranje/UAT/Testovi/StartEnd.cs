@@ -16,7 +16,7 @@ namespace UAT
         public string Alozinka_ = string.Empty;
         public string sertifikatName = string.Empty;
 
-
+        public string Asaradnik_ = string.Empty;
 
         #region OnTimeSetUp
         //Metoda koja se pokreće samo jednom na početku testiranja
@@ -242,7 +242,7 @@ namespace UAT
                     AkorisnickoIme_ = Akorisnik_?.KorisnickoIme ?? string.Empty;
                     Alozinka_ = Akorisnik_?.Lozinka1 ?? string.Empty;
                     sertifikatName = Akorisnik_?.Sertifikat ?? string.Empty;
-
+                    Asaradnik_ = Akorisnik_?.Saradnik1 ?? string.Empty;
                     // Proveri da li je korisnik učitan
                     if (BOkorisnik_ == null || Akorisnik_ == null)
                     {

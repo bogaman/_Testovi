@@ -135,34 +135,29 @@ namespace Produkcija
                                           "INNER JOIN [NotificationsDB].[mail].[MailHeaders] ON [NotificationsDB].[mail].[MailDeliveryStatus].[IDMail] = [NotificationsDB].[mail].[MailHeaders].[IDMail] " +
                                           "ORDER BY [ID] DESC;";
 
+                //using (SqlConnection connection = new SqlConnection(connectionString))
+                using SqlConnection connection = new(connectionString);
+                connection.Open();
+                using SqlCommand command = new(qryPoslednjiMejl, connection);
+                using SqlDataReader reader = command.ExecuteReader();
 
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                if (reader.Read())
                 {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(qryPoslednjiMejl, connection))
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    return await Task.FromResult(new ZapisOSlanjuMejla
                     {
+                        PoslednjiID = reader.GetInt64(reader.GetOrdinal("ID")),
+                        PoslednjiIDMail = reader.GetInt64(reader.GetOrdinal("IDMail")),
+                        Status = Convert.ToInt32(reader["Status"]),
+                        Opis = reader.IsDBNull(reader.GetOrdinal("Opis")) ? "-" : reader.GetString(reader.GetOrdinal("Opis")),
+                        Datum = reader.GetDateTime(reader.GetOrdinal("Datum")),
+                        Subject = reader.IsDBNull(reader.GetOrdinal("Subject")) ? "-" : reader.GetString(reader.GetOrdinal("Subject"))
 
-                        if (reader.Read())
-                        {
-                            return await Task.FromResult(new ZapisOSlanjuMejla
-                            {
-                                PoslednjiID = reader.GetInt64(reader.GetOrdinal("ID")),
-                                PoslednjiIDMail = reader.GetInt64(reader.GetOrdinal("IDMail")),
-                                Status = Convert.ToInt32(reader["Status"]),
-                                Opis = reader.IsDBNull(reader.GetOrdinal("Opis")) ? "-" : reader.GetString(reader.GetOrdinal("Opis")),
-                                Datum = reader.GetDateTime(reader.GetOrdinal("Datum")),
-                                Subject = reader.IsDBNull(reader.GetOrdinal("Subject")) ? "-" : reader.GetString(reader.GetOrdinal("Subject"))
+                    });
 
-                            });
-
-                        }
-                        else
-                        {
-                            return await Task.FromResult<ZapisOSlanjuMejla?>(null); // Nema zapisa
-                        }
-
-                    }
+                }
+                else
+                {
+                    return await Task.FromResult<ZapisOSlanjuMejla?>(null); // Nema zapisa
                 }
 
             }
@@ -915,7 +910,7 @@ namespace Produkcija
             // Izdvaja se string bez prva 4 i poslednjeg znaka
             //string cleanedText = foundText[4..^1];
 
-            string disabledAttr = await _page.Locator(kontrola).GetAttributeAsync("disabled");
+            string? disabledAttr = await _page.Locator(kontrola).GetAttributeAsync("disabled");
             if (disabledAttr != null)
             {
                 //MessageBox.Show($"Diseblovanost kontrole {kontrola[19..^44]} je  {disabledAttr} - DISABLE", "Informacija", MessageBoxButtons.OK);
