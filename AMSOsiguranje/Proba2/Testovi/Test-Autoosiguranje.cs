@@ -2437,6 +2437,7 @@ namespace Proba2
                 Server = OdrediServer(Okruzenje);
 
                 int BrojDokumenta;
+                /****************
                 int idKorisnik = 0;
                 idKorisnik = RucnaUloga switch
                 {
@@ -2445,9 +2446,10 @@ namespace Proba2
 
                     _ => throw new ArgumentException($"Nepoznati idKorisnik:  + {idKorisnik}"),
                 };
+                ******************/
                 string qBrojDokumenta = $"SELECT MIN ([Dokument].[idDokument]) FROM [MtplDB].[mtpl].[Dokument] " +
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
-                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {idKorisnik} AND [datumIsteka] > '{DateTime.Now.ToString("yyyy-MM-dd")}';";
+                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLica_} AND [datumIsteka] > '{DateTime.Now.ToString("yyyy-MM-dd")}';";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -2521,7 +2523,9 @@ namespace Proba2
 
                 //uloguj se kao BO
                 //await UlogujSe_6(_page, "davor.bulic@eonsystem.com", KorisnikPassword);
-                await UlogujSe_2(_page, "BackOffice");
+                //await UlogujSe_2(_page, "BackOffice");
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
                 //await _page.Locator("input[type=\"password\"]").ClickAsync();
@@ -2560,7 +2564,9 @@ namespace Proba2
                 //await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
 
                 //await UlogujSe_6(_page, "bogdan.mandaric@eonsystem.com", KorisnikPassword);
-                await UlogujSe_2(_page, "Agent");
+                //await UlogujSe_2(_page, "Agent");
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("bogdan.mandaric@eonsystem.com");
                 //await _page.Locator("input[type=\"password\"]").ClickAsync();
@@ -2675,7 +2681,7 @@ namespace Proba2
                 await _page.GetByLabel(CurrentDate.ToString("MMMM d,")).ClickAsync();
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik).ClickAsync();
+                await _page.GetByText(Asaradnik_).ClickAsync();
 
                 await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
@@ -2751,23 +2757,38 @@ namespace Proba2
                 //await _page.PauseAsync();
 
                 await _page.Locator(".ico-ams-logo").ClickAsync();
-                await _page.Locator(".korisnik").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                /**********************
+                                await _page.Locator(".korisnik").ClickAsync();
+                                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+                                ***************/
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                /**********************
                 await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
                 await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
                 await _page.Locator("css = [type='password']").ClickAsync();
                 await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
                 await _page.Locator("a").First.ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
-
+************************/
 
                 //await _page.PauseAsync();
                 // Sačekaj na URL posle logovanja
-                await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+                //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 //string tekst = "Imate novi dokument \"Otpis\" za verifikacijuDokument možete pogledati klikom na link: ";
                 //await _page.GetByText(tekst + oznakaDokumenta).ClickAsync();
                 //await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
-                await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").ClickAsync();
+
+                //Imate novi dokument "Razdužna lista (OSK)" za verifikaciju
+                //Dokument možete pogledati klikom na link: RAO-88888-2025-1070
+                // $"Imate novi dokument \"Ulaz u centralni magacin\" za verifikaciju\n" +
+                //                 $"Dokument možete pogledati klikom na link: {oznakaDokumenta}";
+                //string ocekivaniTekst = $"Imate novi dokument \"Razdužna lista (OSK)\" za verifikaciju<br>Dokument možete pogledati klikom na link: {oznakaDokumenta}";
+                //await _page.GetByText(ocekivaniTekst).ClickAsync();
+
                 //await _page.GetByText($"{PoslednjiDokumentStroga + 2}").ClickAsync();
                 //await _page.GetByRole(AriaRole.Link, new() { Name = $"{PoslednjiDokumentStroga + 1}" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Link, new() { Name = $"{oznakaDokumenta}" }).ClickAsync();
@@ -2791,7 +2812,7 @@ namespace Proba2
                 }
                 await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
 
-                Assert.Pass();
+                //Assert.Pass();
             }
             catch (Exception ex)
             {
@@ -4568,7 +4589,7 @@ namespace Proba2
                 int GranicniBrojdokumenta = 0;
                 if (Okruzenje == "Razvoj")
                 {
-                    GranicniBrojdokumenta = 1829;
+                    GranicniBrojdokumenta = 3130;
                 }
                 else if (Okruzenje == "Proba2")
                 {
@@ -5202,20 +5223,24 @@ namespace Proba2
                 //await _page.PauseAsync();
 
                 await _page.Locator(".ico-ams-logo").ClickAsync();
-                await _page.Locator(".korisnik").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
-                await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
-                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
-                await _page.Locator("css = [type='password']").ClickAsync();
-                await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
-                await _page.Locator("a").First.ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
-
-
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                /*
+                                await _page.Locator(".korisnik").ClickAsync();
+                                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+                                await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
+                                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
+                                await _page.Locator("css = [type='password']").ClickAsync();
+                                await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
+                                await _page.Locator("a").First.ClickAsync();
+                                await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+                */
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.PauseAsync();
                 // Sačekaj na URL posle logovanja
-                await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
-                await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").ClickAsync();
+                //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+                await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").HoverAsync();
                 await _page.GetByText($"{oznakaDokumenta}").ClickAsync();
                 //await _page.GetByRole(AriaRole.Link, new() { Name = $"{PoslednjiDokumentStroga + 1}" }).ClickAsync();
 
@@ -5481,6 +5506,7 @@ namespace Proba2
 
                 int BrojPoliseAO = 0;
                 string BrojPoliseAOstring = "";
+                string premijskaGrupa_1 = "";
                 string premijskaGrupa = "";
                 int taksi = -1;
                 int rentacar = -1;
@@ -5501,7 +5527,8 @@ namespace Proba2
                             BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
                             BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
                             DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
-                            premijskaGrupa = Convert.ToString(reader["oznakaPremijskaGrupaPodgrupa"]);
+                            premijskaGrupa_1 = Convert.ToString(reader["oznakaPremijskaGrupaPodgrupa"]);
+                            premijskaGrupa = "01." + premijskaGrupa_1.Substring(0, premijskaGrupa_1.Length - 3);
                             taksi = Convert.ToInt32(reader["taksiVozilo"]);
                             rentacar = Convert.ToInt32(reader["rentacar"]);
                             string qPolisaAONemaDK = $"SELECT * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 7 AND [idStatus] = 2 AND [registarskiBroj] = {BrojPoliseAO});";
@@ -5557,7 +5584,7 @@ namespace Proba2
                 //await ProveriTarifu(_page);
 
 
-                //await _page.PauseAsync();
+                await Pauziraj(_page);
                 //e-select[@id='selKorekcijePremije']
 
                 //await _page.GetByText("---Auto škola ---").ClickAsync();
@@ -5613,27 +5640,58 @@ namespace Proba2
                 await _page.GetByText(rizikKradje, new() { Exact = true }).ClickAsync();
 
                 // Unesi auto nezgodu
-                if ((premijskaGrupa == "01.01" && (taksi != 1 || rentacar != 1)) || premijskaGrupa != "01.03" || premijskaGrupa != "01.04" || premijskaGrupa != "01.09")
+                if (taksi != 1 && rentacar != 1 && premijskaGrupa != "01.03" && premijskaGrupa != "01.04" && premijskaGrupa != "01.09")
                 {
+
                     await _page.Locator("#chkAn div").Nth(3).ClickAsync();
-                    await _page.Locator("#selSumeOsiguranjaAn > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                    if (IdLica_ == 1001)
+                    {
+                        await _page.Locator("#selSumeOsiguranjaAn > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+
+                        pocetak = 100000;
+                        kraj = 1000000;
+                        korak = 50000;
+                        brojOpcija = (kraj - pocetak) / korak + 1;
 
 
-                    pocetak = 100000;
-                    kraj = 1000000;
-                    korak = 50000;
-                    brojOpcija = (kraj - pocetak) / korak + 1;
+                        Random randomUcesceNezgoda = new Random();
+                        // Slučajan izbor indeksa
+                        randomIndeks = randomUcesceNezgoda.Next(0, brojOpcija);
+                        // Izračunavanje vrednosti
+                        int osiguranaSumaSmrt = pocetak + randomIndeks * korak;
+                        double doubleOsiguranaSumaSmrt = (double)osiguranaSumaSmrt;
+                        // Formatiranje broja
+                        string formatiraniBroj = doubleOsiguranaSumaSmrt.ToString("#,##0.00", new CultureInfo("sr-RS"));
+                        await _page.GetByText($"Suma smrt {formatiraniBroj} - suma").ClickAsync();
+                    }
+                    else if (IdLica_ == 1002)
+                    {
+                        //await _page.Locator("//e-input[@id='idSumeOsiguranjaAN']//input[@class='input']").ClickAsync();
+                        //await _page.Locator("#idSumeOsiguranjaAN input[type=\"text\"]").ClickAsync();
+                        await _page.GetByText("Osigurana suma smrt").ClickAsync();
 
 
-                    Random randomUcesceNezgoda = new Random();
-                    // Slučajan izbor indeksa
-                    randomIndeks = randomUcesceNezgoda.Next(0, brojOpcija);
-                    // Izračunavanje vrednosti
-                    int osiguranaSumaSmrt = pocetak + randomIndeks * korak;
-                    double doubleOsiguranaSumaSmrt = (double)osiguranaSumaSmrt;
-                    // Formatiranje broja
-                    string formatiraniBroj = doubleOsiguranaSumaSmrt.ToString("#,##0.00", new CultureInfo("sr-RS"));
-                    await _page.GetByText($"Suma smrt {formatiraniBroj} - suma").ClickAsync();
+                        pocetak = 50000;
+                        kraj = 500000;
+                        korak = 25000;
+                        brojOpcija = (kraj - pocetak) / korak + 1;
+
+                        Random randomUcesceNezgoda = new Random();
+                        // Slučajan izbor indeksa
+                        randomIndeks = randomUcesceNezgoda.Next(0, brojOpcija);
+                        // Izračunavanje vrednosti
+                        int osiguranaSumaSmrt = pocetak + randomIndeks * korak;
+                        double doubleOsiguranaSumaSmrt = (double)osiguranaSumaSmrt;
+                        // Formatiranje broja
+                        string formatiraniBroj = doubleOsiguranaSumaSmrt.ToString("#,##0.00", new CultureInfo("sr-RS"));
+                        //await _page.GetByText($"Suma smrt {formatiraniBroj} - suma").ClickAsync();
+                        //await _page.Locator("#idSumeOsiguranjaAN input[type=\"text\"]").FillAsync(formatiraniBroj);
+                        //await _page.GetByText("Osigurana suma invaliditet").ClickAsync();
+                        await _page.Locator("#idSumeOsiguranjaAN input[type=\"text\"]").ClickAsync();
+                        await _page.Locator("#idSumeOsiguranjaAN input[type=\"text\"]").FillAsync(formatiraniBroj);
+                        await _page.GetByText("Osigurana suma invaliditet").ClickAsync();
+                    }
+
 
                 }
 
@@ -5711,12 +5769,12 @@ namespace Proba2
 
 
                 await _page.Locator("e-calendar input[type=\"text\"]").ClickAsync();
-                await _page.GetByLabel(NextDate.ToString("MMMM d")).ClickAsync();
+                await _page.GetByLabel(NextDate.ToString("MMMM d")).First.ClickAsync();
                 await _page.Locator("e-calendar input[type=\"text\"]").FillAsync(CurrentDate.ToString("dd.mm.yyyy."));
 
-
+                await Pauziraj(_page!);
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
+                await _page.GetByText(Asaradnik_).ClickAsync();
 
                 //await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
@@ -5789,19 +5847,25 @@ namespace Proba2
                 //await _page.PauseAsync();
 
                 await _page.Locator(".ico-ams-logo").ClickAsync();
-                await _page.Locator(".korisnik").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
-                await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
-                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
-                await _page.Locator("css = [type='password']").ClickAsync();
-                await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
-                await _page.Locator("a").First.ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                /*
+                                                                await _page.Locator(".korisnik").ClickAsync();
+                                                                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
 
+                                                                await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
+                                                                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
+                                                                await _page.Locator("css = [type='password']").ClickAsync();
+                                                                await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
+                                                                await _page.Locator("a").First.ClickAsync();
+                                                                await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+                                                */
 
                 //await Pauziraj(_page!);
                 // Sačekaj na URL posle logovanja
-                await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+                //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 //await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").ClickAsync();
                 await _page.GetByText($"Imate novi dokument \"Razdužna lista (OSK)\" za verifikaciju").First.HoverAsync();
                 await _page.GetByText($"{oznakaDokumenta}").ClickAsync();
