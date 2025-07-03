@@ -2729,7 +2729,12 @@ namespace Produkcija
                 int brojElemenata = await elementi.CountAsync();
                 // Ispis rezultata
                 Console.WriteLine($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata}");
-                System.Windows.MessageBox.Show($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata}", "Informacija", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.MessageBox.Show($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata}", "AO - Razdužna lista", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                //await _page.PauseAsync();{}
+
                 //await _page.PauseAsync();
                 // Kliknite na svaki element
                 for (int i = brojElemenata - 1; i > 1; i--)
@@ -3089,7 +3094,7 @@ namespace Produkcija
                 }
                 await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
 
-                Assert.Pass();
+                //Assert.Pass();
             }
             catch (Exception ex)
             {
@@ -4004,7 +4009,7 @@ namespace Produkcija
 
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                await _page.GetByText(Asaradnik).ClickAsync();
+                await _page.GetByText(Asaradnik_).ClickAsync();
 
                 //await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
@@ -4111,7 +4116,7 @@ namespace Produkcija
                 }
                 await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
 
-                Assert.Pass();
+                //Assert.Pass();
             }
             catch (Exception ex)
             {
@@ -4150,11 +4155,11 @@ namespace Produkcija
                 await _page.Locator("e-calendar input[type=\"text\"]").ClickAsync();
                 await _page.GetByLabel(NextDate.ToString("MMMM d")).ClickAsync();
                 await _page.Locator("e-calendar input[type=\"text\"]").ClickAsync();
-                await _page.GetByLabel(CurrentDate.ToString("MMMM d")).ClickAsync();
+                await _page.GetByLabel(CurrentDate.ToString("MMMM d")).First.ClickAsync();
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik).ClickAsync();
+                await _page.GetByText(Asaradnik_).ClickAsync();
 
                 await _page.Locator("textarea").First.ClickAsync();
                 await _page.Locator("textarea").First.FillAsync("Dragan je prosuo kafu i rakiju!");
@@ -4364,7 +4369,7 @@ namespace Produkcija
                 }
                 await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
 
-                Assert.Pass();
+                //Assert.Pass();
             }
             catch (Exception ex)
             {
