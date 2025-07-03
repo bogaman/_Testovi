@@ -263,6 +263,43 @@ namespace UAT
                 throw;
             }
         }
+        private async Task ApplyZoomWithObserverAsync(IPage page)
+        {
+            string js = @"
+        (function() {
+            const applyZoom = () => {
+                if (document.body) {
+                    document.body.style.zoom = '75%';
+                }
+            };
+
+            const observer = new MutationObserver(() => {
+                applyZoom();
+            });
+
+            applyZoom();
+
+            observer.observe(document.documentElement || document.body, {
+                childList: true,
+                subtree: true
+            });
+        })();
+    ";
+
+            await page.EvaluateAsync(js);
+        }
+
+        private async Task ForceZoomAsync(IPage page)
+        {
+            await page.SetViewportSizeAsync(1280, 720);
+            //await page.SetViewportSizeAsync(1920, 1080);
+            //await page.SetViewportSizeAsync(1919, 1079);
+            await page.EvaluateAsync(@"() => {
+        document.documentElement.style.transform = 'scale(0.75)';
+        document.documentElement.style.transformOrigin = '0 0';
+        document.documentElement.style.width = '133.33%';
+    }");
+        }
 
     }
     public static class Funkcije

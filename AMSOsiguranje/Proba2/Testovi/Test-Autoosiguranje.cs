@@ -414,7 +414,7 @@ namespace Proba2
                 Console.WriteLine(ex.Message);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
-                throw new Exception("Namerna greška u testu.");
+                //throw new Exception("Namerna greška u testu.");
                 throw;
             }
 

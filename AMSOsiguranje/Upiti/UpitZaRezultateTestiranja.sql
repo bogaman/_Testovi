@@ -1,6 +1,6 @@
 SELECT *
   FROM [TestLogDB].[test].[tReportSumary]
-  where IdTestiranje = 10 
+  --where IdTestiranje = 10 
   ORDER BY [IdTestiranje] DESC;
 
 
@@ -15,7 +15,7 @@ SELECT *
 				  [StackTrace],
 				  [BackOffice]
   FROM [TestLogDB].[test].[tReportIndividual]
-  where IdTestiranje = 10
+  --where IdTestiranje = 10
   ORDER BY [IdTestiranje] DESC, [IdTest] ASC;
 
 
@@ -27,5 +27,5 @@ SELECT *
 				  [Poruka],
 				  [StackTrace]
              FROM [TestLogDB].[test].[tErrorLog]
-			 where IdTestiranje = 10
+			 --where IdTestiranje = 10
             ORDER BY [IdTestiranje] DESC, [IdGreske] ASC;

@@ -6,9 +6,11 @@ namespace Produkcija
     //[SetUpFixture]
     public partial class Osiguranje
     {
-        public IBrowser? _browser;
-        public IPage? _page;
-        public IPlaywright? _playwright;
+        protected IBrowser _browser;
+        protected IPage _page;
+        protected IPlaywright _playwright;
+        protected IBrowserContext context;
+
 
         public string BOkorisnickoIme_ = string.Empty;
         public string BOlozinka_ = string.Empty;
@@ -166,15 +168,17 @@ namespace Produkcija
                     "Webkit" => await _playwright.Webkit.LaunchAsync(launchOptions),
                     _ => throw new ArgumentException("Nepoznat pregledač: " + Pregledac),
                 };
-
-                var context = await _browser.NewContextAsync(new BrowserNewContextOptions
+                // 1. Kreiraj context
+                context = await _browser.NewContextAsync(new BrowserNewContextOptions
                 {
                     // Set viewport size to null for maximum size
                     ViewportSize = ViewportSize.NoViewport
                     //StorageStatePath = fileAuth // Učitaj sesiju iz fajla
+
+
                 });
 
-                // Kreiranje nove stranice/tab-a
+
                 _page = await context.NewPageAsync();
 
                 await _page.Context.Tracing.StartAsync(new()
@@ -193,7 +197,17 @@ namespace Produkcija
 
                 //Otvaranje početne strane
                 await _page.GotoAsync(PocetnaStrana);
+                //await ForceZoomAsync(_page);
 
+
+                /*
+                // I u popup hook-u:
+                context.Page += async (_, popup) =>
+                {
+                    await popup.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
+                    await ForceZoomAsync(popup);
+                };
+                */
                 //await _page.PauseAsync();
                 if (nazivKlase == "WebShop")
                 {
