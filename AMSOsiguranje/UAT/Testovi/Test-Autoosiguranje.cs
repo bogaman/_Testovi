@@ -4561,8 +4561,6 @@ namespace UAT
         [Test]
         public async Task JS_2_Polisa()
         {
-
-
             try
             {
                 await Pauziraj(_page!);
@@ -4575,16 +4573,6 @@ namespace UAT
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/6/Osiguranje-putnika/Dokument/0");
 
                 // Pronađi odgovarajuću polisu AO koja nema ZK
-                /*
-                Server = Okruzenje switch
-                {
-                    "Razvoj" => "10.5.41.99",
-                    "Proba2" => "49.13.25.19",
-                    "UAT" => "10.41.5.5",
-                    "Produkcija" => "",
-                    _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
-                };
-                */
                 Server = OdrediServer(Okruzenje);
 
                 string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -4594,7 +4582,7 @@ namespace UAT
                 int GranicniBrojdokumenta = 0;
                 if (Okruzenje == "Razvoj")
                 {
-                    GranicniBrojdokumenta = 3130;
+                    GranicniBrojdokumenta = 0;
                 }
                 else if (Okruzenje == "Proba2")
                 {
@@ -4611,61 +4599,81 @@ namespace UAT
 
                 string qPoliseAOnisuIstekle = $"SELECT [Dokument].[idDokument], [Dokument].[brojUgovora], [Dokument].[idProizvod], [Dokument].[datumIsteka], [Dokument].[idStatus], [DokumentPodaci].[tipPolise], [oznakaPremijskaGrupaPodgrupa], * " +
                                               $"FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] " +
-                                              $"WHERE ([oznakaPremijskaGrupaPodgrupa] LIKE '01.%' AND ([taksiVozilo] =1 OR [rentacar] = 1)  AND  [Dokument].[idDokument] > '{GranicniBrojdokumenta}' AND [idProizvod] = 1 AND [idStatus] = 2 AND [tipPolise] = 1 AND [Dokument].[brojUgovora] IS NOT NULL  AND [trajanje] = 1 AND [datumIsteka] > CAST(GETDATE() AS DATE) ) ORDER BY [Dokument].[idDokument] ASC;"; //AND [datumIsteka] > {DateTime.Now.Date}
-
+                                              $"WHERE ([oznakaPremijskaGrupaPodgrupa] LIKE '01.%' AND ([taksiVozilo] =1 OR [rentacar] = 1)  AND  [Dokument].[idDokument] > '{GranicniBrojdokumenta}' AND [idProizvod] = 1 AND [idStatus] = 2 AND [tipPolise] = 1 AND [Dokument].[brojUgovora] IS NOT NULL  AND [trajanje] = 1 AND [datumIsteka] > CAST(GETDATE() AS DATE) ) ORDER BY [Dokument].[datumIsteka] ASC;"; //ORDER BY [Dokument].[idDokument] ASC
 
                 int BrojPoliseAO = 0;
                 string BrojPoliseAOstring = "";
+                int BrojDokumenta = 0;
                 try
                 {
-                    using (SqlConnection konekcija = new SqlConnection(connectionStringMtpl))
+                    using SqlConnection konekcija = new(connectionStringMtpl);
+                    konekcija.Open();
+                    using SqlCommand cmd = new(qPoliseAOnisuIstekle, konekcija);
+                    // Izvršavanje upita i dobijanje SqlDataReader objekta
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    // Prolazak kroz redove rezultata
+                    while (reader.Read())
                     {
-                        konekcija.Open();
-                        using SqlCommand cmd = new SqlCommand(qPoliseAOnisuIstekle, konekcija);
-                        // Izvršavanje upita i dobijanje SqlDataReader objekta
-                        using SqlDataReader reader = cmd.ExecuteReader();
-                        // Prolazak kroz redove rezultata
-                        while (reader.Read())
+                        // Čitanje vrednosti iz trenutnog reda
+                        BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
+                        BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
+                        BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
+                        DateTime DatumIsteka = Convert.ToDateTime(reader["datumIsteka"]); // Čitanje kao DateTime
+                        /*
+                        if (NacinPokretanjaTesta == "ručno")
                         {
-                            // Čitanje vrednosti iz trenutnog reda
-                            int BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
-                            BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
-                            BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
-                            DateTime DatumIsteka = Convert.ToDateTime(reader["datumIsteka"]); // Čitanje kao DateTime
-
-                            string qPolisaAONemaJS = $"SELECT * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 6 AND [idStatus] = 2 AND [registarskiBroj] = '{BrojPoliseAO}');";
-                            using SqlConnection konekcija2 = new SqlConnection(connectionStringMtpl);
-                            konekcija2.Open();
-                            using SqlCommand cmd2 = new SqlCommand(qPolisaAONemaJS, konekcija2);
-                            int imaPolisuJS = (int)(cmd2.ExecuteScalar() ?? 0);
-
-
-                            // Ispis rezultata u konzoli
-
-                            if (imaPolisuJS != 0)
-                            {
-                                //await _page.PauseAsync();
-                                Console.WriteLine($"Prva koja ima: BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisu AO: {imaPolisuJS}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-
-                                Console.WriteLine($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisu AO: {imaPolisuJS}");
-
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Prva koja nema:BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisuJS: {imaPolisuJS}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-
-                                break;
-                            }
-
+                            System.Windows.Forms.MessageBox.Show($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}", "Prva polisa AO koja nije istekla", MessageBoxButtons.OK);
                         }
+                        */
+                        string qPolisaAONemaJS = $"SELECT COUNT (*) FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 6 AND [idStatus] = 2 AND [registarskiBroj] = {BrojPoliseAO});";
+                        using SqlConnection konekcija2 = new(connectionStringMtpl);
+                        konekcija2.Open();
+                        using SqlCommand cmd2 = new(qPolisaAONemaJS, konekcija2);
+                        int imaPolisuJS = (int)(cmd2.ExecuteScalar() ?? 0);
+                        //int imaPolisuJS = cmd2.ExecuteNonQuery();
+                        /*
+                        if (NacinPokretanjaTesta == "ručno")
+                        {
+                            System.Windows.Forms.MessageBox.Show($"Ima polisu JS : {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisu JS: {imaPolisuJS}", "Informacija", MessageBoxButtons.OK);
+                        }
+                        */
+                        // Ispis rezultata u konzoli
+                        if (imaPolisuJS == 1)
+                        {
+                            //await _page.PauseAsync();
+                            Console.WriteLine($"Prva koja ima: BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisu AO: {imaPolisuJS}");
+                            //konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
+
+                            Console.WriteLine($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisu AO: {imaPolisuJS}");
+                            /*
+                            if (NacinPokretanjaTesta == "ručno")
+                            {
+                                System.Windows.Forms.MessageBox.Show($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisu AO: {imaPolisuJS}", "Prva koja ima polisu JS", MessageBoxButtons.OK);
+                            }
+                            */
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Prva koja nema:BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisuJS: {imaPolisuJS}");
+                            konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
+
+
+                            break;
+                        }
+
+                        Console.WriteLine($"\nKreiraću polisu JS za polisu AO br: {BrojPoliseAO}\n");
+                        if (NacinPokretanjaTesta == "ručno")
+                        {
+                            System.Windows.Forms.MessageBox.Show($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisu AO: {imaPolisuJS}", "Prva koja nema polisu JS", MessageBoxButtons.OK);
+                        }
+
+
                     }
                 }
                 catch (Exception ex)
@@ -4674,7 +4682,6 @@ namespace UAT
                 }
 
 
-                Console.WriteLine($"\nKreiraću polisu JS za polisu AO br: {BrojPoliseAO}\n");
 
                 //await _page.PauseAsync();
 
