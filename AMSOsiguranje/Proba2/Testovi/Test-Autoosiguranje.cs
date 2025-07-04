@@ -425,7 +425,7 @@ namespace Proba2
         {
             try
             {
-                //await Pauziraj(_page!);
+                await Pauziraj(_page);
                 long PoslednjiSerijski; //Poslednji iskorišćeni serijski broja obrasca u Strogoj evidenciji
                 int PoslednjiDokument; //Poslednji broj dokumenta u Strogoj evidenciji
                 string konCifraOd, konCifraDo;
