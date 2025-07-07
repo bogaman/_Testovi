@@ -2447,7 +2447,7 @@ namespace Proba2
                 ******************/
                 string qBrojDokumenta = $"SELECT MIN ([Dokument].[idDokument]) FROM [MtplDB].[mtpl].[Dokument] " +
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
-                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLica_} AND [datumIsteka] > '{DateTime.Now.ToString("yyyy-MM-dd")}';";
+                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLica_} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -2463,7 +2463,7 @@ namespace Proba2
                     }
                     konekcija.Close();
                 }
-
+                //Treba ubaciti proveru o ostalih slučajeva. kada je u izradi.... i ako nema polisa ....
                 Console.WriteLine($"ID dokumenta je na okruženju '{Okruzenje}' je: {BrojDokumenta}.\n");
                 await _page.GotoAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/" + BrojDokumenta);
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{BrojDokumenta}");
@@ -2473,8 +2473,20 @@ namespace Proba2
                 await _page.Locator("button").Filter(new() { HasText = "Novi zahtev za izmenu" }).ClickAsync();
                 await _page.GetByText("Da li ste sigurni da želite").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
-                await _page.GetByText("---Izmena podatakaIzmena premijskog stepenaDigitalno odobrenje ---").ClickAsync();
+                //await _page.PauseAsync();
+                //await _page.GetByText("---Izmena podatakaIzmena premijskog stepenaDigitalno odobrenje ---").ClickAsync();
+                //await _page.Locator("#selTipZahteva").GetByText("Izmena podataka").ClickAsync();
+                //await _page.GetByText("Tip zahteva", new() { Exact = true }).ClickAsync();
+                await _page.Locator("//e-select[@id='selTipZahteva']//div[@class='multiselect-dropdown input']").ClickAsync();
+                //await page.Locator("#selTipZahteva span").Filter(new() { HasText = "---" }).ClickAsync();
+                //await page.Locator(".zahtev > div:nth-child(5)").ClickAsync();
+                //await page.GetByText("---Izmena podatakaIzmena premijskog stepena ---").ClickAsync();
+                //await page.Locator(".zahtev > div:nth-child(5)").ClickAsync();
+                //await page.GetByText("---Izmena podatakaIzmena premijskog stepena ---").ClickAsync();
                 await _page.Locator("#selTipZahteva").GetByText("Izmena podataka").ClickAsync();
+
+                //await _page.Locator("#inpNaslov input[type=\"text\"]").ClickAsync();
+
                 await _page.Locator("#inpNaslov input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#inpNaslov input[type=\"text\"]").FillAsync("Menjam opšte podatke");
                 await _page.GetByText("Tekst zahteva").ClickAsync();
@@ -2612,7 +2624,7 @@ namespace Proba2
                 }
                 await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
 
-                Assert.Pass();
+                //Assert.Pass();
 
             }
 
@@ -3758,7 +3770,7 @@ namespace Proba2
                 {
                     GranicniBrojdokumenta = 0;
                 }
-                string qPoliseAOnisuIstekle = $"SELECT [Dokument].[idDokument], [Dokument].[brojUgovora], [Dokument].[idProizvod], [Dokument].[datumIsteka], [Dokument].[idStatus], [DokumentPodaci].[tipPolise], * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([Dokument].[idDokument] > '{GranicniBrojdokumenta}' AND [idProizvod] = 1 AND [idStatus] = 2 AND [tipPolise] = 1 AND [Dokument].[brojUgovora] IS NOT NULL AND [datumIsteka] > '{DateTime.Now.ToString("yyyy-MM-dd")}') ORDER BY [Dokument].[idDokument] ASC;";
+                string qPoliseAOnisuIstekle = $"SELECT [Dokument].[idDokument], [Dokument].[brojUgovora], [Dokument].[idProizvod], [Dokument].[datumIsteka], [Dokument].[idStatus], [DokumentPodaci].[tipPolise], * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([Dokument].[idDokument] > '{GranicniBrojdokumenta}' AND [idProizvod] = 1 AND [idStatus] = 2 AND [tipPolise] = 1 AND [Dokument].[brojUgovora] IS NOT NULL AND [datumIsteka] > CAST(GETDATE() AS DATE)) ORDER BY [Dokument].[idDokument] ASC;";
                 int BrojPoliseAO = 0;
                 string BrojPoliseAOstring = "";
                 try
@@ -5512,7 +5524,7 @@ namespace Proba2
                     GranicniBrojdokumenta = 0;
                 }
 
-                string qPoliseAOnisuIstekle = $"SELECT [Dokument].[idDokument], [Dokument].[brojUgovora], [Dokument].[idProizvod], [Dokument].[datumIsteka], [Dokument].[idStatus], [DokumentPodaci].[tipPolise], * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([Dokument].[idDokument] > '{GranicniBrojdokumenta}' AND [idProizvod] = 1 AND [idStatus] = 2 AND [tipPolise] = 1 AND [Dokument].[brojUgovora] IS NOT NULL AND [datumIsteka] > '{DateTime.Now.ToString("yyyy-MM-dd")}' AND [oznakaPremijskaGrupaPodgrupa] NOT IN ('06.01', '06.02', '06.03', '06.04', '06.05', '06.06', '06.07', '07.01', '07.02', '07.03', '07.04', '07.05', '07.06', '07.07') ) ORDER BY [Dokument].[idDokument] ASC;";
+                string qPoliseAOnisuIstekle = $"SELECT [Dokument].[idDokument], [Dokument].[brojUgovora], [Dokument].[idProizvod], [Dokument].[datumIsteka], [Dokument].[idStatus], [DokumentPodaci].[tipPolise], * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([Dokument].[idDokument] > '{GranicniBrojdokumenta}' AND [idProizvod] = 1 AND [idStatus] = 2 AND [tipPolise] = 1 AND [Dokument].[brojUgovora] IS NOT NULL AND [datumIsteka] > CAST(GETDATE() AS DATE) AND [oznakaPremijskaGrupaPodgrupa] NOT IN ('06.01', '06.02', '06.03', '06.04', '06.05', '06.06', '06.07', '07.01', '07.02', '07.03', '07.04', '07.05', '07.06', '07.07') ) ORDER BY [Dokument].[idDokument] ASC;";
 
                 int BrojPoliseAO = 0;
                 string BrojPoliseAOstring = "";
