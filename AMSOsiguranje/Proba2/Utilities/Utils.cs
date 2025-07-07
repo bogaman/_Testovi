@@ -54,6 +54,11 @@ namespace Proba2
         public static string NazivTekucegTesta { get; set; } = TestContext.CurrentContext.Test.Name;
 
         /// <summary>
+        /// Naziv kompjutera na kom se izvršava testiranje.
+        /// </summary>
+        /// <value></value>
+        public static string DeviceName { get; set; } = Environment.MachineName;
+        /// <summary>
         /// Zadaje se primarna uloga koju korisnik ima u testiranju.
         /// <para>Primarna uloga zavisi od NazivaTesta.</para>
         /// <para>Ako je uloga Agent, U zavisnosti od NazivTekucegTesta, Okruzenje i NacinPokretanjaTesta</para>

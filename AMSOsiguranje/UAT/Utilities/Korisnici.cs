@@ -38,7 +38,7 @@ namespace UAT
         {
             var korisnici = new List<Korisnik>();
 
-            using var konekcija = new SqlConnection(LogovanjeTesta.ConnectionStringSQL);
+            using var konekcija = new SqlConnection(LogovanjeTesta.ConnectionString);
             konekcija.Open();
 
             string upit = $"SELECT * FROM test.tTesteri";

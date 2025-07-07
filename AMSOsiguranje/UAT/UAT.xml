@@ -89,6 +89,12 @@
             </summary>
             <value></value>
         </member>
+        <member name="P:UAT.Osiguranje.DeviceName">
+            <summary>
+            Naziv kompjutera na kom se izvršava testiranje.
+            </summary>
+            <value></value>
+        </member>
         <member name="P:UAT.Osiguranje.OsnovnaUloga">
             <summary>
             Zadaje se primarna uloga koju korisnik ima u testiranju.
@@ -140,6 +146,25 @@
             <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
         </member>
+        <member name="M:UAT.Alati.PokreniVpnAkoTreba">
+            <summary>
+            Proverava da li je OpenVPN GUI pokrenut, ako nije, pokreće ga i uspostavlja VPN konekciju.
+            </summary>
+        </member>
+        <member name="M:UAT.Alati.DaLiJeOpenVpnGuiPokrenut">
+            <summary>
+            Proverava da li je OpenVPN GUI pokrenut.
+            <para>Prebrojava koliko ima "openvpn-gui" procesa.</para>
+            </summary>
+            <returns>Vraća True ako je broj procesa > 0, tj. ako je OpenVPN GUI pokrenut, inače False.</returns>
+        </member>
+        <member name="M:UAT.Alati.VratiVpnLokalnuAdresu">
+            <summary>
+            Vraća lokalnu IP adresu VPN adaptera ako je aktivan.    
+            Pretražuje sve mrežne interfejse i traži one koji su u statusu "Up" i imaju tip "Ethernet" ili "Wireless".
+            Proverava da li ime ili opis interfejsa sadrži ključne reči koje se obično koriste za VPN adaptere.
+            </summary>
+        </member>
         <member name="M:UAT.Alati.ObrisiTxtFajlove(System.String)">
             <summary>
             Briše sve .txt fajlove u zadatom folderu.
@@ -172,13 +197,11 @@
             <summary>
             ID testiranja, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
             </summary>
-            <value></value>
         </member>
         <member name="P:UAT.LogovanjeTesta.IDTestaSQL">
             <summary>
             ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
             </summary>
-            <value></value>
         </member>
         <member name="P:UAT.LogovanjeTesta.PocetakTestiranja">
             <summary>
@@ -210,7 +233,7 @@
             <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
             <param name="nazivKompjutera">Naziv računara na kojem se testira. Ako nije prosleđen, koristi se Environment.MachineName.</param>
             <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
-            <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+            <exception cref="T:Microsoft.Data.SqlClient.SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
             <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
             <example>
             <code>

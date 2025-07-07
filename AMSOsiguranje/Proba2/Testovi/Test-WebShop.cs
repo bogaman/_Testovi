@@ -1,7 +1,7 @@
 namespace Proba2
 {
+    [TestFixture, Order(2)]
     [Parallelizable(ParallelScope.Self)]
-    [TestFixture]
     public partial class WebShop : Osiguranje
     {
         [Test]

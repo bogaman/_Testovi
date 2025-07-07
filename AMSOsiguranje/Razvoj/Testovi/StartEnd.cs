@@ -16,10 +16,10 @@ namespace Razvoj
         public string BOlozinka_ = string.Empty;
         public string AkorisnickoIme_ = string.Empty;
         public string Alozinka_ = string.Empty;
-        public string sertifikatName = string.Empty;
-
+        public string SertifikatName_ = string.Empty;
         public string Asaradnik_ = string.Empty;
         public int IdLica_ = 0;
+
         #region OnTimeSetUp
         //Metoda koja se pokreće samo jednom na početku testiranja
         [OneTimeSetUp]
@@ -31,57 +31,28 @@ namespace Razvoj
                 //Pročitaj vreme kada je pokrenuto testiranje
                 LogovanjeTesta.PocetakTestiranja = DateTime.Now;
 
-                //Console.WriteLine("📌 GlobalInit: Priprema pre svih testova");
-
-
-
-
-                /*
-                if (!Alati.DaLiJeOpenVpnGuiPokrenut())
-                {
-                    Process.Start(Alati.OVPN_GUI_PATH);
-                    Task.Delay(3000).Wait(); // sačekaj da se GUI digne
-                }
-
-                if (!Alati.DaLiJeVpnIpUOpsegu())
-                {
-                    Alati.PokreniVpnKonekciju();
-                    Alati.CekajNaVpnIp();
-                }
-                */
                 //Pročitaj radni prostor
                 NazivNamespace = this.GetType().Namespace!;
                 Prostor = NazivNamespace;
                 Okruzenje = Prostor;
+                DeviceName = Environment.MachineName;
 
-                // Deklarisanje string promenljive za čuvanje naziva uređaja
-                string deviceName;
-
-                // Dodeljivanje naziva računara promenljivoj
-                deviceName = Environment.MachineName;
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     System.Windows.MessageBox.Show($"Način pokretanja:: {NacinPokretanjaTesta}\n" +
                                                    $"Namespace:: {NazivNamespace}.\n" +
                                                    $"Prostor:: {Prostor}\n" +
                                                    $"Okruženje:: {Okruzenje}\n" +
-                                                   $"Računar:: {deviceName}\n",
+                                                   $"Računar:: {DeviceName}\n",
                                                     "Poruka u OneTimeSetUp",
                                                     MessageBoxButton.OK,
                                                     MessageBoxImage.Information);
                 }
 
-                /************************************
-                if (NazivNamespace == "UAT" || NazivNamespace == "Produkcija")
-                {
-
-                    Alati.PokreniVpnAkoTreba();
-                }
-                ************************************/
                 Alati.PokreniVpnAkoTreba();
 
-                //Unosi se u bazu vreme početka testiranja i uzima IDtestiranja
-                LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta, deviceName);
+                //Unosi se u bazu vreme početka testiranja i uzima IDtestiranje
+                LogovanjeTesta.IDTestiranje = LogovanjeTesta.UnesiPocetakTestiranja(LogovanjeTesta.PocetakTestiranja, NazivNamespace, NacinPokretanjaTesta, DeviceName);
 
                 // Ovo se upisuje u fajl logTrace.txt
                 LogovanjeTesta.LogMessage("-----------------------------------------", false);
@@ -255,7 +226,7 @@ namespace Razvoj
                     }
                     AkorisnickoIme_ = Akorisnik_?.KorisnickoIme ?? string.Empty;
                     Alozinka_ = Akorisnik_?.Lozinka1 ?? string.Empty;
-                    sertifikatName = Akorisnik_?.Sertifikat ?? string.Empty;
+                    SertifikatName_ = Akorisnik_?.Sertifikat ?? string.Empty;
                     Asaradnik_ = Akorisnik_?.Saradnik1 ?? string.Empty;
                     IdLica_ = int.TryParse(Akorisnik_?.IdLica, out var idLica) ? idLica : 0;
                     // Proveri da li je korisnik učitan

@@ -1,4 +1,6 @@
 
+using System.Threading.Tasks;
+
 namespace Razvoj
 {
     public class LogovanjeTesta : Osiguranje
@@ -8,14 +10,11 @@ namespace Razvoj
         /// <summary>
         /// ID testiranja, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
         /// </summary>
-        /// <value></value>
         public static int IDTestiranje { get; set; } = 0; // ID testiranja, koristi se za povezivanje sa bazom podataka
 
         /// <summary>
         /// ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka. To je primarni ključ u bazi.
         /// </summary>
-        /// <value></value>
-
         public static int IDTestaSQL { get; set; } = 0; // ID pojedinačnog testa, koristi se za povezivanje sa bazom podataka
 
 
@@ -31,7 +30,7 @@ namespace Razvoj
         public static string ConnectionStringLogovi { get; set; } = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={PutanjaDoBazeIzvestaja};";
         public static string PutanjaDoBazeAcces { get; set; } = Path.Combine(OsnovniFolder, @"dbLogoviTestova.accdb");
         public static string ConnectionStringAccess { get; set; } = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={PutanjaDoBazeAcces};";
-        public static string ConnectionStringSQL { get; set; } = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+        public static string ConnectionString { get; set; } = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
         public static int FailedTests => TestContext.CurrentContext.Result.FailCount;
         public static int PassTests => TestContext.CurrentContext.Result.PassCount;
         public static int SkippedTests => TestContext.CurrentContext.Result.SkipCount;
@@ -67,7 +66,7 @@ namespace Razvoj
         /// <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
         /// <param name="nazivKompjutera">Naziv računara na kojem se testira. Ako nije prosleđen, koristi se Environment.MachineName.</param>
         /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
-        /// <exception cref="OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+        /// <exception cref="SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
         /// <example>
         /// <code>
@@ -80,12 +79,12 @@ namespace Razvoj
         {
 
             string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje, NacinTestiranja, NazivKompjutera) 
-                                     VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta, @NazivKompjutera)
+                                     VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta, @nazivKompjutera)
                                      SELECT SCOPE_IDENTITY();"; // Vraća ID poslednje unete vrednosti u okviru iste sesije i scope-a
 
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
 
-            using (SqlConnection connection = new(ConnectionStringSQL))
+            using (SqlConnection connection = new(ConnectionString))
             {
                 try
                 {
@@ -95,7 +94,7 @@ namespace Razvoj
                     command.Parameters.AddWithValue("@pocetakTestiranja", pocetakTestiranja);
                     command.Parameters.AddWithValue("@nazivNamespace", nazivNamespace);
                     command.Parameters.AddWithValue("@nacinPokretanjaTesta", nacinPokretanjaTesta);
-                    command.Parameters.AddWithValue("@NazivKompjutera", nazivKompjutera ?? Environment.MachineName); // Dodeljuje naziv računara ako nije prosleđen
+                    command.Parameters.AddWithValue("@nazivKompjutera", nazivKompjutera ?? Environment.MachineName); // Dodeljuje naziv računara ako nije prosleđen
                     object? result = command.ExecuteScalar();
                     if (result != null && result != DBNull.Value)
                     {
@@ -139,7 +138,7 @@ namespace Razvoj
                                      SELECT SCOPE_IDENTITY();";
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
 
-            using (SqlConnection connection = new(ConnectionStringSQL))
+            using (SqlConnection connection = new(ConnectionString))
             {
                 try
                 {
@@ -197,26 +196,24 @@ namespace Razvoj
                                          BackOffice = @backOffice 
                                       WHERE IDTest = @IDTest;";
 
-            using SqlConnection connection = new(ConnectionStringSQL);
+            using SqlConnection connection = new(ConnectionString);
 
 
             try
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand(updateCommand, connection))
-                {
-                    command.Parameters.AddWithValue("@krajTesta", krajTesta);
-                    command.Parameters.AddWithValue("@rezultat", StatusTesta.ToString());
-                    command.Parameters.AddWithValue("@opisGreske", errorMessage ?? string.Empty);
-                    command.Parameters.AddWithValue("@stackTrace", stackTrace ?? string.Empty);
-                    command.Parameters.AddWithValue("@agent", agent ?? string.Empty);
-                    command.Parameters.AddWithValue("@backOffice", backOffice ?? string.Empty);
-                    command.Parameters.AddWithValue("@IDTest", newRecordId);
+                using SqlCommand command = new(updateCommand, connection);
+                command.Parameters.AddWithValue("@krajTesta", krajTesta);
+                command.Parameters.AddWithValue("@rezultat", StatusTesta.ToString());
+                command.Parameters.AddWithValue("@opisGreske", errorMessage ?? string.Empty);
+                command.Parameters.AddWithValue("@stackTrace", stackTrace ?? string.Empty);
+                command.Parameters.AddWithValue("@agent", agent ?? string.Empty);
+                command.Parameters.AddWithValue("@backOffice", backOffice ?? string.Empty);
+                command.Parameters.AddWithValue("@IDTest", newRecordId);
 
-                    int rowsAffected = command.ExecuteNonQuery();
-                    Console.WriteLine($"{rowsAffected} red je ažuriran.");
-                }
+                int rowsAffected = command.ExecuteNonQuery();
+                Console.WriteLine($"{rowsAffected} red je ažuriran.");
             }
             catch (SqlException ex)
             {
@@ -253,7 +250,7 @@ namespace Razvoj
                                          KrajTestiranja = @krajTestiranja 
                                      WHERE IDTestiranje = @IDTestiranje;";
 
-            using SqlConnection connection = new(ConnectionStringSQL);
+            using SqlConnection connection = new(ConnectionString);
             try
             {
                 connection.Open();
@@ -283,30 +280,47 @@ namespace Razvoj
             }
         }
 
-        public static void LogException(string lokacija, Exception ex)
+        public static async Task LogException(string lokacija, Exception ex)
         {
             try
             {
-                using var connection = new SqlConnection(ConnectionStringSQL);
+                using var connection = new SqlConnection(ConnectionString);
                 connection.Open();
 
-                string query = @"INSERT INTO test.tErrorLog (IdTestiranje, IdTest, DatumVremeGreske, Lokacija, Poruka, StackTrace)
-                                 VALUES (@IdTestiranje, @IdTest, @DatumVremeGreske, @Lokacija, @Poruka, @StackTrace)";
+                string query = @"INSERT INTO test.tErrorLog 
+                                      (IdTestiranje, IdTest, DatumVremeGreske, Lokacija, KompletnaPoruka, OpisGreske, StackTrace, NazivMetode, IzvorGreske, UnutrasnjaGreska)
+                                 VALUES 
+                                      (@IdTestiranje, @IdTest, @DatumVremeGreske, @Lokacija, @KompletnaPoruka, @OpisGreske,  @StackTrace, @NazivMetode, @IzvorGreske, @UnutrasnjaGreska)";
 
                 using var command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@IdTest", IDTestaSQL);
                 command.Parameters.AddWithValue("@IdTestiranje", IDTestiranje);
                 command.Parameters.AddWithValue("@DatumVremeGreske", DateTime.Now);
-                command.Parameters.AddWithValue("@Lokacija", lokacija ?? "Nepoznata");
-                command.Parameters.AddWithValue("@Poruka", ex.Message);
+                command.Parameters.AddWithValue("@KompletnaPoruka", ex.ToString());
+                command.Parameters.AddWithValue("@Lokacija", string.IsNullOrWhiteSpace(lokacija) ? "Nepoznata" : lokacija);
+                command.Parameters.AddWithValue("@OpisGreske", ex.Message ?? "");
                 command.Parameters.AddWithValue("@StackTrace", ex.StackTrace ?? "");
+                command.Parameters.AddWithValue("@NazivMetode", ex.TargetSite?.Name ?? "Nepoznata metoda");
+                command.Parameters.AddWithValue("@IzvorGreske", ex.Source ?? "Nepoznat izvor");
+                command.Parameters.AddWithValue("@UnutrasnjaGreska", ex.InnerException?.Message ?? "Nema unutrašnje greške");
 
-                command.ExecuteNonQuery();
+                await command.ExecuteNonQueryAsync();
             }
             catch (Exception e)
             {
                 Console.WriteLine("Greška pri logovanju u bazu: " + e.Message);
             }
+            /**********************************
+            Ovaj deo ne treba jer na početku koristim using var connection = new SqlConnection(ConnectionString);
+            Pa će se konekcija automatski zatvoriti
+            finally
+            {
+                if (connection.State != ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+            }
+            **********************************/
         }
         static void ProveriLogFolder()
         {

@@ -1,9 +1,7 @@
-
-
 namespace Razvoj
 {
+    [TestFixture, Order(1)]
     [Parallelizable(ParallelScope.Self)]
-    [TestFixture]
     public partial class OsiguranjeVozila : Osiguranje
     {
 
@@ -90,13 +88,13 @@ namespace Razvoj
 
             try
             {
-                await Pauziraj(_page!);
-                await UlogujSe_3(_page!, BOkorisnickoIme_, BOlozinka_);
-                await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
+                await Pauziraj(_page);
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
                 // Klikni na tekst Osiguranje vozila
-                await _page!.GetByText("Osiguranje vozila").ClickAsync();
+                await _page.GetByText("Osiguranje vozila").ClickAsync();
                 // Klikni u meniju na Autoodgovornost
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Autoodgovornost" }).First.ClickAsync();
                 // Provera da li se otvorila stranica sa pregledom polisa AO
@@ -2194,14 +2192,14 @@ namespace Razvoj
 
                     // Pronalazak TreeItem sa tekstom "Petrović Petar"
                     //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
-                    //var sertifikatName = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
-                    //var sertifikatName = AKorisnik_?.Sertifikat ?? string.Empty;
-                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(sertifikatName))).AsTreeItem();
+                    //var SertifikatName_ = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
+                    //var SertifikatName_ = AKorisnik_?.Sertifikat ?? string.Empty;
+                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(SertifikatName_))).AsTreeItem();
 
 
                     var treeItem = Retry.WhileNull(
                         () => treeView?.FindFirstDescendant(cf =>
-                            cf.ByControlType(ControlType.TreeItem).And(cf.ByName(sertifikatName)))?.AsTreeItem(),
+                            cf.ByControlType(ControlType.TreeItem).And(cf.ByName(SertifikatName_)))?.AsTreeItem(),
                         TimeSpan.FromSeconds(5)).Result;
 
 
@@ -2214,7 +2212,7 @@ namespace Razvoj
                     }
                     else
                     {
-                        throw new Exception($"TreeItem '{sertifikatName}' not found.");
+                        throw new Exception($"TreeItem '{SertifikatName_}' not found.");
                     }
 
                     // Pronalazak dugmeta "Cancel"

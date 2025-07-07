@@ -17,8 +17,21 @@ set NACIN_POKRETANJA=automatski
 ::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
 echo. > Logovi\_log_AO_Produkcija.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_1_SE_PregledPretragaObrazaca... >> Logovi\_log_AO_Produkcija.txt
-dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_1_SE_PregledPretragaObrazaca | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Produkcija.txt
+::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+::dotnet test --filter "(FullyQualifiedName~Produkcija.OsiguranjeVozila | FullyQualifiedName~Produkcija.WebShop)" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
+::dotnet test --filter "(FullyQualifiedName~Produkcija.OsiguranjeVozila | FullyQualifiedName~Produkcija.WebShop)" >> Logovi\_log_AO_Produkcija.txt 2>&1
+
+echo ==== TEST POKRETANJE %DATE% %TIME% ==== >> Logovi\_log_AO_Produkcija.txt
+dotnet test --filter "(FullyQualifiedName~Produkcija.Osiguranje | FullyQualifiedName~Produkcija.Web)" >> Logovi\_log_AO_Produkcija.txt 2>&1
+echo ==== TEST ZAVRŠEN ==== >> Logovi\_log_AO_Produkcija.txt
+echo. >> Logovi\_log_AO_Produkcija.txt
+
+::dotnet test --filter "FullyQualifiedName!~Produkcija.TestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
+::# Primer slozenog filtra (ako bi ti zaista trebao):
+::# Pokreni testove koji su u Osiguranju ILI Web-u, I ISTOVREMENO NISU u TestDevelopmentu
+::dotnet test --filter "(FullyQualifiedName~Produkcija.OsiguranjeVozila | FullyQualifiedName~Produkcija.WebShop) & FullyQualifiedName!~Produkcija.TestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
+
 
 ::echo. > Logovi\_log_AO_Produkcija.txt
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Produkcija.txt
