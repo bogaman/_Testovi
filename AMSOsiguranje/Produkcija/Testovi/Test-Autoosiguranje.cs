@@ -2741,10 +2741,10 @@ namespace Produkcija
                 // Dobijte ukupan broj elemenata
                 int brojElemenata = await elementi.CountAsync();
                 // Ispis rezultata
-                Console.WriteLine($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata}");
+                Console.WriteLine($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata - 1}");
                 if (NacinPokretanjaTesta == "ručno")
                 {
-                    System.Windows.MessageBox.Show($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata}", "AO - Razdužna lista", MessageBoxButton.OK, MessageBoxImage.Information);
+                    System.Windows.MessageBox.Show($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata - 1}", "AO - Razdužna lista", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 //await _page.PauseAsync();{}
 
@@ -2850,7 +2850,7 @@ namespace Produkcija
 
             try
             {
-                await Pauziraj(_page!);
+                await Pauziraj(_page);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
                 await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
@@ -2906,16 +2906,27 @@ namespace Produkcija
                                                 */
 
 
-                string Lokacija = "(11)";//"(7,8)";
+                string Lokacija = "(7, 8)";
 
-                if (AkorisnickoIme_ == "bogdan.mandaric@eonsystem.com")
+                if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
-                    Lokacija = "(7,8)";
+                    Lokacija = "(3)";
                 }
-                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com")
+                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
+
+
+
+                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme_);
+
+                if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
+                {
+                    Lokacija = "(11)";
+                }
+
+
 
 
                 //Nalaženje poslednjeg serijskog broja koji je u sistemu
