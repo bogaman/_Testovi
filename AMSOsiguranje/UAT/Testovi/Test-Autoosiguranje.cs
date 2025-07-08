@@ -3832,13 +3832,21 @@ namespace UAT
                 //long PrviSlobodanSerijskiZK = 0;
 
 
-                string Lokacija = "(11)";//"(7,8)";
+                string Lokacija = "(11)";
 
-                if (AkorisnickoIme == "bogdan.mandaric@eonsystem.com")
+                if (AkorisnickoIme_ == "bogdan.mandaric@eonsystem.com")
                 {
                     Lokacija = "(7,8)";
                 }
-                else if (AkorisnickoIme == "mario.radomir@eonsystem.com")
+                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
+                {
+                    Lokacija = "(3)";
+                }
+
+
+                else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
+
+                if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
