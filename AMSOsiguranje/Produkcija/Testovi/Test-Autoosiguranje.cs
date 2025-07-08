@@ -1173,9 +1173,9 @@ namespace Produkcija
         {
             try
             {
-                await Pauziraj(_page!);
-                await UlogujSe_3(_page!, AkorisnickoIme_, Alozinka_);
-                await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
+                await Pauziraj(_page);
+                await UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page!.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page.FocusAsync("body");
@@ -1238,19 +1238,21 @@ namespace Produkcija
 
                 string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
-                string Lokacija = "(11)";//"(7,8)";
+                string Lokacija = "(11)";
 
                 if (AkorisnickoIme_ == "bogdan.mandaric@eonsystem.com")
                 {
                     Lokacija = "(7,8)";
                 }
-                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com")
+                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
-                    Lokacija = "(11)";
+                    Lokacija = "(3)";
                 }
+
+
                 else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
 
-                if (NacinPokretanjaTesta == "automatski")
+                if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }

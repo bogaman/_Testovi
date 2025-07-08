@@ -21,5 +21,4 @@ SELECT *
 
   SELECT *
     FROM [TestLogDB].[test].[tErrorLog]
- --where IdTestiranje = 10
 ORDER BY [IdTestiranje] DESC, [IdGreske] ASC;
