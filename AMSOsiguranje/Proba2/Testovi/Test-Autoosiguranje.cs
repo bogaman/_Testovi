@@ -1238,19 +1238,20 @@ namespace Proba2
 
                 string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
-                string Lokacija = "(11)";
+                string Lokacija = "(7, 8)";
 
-                if (AkorisnickoIme_ == "bogdan.mandaric@eonsystem.com")
-                {
-                    Lokacija = "(7,8)";
-                }
-                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
+                if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
                     Lokacija = "(3)";
                 }
+                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
+                {
+                    Lokacija = "(11)";
+                }
 
 
-                else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
+
+                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme_);
 
                 if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
