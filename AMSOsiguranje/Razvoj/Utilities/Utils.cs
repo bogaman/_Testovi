@@ -8,7 +8,7 @@ namespace Razvoj
         /// <para>Vrednost se ručno unose pre početka testiranja.</para>
         /// </summary> 
         /// <value>"Bogdan", "Mario"</value>
-        public static string RucnaUloga { get; set; } = "Mario"; // "Ne", "Bogdan", "Mario"
+        public static string RucnaUloga { get; set; } = "Bogdan"; // "Ne", "Bogdan", "Mario"
 
         /// <summary>
         /// Promenljiva koja definiše koji pregledac se koristi za testiranje. 
