@@ -1213,7 +1213,7 @@ namespace Produkcija
                 //}
                 if (_rb == "01" || _rb == "19" || _rb == "31")
                 {
-                    await ProveriPrethodnuPolisu(_page);
+                    //await ProveriPrethodnuPolisu(_page);
                     await ObradiPomoc(_page, "#inpSerijskiBrojAO-help");
                     await ObradiPomoc(_page, "#selOsiguranik-help");
                 }
@@ -1273,42 +1273,40 @@ namespace Produkcija
                 int SerijskiBrojAO = 0;
                 try
                 {
-                    using (SqlConnection konekcija = new SqlConnection(connectionString))
+                    using SqlConnection konekcija = new(connectionString);
+                    konekcija.Open();
+                    using SqlCommand cmd = new SqlCommand(qZaduženiObrasciAOBezPolise, konekcija);
+                    // Izvršavanje upita i dobijanje SqlDataReader objekta
+                    using SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Prolazak kroz redove rezultata
+                    while (reader.Read())
                     {
-                        konekcija.Open();
-                        using SqlCommand cmd = new SqlCommand(qZaduženiObrasciAOBezPolise, konekcija);
-                        // Izvršavanje upita i dobijanje SqlDataReader objekta
-                        using SqlDataReader reader = cmd.ExecuteReader();
+                        // Čitanje vrednosti iz trenutnog reda
+                        SerijskiBrojAO = Convert.ToInt32(reader["SerijskiBroj"]);
+                        string qSerijskiBrojAONijeUpotrebljen = $"SELECT COUNT (*) FROM [MtplDB].[mtpl].[Dokument] " +
+                                                                $"INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] " +
+                                                                $"WHERE [idProizvod] = 1 AND [serijskiBrojAO] LIKE '{SerijskiBrojAO}%';";
 
-                        // Prolazak kroz redove rezultata
-                        while (reader.Read())
+                        using SqlConnection konekcija2 = new(connectionString);
+                        konekcija2.Open();
+                        using SqlCommand cmd2 = new(qSerijskiBrojAONijeUpotrebljen, konekcija2);
+                        int imaPolisuAO = (int)(cmd2.ExecuteScalar() ?? 0);
+                        Console.WriteLine($"Serijski brojevi obrazaca AO kod Bogdana: {SerijskiBrojAO}, Ima polisu AO: {imaPolisuAO}");
+
+                        // Izbor slobodnog serijskog broja polise AO
+                        if (imaPolisuAO == 0)
                         {
-                            // Čitanje vrednosti iz trenutnog reda
-                            SerijskiBrojAO = Convert.ToInt32(reader["SerijskiBroj"]);
-                            string qSerijskiBrojAONijeUpotrebljen = $"SELECT COUNT (*) FROM [MtplDB].[mtpl].[Dokument] " +
-                                                                    $"INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] " +
-                                                                    $"WHERE [idProizvod] = 1 AND [serijskiBrojAO] LIKE '{SerijskiBrojAO}%';";
+                            Console.WriteLine($"Prvi obrazac koji je slobodan je: {SerijskiBrojAO}");
+                            konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
+                            break;
+                        }
+                        else
+                        {
 
-                            using SqlConnection konekcija2 = new SqlConnection(connectionString);
-                            konekcija2.Open();
-                            using SqlCommand cmd2 = new SqlCommand(qSerijskiBrojAONijeUpotrebljen, konekcija2);
-                            int imaPolisuAO = (int)(cmd2.ExecuteScalar() ?? 0);
-                            Console.WriteLine($"Serijski brojevi obrazaca AO kod Bogdana: {SerijskiBrojAO}, Ima polisu AO: {imaPolisuAO}");
-
-                            // Izbor slobodnog serijskog broja polise AO
-                            if (imaPolisuAO == 0)
-                            {
-                                Console.WriteLine($"Prvi obrazac koji je slobodan je: {SerijskiBrojAO}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-                                break;
-                            }
-                            else
-                            {
-
-                            }
                         }
                     }
                 }
@@ -1940,7 +1938,7 @@ namespace Produkcija
                 #region Marka Tip Broj šasije Godište Boja Namena
 
                 // Definišemo niz elemenata za Marku
-                string[] Marke = { "Mercedes", "Volvo", "Audi", "Opel", "Toyota" };
+                string[] Marke = ["Mercedes", "Volvo", "Audi", "Opel", "Toyota"];
                 // Kreiramo instancu klase Random
                 Random randomMarka = new Random();
                 // Generišemo slučajan indeks
@@ -2036,58 +2034,72 @@ namespace Produkcija
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{PoslednjiBrojDokumenta + 1}");
                 //await _page.EvaluateAsync("location.reload(true);");
 
-
+                await _page.PauseAsync();
 
                 int maxPokusaja = 5;
                 int brojPokusaja = 0;
-                bool neuspeh = true;
+                //bool neuspeh = true;
+                bool kalkulisanjeUspesno = false;
 
-                while (brojPokusaja < maxPokusaja && neuspeh)
+                while (brojPokusaja < maxPokusaja && kalkulisanjeUspesno == false)
                 {
                     brojPokusaja++;
-                    LogovanjeTesta.LogMessage($"Pokušaj #{brojPokusaja}: Klik na dugme 'Izračunaj'");
-
+                    LogovanjeTesta.LogMessage($"Pokušaj #{brojPokusaja}: Klik na dugme 'Kalkuliši'");
 
                     try
                     {
-                        await _page.Locator("button").Filter(new() { HasText = "Kalkuliši" }).ClickAsync();
+                        // Klik na dugme Kalkuliši
+                        await _page.Locator("button:has-text('Kalkuliši')").ClickAsync();
+                        //await _page.Locator("button").Filter(new() { HasText = "Kalkuliši" }).ClickAsync();
 
-                        // Sačekaj kratko da se eventualno pojavi poruka o neuspehu
-                        var neuspehLocator = _page.Locator("text=Problem prilikom povezivanja");
+                        // Čekaj do 4 sekunde da se pojavi bilo koja poruka
+                        //var porukaLocator = _page.Locator("text=Podaci uspešno kalkulisani, text=Problem prilikom povezivanja");
+                        //var porukaLocator = _page.Locator("//div[contains(.,'Problem prilikom povezivanja')] or //div[contains(.,'Podaci uspešno kalkulisani')]");
 
-                        // Čekaj do 3 sekunde da vidiš da li se poruka pojavila
-                        neuspeh = await neuspehLocator.IsVisibleAsync(new() { Timeout = 3000 });
+                        var porukaLocator = _page.Locator("//div[contains(., 'Problem prilikom povezivanja') or contains(., 'Podaci uspešno kalkulisani')]");
+                        await porukaLocator.WaitForAsync(new() { Timeout = 4000 });
 
-                        if (neuspeh)
+                        string tekstPoruke = await porukaLocator.InnerTextAsync();
+
+                        if (tekstPoruke.Contains("Podaci uspešno kalkulisani"))
                         {
-                            LogovanjeTesta.LogMessage("Pojavila se poruka o neuspešnom kalkulisanju.");
+                            LogovanjeTesta.LogMessage("✅ Kalkulisanje je uspešno.");
+                            kalkulisanjeUspesno = true;
+                        }
+                        else if (tekstPoruke.Contains("Problem prilikom povezivanja"))
+                        {
+                            LogovanjeTesta.LogMessage("⚠️ Neuspešno kalkulisanje. Poruka: " + tekstPoruke);
 
-                            // Zatvori poruku ako postoji dugme "Zatvori"
-                            var dugmeZatvori = _page.Locator("#notify0 button");
+                            // Pokušaj da zatvoriš poruku ako postoji dugme
+                            var dugmeZatvori = _page.Locator("#notify0 button, .modal button:has-text('×'), .modal-close");
                             if (await dugmeZatvori.IsVisibleAsync())
                             {
                                 await dugmeZatvori.ClickAsync();
-                                LogovanjeTesta.LogMessage("Poruka zatvorena.");
+                                LogovanjeTesta.LogMessage("❎ Poruka zatvorena.");
                             }
 
-                            // Čeka 1 sekund pre sledećeg pokušaja
-                            await _page.WaitForTimeoutAsync(1000);
+                            await _page.WaitForTimeoutAsync(1000); // pauza pre ponovnog pokušaja
                         }
                         else
                         {
-                            LogovanjeTesta.LogMessage("Kalkulisanje je uspešno.");
-                            break;
+                            LogovanjeTesta.LogMessage("⚠️ Nepoznata poruka: " + tekstPoruke);
+                            await _page.WaitForTimeoutAsync(1000);
                         }
+                    }
+                    catch (TimeoutException)
+                    {
+                        LogovanjeTesta.LogMessage("⚠️ Nije se pojavila nikakva poruka u roku.");
+                        await _page.WaitForTimeoutAsync(1000);
                     }
                     catch (Exception ex)
                     {
-                        LogovanjeTesta.LogException(ex, $"Greška tokom pokušaja #{brojPokusaja}");
+                        LogovanjeTesta.LogException(ex, $"❌ Greška tokom pokušaja #{brojPokusaja}");
                     }
                 }
 
-                if (neuspeh)
+                if (kalkulisanjeUspesno == false)
                 {
-                    LogovanjeTesta.LogError("Kalkulisanje neuspešno nakon 5 pokušaja.");
+                    LogovanjeTesta.LogError("❌ Kalkulisanje neuspešno nakon 5 pokušaja.");
                     throw new Exception("Kalkulisanje neuspešno nakon maksimalnog broja pokušaja.");
                 }
 
