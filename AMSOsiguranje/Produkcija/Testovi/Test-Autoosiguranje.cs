@@ -3465,7 +3465,7 @@ namespace Produkcija
             {
                 Console.WriteLine(ex.Message);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
-                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
         }
@@ -4167,7 +4167,7 @@ namespace Produkcija
             {
                 Console.WriteLine(ex.Message);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
-                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
         }
@@ -4226,16 +4226,27 @@ namespace Produkcija
 
                 string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
 
-                string Lokacija = "(11)";//"(7,8)";
+                string Lokacija = "(7, 8)";
 
-                if (AkorisnickoIme == "bogdan.mandaric@eonsystem.com")
+                if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
-                    Lokacija = "(7,8)";
+                    Lokacija = "(3)";
                 }
-                else if (AkorisnickoIme == "mario.radomir@eonsystem.com")
+                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
+
+
+
+                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme_);
+
+                if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
+                {
+                    Lokacija = "(11)";
+                }
+
+
                 //Nalaženje poslednjeg serijskog broja koji je u sistemu
                 string qZaduženiObrasciAOBezPolise = $"SELECT [tObrasci].[SerijskiBroj] FROM [StrictEvidenceDB].[strictevidence].[tObrasci] " +
                                                      $"LEFT JOIN [StrictEvidenceDB].[strictevidence].[tIzdatePolise] ON [tObrasci].[SerijskiBroj] = [tIzdatePolise].[SerijskiBroj] " +
@@ -4597,7 +4608,7 @@ namespace Produkcija
             {
                 Console.WriteLine(ex.Message);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
-                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
         }

@@ -1,4 +1,6 @@
 
+using System.Threading.Tasks;
+
 namespace Produkcija
 {
     //[Parallelizable(ParallelScope.Self)]
@@ -24,7 +26,7 @@ namespace Produkcija
         //Metoda koja se pokreće samo jednom na početku testiranja
         [OneTimeSetUp]
         //public async Task OneTimeSetUp()
-        public void OneTimeSetUp()
+        public async Task OneTimeSetUp()
         {
             try
             {
@@ -64,17 +66,17 @@ namespace Produkcija
                 //Trace.AutoFlush = true;  // Osigurava da se podaci odmah upisuju
 
                 // Logovanje neobrađenih grešaka
-                AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+                AppDomain.CurrentDomain.UnhandledException += async (sender, e) =>
                 {
                     if (e.ExceptionObject is Exception ex)
                     {
-                        LogovanjeTesta.LogException("UnhandledException", ex);
+                        await LogovanjeTesta.LogException("UnhandledException", ex);
                     }
                 };
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogException("OneTimeSetUp", ex);
+                await LogovanjeTesta.LogException("OneTimeSetUp", ex);
                 throw;
             }
         }
@@ -186,7 +188,7 @@ namespace Produkcija
                     var title = await _page.TitleAsync();
                     if (title != "AMS Osiguranje Webshop")
                     {
-                        LogovanjeTesta.LogException("SetUp", new Exception("Očekuje se title stranice: 'AMS Osiguranje Webshop'."));
+                        await LogovanjeTesta.LogException("SetUp", new Exception("Očekuje se title stranice: 'AMS Osiguranje Webshop'."));
                         throw new Exception($"Title početne strane nije dobar. Očekuje se 'AMS Osiguranje Webshop', a ne '{title}'.");
                     }
                     //Assert.That(title, Is.EqualTo("AMS Osiguranje Webshop333"));
@@ -250,7 +252,7 @@ namespace Produkcija
                 else
                 {
 
-                    LogovanjeTesta.LogException("SetUp", new Exception("PocetnaStrana nije određena u SetUp sekciji."));
+                    await LogovanjeTesta.LogException("SetUp", new Exception("PocetnaStrana nije određena u SetUp sekciji."));
                     throw new Exception($"PocetnaStrana nije određena u sekciji  SetUp.");
                 }
                 if (NacinPokretanjaTesta == "ručno")
@@ -266,7 +268,7 @@ namespace Produkcija
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogException("SetUp", ex);
+                await LogovanjeTesta.LogException("SetUp", ex);
                 throw;
             }
         }
@@ -345,7 +347,7 @@ namespace Produkcija
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogException("TearDown", ex);
+                await LogovanjeTesta.LogException("TearDown", ex);
                 throw;
             }
         }
@@ -357,7 +359,7 @@ namespace Produkcija
         #region OneTimeTearDown
         // Ova metoda se pokreće jednom, nakon svih testovaS
         [OneTimeTearDown]
-        public void OneTimeTearDown()
+        public async Task OneTimeTearDown()
         {
             try
             {
@@ -383,12 +385,18 @@ namespace Produkcija
                 // Simulacija asinhronog rada
                 //await Task.Delay(1);
                 Console.WriteLine("🧹 [GlobalniSetup] Isključujem VPN konekciju...");
-                Alati.IskljuciVpn();
+                if (DeviceName == "LT-TESTER")
+                {
+                    // Ako je pokrenuto na LT-TESTER, isključi VPN
+                    Alati.IskljuciVpn();
+                }
+
+                //Alati.IskljuciVpn();
 
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogException("OneTimeTearDovn", ex);
+                await LogovanjeTesta.LogException("OneTimeTearDovn", ex);
                 throw;
             }
         }
