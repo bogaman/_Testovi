@@ -450,7 +450,7 @@ namespace Razvoj
 
             if (kontrolna == 10)
             {
-                kontrolnaCifra = "x";
+                kontrolnaCifra = "X";
             }
             else
             {
