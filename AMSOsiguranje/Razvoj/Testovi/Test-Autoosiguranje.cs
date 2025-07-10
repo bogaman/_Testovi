@@ -2034,7 +2034,7 @@ namespace Razvoj
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{PoslednjiBrojDokumenta + 1}");
                 //await _page.EvaluateAsync("location.reload(true);");
 
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
 
                 int maxPokusaja = 5;
                 int brojPokusaja = 0;
@@ -3801,41 +3801,39 @@ namespace Razvoj
                 string BrojPoliseAOstring = "";
                 try
                 {
-                    using (SqlConnection konekcija = new SqlConnection(connectionStringMtpl))
+                    using SqlConnection konekcija = new(connectionStringMtpl);
+                    konekcija.Open();
+                    using SqlCommand cmd = new(qPoliseAOnisuIstekle, konekcija);
+                    // Izvršavanje upita i dobijanje SqlDataReader objekta
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    // Prolazak kroz redove rezultata
+                    while (reader.Read())
                     {
-                        konekcija.Open();
-                        using SqlCommand cmd = new SqlCommand(qPoliseAOnisuIstekle, konekcija);
-                        // Izvršavanje upita i dobijanje SqlDataReader objekta
-                        using SqlDataReader reader = cmd.ExecuteReader();
-                        // Prolazak kroz redove rezultata
-                        while (reader.Read())
+                        // Čitanje vrednosti iz trenutnog reda
+                        int BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
+                        BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
+                        BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
+                        DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
+
+                        string qPolisaAONemaZK = $"SELECT * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 4 AND [idStatus] = 2 AND [idDokument] > 164 AND [registarskiBroj] = {BrojPoliseAO});";
+                        using SqlConnection konekcija2 = new SqlConnection(connectionStringMtpl);
+                        konekcija2.Open();
+                        using SqlCommand cmd2 = new(qPolisaAONemaZK, konekcija2);
+                        int imaPolisuZK = (int)(cmd2.ExecuteScalar() ?? 0);
+
+                        // Ispis rezultata u konzoli
+                        if (imaPolisuZK != 0)
                         {
-                            // Čitanje vrednosti iz trenutnog reda
-                            int BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
-                            BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
-                            BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
-                            DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
-
-                            string qPolisaAONemaZK = $"SELECT * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 4 AND [idStatus] = 2 AND [idDokument] > 164 AND [registarskiBroj] = {BrojPoliseAO});";
-                            using SqlConnection konekcija2 = new SqlConnection(connectionStringMtpl);
-                            konekcija2.Open();
-                            using SqlCommand cmd2 = new SqlCommand(qPolisaAONemaZK, konekcija2);
-                            int imaPolisuZK = (int)(cmd2.ExecuteScalar() ?? 0);
-
-                            // Ispis rezultata u konzoli
-                            if (imaPolisuZK != 0)
-                            {
-                                Console.WriteLine($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisuZK: {imaPolisuZK}");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Prva koja nema:BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisuZK: {imaPolisuZK}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-                                break;
-                            }
+                            Console.WriteLine($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisuZK: {imaPolisuZK}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Prva koja nema:BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Ima polisuZK: {imaPolisuZK}");
+                            konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
+                            break;
                         }
                     }
                 }
@@ -3885,44 +3883,42 @@ namespace Razvoj
                 int SerijskiBrojZK = 0;
                 try
                 {
-                    using (SqlConnection konekcija = new SqlConnection(connectionStringStroga))
+                    using SqlConnection konekcija = new(connectionStringStroga);
+                    konekcija.Open();
+                    using SqlCommand cmd = new SqlCommand(qSlobodniSerijskiZK, konekcija);
+                    // Izvršavanje upita i dobijanje SqlDataReader objekta
+                    using SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Prolazak kroz redove rezultata
+                    while (reader.Read())
                     {
-                        konekcija.Open();
-                        using SqlCommand cmd = new SqlCommand(qSlobodniSerijskiZK, konekcija);
-                        // Izvršavanje upita i dobijanje SqlDataReader objekta
-                        using SqlDataReader reader = cmd.ExecuteReader();
+                        // Čitanje vrednosti iz trenutnog reda
+                        //int BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
+                        //BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
+                        //BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
+                        //DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
+                        SerijskiBrojZK = Convert.ToInt32(reader["SerijskiBroj"]);
+                        string qSerijskiBrojZKNijeUpotrebljen = $"SELECT COUNT(*) FROM [MtplDB].[mtpl].[Dokument] WHERE [idProizvod] = 4 AND [brojUgovora] = {SerijskiBrojZK} AND [idStatus] = 1 ;";
+                        using SqlConnection konekcija2 = new(connectionStringMtpl);
+                        konekcija2.Open();
+                        using SqlCommand cmd2 = new(qSerijskiBrojZKNijeUpotrebljen, konekcija2);
+                        int imaPolisuZK = (int)(cmd2.ExecuteScalar() ?? 0);
 
-                        // Prolazak kroz redove rezultata
-                        while (reader.Read())
+                        Console.WriteLine($"Ima polisu ZK: {imaPolisuZK}");
+                        // Ispis rezultata u konzoli
+
+                        if (imaPolisuZK == 1)
                         {
-                            // Čitanje vrednosti iz trenutnog reda
-                            //int BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
-                            //BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
-                            //BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
-                            //DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
-                            SerijskiBrojZK = Convert.ToInt32(reader["SerijskiBroj"]);
-                            string qSerijskiBrojZKNijeUpotrebljen = $"SELECT COUNT(*) FROM [MtplDB].[mtpl].[Dokument] WHERE [idProizvod] = 4 AND [brojUgovora] = {SerijskiBrojZK} AND [idStatus] = 1 ;";
-                            using SqlConnection konekcija2 = new SqlConnection(connectionStringMtpl);
-                            konekcija2.Open();
-                            using SqlCommand cmd2 = new SqlCommand(qSerijskiBrojZKNijeUpotrebljen, konekcija2);
-                            int imaPolisuZK = (int)(cmd2.ExecuteScalar() ?? 0);
-
-                            Console.WriteLine($"Ima polisu ZK: {imaPolisuZK}");
-                            // Ispis rezultata u konzoli
-
-                            if (imaPolisuZK == 1)
-                            {
-                                Console.WriteLine($"SerijskiBrojZK: {SerijskiBrojZK}");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Prvi obrazac koji je slobodan: {SerijskiBrojZK}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-                                break;
-                            }
+                            Console.WriteLine($"SerijskiBrojZK: {SerijskiBrojZK}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Prvi obrazac koji je slobodan: {SerijskiBrojZK}");
+                            konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
+                            break;
                         }
                     }
                 }
@@ -6025,7 +6021,7 @@ namespace Razvoj
                     if (valueInColumn1 != null)
                     {
                         brojUgovora = await valueInColumn1.EvaluateAsync<string>("el => el.innerText");
-                        brojPonude = await valueInColumn2.EvaluateAsync<string>("el => el.innerText");
+                        brojPonude = await valueInColumn2!.EvaluateAsync<string>("el => el.innerText || ''");
                         if (NacinPokretanjaTesta == "ručno")
                         {
                             System.Windows.Forms.MessageBox.Show($"U redu {rowIndex} kolona \nBroj ugovora ima vrednost:: #{brojUgovora}#, a \nBroj ponude je:: #{brojPonude}#", "Informacija", MessageBoxButtons.OK);
@@ -6313,7 +6309,7 @@ namespace Razvoj
             {
                 Console.WriteLine(ex.Message);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
-                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
 
