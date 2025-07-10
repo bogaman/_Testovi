@@ -263,8 +263,8 @@ namespace Produkcija
             {
                 LogovanjeTesta.LogError($"❌ 1Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}\n{ex.Message}");
 
-                LogovanjeTesta.LogException($"❌ 2Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}", ex);
-                LogovanjeTesta.LogException($"❌ 3Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                await LogovanjeTesta.LogException($"❌ 2Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}", ex);
+                await LogovanjeTesta.LogException($"❌ 3Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
         }

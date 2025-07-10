@@ -4255,42 +4255,40 @@ namespace UAT
                 int SerijskiBrojZK = 0;
                 try
                 {
-                    using (SqlConnection konekcija = new SqlConnection(connectionString))
+                    using SqlConnection konekcija = new(connectionString);
+                    konekcija.Open();
+                    using SqlCommand cmd = new SqlCommand(qZaduženiObrasciAOBezPolise, konekcija);
+                    // Izvršavanje upita i dobijanje SqlDataReader objekta
+                    using SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Prolazak kroz redove rezultata
+                    while (reader.Read())
                     {
-                        konekcija.Open();
-                        using SqlCommand cmd = new SqlCommand(qZaduženiObrasciAOBezPolise, konekcija);
-                        // Izvršavanje upita i dobijanje SqlDataReader objekta
-                        using SqlDataReader reader = cmd.ExecuteReader();
+                        // Čitanje vrednosti iz trenutnog reda
+                        SerijskiBrojZK = Convert.ToInt32(reader["SerijskiBroj"]);
+                        string qSerijskiBrojZKNijeUpotrebljen = $"SELECT COUNT (*) FROM [MtplDB].[mtpl].[Dokument] " +
+                                                        $"INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] " +
+                                                        $"WHERE [idProizvod] = 4 AND [serijskiBrojAO] LIKE '{SerijskiBrojZK}%';";
 
-                        // Prolazak kroz redove rezultata
-                        while (reader.Read())
+                        using SqlConnection konekcija2 = new SqlConnection(connectionString);
+                        konekcija2.Open();
+                        using SqlCommand cmd2 = new SqlCommand(qSerijskiBrojZKNijeUpotrebljen, konekcija2);
+                        int imaPolisuZK = (int)(cmd2.ExecuteScalar() ?? 0);
+                        Console.WriteLine($"Serijski brojevi obrazaca AO kod Bogdana: {SerijskiBrojZK}, Ima polisu AO: {imaPolisuZK}");
+
+                        // Izbor slobodnog serijskog broja polise AO
+                        if (imaPolisuZK == 0)
                         {
-                            // Čitanje vrednosti iz trenutnog reda
-                            SerijskiBrojZK = Convert.ToInt32(reader["SerijskiBroj"]);
-                            string qSerijskiBrojZKNijeUpotrebljen = $"SELECT COUNT (*) FROM [MtplDB].[mtpl].[Dokument] " +
-                                                            $"INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] " +
-                                                            $"WHERE [idProizvod] = 4 AND [serijskiBrojAO] LIKE '{SerijskiBrojZK}%';";
+                            Console.WriteLine($"Prvi obrazac koji je slobodan je: {SerijskiBrojZK}");
+                            konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
+                            break;
+                        }
+                        else
+                        {
 
-                            using SqlConnection konekcija2 = new SqlConnection(connectionString);
-                            konekcija2.Open();
-                            using SqlCommand cmd2 = new SqlCommand(qSerijskiBrojZKNijeUpotrebljen, konekcija2);
-                            int imaPolisuZK = (int)(cmd2.ExecuteScalar() ?? 0);
-                            Console.WriteLine($"Serijski brojevi obrazaca AO kod Bogdana: {SerijskiBrojZK}, Ima polisu AO: {imaPolisuZK}");
-
-                            // Izbor slobodnog serijskog broja polise AO
-                            if (imaPolisuZK == 0)
-                            {
-                                Console.WriteLine($"Prvi obrazac koji je slobodan je: {SerijskiBrojZK}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-                                break;
-                            }
-                            else
-                            {
-
-                            }
                         }
                     }
                 }
