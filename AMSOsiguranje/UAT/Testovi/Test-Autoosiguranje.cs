@@ -5579,48 +5579,46 @@ namespace UAT
 
                 try
                 {
-                    using (SqlConnection konekcija = new SqlConnection(connectionStringMtpl))
+                    using SqlConnection konekcija = new(connectionStringMtpl);
+                    konekcija.Open();
+                    using SqlCommand cmd = new SqlCommand(qPoliseAOnisuIstekle, konekcija);
+                    // Izvršavanje upita i dobijanje SqlDataReader objekta
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    // Prolazak kroz redove rezultata
+                    while (reader.Read())
                     {
-                        konekcija.Open();
-                        using SqlCommand cmd = new SqlCommand(qPoliseAOnisuIstekle, konekcija);
-                        // Izvršavanje upita i dobijanje SqlDataReader objekta
-                        using SqlDataReader reader = cmd.ExecuteReader();
-                        // Prolazak kroz redove rezultata
-                        while (reader.Read())
+                        // Čitanje vrednosti iz trenutnog reda
+                        int BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
+                        BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
+                        BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
+                        DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
+                        premijskaGrupa_1 = Convert.ToString(reader["oznakaPremijskaGrupaPodgrupa"]);
+                        premijskaGrupa = "01." + premijskaGrupa_1.Substring(0, premijskaGrupa_1.Length - 3);
+                        taksi = Convert.ToInt32(reader["taksiVozilo"]);
+                        rentacar = Convert.ToInt32(reader["rentacar"]);
+                        string qPolisaAONemaDK = $"SELECT * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 7 AND [idStatus] = 2 AND [registarskiBroj] = {BrojPoliseAO});";
+
+                        using SqlConnection konekcija2 = new SqlConnection(connectionStringMtpl);
+                        konekcija2.Open();
+                        using SqlCommand cmd2 = new SqlCommand(qPolisaAONemaDK, konekcija2);
+                        int imaPolisuDK = (int)(cmd2.ExecuteScalar() ?? 0);
+
+                        // Ispis rezultata u konzoli
+                        Console.WriteLine($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Premijska grupa: {premijskaGrupa}, Taksi: {taksi}, Rentakar: {rentacar}, Ima polisu AO: {imaPolisuDK}");
+
+                        if (imaPolisuDK != 0)
                         {
-                            // Čitanje vrednosti iz trenutnog reda
-                            int BrojDokumenta = Convert.ToInt32(reader["idDokument"]); // Čitanje vrednosti po imenu kolone
-                            BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
-                            BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
-                            DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
-                            premijskaGrupa_1 = Convert.ToString(reader["oznakaPremijskaGrupaPodgrupa"]);
-                            premijskaGrupa = "01." + premijskaGrupa_1.Substring(0, premijskaGrupa_1.Length - 3);
-                            taksi = Convert.ToInt32(reader["taksiVozilo"]);
-                            rentacar = Convert.ToInt32(reader["rentacar"]);
-                            string qPolisaAONemaDK = $"SELECT * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 7 AND [idStatus] = 2 AND [registarskiBroj] = {BrojPoliseAO});";
-
-                            using SqlConnection konekcija2 = new SqlConnection(connectionStringMtpl);
-                            konekcija2.Open();
-                            using SqlCommand cmd2 = new SqlCommand(qPolisaAONemaDK, konekcija2);
-                            int imaPolisuDK = (int)(cmd2.ExecuteScalar() ?? 0);
-
-                            // Ispis rezultata u konzoli
                             Console.WriteLine($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Premijska grupa: {premijskaGrupa}, Taksi: {taksi}, Rentakar: {rentacar}, Ima polisu AO: {imaPolisuDK}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Prva koja nema:BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Premijska grupa: {premijskaGrupa}, Taksi: {taksi}, Rentakar: {rentacar}, Ima polisuZK: {imaPolisuDK}");
+                            konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
 
-                            if (imaPolisuDK != 0)
-                            {
-                                Console.WriteLine($"BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Premijska grupa: {premijskaGrupa}, Taksi: {taksi}, Rentakar: {rentacar}, Ima polisu AO: {imaPolisuDK}");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Prva koja nema:BrojDokumenta: {BrojDokumenta}, BrojUgovora: {BrojPoliseAO}, BrojPolise: {BrojPoliseAOstring}, DatumIsteka: {DatumIsteka}, Premijska grupa: {premijskaGrupa}, Taksi: {taksi}, Rentakar: {rentacar}, Ima polisuZK: {imaPolisuDK}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-
-                                break;
-                            }
+                            break;
                         }
                     }
                 }
