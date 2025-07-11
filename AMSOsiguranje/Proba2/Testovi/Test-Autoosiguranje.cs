@@ -3096,7 +3096,7 @@ namespace Proba2
                 // Sačekaj na URL posle logovanja
                 //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 string tekst = "Imate novi dokument \"Otpis\" za verifikacijuDokument možete pogledati klikom na link: ";
-                await _page.GetByText(tekst + oznakaDokumenta).ClickAsync();
+                await _page.GetByText(tekst + oznakaDokumenta).HoverAsync();
                 await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
 
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/dokument/3/{PoslednjiDokumentStroga}");
