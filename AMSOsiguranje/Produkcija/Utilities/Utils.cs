@@ -178,7 +178,7 @@ namespace Produkcija
         /// <returns>Vraća string PocetnaStrana, to je URL.</returns>    
         /// <exception cref="Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks></remarks>
-        private static string DefinisiPocetnuStranu(string nazivKlase, string? okruzenje)
+        private static async Task<string> DefinisiPocetnuStranu(string nazivKlase, string? okruzenje)
         {
             var currentMethodName = MethodBase.GetCurrentMethod() != null ? MethodBase.GetCurrentMethod()!.Name : "UnknownMethod";
             try
@@ -220,7 +220,7 @@ namespace Produkcija
                 { return PocetnaStrana; }
                 else
                 {
-                    LogovanjeTesta.LogException(currentMethodName, new Exception("PocetnaStrana nije određena."));
+                    await LogovanjeTesta.LogException(currentMethodName, new Exception("PocetnaStrana nije određena."));
                     throw new Exception($"PocetnaStrana nije određena u proceduri {currentMethodName}.");
                 }
             }
