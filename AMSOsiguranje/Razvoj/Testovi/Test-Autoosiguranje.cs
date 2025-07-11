@@ -4130,20 +4130,24 @@ namespace Razvoj
                 //await _page.PauseAsync();
 
                 await _page.Locator(".ico-ams-logo").ClickAsync();
-                await _page.Locator(".korisnik").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
-                await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
-                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
-                await _page.Locator("css = [type='password']").ClickAsync();
-                await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
-                await _page.Locator("a").First.ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
 
+                //await _page.Locator(".korisnik").ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+                //await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
+                //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
+                //await _page.Locator("css = [type='password']").ClickAsync();
+                //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
+                //await _page.Locator("a").First.ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //await _page.PauseAsync();
                 // Sačekaj na URL posle logovanja
-                await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
-                await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").ClickAsync();
+                //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+                await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").HoverAsync();
                 await _page.GetByText($"{oznakaDokumenta}").ClickAsync();
                 //await _page.GetByRole(AriaRole.Link, new() { Name = $"{PoslednjiDokumentStroga + 1}" }).ClickAsync();
 
@@ -4386,19 +4390,24 @@ namespace Razvoj
 
                 await _page.GetByText("Pregled / Pretraga dokumenata").ClickAsync();
                 await _page.Locator(".ico-ams-logo").ClickAsync();
-                await _page.Locator(".korisnik").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
-                await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
-                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
-                await _page.Locator("css = [type='password']").ClickAsync();
-                await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
-                await _page.Locator("a").First.ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+
+                //await _page.Locator(".korisnik").ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+                //await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
+                //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
+                //await _page.Locator("css = [type='password']").ClickAsync();
+                //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
+                //await _page.Locator("a").First.ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //await _page.PauseAsync();
                 // Sačekaj na URL posle logovanja
-                await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
-                await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").ClickAsync();
+                //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+                await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").HoverAsync();
                 await _page.GetByText($"{oznakaDokumenta}").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-evidencija/4/Zeleni-karton/Dokument/3/{PoslednjiDokumentStroga + 1}");
                 //await _page.PauseAsync();
