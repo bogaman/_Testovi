@@ -20,12 +20,11 @@ namespace Proba2
         public string Alozinka_ = string.Empty;
         public string SertifikatName_ = string.Empty;
         public string Asaradnik_ = string.Empty;
-        public int IdLica_ = 0;
+        public int IdLice_ = 0;
 
         #region OnTimeSetUp
         //Metoda koja se pokreće samo jednom na početku testiranja
         [OneTimeSetUp]
-        //public async Task OneTimeSetUp()
         public async Task OneTimeSetUp()
         {
             try
@@ -83,8 +82,6 @@ namespace Proba2
         #endregion OnTimeSetUp
 
 
-
-
         #region SetUp 
         // Metoda koja se pokreće pre svakog pojedinačnog testa
         [SetUp]
@@ -96,7 +93,6 @@ namespace Proba2
                 LogovanjeTesta.PocetakTesta = DateTime.Now;
                 // Odredi naziv trenutnog testa
                 NazivTekucegTesta = TestContext.CurrentContext.Test.Name;
-
                 // Upisivanje početka testa bazu i uzimanje IDTesta
                 LogovanjeTesta.IDTestaSQL = LogovanjeTesta.UnesiPocetakTesta(LogovanjeTesta.IDTestiranje, NazivTekucegTesta, LogovanjeTesta.PocetakTesta);
 
@@ -121,8 +117,9 @@ namespace Proba2
                 var nazivKlase = this.GetType().Name;
                 Console.WriteLine($"Naziv klase je--------------------:: {nazivKlase}");
 
-                // Definiši početnu stranu u zavisnosti od vrste testa (klasa OsiguranjeVozila ili WebShop) 
-                // i okruženja (Razvoj, Proba2, UAT ili Produkcija)
+                /*Definiši početnu stranu u zavisnosti od vrste testa 
+                  (klasa OsiguranjeVozila ili WebShop) 
+                  i okruženja (Razvoj, Proba2, UAT ili Produkcija) */
                 PocetnaStrana = await DefinisiPocetnuStranu(nazivKlase, Okruzenje);
                 Console.WriteLine($"Početna strana je-----------------:: {PocetnaStrana}");
 
@@ -141,19 +138,17 @@ namespace Proba2
                     "Webkit" => await _playwright.Webkit.LaunchAsync(launchOptions),
                     _ => throw new ArgumentException("Nepoznat pregledač: " + Pregledac),
                 };
+
                 // 1. Kreiraj context
                 context = await _browser.NewContextAsync(new BrowserNewContextOptions
                 {
                     // Set viewport size to null for maximum size
                     ViewportSize = ViewportSize.NoViewport
                     //StorageStatePath = fileAuth // Učitaj sesiju iz fajla
-
-
                 });
-
-
+                // 2. Kreiraj novu stranicu/tab
                 _page = await context.NewPageAsync();
-
+                // 3. Postavi kontekst za praćenje
                 await _page.Context.Tracing.StartAsync(new()
                 {
                     Title = TestContext.CurrentContext.Test.Name,
@@ -162,7 +157,6 @@ namespace Proba2
                     Sources = true
                 });
 
-
                 // Upisivanje početka testa u fajl logOpsti.txt
                 LogovanjeTesta.UnesiPocetakTesta_1();
 
@@ -170,18 +164,7 @@ namespace Proba2
 
                 //Otvaranje početne strane
                 await _page.GotoAsync(PocetnaStrana);
-                //await ForceZoomAsync(_page);
 
-
-                /*
-                // I u popup hook-u:
-                context.Page += async (_, popup) =>
-                {
-                    await popup.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
-                    await ForceZoomAsync(popup);
-                };
-                */
-                //await _page.PauseAsync();
                 if (nazivKlase == "WebShop")
                 {
                     // Provera da li je otvorena početna stranica
@@ -230,7 +213,7 @@ namespace Proba2
                     Alozinka_ = Akorisnik_?.Lozinka1 ?? string.Empty;
                     SertifikatName_ = Akorisnik_?.Sertifikat ?? string.Empty;
                     Asaradnik_ = Akorisnik_?.Saradnik1 ?? string.Empty;
-                    IdLica_ = int.TryParse(Akorisnik_?.IdLica, out var idLica) ? idLica : 0;
+                    IdLice_ = int.TryParse(Akorisnik_?.IdLica, out var idLica) ? idLica : 0;
                     // Proveri da li je korisnik učitan
                     if (BOkorisnik_ == null || Akorisnik_ == null)
                     {
@@ -284,7 +267,7 @@ namespace Proba2
             try
             {
                 LogovanjeTesta.KrajTesta = DateTime.Now;
-                TimeSpan trajanjeTesta = LogovanjeTesta.KrajTesta - LogovanjeTesta.PocetakTesta;
+                TimeSpan TrajanjeTesta = LogovanjeTesta.KrajTesta - LogovanjeTesta.PocetakTesta;
                 TestStatus StatusTesta = TestContext.CurrentContext.Result.Outcome.Status;
                 Console.WriteLine($"******************************Test {NazivTekucegTesta} je završio sa statusom: {StatusTesta}.");
                 string errorMessage = TestContext.CurrentContext.Result.Message ?? string.Empty;
@@ -292,8 +275,7 @@ namespace Proba2
                 //string poruka = TestContext.CurrentContext.Result.
 
                 //LogovanjeTesta.UnesiRezultatTesta1(LogovanjeTesta.IDTesta1, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_);
-                // Adjust the arguments below to match the correct overload of UnesiRezultatTestaSQL
-                // For example, if the method expects 6 arguments, remove one argument (e.g., BOkorisnickoIme_):
+
                 LogovanjeTesta.UnesiRezultatTesta(LogovanjeTesta.IDTestaSQL, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_, BOkorisnickoIme_);
                 // Upisivanje opšteg rezultata testa u logOpsti.txt
                 LogovanjeTesta.UnesiKrajTesta();
@@ -366,7 +348,7 @@ namespace Proba2
                 //Pročitaj vreme kada su završeni svi testovi
                 LogovanjeTesta.KrajTestiranja = DateTime.Now;
                 //Odreti koliko je trajalo testiranje
-                TimeSpan trajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
+                TimeSpan TrajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
                 //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
                 //LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranja, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
                 //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
@@ -374,7 +356,7 @@ namespace Proba2
                 LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
 
                 LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {(LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja).TotalSeconds} sekundi.", false);
-                LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {trajanjeTestiranja} sekundi.", false);
+                LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {TrajanjeTestiranja} sekundi.", false);
                 // Upiši u sumarni log fajl
                 LogovanjeTesta.FormirajSumarniIzvestaj();
                 //LogovanjeTesta.LogMessage("Kraj testiranja");
@@ -390,9 +372,6 @@ namespace Proba2
                     // Ako je pokrenuto na LT-TESTER, isključi VPN
                     Alati.IskljuciVpn();
                 }
-
-                //Alati.IskljuciVpn();
-
             }
             catch (Exception ex)
             {

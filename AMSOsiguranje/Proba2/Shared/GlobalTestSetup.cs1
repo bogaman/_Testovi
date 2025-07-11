@@ -73,7 +73,7 @@ namespace Razvoj
                 //Pročitaj vreme kada su završeni svi testovi
                 LogovanjeTesta.KrajTestiranja = DateTime.Now;
                 //Odreti koliko je trajalo testiranje
-                TimeSpan trajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
+                TimeSpan TrajanjeTestiranja = LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja;
                 //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
                 //LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
                 //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
@@ -81,7 +81,7 @@ namespace Razvoj
                 LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
 
                 LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {(LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja).TotalSeconds} sekundi.", false);
-                LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {trajanjeTestiranja} sekundi.", false);
+                LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {TrajanjeTestiranja} sekundi.", false);
                 // Upiši u sumarni log fajl
                 LogovanjeTesta.FormirajSumarniIzvestaj();
                 //LogovanjeTesta.LogMessage("Kraj testiranja");

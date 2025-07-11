@@ -2462,7 +2462,7 @@ namespace Produkcija
                 ******************/
                 string qBrojDokumenta = $"SELECT MIN ([Dokument].[idDokument]) FROM [MtplDB].[mtpl].[Dokument] " +
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
-                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLica_} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
+                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice_} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -5708,7 +5708,7 @@ namespace Produkcija
                 {
 
                     await _page.Locator("#chkAn div").Nth(3).ClickAsync();
-                    if (IdLica_ == 1001)
+                    if (IdLice_ == 1001)
                     {
                         await _page.Locator("#selSumeOsiguranjaAn > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
 
@@ -5728,7 +5728,7 @@ namespace Produkcija
                         string formatiraniBroj = doubleOsiguranaSumaSmrt.ToString("#,##0.00", new CultureInfo("sr-RS"));
                         await _page.GetByText($"Suma smrt {formatiraniBroj} - suma").ClickAsync();
                     }
-                    else if (IdLica_ == 1002)
+                    else if (IdLice_ == 1002)
                     {
                         //await _page.Locator("//e-input[@id='idSumeOsiguranjaAN']//input[@class='input']").ClickAsync();
                         //await _page.Locator("#idSumeOsiguranjaAN input[type=\"text\"]").ClickAsync();
