@@ -3080,18 +3080,21 @@ namespace Razvoj
 
                 await _page.GetByText("Pregled / Pretraga dokumenata").ClickAsync();
                 await _page.Locator(".ico-ams-logo").ClickAsync();
-                await _page.Locator(".korisnik").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
-                await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
-                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
-                await _page.Locator("css = [type='password']").ClickAsync();
-                await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
-                await _page.Locator("a").First.ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
-
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                //await _page.Locator(".korisnik").ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+                //await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
+                //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
+                //await _page.Locator("css = [type='password']").ClickAsync();
+                //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
+                //await _page.Locator("a").First.ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+                await UlogujSe_3(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await Pauziraj(_page!);
                 // Sačekaj na URL posle logovanja
-                await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+                //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 string tekst = "Imate novi dokument \"Otpis\" za verifikacijuDokument možete pogledati klikom na link: ";
                 await _page.GetByText(tekst + oznakaDokumenta).ClickAsync();
                 await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();

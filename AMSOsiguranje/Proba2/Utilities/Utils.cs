@@ -241,7 +241,7 @@ namespace Proba2
         ///<returns>Ne vraća vrednost</returns>
         ///<exception cref="Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
         ///<remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
-        public async Task ProveriURL(IPage _page, string osnovnaStrana, string dodatak)
+        public static async Task ProveriURL(IPage _page, string osnovnaStrana, string dodatak)
         {
             try
             {
