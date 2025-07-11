@@ -123,7 +123,7 @@ namespace UAT
 
                 // Definiši početnu stranu u zavisnosti od vrste testa (klasa OsiguranjeVozila ili WebShop) 
                 // i okruženja (Razvoj, Proba2, UAT ili Produkcija)
-                PocetnaStrana = DefinisiPocetnuStranu(nazivKlase, Okruzenje);
+                PocetnaStrana = await DefinisiPocetnuStranu(nazivKlase, Okruzenje);
                 Console.WriteLine($"Početna strana je-----------------:: {PocetnaStrana}");
 
                 // Kreiranje instance Playwright-a
