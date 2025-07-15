@@ -852,7 +852,9 @@ namespace Razvoj
                 PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
                 LogovanjeTesta.LogMessage($"✅ Poslednji mejl -> ID: {PrethodniZapisMejla.PoslednjiID}, IDMail: {PrethodniZapisMejla.PoslednjiIDMail}, Status: {PrethodniZapisMejla.Status}, Opis: {PrethodniZapisMejla.Opis}, Datum: {PrethodniZapisMejla.Datum}, Subject: {PrethodniZapisMejla.Subject}", false);
 
-
+                await _page.PauseAsync();
+                //if (IdLice_ == 1002)
+                //await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran verifikovan dokument stroge evidencije AO:");
