@@ -8,7 +8,7 @@ namespace Razvoj
         /// <para>Vrednost se ručno unose pre početka testiranja.</para>
         /// </summary> 
         /// <value>"Bogdan", "Mario"</value>
-        public static string RucnaUloga { get; set; } = "Mario"; // "Ne", "Bogdan", "Mario"
+        public static string RucnaUloga { get; set; } = "Bogdan"; // "Ne", "Bogdan", "Mario"
 
         /// <summary>
         /// Promenljiva koja definiše koji pregledac se koristi za testiranje. 
@@ -243,8 +243,10 @@ namespace Razvoj
         ///<remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
         public static async Task ProveriURL(IPage _page, string osnovnaStrana, string dodatak)
         {
+
             try
             {
+
                 await _page.WaitForURLAsync(new Regex($"{osnovnaStrana + dodatak}", RegexOptions.IgnoreCase));
                 await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded); // čekaj dok se DOM ne učita
                 await _page.WaitForLoadStateAsync(LoadState.Load); // čekaj da se završi celo učitavanje stranice, uključujući sve resurse poput slika i stilova.

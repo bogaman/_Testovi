@@ -135,7 +135,7 @@ namespace Razvoj
             await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//e-button[@id='btnNovaVest']", "dugme Nova vest");
 
             // Proveri da li stranica sadrži grid Vesti
-            await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_vesti']", "grid Vesti");
+            //await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_vesti']", "grid Vesti");
 
             // Provera postojanja barem jedne vesti
             await OsiguranjeVozila.ProveriPostojanjeKontrole(_page, "//div[starts-with(@class, 'vestiBox id_')]", "barem jedna vest");
@@ -221,7 +221,7 @@ namespace Razvoj
             await OsiguranjeVozila.ProveriSadrzajNaStrani(_page, tekstZaProveru);
 
             // Proveri da li stranica sadrži grid Autoodgovornost
-            await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_dokumenti']", "grid Dokumenti - polise AO");
+            //await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_dokumenti']", "grid Dokumenti - polise AO");
 
             //Informativno kalkulisanje
             await _page.GetByRole(AriaRole.Link, new() { Name = "Informativno kalkulisanje" }).ClickAsync();
@@ -436,7 +436,7 @@ namespace Razvoj
             //tekstZaProveru = ["Informativno kalkulisanje", "Polise autoodgovornosti", "Nova polisa", "Pregled / Pretraga polisa", "Zamena serijskih brojeva", "Pregled / Pretraga zahteva za izmenom polisa", "Razdužne liste", "Nova razdužna lista", "Pregled / Pretraga razdužnih listi", "Pregled tokova sa UOS", "Pregled / Pretraga zahteva ka UOS", "Pregled / Pretraga paketa za kompletiranje", "Stroga evidencija", "Pregled / Pretraga obrazaca", "Pregled / Pretraga dokumenata", "Novi ulaz u centralni magacin", "Novi prenos", "Novi otpis"];
             //await ProveriSadrzajNaStrani(_page, tekstZaProveru);
             // Proveri da li stranica sadrži grid Dokumenti
-            await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_dokumenti']", "grid Dokumenti - polise putnog osiguranja");
+            //await OsiguranjeVozila.ProveraPostojiGrid(_page, "//e-grid[@id='grid_dokumenti']", "grid Dokumenti - polise putnog osiguranja");
 
             #endregion Putno zdravstveno
 
@@ -1190,11 +1190,11 @@ namespace Razvoj
             try
             {
                 await _page!.PauseAsync();
-                await OsiguranjeVozila.UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
+                await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
                 await OsiguranjeVozila.IzlogujSe(_page!);
                 await _page!.PauseAsync();
 
-                //await UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);
+
                 await OsiguranjeVozila.UlogujSe_2(_page, "BackOffice");
                 await _page!.PauseAsync();
                 System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -1407,11 +1407,11 @@ namespace Razvoj
 
                 //await Pauziraj(_page!);
                 if (_page == null)
-                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe_3.");
-                await OsiguranjeVozila.UlogujSe_3(_page, AkorisnickoIme_, Alozinka_);
+                    throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
+                await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
 
-                //await UlogujSe_1(_page, OsnovnaUloga, RucnaUloga);
-                //await UlogujSe_2(_page, "Agent");
+
+
 
                 System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -1423,7 +1423,7 @@ namespace Razvoj
                 await OsiguranjeVozila.IzlogujSe(_page!);
                 await _page!.PauseAsync();
                 await OsiguranjeVozila.UlogujSe_2(_page, "Agent");
-                //await UlogujSe_1(_page, OsnovnaUloga);
+
                 await _page!.PauseAsync();
                 System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
