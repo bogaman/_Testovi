@@ -248,16 +248,19 @@ namespace Razvoj
             {
 
                 await _page.WaitForURLAsync(new Regex($"{osnovnaStrana + dodatak}", RegexOptions.IgnoreCase));
+                //System.Windows.MessageBox.Show($"Učitana: {osnovnaStrana + dodatak}...", "Proveri URL", MessageBoxButton.OK, MessageBoxImage.Information);
                 await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded); // čekaj dok se DOM ne učita
                 await _page.WaitForLoadStateAsync(LoadState.Load); // čekaj da se završi celo učitavanje stranice, uključujući sve resurse poput slika i stilova.
                 await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);  // čekaj dok mrežni zahtevi ne prestanu
 
                 string currentUrl = _page.Url;
+                //System.Windows.MessageBox.Show($"Učitana stranica: {currentUrl}", "Proveri URL", MessageBoxButton.OK, MessageBoxImage.Information);
                 if (dodatak == "/Login")
                 {
                     currentUrl = currentUrl.Split('?')[0];
                 }
                 string ocekivanaStrana = (osnovnaStrana + dodatak).ToLower();
+                //System.Windows.MessageBox.Show($"Učitana stranica: {currentUrl}", "Proveri URL", MessageBoxButton.OK, MessageBoxImage.Information);
                 Assert.That(currentUrl.ToLower, Is.EqualTo(ocekivanaStrana));
                 LogovanjeTesta.LogMessage($"✅ Učitana je strana: {osnovnaStrana + dodatak}.", false);
             }

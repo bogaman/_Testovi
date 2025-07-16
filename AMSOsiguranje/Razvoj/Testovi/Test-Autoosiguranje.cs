@@ -852,7 +852,7 @@ namespace Razvoj
                 PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
                 LogovanjeTesta.LogMessage($"✅ Poslednji mejl -> ID: {PrethodniZapisMejla.PoslednjiID}, IDMail: {PrethodniZapisMejla.PoslednjiIDMail}, Status: {PrethodniZapisMejla.Status}, Opis: {PrethodniZapisMejla.Opis}, Datum: {PrethodniZapisMejla.Datum}, Subject: {PrethodniZapisMejla.Subject}", false);
 
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
                 //if (IdLice_ == 1002)
                 //await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
@@ -2840,23 +2840,14 @@ namespace Razvoj
                 //await ProveriURL(_page, PocetnaStrana, "/Login");
 
 
-                //uloguj se kao BO
+                //Uloguj se kao BO
 
 
                 await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
-                //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
-                //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
-                //await _page.Locator("input[type=\"password\"]").ClickAsync();
-                //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
-                //await _page.Locator("a").First.ClickAsync();
-                //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
 
                 //await _page.PauseAsync();
-                //await _page.Locator("a").Filter(new() { HasText = "Imate novi zahtev za izmenom" }).ClickAsync();
-                //await _page.Locator("h3").Filter(new() { HasText = "Izmena vesti broj: 964 (" }).Locator("button").ClickAsync();
-                //await _page.Locator("a").Filter(new() { HasText = "Imate novi zahtev za izmenom" }).ClickAsync();
-                //await _page.Locator("h3").Filter(new() { HasText = "Izmena vesti broj: 964 (" }).Locator("button").ClickAsync();
+
                 string dok = BrojDokumenta.ToString();
                 await _page.GetByText($"Imate novi zahtev za korekciju premijskog stepenaDokument možete pogledati klikom na link: {dok}").HoverAsync();
 
@@ -3163,8 +3154,6 @@ namespace Razvoj
         [Test]
         public async Task AO_8_Otpis()
         {
-
-
             try
             {
                 await Pauziraj(_page);
@@ -3254,42 +3243,40 @@ namespace Razvoj
                 int SerijskiBrojAO = 0;
                 try
                 {
-                    using (SqlConnection konekcija = new SqlConnection(connectionString))
+                    using SqlConnection konekcija = new(connectionString);
+                    konekcija.Open();
+                    using SqlCommand cmd = new(qZaduženiObrasciAOBezPolise, konekcija);
+                    // Izvršavanje upita i dobijanje SqlDataReader objekta
+                    using SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Prolazak kroz redove rezultata
+                    while (reader.Read())
                     {
-                        konekcija.Open();
-                        using SqlCommand cmd = new SqlCommand(qZaduženiObrasciAOBezPolise, konekcija);
-                        // Izvršavanje upita i dobijanje SqlDataReader objekta
-                        using SqlDataReader reader = cmd.ExecuteReader();
+                        // Čitanje vrednosti iz trenutnog reda
+                        SerijskiBrojAO = Convert.ToInt32(reader["SerijskiBroj"]);
+                        string qSerijskiBrojAONijeUpotrebljen = $"SELECT COUNT (*) FROM [MtplDB].[mtpl].[Dokument] " +
+                                                        $"INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] " +
+                                                        $"WHERE [idProizvod] = 1 AND [serijskiBrojAO] LIKE '{SerijskiBrojAO}%';";
 
-                        // Prolazak kroz redove rezultata
-                        while (reader.Read())
+                        using SqlConnection konekcija2 = new(connectionString);
+                        konekcija2.Open();
+                        using SqlCommand cmd2 = new(qSerijskiBrojAONijeUpotrebljen, konekcija2);
+                        int imaPolisuAO = (int)(cmd2.ExecuteScalar() ?? 0);
+                        Console.WriteLine($"Serijski brojevi obrazaca AO kod Bogdana: {SerijskiBrojAO}, Ima polisu AO: {imaPolisuAO}");
+
+                        // Izbor slobodnog serijskog broja polise AO
+                        if (imaPolisuAO == 0)
                         {
-                            // Čitanje vrednosti iz trenutnog reda
-                            SerijskiBrojAO = Convert.ToInt32(reader["SerijskiBroj"]);
-                            string qSerijskiBrojAONijeUpotrebljen = $"SELECT COUNT (*) FROM [MtplDB].[mtpl].[Dokument] " +
-                                                            $"INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] " +
-                                                            $"WHERE [idProizvod] = 1 AND [serijskiBrojAO] LIKE '{SerijskiBrojAO}%';";
+                            Console.WriteLine($"Prvi obrazac koji je slobodan je: {SerijskiBrojAO}");
+                            konekcija.Close();
+                            konekcija2.Close();
+                            Console.WriteLine($"Konekcija: {konekcija.State}");
+                            Console.WriteLine($"Konekcija 2: {konekcija2.State}");
+                            break;
+                        }
+                        else
+                        {
 
-                            using SqlConnection konekcija2 = new SqlConnection(connectionString);
-                            konekcija2.Open();
-                            using SqlCommand cmd2 = new SqlCommand(qSerijskiBrojAONijeUpotrebljen, konekcija2);
-                            int imaPolisuAO = (int)(cmd2.ExecuteScalar() ?? 0);
-                            Console.WriteLine($"Serijski brojevi obrazaca AO kod Bogdana: {SerijskiBrojAO}, Ima polisu AO: {imaPolisuAO}");
-
-                            // Izbor slobodnog serijskog broja polise AO
-                            if (imaPolisuAO == 0)
-                            {
-                                Console.WriteLine($"Prvi obrazac koji je slobodan je: {SerijskiBrojAO}");
-                                konekcija.Close();
-                                konekcija2.Close();
-                                Console.WriteLine($"Konekcija: {konekcija.State}");
-                                Console.WriteLine($"Konekcija 2: {konekcija2.State}");
-                                break;
-                            }
-                            else
-                            {
-
-                            }
                         }
                     }
                 }
@@ -3401,9 +3388,9 @@ namespace Razvoj
                 // Sačekaj na URL posle logovanja
                 //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 //string tekst = "Imate novi dokument \"Otpis\" za verifikacijuDokument možete pogledati klikom na link: ";
-                await _page.GetByText($"{oznakaDokumenta}").HoverAsync();
-                await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
-
+                //await _page.GetByText($"{oznakaDokumenta}").HoverAsync();
+                //await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
+                await _page.GotoAsync(PocetnaStrana + $"/Stroga-Evidencija/1/Autoodgovornost/dokument/3/{PoslednjiDokumentStroga}");
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/dokument/3/{PoslednjiDokumentStroga}");
                 //await _page.PauseAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
@@ -3431,7 +3418,7 @@ namespace Razvoj
 
 
                 await IzlogujSe(_page);
-                await ProveriURL(_page, PocetnaStrana, "/Login");
+                //await ProveriURL(_page, PocetnaStrana, "/Login");
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     PorukaKrajTesta();
@@ -6253,11 +6240,11 @@ namespace Razvoj
                 // Sačekaj na URL posle logovanja
                 //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 //await _page.GetByText($"Dokument možete pogledati klikom na link: {oznakaDokumenta}").ClickAsync();
-                await _page.GetByText($"Imate novi dokument \"Razdužna lista (OSK)\" za verifikaciju").First.HoverAsync();
-                await _page.GetByText($"{oznakaDokumenta}").ClickAsync();
+                //await _page.GetByText($"Imate novi dokument \"Razdužna lista (OSK)\" za verifikaciju").First.HoverAsync();
+                //await _page.GetByText($"{oznakaDokumenta}").ClickAsync();
                 //await _page.GetByRole(AriaRole.Link, new() { Name = $"{PoslednjiDokumentStroga + 1}" }).ClickAsync();
 
-                //await _page.PauseAsync();
+                await _page.GotoAsync($"{PocetnaStrana}/Stroga-evidencija/7/Lom-stakla-auto-nezgoda/Dokument/4/{PoslednjiDokumentStroga + 1}");
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-evidencija/7/Lom-stakla-auto-nezgoda/Dokument/4/{PoslednjiDokumentStroga + 1}");
 
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
@@ -6267,7 +6254,7 @@ namespace Razvoj
                 await _page.Locator(".ico-ams-logo").ClickAsync();
 
                 await IzlogujSe(_page);
-                await ProveriURL(_page, PocetnaStrana, "/Login");
+                //await ProveriURL(_page, PocetnaStrana, "/Login");
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     PorukaKrajTesta();
