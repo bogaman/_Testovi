@@ -744,8 +744,8 @@ namespace Razvoj
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
                 await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
                 // Sačekaj na URL posle logovanja
-                await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
-                await _page.Locator(".ico-ams-logo").ClickAsync();
+                //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
+                //await _page.Locator(".ico-ams-logo").ClickAsync();
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
                 /***********************************************
