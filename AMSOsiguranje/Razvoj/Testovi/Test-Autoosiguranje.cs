@@ -1282,7 +1282,7 @@ namespace Razvoj
                 string labelaText = await labela.EvaluateAsync<string>("el => el.textContent");
                 if (labelaText != "")
                 {
-                    System.Windows.Forms.MessageBox.Show($"Text Content elementa je: {labelaText}", "Informacija", MessageBoxButtons.OK);
+                    //System.Windows.Forms.MessageBox.Show($"Text Content elementa je: {labelaText}", "Informacija", MessageBoxButtons.OK);
                     Assume.That(labelaText, Is.EqualTo(""), $"Test se preskače jer: {labelaText}. \n");
                 }
                 //Assert.That(labelaText, Is.EqualTo(""), $"Test se preskače jer: {labelaText}. \n");
@@ -2432,6 +2432,11 @@ namespace Razvoj
                         //MaksimalniSerijski = (long)(command.ExecuteScalar() ?? 0);
                     }
                     konekcija.Close();
+                }
+                if (BrojDokumenta == 0)
+                {
+                    LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - Nema dokumenata za izmenu.");
+                    throw new Exception("Nema dokumenata za izmenu.");
                 }
                 //Treba ubaciti proveru o ostalih slučajeva. kada je u izradi.... i ako nema polisa ....
                 Console.WriteLine($"ID dokumenta je na okruženju '{Okruzenje}' je: {BrojDokumenta}.\n");
