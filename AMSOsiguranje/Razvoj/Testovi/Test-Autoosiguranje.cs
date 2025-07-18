@@ -2540,6 +2540,7 @@ namespace Razvoj
 
                 await Pauziraj(_page);
                 //await _page.GetByText(BrojDokumenta.ToString()).ClickAsync();
+                //await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{dok}/{brojZahteva}");
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{dok}/{brojZahteva}");
 
 
