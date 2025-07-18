@@ -2538,7 +2538,7 @@ namespace Razvoj
 
                 await _page.Locator($"//a[.='{dok}']").ClickAsync();
 
-                await Pauziraj(_page);
+                //await Pauziraj(_page);
                 //await _page.GetByText(BrojDokumenta.ToString()).ClickAsync();
                 //await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{dok}/{brojZahteva}");
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{dok}/{brojZahteva}");
@@ -4338,7 +4338,7 @@ namespace Razvoj
 
                 // Klik na Pregled / Pretraga razdužnih listi i provera da li se otvorila odgovarajuća stranica
                 await _page.GetByText("Pregled / Pretraga razdužnih listi").ClickAsync();
-                await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Pregled-dokumenata/4");
+                await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Pregled-dokumenata");
 
                 // Proveri da li stranica sadrži grid Obrasci
                 string tipGrida = "grid Dokumenti";
