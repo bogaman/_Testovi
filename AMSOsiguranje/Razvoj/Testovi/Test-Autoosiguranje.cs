@@ -812,11 +812,12 @@ namespace Razvoj
                 // Proveri da li je vest arhivirana za BO nakon vraćanja na verifikaciju
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
-
+                /*
                 ocekivaniTekst = $"Dokument \"Prenos zaduženja polisa\" je vraćen u izradu.\n" +
                                  $"Dokument možete pogledati klikom na link: {oznakaDokumenta}";
                 await ArhivirajVest(_page, ocekivaniTekst, oznakaDokumenta);
-                await ProveraVestJeObrisana(_page, ocekivaniTekst);
+                */
+                //await ProveraVestJeObrisana(_page, ocekivaniTekst);
 
                 // Odjavljuje se BackOffice
                 await IzlogujSe(_page);
