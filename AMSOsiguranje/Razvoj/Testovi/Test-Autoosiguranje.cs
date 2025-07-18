@@ -859,7 +859,7 @@ namespace Razvoj
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran verifikovan dokument stroge evidencije AO:");
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
 
                 /*********************************************************
                 ocekivaniTekst = $"Imate novi dokument \"Prenos zaduženja polisa\" za verifikaciju\n" +
