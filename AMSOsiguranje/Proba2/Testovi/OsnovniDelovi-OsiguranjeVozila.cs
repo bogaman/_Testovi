@@ -1086,7 +1086,7 @@ namespace Proba2
         /// <param name="korisnickoIme">Može biti BackOffice ili Agent</param>
         /// <param name="lozinka">Može biti BackOffice ili Agent</param>
         /// <returns></returns>
-        public static async Task UlogujSe_3(IPage _page, string korisnickoIme, string lozinka)
+        public static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
         {
             try
             {
@@ -1175,6 +1175,7 @@ namespace Proba2
             }
         }
 
+
         // Logovanje na početnoj stranici
         /// <summary>
         /// Uloguj se na aplikaciju koristeći korisničko ime i lozinku.
@@ -1242,6 +1243,11 @@ namespace Proba2
                 throw;
             }
         }
+
+
+
+
+
 
         // Logovanje na početnoj stranici
         public static async Task UlogujSe_6(IPage _page, string KorisnikMejl, string KorisnikPassword)
@@ -1402,10 +1408,32 @@ namespace Proba2
 
 
         //Provera da li postoji grid
-        public static async Task ProveraPostojiGrid(IPage _page, string lokatorGrid, string tipGrida)
+        private static async Task ProveraPostojiGrid(IPage _page, string tipGrida)
         {
+            string lokatorGrid = string.Empty;
             try
             {
+
+                lokatorGrid = tipGrida switch
+                {
+                    "Obrasci polisa AO" => "//e-grid[@id='grid_obrasci']",
+                    "Polise AO" => "//e-grid[@id='grid_dokumenti']",
+                    "Dokumenta stroge evidencije za polise AO" => "//e-grid[@id='grid_dokumenti']",
+                    "Zahtevi za izmenu polisa AO" => "//e-grid[@id='grid_zahtevi_za_izmenu']",
+                    "Razdužne liste AO" => "//e-grid[@id='grid_dokumenti']",
+                    "Obrasci polisa ZK" => "//e-grid[@id='grid_obrasci']",
+                    "Dokumenti Stroge evidencije za polise ZK" => "//e-grid[@id='grid_dokumenti']",
+                    "Polise ZK" => "//e-grid[@id='grid_dokumenti']",
+                    "grid Dokumenti" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled razdužnih listi za JS" => "//e-grid[@id='grid_dokumenti']",
+                    "grid Obrasci" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled razdužnih listi za DK" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled razdužnih listi za SE" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled dokumenata za BO" => "//e-grid[@id='grid_dokumenti']",
+                    "Produkcija" => "",
+                    _ => throw new ArgumentException($"Nepoznato okruženje: {tipGrida}.\nIP adresa servera nije dobro određena."),
+                };
+
                 await _page.Locator(lokatorGrid).ClickAsync(new LocatorClickOptions
                 {
                     Position = new Position { X = 99, Y = 1 }  // 99% širine, 1% visine

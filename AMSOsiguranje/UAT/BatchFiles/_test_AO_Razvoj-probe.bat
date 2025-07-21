@@ -17,10 +17,10 @@ set NACIN_POKRETANJA=automatski
 ::dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
 
 echo. > Logovi\_log_AO_UAT.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] UAT.OsiguranjeVozila.DK_6_SE_RazduznaLista... >> Logovi\_log_AO_UAT.txt
-dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila.DK_6_SE_RazduznaLista | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] UAT.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_UAT.txt
+dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
 
-::echo. > Logovi\_log_AO_UAT.txt
+::echo. > Logovi\_log_AO_UAT.txt 
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_UAT.txt
 ::dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
 
