@@ -4236,11 +4236,9 @@ namespace Razvoj
 
                 await _page.Locator("//e-input[@id='inpSerijskiBrojZK']").ClickAsync();
                 string konCifraZK = IzracunajKontrolnuCifruZK($"{SerijskiBrojZK}");
-                await _page.Locator("#inpSerijskiBrojZK input[type=\"text\"]").FillAsync(SerijskiBrojZK.ToString("D8"));
-                if (Okruzenje == "Razvoj")
-                {
-                    await _page.Locator("#inpSerijskiBrojZK input[type=\"text\"]").FillAsync(SerijskiBrojZK.ToString("D8") + konCifraZK);
-                }
+                //await _page.Locator("#inpSerijskiBrojZK input[type=\"text\"]").FillAsync(SerijskiBrojZK.ToString("D8"));
+
+                await _page.Locator("#inpSerijskiBrojZK input[type=\"text\"]").FillAsync(SerijskiBrojZK.ToString("D8") + konCifraZK);
                 await _page.Locator("#inpSerijskiBrojZK input[type=\"text\"]").PressAsync("Tab");
 
                 //Nalaženje poslednjeg broja dokumenta u Mtpl

@@ -4,7 +4,7 @@
         <name>Proba2</name>
     </assembly>
     <members>
-        <member name="M:Proba2.OsiguranjeVozila.UlogujSe_3(Microsoft.Playwright.IPage,System.String,System.String)">
+        <member name="M:Proba2.OsiguranjeVozila.UlogujSe(Microsoft.Playwright.IPage,System.String,System.String)">
             <summary>
             Uloguj se koristeći korisničko ime i lozinku.
             <para>Korisničko ime i lozinka se određuju na osnovu NacinPokretanjaTesta i RucnaUloga </para>
