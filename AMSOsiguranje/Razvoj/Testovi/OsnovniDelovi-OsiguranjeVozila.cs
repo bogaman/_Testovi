@@ -1430,6 +1430,8 @@ namespace Razvoj
                     "Pregled razdužnih listi za DK" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled razdužnih listi za SE" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled dokumenata za BO" => "//e-grid[@id='grid_dokumenti']",
+                    "Polise Kasko" => "//e-grid[@id='grid_dokumenti']",
+                    "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']",
                     "Produkcija" => "",
                     _ => throw new ArgumentException($"Nepoznato okruženje: {tipGrida}.\nIP adresa servera nije dobro određena."),
                 };
