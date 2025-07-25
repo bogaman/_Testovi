@@ -1525,6 +1525,19 @@ namespace Razvoj
                 await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Na verifikacijiU izradiVerifikovan$") }).Locator("div").Nth(2).ClickAsync();
                 await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
             }
+
+
+
+
+
+
+            else if (kolona == 9 || kolona == 10)
+            {
+                await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^KreiranRaskinutStorniranU izradi$") }).Locator("div").Nth(0).ClickAsync();
+                await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+            }
+
             else
             {
                 await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();

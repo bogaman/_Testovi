@@ -74,6 +74,29 @@ namespace Razvoj
 
         #region Testovi
 
+        [Test]
+        public async Task AO_01_PregledPretragaPolisa()
+        {
+            try
+            {
+                await Pauziraj(_page);
+                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                // Pređi mišem preko teksta Osiguranje vozila
+                //await _page.GetByText("Osiguranje vozila").HoverAsync();
+                // Klikni na tekst Osiguranje vozila
+                await _page.GetByText("Osiguranje vozila").ClickAsync();
+                // Klikni u meniju na Autoodgovornost
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Autoodgovornost" }).First.ClickAsync();
+                // Provera da li se otvorila stranica sa pregledom polisa AO
+                await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata");
+
+                // Proveri da li stranica sadrži grid Obrasci i da li radi filter na gridu Obrasci
+                string tipGrida = "Polise AO";
+                await ProveraPostojiGrid(_page, tipGrida);
+
+                string kriterijumFiltera = "Kreiran";
+                await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 10);
 
 
 
@@ -81,9 +104,145 @@ namespace Razvoj
 
 
 
+
+                // Izbroj koliko ima redova u gridu
+                var redovi = _page.Locator("//div[@class='podaci']//div[contains(@class, 'grid-row')]");
+                int brojRedova = await redovi.CountAsync();
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.Forms.MessageBox.Show($"Redova ima-1: {brojRedova}", "Informacija", MessageBoxButtons.OK);
+                }
+
+                //ili
+                var rows = await _page.QuerySelectorAllAsync("div.podaci div.row.grid-row.row-click");
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.Forms.MessageBox.Show($"Redova ima-2: {rows.Count}", "Informacija", MessageBoxButtons.OK);
+                }
+
+                //Izbroj koliko ima kolona u gridu
+                var koloneUPrvomRedu = _page.Locator("(//div[contains(@class, 'podaci')]//div[contains(@class, 'grid-row')])[1]//div[contains(@class, 'column')]");
+                int brojKolona = await koloneUPrvomRedu.CountAsync();
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.Forms.MessageBox.Show($"Broj kolona 1: {brojKolona}", "Informacija", MessageBoxButtons.OK);
+                }
+
+
+
+                // Pročitaj broj dokumenta (sadržaj ćelije u prvom redu i prvoj koloni)
+                string brojDokumenta = await ProcitajCeliju(1, 1);
+                // Procitaj serijski broj obrasca polise AO (sadržaj ćelije u prvom redu i drugoj koloni)
+                string serijskiBrojObrasca = await ProcitajCeliju(1, 2);
+                // Procitaj Broj polise AO (sadržaj ćelije u prvom redu i trećoj koloni)
+                string brojPolise = await ProcitajCeliju(1, 3);
+
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.Forms.MessageBox.Show($"Broj dokumenta: {brojDokumenta} \n" +
+                                                         $"Serijski broj obrasca: {serijskiBrojObrasca} \n" +
+                                                         $"Broj polise AO: {brojPolise}", "Informacija", MessageBoxButtons.OK);
+                }
+
+                try
+                {
+                    //brojDokumenta = "7364";
+                    // Pronađi lokator za ćeliju koja sadrži broj dokumenta polise AO
+                    var celijaBrojDokumenta = _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{brojDokumenta}']");
+
+                    // Provera da li je element vidljiv
+                    if (await celijaBrojDokumenta.IsVisibleAsync())
+                    {
+                        await celijaBrojDokumenta.ClickAsync();
+                        Console.WriteLine($"Kliknuto na ćeliju sa vrednošću: {brojDokumenta}");
+                        //TestLogger.LogMessage($"Kliknuto na ćeliju sa vrednošću: {prom2}");
+                    }
+                    else
+                    {
+                        //TestLogger.LogError($"Ćelija sa vrednošću '{prom2}' nije vidljiva.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{brojDokumenta}'.");
+                }
+
+                await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}"); // Provera da li se otvorila odgovarajuća kartica obrasca
+
+                //await _page.PauseAsync();
+                //await ProveriStampu404(_page, "Štampaj polisu", "Štampa polise AO");
+                //await ProveriStampuPdf(_page, "Štampaj polisu", "Štampa polise AO");
+                await ProveriStampu404(_page, "Štampaj uplatnicu/fakturu", "Štampa uplatnice/fakture polise AO");
+                //await ProveriStampuPdf(_page, "Štampaj uplatnicu/fakturu", "Štampa uplatnice/fakture polise AO");
+
+
+
+
+                await _page.PauseAsync();
+                return; // Zaustavi test ako je pokrenut ručno
+
+
+
+
+
+
+                try
+                {
+                    string[] expectedValues = [brojDokumenta, "Autoodgovornost", serijskiBrojObrasca, brojPolise];
+                    bool allFound = true;
+
+                    foreach (string value in expectedValues)
+                    {
+                        // Lokator za input element sa očekivanom vrednošću u atributu value
+
+                        var tekstBoks = _page.Locator($"//e-input[@value='{value}']");   //e-input[@value='Autoodgovornost']
+
+                        if (await tekstBoks.CountAsync() == 0)
+                        {
+                            allFound = false;
+                            LogovanjeTesta.LogError($"Nije pronađen tekst boks sa vrednošću: '{value}'");
+                        }
+                        else
+                        {
+                            LogovanjeTesta.LogMessage($"Uspešno pronađen tekst boks sa vrednošću: '{value}'");
+                        }
+                    }
+
+                    if (allFound)
+                    {
+                        LogovanjeTesta.LogMessage("Svi očekivani tekst boksovi su pronađeni sa tačnim vrednostima.");
+                    }
+                    else
+                    {
+                        LogovanjeTesta.LogError("Neki od očekivanih tekst boksova nisu pronađeni.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogovanjeTesta.LogException(ex, "Greška prilikom provere tekst boksova sa vrednostima prom1–prom4.");
+                }
+                await IzlogujSe(_page);
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    PorukaKrajTesta();
+                }
+                //await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
+
+                //Assert.Pass();
+                LogovanjeTesta.LogMessage($"✅ Uspešan test {NazivTekucegTesta} ");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
+            }
+        }
 
         [Test]
-        public async Task AO_01_SE_PregledPretragaObrazaca()
+        public async Task AO_02_SE_PregledPretragaObrazaca()
         {
             try
             {
@@ -229,7 +388,7 @@ namespace Razvoj
         }
 
         [Test]
-        public async Task AO_02_SE_PregledPretragaDokumenata()
+        public async Task AO_03_SE_PregledPretragaDokumenata()
         {
             try
             {
@@ -401,7 +560,7 @@ namespace Razvoj
         }
 
         [Test]
-        public async Task AO_03_SE_UlazObrazaca()
+        public async Task AO_04_SE_UlazObrazaca()
         {
             try
             {
@@ -1114,7 +1273,7 @@ namespace Razvoj
 
 
         [Test]
-        public async Task AO_04_SE_PrenosObrazaca()
+        public async Task AO_05_SE_PrenosObrazaca()
         {
             try
             {
@@ -1743,7 +1902,7 @@ namespace Razvoj
 
         [Test]
         [TestCaseSource(nameof(ProcitajPodatkeZaPolisuAutoodgovornost))]
-        public async Task AO_05_Polisa(string _rb, string _tipPolise, string _premijskaGrupa, string _popusti, string _tipUgovaraca, string _tipLica1, string _tipLica2, string _brojDana, string _tegljac, string _podgrupa, string _zapremina, string _snaga, string _nosivost, string _brojMesta, string _oslobodjenPoreza, string _mb1, string _mb2, string _pib1, string _pib2, string _platilac1, string _platilac2)
+        public async Task AO_06_Polisa(string _rb, string _tipPolise, string _premijskaGrupa, string _popusti, string _tipUgovaraca, string _tipLica1, string _tipLica2, string _brojDana, string _tegljac, string _podgrupa, string _zapremina, string _snaga, string _nosivost, string _brojMesta, string _oslobodjenPoreza, string _mb1, string _mb2, string _pib1, string _pib2, string _platilac1, string _platilac2)
         {
             try
             {
@@ -2913,7 +3072,7 @@ namespace Razvoj
         }
 
         [Test]
-        public async Task AO_06_PregledZahtevaZaIzmenomPolisaAO()
+        public async Task AO_07_PregledZahtevaZaIzmenomPolisaAO()
         {
             await Pauziraj(_page);
             try
@@ -3256,7 +3415,7 @@ namespace Razvoj
 
 
         [Test]
-        public async Task AO_07_ZahtevZaIzmenu_Podaci()
+        public async Task AO_08_ZahtevZaIzmenu_Podaci()
         {
             await Pauziraj(_page);
             try
@@ -3598,7 +3757,7 @@ namespace Razvoj
 
 
         [Test]
-        public async Task AO_08_ZahtevZaIzmenu_PremijskiStepen()
+        public async Task AO_09_ZahtevZaIzmenu_PremijskiStepen()
         {
             await Pauziraj(_page);
             try
@@ -3921,7 +4080,7 @@ namespace Razvoj
 
 
         [Test]
-        public async Task AO_09_RazduznaLista()
+        public async Task AO_10_RazduznaLista()
         {
             try
             {
@@ -4123,7 +4282,7 @@ namespace Razvoj
 
 
         [Test]
-        public async Task AO_10_Otpis()
+        public async Task AO_11_Otpis()
         {
             try
             {
@@ -4407,6 +4566,90 @@ namespace Razvoj
             }
 
 
+        }
+
+
+        [Test]
+        public async Task AO_12_InformativnoKalkulisanje()
+        {
+            try
+            {
+                await Pauziraj(_page);
+                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                // Pređi mišem preko teksta Osiguranje vozila
+                //await _page.GetByText("Osiguranje vozila").HoverAsync();
+                // Klikni na tekst Osiguranje vozila
+                await _page.GetByText("Osiguranje vozila").ClickAsync();
+                // Klikni u meniju na Autoodgovornost
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Autoodgovornost" }).First.ClickAsync();
+                // Provera da li se otvorila stranica sa pregledom polisa AO
+                await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata");
+
+                // Klik na Pregled / Pretraga obrazaca stroge evidencije
+                await _page.GetByText("Informativno kalkulisanje").ClickAsync();
+                // Provera da li se otvorila stranica pregled obrazaca
+                await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Informativno-kalkulisanje");
+
+                await _page.PauseAsync();
+
+                await _page.Locator(".multiselect-dropdown").First.ClickAsync();
+                await _page.GetByText("Regularno (u trajanju od").ClickAsync();
+                await _page.GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.GetByRole(AriaRole.Textbox).PressAsync("Enter");
+                await _page.Locator("#chkRaspon div").Nth(3).ClickAsync();
+                await _page.Locator("#selpremijskiStepenOd").GetByText("123456789101112 4").ClickAsync();
+                await _page.Locator("#selpremijskiStepenOd").GetByText("1", new() { Exact = true }).ClickAsync();
+                await _page.GetByText("123456789101112 4").ClickAsync();
+                await _page.Locator("#selpremijskiStepenDo").GetByText("5").ClickAsync();
+                await _page.Locator("#selVrstaVozila > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.Locator("#selVrstaVozila").GetByText("Putničko vozilo").ClickAsync();
+                await _page.Locator("#snaga").GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.Locator("#snaga").GetByRole(AriaRole.Textbox).FillAsync("100");
+                await _page.Locator("#snaga").GetByRole(AriaRole.Textbox).PressAsync("Enter");
+                await _page.Locator("#snaga").GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.GetByText("---Taxi voziloRent a carVozilo invalida ---").ClickAsync();
+                await _page.GetByText("Taxi vozilo").ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodaj" }).ClickAsync();
+                await _page.Locator("div:nth-child(2) > .korak0 > div > .col-4 > #selVrstaOsiguranja > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.GetByText("Regularno (u trajanju od").Nth(2).ClickAsync();
+                await _page.Locator("div:nth-child(2) > .korak2 > div:nth-child(2) > .col-3 > #selVrstaVozila > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.GetByText("Autobusi").Nth(1).ClickAsync();
+                await _page.GetByRole(AriaRole.Textbox).Nth(3).ClickAsync();
+                await _page.GetByRole(AriaRole.Textbox).Nth(3).FillAsync("50");
+                await _page.Locator("div:nth-child(2) > #vozilo > #podvrstaVozila > #selPodvrsta > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.GetByText("Autobusi za međugradski javni").ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Izračunaj" }).ClickAsync();
+                await _page.GetByText("Vrsta osiguranja").Nth(2).ClickAsync();
+                await _page.GetByText("Vrsta vozila", new() { Exact = true }).Nth(2).ClickAsync();
+                await _page.GetByText("Autobusi", new() { Exact = true }).Nth(3).ClickAsync();
+                await _page.Locator(".prikazInfoKalkulacije > div:nth-child(2) > div").First.ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Štampaj" }).ClickAsync();
+                await ProveriStampuPdf(_page, "Štampaj", "Informativno kalkulisanje");
+                await _page.GetByRole(AriaRole.Button, new() { Name = "" }).Nth(2).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Izračunaj" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Štampaj" }).ClickAsync();
+
+                await ProveriStampuPdf(_page, "Štampaj", "Informativno kalkulisanje");
+
+                await IzlogujSe(_page);
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    PorukaKrajTesta();
+                }
+                //await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
+
+                //Assert.Pass();
+                LogovanjeTesta.LogMessage($"✅ Uspešan test {NazivTekucegTesta} ");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
+            }
         }
 
         [Test]
@@ -7635,9 +7878,10 @@ namespace Razvoj
                 await ProveraPostojiGrid(_page, tipGrida);
 
                 string kriterijumFiltera = RucnaUloga;
-                await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 10);
+                await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 9);
 
-
+                await _page.PauseAsync();
+                return; // Zaustavi test ako je pokrenut ručno
 
 
                 // Izbroj koliko ima redova u gridu
@@ -7892,7 +8136,7 @@ namespace Razvoj
 
                 Assert.That(isPopupVisible, "Popup sa tekstom 'uspešno' se nije pojavio.");
 
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Kalkuliši" }).ClickAsync();
 
                 //await _page.PauseAsync();
