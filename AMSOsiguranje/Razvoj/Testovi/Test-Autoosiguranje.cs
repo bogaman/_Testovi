@@ -1,3 +1,5 @@
+using Microsoft.ApplicationInsights.DataContracts;
+
 namespace Razvoj
 {
     [TestFixture, Order(1)]
@@ -170,7 +172,7 @@ namespace Razvoj
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}"); // Provera da li se otvorila odgovarajuća kartica obrasca
 
                 //await _page.PauseAsync();
-                //await ProveriStampu404(_page, "Štampaj polisu", "Štampa polise AO");
+                await ProveriStampu404(_page, "Štampaj polisu", "Štampa polise AO");
                 //await ProveriStampuPdf(_page, "Štampaj polisu", "Štampa polise AO");
                 await ProveriStampu404(_page, "Štampaj uplatnicu/fakturu", "Štampa uplatnice/fakture polise AO");
                 //await ProveriStampuPdf(_page, "Štampaj uplatnicu/fakturu", "Štampa uplatnice/fakture polise AO");
@@ -178,50 +180,31 @@ namespace Razvoj
 
 
 
-                await _page.PauseAsync();
-                return; // Zaustavi test ako je pokrenut ručno
+
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                await ProveriStampu404(_page, "Štampaj prepis polise", "Prepis polise AO");
+
+
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = " Pregled zahteva ka UOS-u" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = " Prethodne verzije" }).ClickAsync();
+                await _page.Locator("e-sidenav").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = " Skloni panel" }).ClickAsync();
 
 
 
 
 
 
-                try
-                {
-                    string[] expectedValues = [brojDokumenta, "Autoodgovornost", serijskiBrojObrasca, brojPolise];
-                    bool allFound = true;
-
-                    foreach (string value in expectedValues)
-                    {
-                        // Lokator za input element sa očekivanom vrednošću u atributu value
-
-                        var tekstBoks = _page.Locator($"//e-input[@value='{value}']");   //e-input[@value='Autoodgovornost']
-
-                        if (await tekstBoks.CountAsync() == 0)
-                        {
-                            allFound = false;
-                            LogovanjeTesta.LogError($"Nije pronađen tekst boks sa vrednošću: '{value}'");
-                        }
-                        else
-                        {
-                            LogovanjeTesta.LogMessage($"Uspešno pronađen tekst boks sa vrednošću: '{value}'");
-                        }
-                    }
-
-                    if (allFound)
-                    {
-                        LogovanjeTesta.LogMessage("Svi očekivani tekst boksovi su pronađeni sa tačnim vrednostima.");
-                    }
-                    else
-                    {
-                        LogovanjeTesta.LogError("Neki od očekivanih tekst boksova nisu pronađeni.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    LogovanjeTesta.LogException(ex, "Greška prilikom provere tekst boksova sa vrednostima prom1–prom4.");
-                }
                 await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+
+
+
+
+
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     PorukaKrajTesta();
@@ -738,7 +721,7 @@ namespace Razvoj
                 //Provera mejla za BO da je dokument vraćen u izradu
                 await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
 
-                await _page.PauseAsync(); // Pauza da se vidi da li je dokument vraćen u izradu
+                //await _page.PauseAsync(); // Pauza da se vidi da li je dokument vraćen u izradu
 
                 //Provera vesti za BO da je dokument vraćen u izradu
                 /**************************************************
@@ -1363,7 +1346,8 @@ namespace Razvoj
                     }
                     konekcija.Close();
                 }
-                System.Windows.MessageBox.Show($"Slobodan obrazac je #{PrviSlobodanObrazac}# ", "Informacija", (MessageBoxButton)MessageBoxButtons.OK, (MessageBoxImage)MessageBoxIcon.Information);
+                if (NacinPokretanjaTesta == "ručno")
+                    System.Windows.MessageBox.Show($"Slobodan obrazac je #{PrviSlobodanObrazac}# ", "Informacija", (MessageBoxButton)MessageBoxButtons.OK, (MessageBoxImage)MessageBoxIcon.Information);
 
 
                 //PoslednjiSerijski = PoslednjiSerijskiStroga(1, $" AND [SerijskiBroj] BETWEEN {MinSerijskiAO} AND {MaxSerijskiAO}");
@@ -4591,7 +4575,7 @@ namespace Razvoj
                 // Provera da li se otvorila stranica pregled obrazaca
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Informativno-kalkulisanje");
 
-                await _page.PauseAsync();
+                await Pauziraj(_page);
 
                 await _page.Locator(".multiselect-dropdown").First.ClickAsync();
                 await _page.GetByText("Regularno (u trajanju od").ClickAsync();
@@ -8148,6 +8132,45 @@ namespace Razvoj
 
                 Assert.That(isPopupVisible, "Popup sa tekstom 'uspešno' se nije pojavio.");
 
+                //await _page.PauseAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Kreiraj polisu" }).ClickAsync();
+
+                await _page.GetByText("Da li ste sigurni da želite").ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
+
+
+                /******************************
+                var page1 = await page.RunAndWaitForPopupAsync(async () =>
+                {
+                    await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj polisu" }).ClickAsync();
+                });
+                await page1.CloseAsync();
+                var page2 = await page.RunAndWaitForPopupAsync(async () =>
+                {
+                    await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj uplatnicu/fakturu" }).ClickAsync();
+                });
+                await page2.CloseAsync();
+                var page3 = await page.RunAndWaitForPopupAsync(async () =>
+                {
+                    await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj zapisnik" }).ClickAsync();
+                });
+                await page3.CloseAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj ponudu" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj ponudu" }).ClickAsync();
+                await page.GetByRole(AriaRole.Link, new() { Name = "" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = " Odjavljivanje" }).ClickAsync();
+                *********************************/
+
+                //await _page.PauseAsync();
+                popupLocator = _page.Locator("//div[contains(text(),'uspešno kreirana')]");
+
+                // Sačekaj da se popup pojavi (timeout 5 sekundi)
+                isPopupVisible = await popupLocator.WaitForAsync(new() { Timeout = 15000 }).ContinueWith(t => !t.IsFaulted);
+                //await Expect(popupLocator).ToBeVisibleAsync(new() { Timeout = 5000 });
+
+                Assert.That(isPopupVisible, "Popup sa tekstom 'uspešno kreirana' se nije pojavio.");
+
 
             }
             catch (Exception ex)
@@ -9529,7 +9552,7 @@ namespace Razvoj
 
 
         [Test]
-        public async Task KA_08_RazduznaLista()
+        public async Task KA_08_SE_RazduznaLista()
         {
             try
             {

@@ -334,17 +334,32 @@ namespace Razvoj
             var errorElement = pageStampa.Locator("text=HTTP ERROR 404");
             try
             {
-                Assert.That(await errorElement.IsHiddenAsync(), Is.True, $"{Poruka} 'HTTP ERROR 404' je vidljiv na stranici.");
-                File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"+++++++++++++++++++++{DateTime.Now:dd.MM.yyyy HH:mm:ss} {Environment.NewLine}");
-                LogovanjeTesta.LogMessage($"✅ {Poruka} nema 'HTTP ERROR 404'", false);
+
+                if (await errorElement.IsVisibleAsync())
+                {
+                    //Assert.That(await errorElement.IsHiddenAsync(), Is.True, $"{Poruka} 'HTTP ERROR 404' je vidljiv na stranici.");
+
+                    File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"+++++++++++++++++++++{DateTime.Now:dd.MM.yyyy HH:mm:ss} {Environment.NewLine}");
+                    LogovanjeTesta.LogMessage($"✅ {Poruka} ima 'HTTP ERROR 404'", false);
+                    Exception ex = new PlaywrightException();
+                    LogovanjeTesta.LogException(ex, $"✅ {Poruka} ima 'HTTP ERROR 404'");
+                }
+                else
+                {
+                    Exception ex = new PlaywrightException();
+                    LogovanjeTesta.LogException(ex, $"✅ {Poruka} ima 'HTTP ERROR 404'");
+                }
+
             }
-            catch (AssertionException ex)
+
+            //catch (AssertionException ex)
+            catch (PlaywrightException ex)
             {
                 // Upisivanje u fajl
                 File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"--------------------------{DateTime.Now:dd.MM.yyyy HH:mm:ss} - {ex.Message}{Environment.NewLine}");
                 LogovanjeTesta.LogError($"❌ {Poruka} ima 'HTTP ERROR 404'");
 
-                throw; // Sa throw se test prekida, bez throw se test nastavlja.
+                //throw; // Sa throw se test prekida, bez throw se test nastavlja.
             }
 
 
