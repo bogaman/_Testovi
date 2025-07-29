@@ -204,44 +204,28 @@
             </summary>
         </member>
         <member name="P:Proba2.LogovanjeTesta.PocetakTestiranja">
-            <summary>
-            Određuje se vreme početka testiranja.
-            </summary>
+            <summary>Određuje se vreme početka testiranja.</summary>
         </member>
         <member name="P:Proba2.LogovanjeTesta.KrajTestiranja">
-            <summary>
-            Određuje se vreme završetka testiranja.
-            </summary>
+            <summary>Određuje se vreme završetka testiranja.</summary>
         </member>
         <member name="P:Proba2.LogovanjeTesta.PocetakTesta">
-            <summary>
-             Vreme kada je pokrenut pojedinačni test.</summary>
+            <summary>Vreme kada je pokrenut pojedinačni test.</summary>
             <remarks>Ovo vreme se koristi za praćenje trajanja pojedinačnih testova.</remarks>
         </member>
         <member name="P:Proba2.LogovanjeTesta.KrajTesta">
-            <summary>
-            Vreme kada je završen pojedinačni test. 
-            <para>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</para>
-            </summary>
+             <summary>Vreme kada je završen pojedinačni test.</summary>
+            <remarks>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</remarks>
         </member>
         <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTestiranja(System.DateTime,System.String,System.String,System.String)">
-            <summary>
-            Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
-            </summary>
+            <summary>Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.</summary>
             <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
             <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
             <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
             <param name="nazivKompjutera">Naziv računara na kojem se testira. Ako nije prosleđen, koristi se Environment.MachineName.</param>
-            <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
+            <returns>newRecordId</returns>    
             <exception cref="T:Microsoft.Data.SqlClient.SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
             <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
-            <example>
-            <code>
-            DateTime pocetak = DateTime.Now;    
-            int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
-            Console.WriteLine($"ID unetog zapisa: {id}");
-            </code>
-            </example>
         </member>
         <member name="M:Proba2.LogovanjeTesta.UnesiPocetakTesta(System.Int32,System.String,System.DateTime)">
             <summary>
