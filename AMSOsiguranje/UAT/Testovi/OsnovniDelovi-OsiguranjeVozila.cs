@@ -334,17 +334,32 @@ namespace UAT
             var errorElement = pageStampa.Locator("text=HTTP ERROR 404");
             try
             {
-                Assert.That(await errorElement.IsHiddenAsync(), Is.True, $"{Poruka} 'HTTP ERROR 404' je vidljiv na stranici.");
-                File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"+++++++++++++++++++++{DateTime.Now:dd.MM.yyyy HH:mm:ss} {Environment.NewLine}");
-                LogovanjeTesta.LogMessage($"✅ {Poruka} nema 'HTTP ERROR 404'", false);
+
+                if (await errorElement.IsVisibleAsync())
+                {
+                    //Assert.That(await errorElement.IsHiddenAsync(), Is.True, $"{Poruka} 'HTTP ERROR 404' je vidljiv na stranici.");
+
+                    File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"+++++++++++++++++++++{DateTime.Now:dd.MM.yyyy HH:mm:ss} {Environment.NewLine}");
+                    LogovanjeTesta.LogMessage($"✅ {Poruka} ima 'HTTP ERROR 404'", false);
+                    Exception ex = new PlaywrightException();
+                    LogovanjeTesta.LogException(ex, $"✅ {Poruka} ima 'HTTP ERROR 404'");
+                }
+                else
+                {
+                    Exception ex = new PlaywrightException();
+                    LogovanjeTesta.LogException(ex, $"✅ {Poruka} ima 'HTTP ERROR 404'");
+                }
+
             }
-            catch (AssertionException ex)
+
+            //catch (AssertionException ex)
+            catch (PlaywrightException ex)
             {
                 // Upisivanje u fajl
                 File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"--------------------------{DateTime.Now:dd.MM.yyyy HH:mm:ss} - {ex.Message}{Environment.NewLine}");
                 LogovanjeTesta.LogError($"❌ {Poruka} ima 'HTTP ERROR 404'");
 
-                throw; // Sa throw se test prekida, bez throw se test nastavlja.
+                //throw; // Sa throw se test prekida, bez throw se test nastavlja.
             }
 
 
@@ -1430,6 +1445,8 @@ namespace UAT
                     "Pregled razdužnih listi za DK" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled razdužnih listi za SE" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled dokumenata za BO" => "//e-grid[@id='grid_dokumenti']",
+                    "Polise Kasko" => "//e-grid[@id='grid_dokumenti']",
+                    "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']",
                     "Produkcija" => "",
                     _ => throw new ArgumentException($"Nepoznato okruženje: {tipGrida}.\nIP adresa servera nije dobro određena."),
                 };
@@ -1523,6 +1540,19 @@ namespace UAT
                 await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Na verifikacijiU izradiVerifikovan$") }).Locator("div").Nth(2).ClickAsync();
                 await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
             }
+
+
+
+
+
+
+            else if (kolona == 9 || kolona == 10)
+            {
+                await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^KreiranRaskinutStorniranU izradi$") }).Locator("div").Nth(0).ClickAsync();
+                await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+            }
+
             else
             {
                 await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();

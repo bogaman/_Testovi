@@ -38,49 +38,33 @@ namespace UAT
 
 
         #region Vremena
-        /// <summary>
-        /// Određuje se vreme početka testiranja.
-        /// </summary>
+        /// <summary>Određuje se vreme početka testiranja.</summary>
         public static DateTime PocetakTestiranja { get; set; } = DateTime.MinValue; // Vreme kada su pokrenuti svi testovi
-        /// <summary>
-        /// Određuje se vreme završetka testiranja.
-        /// </summary>
+        /// <summary>Određuje se vreme završetka testiranja.</summary>
         public static DateTime KrajTestiranja { get; set; } = DateTime.MinValue; // Vreme kada su svi testovi završeni
-        ///<summary>
-        /// Vreme kada je pokrenut pojedinačni test.</summary>
+        ///<summary>Vreme kada je pokrenut pojedinačni test.</summary>
         ///<remarks>Ovo vreme se koristi za praćenje trajanja pojedinačnih testova.</remarks>
         public static DateTime PocetakTesta { get; set; } = DateTime.MinValue; // Vreme kada je pokrenut pojedinačni test
-        /// <summary>
-        /// Vreme kada je završen pojedinačni test. 
-        /// <para>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</para>
-        /// </summary>
+        /// <summary>Vreme kada je završen pojedinačni test.</summary>
+        ///<remarks>Koristi se za praćenje trajanja pojedinačnih testova i unosi se u bazu podataka.</remarks>
         public static DateTime KrajTesta { get; set; } = DateTime.MinValue; // Vreme kada je pojedinačni test završen
         #endregion Vremena
 
 
-        /// <summary>
-        /// Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.
-        /// </summary>
+        /// <summary>Unosi se vreme početka testiranja u bazu podataka i vraća ID unetog zapisa.</summary>
         /// <param name="pocetakTestiranja">Vreme početka testiranja.</param>  
         /// <param name="nazivNamespace">Naziv namespace-a koji se koristi za testiranje.</param>
         /// <param name="nacinPokretanjaTesta">Kako se pokrece test, ručno/automatski.</param>
         /// <param name="nazivKompjutera">Naziv računara na kojem se testira. Ako nije prosleđen, koristi se Environment.MachineName.</param>
-        /// <returns>Vraća ID unetog zapisa u tabeli tblSumarniIzvestajTestiranja.</returns>    
+        /// <returns>newRecordId</returns>    
         /// <exception cref="SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
         /// <remarks>Ova metoda se koristi za praćenje početka testiranja i čuva informacije u bazi podataka.</remarks>
-        /// <example>
-        /// <code>
-        /// DateTime pocetak = DateTime.Now;    
-        /// int id = LogovanjeTesta.UnesiPocetakTestiranja(pocetak);
-        /// Console.WriteLine($"ID unetog zapisa: {id}");
-        /// </code>
-        /// </example>
         public static int UnesiPocetakTestiranja(DateTime pocetakTestiranja, string nazivNamespace, string nacinPokretanjaTesta, string nazivKompjutera)
         {
-
+            //Vraća ID poslednje unete vrednosti u okviru iste sesije i scope-a
             string insertCommand = @"INSERT INTO test.tReportSumary (PocetakTestiranja, Okruzenje, NacinTestiranja, NazivKompjutera) 
                                      VALUES (@pocetakTestiranja, @nazivNamespace, @nacinPokretanjaTesta, @nazivKompjutera)
-                                     SELECT SCOPE_IDENTITY();"; // Vraća ID poslednje unete vrednosti u okviru iste sesije i scope-a
+                                     SELECT SCOPE_IDENTITY();";
 
             int newRecordId = -1; // Pretpostavljamo da je primarni ključ numerički i auto-inkrement
 
