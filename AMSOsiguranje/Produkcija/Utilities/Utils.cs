@@ -227,7 +227,7 @@ namespace Produkcija
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"Greška prilikom definisanja početne strane: {ex.Message}");
-                LogovanjeTesta.LogException(ex, currentMethodName);
+                await LogovanjeTesta.LogException(currentMethodName, ex);
                 throw;
             }
         }
@@ -243,10 +243,8 @@ namespace Produkcija
         ///<remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
         public static async Task ProveriURL(IPage _page, string osnovnaStrana, string dodatak)
         {
-
             try
             {
-
                 await _page.WaitForURLAsync(new Regex($"{osnovnaStrana + dodatak}", RegexOptions.IgnoreCase));
                 //System.Windows.MessageBox.Show($"Učitana: {osnovnaStrana + dodatak}...", "Proveri URL", MessageBoxButton.OK, MessageBoxImage.Information);
                 await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded); // čekaj dok se DOM ne učita
@@ -268,8 +266,8 @@ namespace Produkcija
             {
                 LogovanjeTesta.LogError($"❌ 1Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}\n{ex.Message}");
 
-                await LogovanjeTesta.LogException($"❌ 2Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}", ex);
-                await LogovanjeTesta.LogException($"❌ 3Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                await LogovanjeTesta.LogException($"❌ Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}", ex);
+                //await LogovanjeTesta.LogException($"❌ 3Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
         }

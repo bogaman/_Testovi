@@ -11,23 +11,23 @@ namespace Produkcija
         //private static string logFilePath = "C:/_Projekti/AutoMotoSavezSrbije/Logovi/test_log.txt";
         //private static string logFilePath = Path.Combine("C:/_Projekti/AutoMotoSavezSrbije/Logovi/", "test_log.txt");
 
-        /***************************************
-                #region Regex
+        /**********************************************************
+        #region Regex
 
-                [GeneratedRegex("Osiguranje vozila", RegexOptions.IgnoreCase, "sr-Latn-RS")]
-                private static partial Regex MyRegexOsiguranjeVozila();
+        [GeneratedRegex("Osiguranje vozila", RegexOptions.IgnoreCase, "sr-Latn-RS")]
+        private static partial Regex MyRegexOsiguranjeVozila();
 
-                [GeneratedRegex("Strana za logovanje", RegexOptions.IgnoreCase, "sr-Latn-RS")]
-                private static partial Regex MyRegexStranaZaLogovanje();
+        [GeneratedRegex("Strana za logovanje", RegexOptions.IgnoreCase, "sr-Latn-RS")]
+        private static partial Regex MyRegexStranaZaLogovanje();
 
-                [GeneratedRegex("PRIJAVA", RegexOptions.IgnoreCase, "sr-Latn-RS")]
-                private static partial Regex MyRegexPrijava();        
+        [GeneratedRegex("PRIJAVA", RegexOptions.IgnoreCase, "sr-Latn-RS")]
+        private static partial Regex MyRegexPrijava();        
 
-                [GeneratedRegex("Dobrodošli u eOsiguranje")]
-                private static partial Regex MyRegexDobrodosli();
+        [GeneratedRegex("Dobrodošli u eOsiguranje")]
+        private static partial Regex MyRegexDobrodosli();
 
-                #endregion Regex
-                **********************************************************/
+        #endregion Regex
+        **********************************************************/
 
         #region AuthState
         // Klasa za reprezentaciju AuthState
@@ -100,13 +100,6 @@ namespace Produkcija
                 string kriterijumFiltera = "Kreiran";
                 await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 10);
 
-
-
-
-
-
-
-
                 // Izbroj koliko ima redova u gridu
                 var redovi = _page.Locator("//div[@class='podaci']//div[contains(@class, 'grid-row')]");
                 int brojRedova = await redovi.CountAsync();
@@ -129,8 +122,6 @@ namespace Produkcija
                 {
                     System.Windows.Forms.MessageBox.Show($"Broj kolona 1: {brojKolona}", "Informacija", MessageBoxButtons.OK);
                 }
-
-
 
                 // Pročitaj broj dokumenta (sadržaj ćelije u prvom redu i prvoj koloni)
                 string brojDokumenta = await ProcitajCeliju(1, 1);
@@ -166,7 +157,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{brojDokumenta}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{brojDokumenta}'.", ex);
                 }
 
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}"); // Provera da li se otvorila odgovarajuća kartica obrasca
@@ -310,7 +301,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{serijskiBrojObrasca}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{serijskiBrojObrasca}'.", ex);
                 }
 
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Kartica/{serijskiBrojObrasca}"); // Provera da li se otvorila odgovarajuća kartica obrasca
@@ -348,7 +339,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, "Greška prilikom provere tekst boksova sa vrednostima prom1–prom4.");
+                    await LogovanjeTesta.LogException("Greška prilikom provere tekst boksova sa vrednostima prom1–prom4.", ex);
                 }
                 await IzlogujSe(_page);
                 if (NacinPokretanjaTesta == "ručno")
@@ -476,7 +467,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.", ex);
                 }
                 //await _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{serijskiBrojObrasca}']").ClickAsync();
 
@@ -518,7 +509,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.");
+                    await LogovanjeTesta.LogException($"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.", ex);
                 }
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Štampa dokumenta Stroge evidencije za AO:");
@@ -2810,7 +2801,7 @@ namespace Produkcija
                     }
                     catch (Exception ex)
                     {
-                        LogovanjeTesta.LogException(ex, $"❌ Greška tokom pokušaja #{brojPokusaja}");
+                        await LogovanjeTesta.LogException($"❌ Greška tokom pokušaja #{brojPokusaja}", ex);
                     }
                 }
 
@@ -4256,7 +4247,7 @@ namespace Produkcija
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogException(ex, "Greška u testu");
+                await LogovanjeTesta.LogException("Greška u testu", ex);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 throw;
             }
@@ -4733,7 +4724,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{serijskiBrojObrasca}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{serijskiBrojObrasca}'.", ex);
                 }
                 //await _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{serijskiBrojObrasca}']").ClickAsync();
 
@@ -4772,7 +4763,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, "Greška prilikom provere tekst boksova sa vrednostima prom1–prom4.");
+                    await LogovanjeTesta.LogException("Greška prilikom provere tekst boksova sa vrednostima prom1–prom4.", ex);
                 }
 
                 if (NacinPokretanjaTesta == "ručno")
@@ -4899,7 +4890,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.", ex);
                 }
                 //await _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{serijskiBrojObrasca}']").ClickAsync();
                 //await _page.PauseAsync();
@@ -4941,7 +4932,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.");
+                    await LogovanjeTesta.LogException($"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.", ex);
                 }
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Štampa dokumenta Stroge evidencije za ZK:");
@@ -6050,7 +6041,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.", ex);
                 }
                 //await _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{serijskiBrojObrasca}']").ClickAsync();
                 //await _page.PauseAsync();
@@ -6092,7 +6083,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.");
+                    await LogovanjeTesta.LogException($"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.", ex);
                 }
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Štampa dokumenta Stroge evidencije za ZK:");
@@ -6953,7 +6944,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{oznakaDokumenta}'.", ex);
                 }
                 //await _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{serijskiBrojObrasca}']").ClickAsync();
                 //await _page.PauseAsync();
@@ -6995,7 +6986,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.");
+                    await LogovanjeTesta.LogException($"Greška prilikom provere elemenata sa vrednostima: {expectedValues}.", ex);
                 }
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Štampa dokumenta Stroge evidencije za DK:");
@@ -7461,7 +7452,7 @@ namespace Produkcija
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogException(ex, "Greška u testu");
+                await LogovanjeTesta.LogException("Greška u testu", ex);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 throw;
             }
@@ -7927,7 +7918,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, $"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{brojDokumenta}'.");
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{brojDokumenta}'.", ex);
                 }
 
                 await ProveriURL(_page, PocetnaStrana, $"/Kasko-osiguranje-vozila/9/Kasko/Dokument/{brojDokumenta}"); // Provera da li se otvorila odgovarajuća kartica obrasca
@@ -7965,7 +7956,7 @@ namespace Produkcija
                 }
                 catch (Exception ex)
                 {
-                    LogovanjeTesta.LogException(ex, "Greška prilikom provere elemenata sa vrednostima prom1–prom4.");
+                    await LogovanjeTesta.LogException("Greška prilikom provere elemenata sa vrednostima prom1–prom4.", ex);
                 }
                 await IzlogujSe(_page);
                 if (NacinPokretanjaTesta == "ručno")
@@ -8026,6 +8017,10 @@ namespace Produkcija
 
                 await _page.Locator("//e-select[@id='idGodineVozStaza']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.Locator("//e-select[@id='idGodineVozStaza']").GetByText("Više od").ClickAsync();
+
+                await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
+                await _page.Locator("//e-select[@id='idInostraneTable']").GetByText("Domaće table").ClickAsync();
+
 
                 await _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.Locator("//e-select[@id='idDinamikaPlacanja']").GetByText("Mesečno", new() { Exact = true }).ClickAsync();
@@ -9741,7 +9736,7 @@ namespace Produkcija
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogException(ex, "Greška u testu");
+                await LogovanjeTesta.LogException("Greška u testu", ex);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 throw;
             }

@@ -211,7 +211,6 @@ namespace Produkcija
             }
         }
 
-
         /// <summary>
         /// Unosi se rezultat svih testiranja u bazu podataka.
         /// </summary>  
@@ -438,14 +437,5 @@ namespace Produkcija
             File.AppendAllText($"{LogFajlOpsti}", $"\n");
         }
 
-
-
-
-
-
-
-
     }
-
-
 }

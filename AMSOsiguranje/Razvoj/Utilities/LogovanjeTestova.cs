@@ -211,7 +211,6 @@ namespace Razvoj
             }
         }
 
-
         /// <summary>
         /// Unosi se rezultat svih testiranja u bazu podataka.
         /// </summary>  
@@ -438,14 +437,5 @@ namespace Razvoj
             File.AppendAllText($"{LogFajlOpsti}", $"\n");
         }
 
-
-
-
-
-
-
-
     }
-
-
 }

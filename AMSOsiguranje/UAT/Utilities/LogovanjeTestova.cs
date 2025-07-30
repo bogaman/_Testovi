@@ -211,7 +211,6 @@ namespace UAT
             }
         }
 
-
         /// <summary>
         /// Unosi se rezultat svih testiranja u bazu podataka.
         /// </summary>  
@@ -438,14 +437,5 @@ namespace UAT
             File.AppendAllText($"{LogFajlOpsti}", $"\n");
         }
 
-
-
-
-
-
-
-
     }
-
-
 }

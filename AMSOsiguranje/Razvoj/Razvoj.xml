@@ -7,12 +7,10 @@
         <member name="M:Razvoj.OsiguranjeVozila.UlogujSe(Microsoft.Playwright.IPage,System.String,System.String)">
             <summary>
             Uloguj se koristeći korisničko ime i lozinku.
-            <para>Korisničko ime i lozinka se određuju na osnovu NacinPokretanjaTesta i RucnaUloga </para>
-            </summary>
+            <para>Korisničko ime i lozinka određuju se na osnovu NacinPokretanjaTesta i RucnaUloga </para></summary>
             <param name="_page"></param>
             <param name="korisnickoIme">Može biti BackOffice ili Agent</param>
             <param name="lozinka">Može biti BackOffice ili Agent</param>
-            <returns></returns>
         </member>
         <member name="M:Razvoj.OsiguranjeVozila.UlogujSe_2(Microsoft.Playwright.IPage,System.String)">
             <summary>
