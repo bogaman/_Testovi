@@ -600,7 +600,7 @@ namespace Razvoj
                 await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Magacin, false);
 
                 //Nalaženje poslednjeg iskorišćenog serijskog broja obrasca u Strogoj evidenciji
-                PoslednjiSerijski = PoslednjiSerijskiStroga(1, $" AND [SerijskiBroj] BETWEEN {MinSerijskiAO} AND {MaxSerijskiAO}");
+                PoslednjiSerijski = await PoslednjiSerijskiStroga(1, $" AND [SerijskiBroj] BETWEEN {MinSerijskiAO} AND {MaxSerijskiAO}");
                 Console.WriteLine($"Poslednji serijski broj obrasca polise AO na svim okruženjima je: {PoslednjiSerijski}.\n");
 
                 // Unesi broj polise Od i Do i testiraj dodavanje, brisanje i izmenu
@@ -638,7 +638,7 @@ namespace Razvoj
                 Provera snimanja dokumenta Ulaz u centralni magacin
                 ***************************************************/
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
-                PoslednjiDokument = PoslednjiDokumentStroga();
+                PoslednjiDokument = await PoslednjiDokumentStroga();
 
                 await SnimiDokument(_page, PoslednjiDokument, "ulaz u centralni magacin");
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
@@ -1413,7 +1413,7 @@ namespace Razvoj
                 Provera snimanja dokumenta Prenos obrasca
                 ***************************************************/
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
-                PoslednjiDokument = PoslednjiDokumentStroga();
+                PoslednjiDokument = await PoslednjiDokumentStroga();
 
                 await SnimiDokument(_page, PoslednjiDokument, "Novi prenos");
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/{PoslednjiDokument + 1}");
@@ -8097,7 +8097,7 @@ namespace Razvoj
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).ClickAsync();
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).FillAsync("Ovo je prvi red napomene\nOvo je drugi red napomene");
                 await _page.Locator(".row.div_paket_header > div > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").First.ClickAsync();
-                await _page.GetByText("Standard", new() { Exact = true }).ClickAsync();
+                await _page.GetByText("Standard (nivo II)", new() { Exact = true }).ClickAsync();
                 await _page.Locator(".div_rizici > .row > div:nth-child(5) > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator("e-predmet-osiguranja").GetByText("učešće 30% min. 300€").ClickAsync();
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Doplatak po osnovu starosti" }).Locator("i").ClickAsync();

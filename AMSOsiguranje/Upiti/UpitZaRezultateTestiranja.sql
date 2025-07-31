@@ -22,3 +22,8 @@ SELECT *
   SELECT *
     FROM [TestLogDB].[test].[tErrorLog]
 ORDER BY [IdTestiranje] DESC, [IdGreske] ASC;
+
+
+
+--DELETE FROM [TestLogDB].[test].[tReportSumary] 
+--WHERE IdTestiranje IN (2,3, 4);

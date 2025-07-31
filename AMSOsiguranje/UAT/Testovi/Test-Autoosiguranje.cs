@@ -8018,8 +8018,8 @@ namespace UAT
                 await _page.Locator("//e-select[@id='idGodineVozStaza']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.Locator("//e-select[@id='idGodineVozStaza']").GetByText("Više od").ClickAsync();
 
-                await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
-                await _page.Locator("//e-select[@id='idInostraneTable']").GetByText("Domaće table").ClickAsync();
+                //await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
+                //await _page.Locator("//e-select[@id='idInostraneTable']").GetByText("Domaće table").ClickAsync();
 
 
                 await _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
