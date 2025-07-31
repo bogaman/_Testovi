@@ -1,4 +1,6 @@
 
+using System.Threading.Tasks;
+
 namespace Proba2
 {
 
@@ -169,7 +171,8 @@ namespace Proba2
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogError($"❌ Greška prilikom čitanja poslednjeg zapisa: {ex.Message}");
+                LogovanjeTesta.LogError($"❌ Greška prilikom čitanja poslednjeg zapisa mejla: {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Greška prilikom čitanja poslednjeg zapisa mejla", ex);
                 return null;
             }
         }
@@ -229,6 +232,8 @@ namespace Proba2
             }
             catch (Exception ex)
             {
+                LogovanjeTesta.LogError($"❌ Greška prilikom provere statusa slanja mejla: {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Greška prilikom provere statusa slanja mejla", ex);
                 Loguj($"Greška: {ex.Message}");
             }
 
@@ -391,7 +396,7 @@ namespace Proba2
                 // Upisivanje u fajl
                 File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"--------------------------{DateTime.Now:dd.MM.yyyy HH:mm:ss} - {ex.Message}{Environment.NewLine}");
                 LogovanjeTesta.LogError($"❌ {Poruka} ne završava sa pdf");
-
+                await LogovanjeTesta.LogException($"❌ {Poruka} ne završava sa pdf", ex);
                 throw; // Sa throw se test prekida, bez throw se test nastavlja.
             }
 
@@ -1329,6 +1334,7 @@ namespace Proba2
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"❌ Snimanje: {staSeSnima}, dokument {brDokument + 1} {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Snimanje: {staSeSnima}, dokument {brDokument + 1} neuspešno.", ex);
                 throw;
             }
 
@@ -1419,6 +1425,7 @@ namespace Proba2
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"❌ Brisanje dokumenta {brDokument + 1} {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Brisanje dokumenta {brDokument + 1} neuspešno.", ex);
                 throw;
             }
 
@@ -1841,12 +1848,12 @@ namespace Proba2
 
 
         //Nalaženje poslednjeg serijskog broja obrasca polise koji je u sistemu (tipObrasca = 1 - AO, 4 - ZK)
-        private static long PoslednjiSerijskiStroga(int tipObrasca, string dodatniUslov)
+        private static async Task<long> PoslednjiSerijskiStroga(int tipObrasca, string dodatniUslov)
         {
             try
             {
                 //Nalaženje poslednjeg serijskog broja obrasca AO koji je u sistemu
-                string qMaksimalniSerijskiAO = $"SELECT MAX (SerijskiBroj) FROM [StrictEvidenceDB].[strictevidence].[tObrasci] " +
+                string qMaksimalniSerijski = $"SELECT MAX (SerijskiBroj) FROM [StrictEvidenceDB].[strictevidence].[tObrasci] " +
                                                $"WHERE [IdTipObrasca] = {tipObrasca} {dodatniUslov};";
 
                 // Konekcija sa bazom StrictEvidenceDB - Razvoj
@@ -1858,7 +1865,7 @@ namespace Proba2
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
-                    using (SqlCommand command = new(qMaksimalniSerijskiAO, konekcija))
+                    using (SqlCommand command = new(qMaksimalniSerijski, konekcija))
                     {
                         MaksimalniSerijskiRazvoj = (long)(command.ExecuteScalar() ?? 0); ;
                     }
@@ -1870,7 +1877,7 @@ namespace Proba2
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
-                    using (SqlCommand command = new(qMaksimalniSerijskiAO, konekcija))
+                    using (SqlCommand command = new(qMaksimalniSerijski, konekcija))
                     {
                         object MaksimalniSerijskiTest1 = command.ExecuteScalar();
                         MaksimalniSerijskiTest = MaksimalniSerijskiTest1 != DBNull.Value ? Convert.ToInt64(MaksimalniSerijskiTest1) : 0;
@@ -1883,7 +1890,7 @@ namespace Proba2
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
-                    using (SqlCommand command = new(qMaksimalniSerijskiAO, konekcija))
+                    using (SqlCommand command = new(qMaksimalniSerijski, konekcija))
                     {
                         MaksimalniSerijskiUAT = (long)(command.ExecuteScalar() ?? 0);
                     }
@@ -1902,14 +1909,15 @@ namespace Proba2
             }
             catch (Exception ex)
             {
-                LogovanjeTesta.LogError($"❌ Greška prilikom nalaženja poslednjeg serijskog broja obrasca AO.\n{ex.Message}");
+                LogovanjeTesta.LogError($"❌ Greška prilikom nalaženja poslednjeg serijskog broja obrasca poliseAO.\n{ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Greška prilikom nalaženja poslednjeg serijskog broja obrasca [IdTipObrasca] = {tipObrasca}.", ex);
                 throw;
             }
 
 
         }
 
-        private static int PoslednjiDokumentStroga()
+        private static async Task<int> PoslednjiDokumentStroga()
         {
             try
             {
@@ -1944,6 +1952,7 @@ namespace Proba2
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"❌ Greška prilikom nalaženja broja poslednjeg dokumenta u strogoj evidenciji.\n{ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Greška prilikom nalaženja broja poslednjeg dokumenta u strogoj evidenciji.", ex);
                 throw;
             }
 

@@ -8017,9 +8017,14 @@ namespace Razvoj
 
                 await _page.Locator("//e-select[@id='idGodineVozStaza']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.Locator("//e-select[@id='idGodineVozStaza']").GetByText("Više od").ClickAsync();
+                //await _page.PauseAsync();
 
-                await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
-                await _page.Locator("//e-select[@id='idInostraneTable']").GetByText("Domaće table").ClickAsync();
+                if (Okruzenje == "Razvoj")
+                {
+                    await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
+                    //await _page.Locator("//e-select[@id='idInostraneTable']").GetByText("Domaće table").ClickAsync();
+                }
+
 
 
                 await _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
@@ -8041,10 +8046,10 @@ namespace Razvoj
 
 
 
-                await _page.Locator("//div[@data-obj='ugovarac']//div[@class='col-6 column']//div[@class='multiselect-dropdown input']").First.ClickAsync();
-                await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").ClickAsync();
-                await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").FillAsync("1107");
-                await _page.Locator("#ugovarac").GetByText("- Beograd (Novi Beograd)").First.ClickAsync();
+                //await _page.Locator("//div[@data-obj='ugovarac']//div[@class='col-6 column']//div[@class='multiselect-dropdown input']").First.ClickAsync();
+                //await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").ClickAsync();
+                //await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").FillAsync("1107");
+                //await _page.Locator("#ugovarac").GetByText("- Beograd (Novi Beograd)").First.ClickAsync();
 
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("+38163123456");
@@ -8097,13 +8102,14 @@ namespace Razvoj
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).ClickAsync();
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).FillAsync("Ovo je prvi red napomene\nOvo je drugi red napomene");
                 await _page.Locator(".row.div_paket_header > div > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").First.ClickAsync();
-                await _page.GetByText("Standard (nivo II)", new() { Exact = true }).ClickAsync();
+                await _page.GetByText("Standard", new() { Exact = true }).ClickAsync();
                 await _page.Locator(".div_rizici > .row > div:nth-child(5) > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator("e-predmet-osiguranja").GetByText("učešće 30% min. 300€").ClickAsync();
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Doplatak po osnovu starosti" }).Locator("i").ClickAsync();
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za članove AMSS" }).Locator("i").ClickAsync();
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za invalide" }).Locator("i").ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                await _page.PauseAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Snimi" }).ClickAsync();
 
                 //await _page.PauseAsync();

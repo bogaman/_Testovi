@@ -600,7 +600,7 @@ namespace UAT
                 await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Magacin, false);
 
                 //Nalaženje poslednjeg iskorišćenog serijskog broja obrasca u Strogoj evidenciji
-                PoslednjiSerijski = PoslednjiSerijskiStroga(1, $" AND [SerijskiBroj] BETWEEN {MinSerijskiAO} AND {MaxSerijskiAO}");
+                PoslednjiSerijski = await PoslednjiSerijskiStroga(1, $" AND [SerijskiBroj] BETWEEN {MinSerijskiAO} AND {MaxSerijskiAO}");
                 Console.WriteLine($"Poslednji serijski broj obrasca polise AO na svim okruženjima je: {PoslednjiSerijski}.\n");
 
                 // Unesi broj polise Od i Do i testiraj dodavanje, brisanje i izmenu
@@ -638,7 +638,7 @@ namespace UAT
                 Provera snimanja dokumenta Ulaz u centralni magacin
                 ***************************************************/
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
-                PoslednjiDokument = PoslednjiDokumentStroga();
+                PoslednjiDokument = await PoslednjiDokumentStroga();
 
                 await SnimiDokument(_page, PoslednjiDokument, "ulaz u centralni magacin");
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
@@ -1413,7 +1413,7 @@ namespace UAT
                 Provera snimanja dokumenta Prenos obrasca
                 ***************************************************/
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
-                PoslednjiDokument = PoslednjiDokumentStroga();
+                PoslednjiDokument = await PoslednjiDokumentStroga();
 
                 await SnimiDokument(_page, PoslednjiDokument, "Novi prenos");
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/2/{PoslednjiDokument + 1}");
@@ -8017,9 +8017,14 @@ namespace UAT
 
                 await _page.Locator("//e-select[@id='idGodineVozStaza']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.Locator("//e-select[@id='idGodineVozStaza']").GetByText("Više od").ClickAsync();
+                //await _page.PauseAsync();
 
-                //await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
-                //await _page.Locator("//e-select[@id='idInostraneTable']").GetByText("Domaće table").ClickAsync();
+                if (Okruzenje == "Razvoj")
+                {
+                    await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
+                    //await _page.Locator("//e-select[@id='idInostraneTable']").GetByText("Domaće table").ClickAsync();
+                }
+
 
 
                 await _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
@@ -8041,10 +8046,10 @@ namespace UAT
 
 
 
-                await _page.Locator("//div[@data-obj='ugovarac']//div[@class='col-6 column']//div[@class='multiselect-dropdown input']").First.ClickAsync();
-                await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").ClickAsync();
-                await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").FillAsync("1107");
-                await _page.Locator("#ugovarac").GetByText("- Beograd (Novi Beograd)").First.ClickAsync();
+                //await _page.Locator("//div[@data-obj='ugovarac']//div[@class='col-6 column']//div[@class='multiselect-dropdown input']").First.ClickAsync();
+                //await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").ClickAsync();
+                //await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").FillAsync("1107");
+                //await _page.Locator("#ugovarac").GetByText("- Beograd (Novi Beograd)").First.ClickAsync();
 
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("+38163123456");
@@ -8104,6 +8109,7 @@ namespace UAT
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za članove AMSS" }).Locator("i").ClickAsync();
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za invalide" }).Locator("i").ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                await _page.PauseAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Snimi" }).ClickAsync();
 
                 //await _page.PauseAsync();
