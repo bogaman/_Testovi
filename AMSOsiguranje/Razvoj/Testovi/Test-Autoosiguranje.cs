@@ -684,7 +684,7 @@ namespace Razvoj
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran neverifikovan dokument stroge evidencije AO:");
 
                 //Provera mejla za BO da je dokument poslat na verifikaciju
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl ka BO da ima ulaz za verifikaciju nije poslat");
                 //Pročitaj oznaku novog dokumenta
                 oznakaDokumenta = await _page.Locator("//div[@class='obrazac-container commonBox']//div[@class='col-3']//input[@class='input']").InputValueAsync();
 
@@ -699,6 +699,8 @@ namespace Razvoj
                 await ProveraVestPostoji(_page, ocekivaniTekst);
                 await _page.GotoAsync($"{PocetnaStrana}/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
                 */
+                await ProveraVestPostoji(_page, oznakaDokumenta);
+
                 await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
 
@@ -710,33 +712,36 @@ namespace Razvoj
                 await _page.Locator("button").Filter(new() { HasText = "Vrati u izradu" }).ClickAsync();
 
                 //Provera mejla za BO da je dokument vraćen u izradu
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl ka BO da je vraćen u izradu ulaz u Centralni magacinza nije poslat");
 
-                //await _page.PauseAsync(); // Pauza da se vidi da li je dokument vraćen u izradu
+
 
                 //Provera vesti za BO da je dokument vraćen u izradu
-                /**************************************************
+
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
                 ocekivaniTekst = $"Dokument \"Ulaz u centralni magacin\" je vraćen u izradu.\n" +
                                  $"Dokument možete pogledati klikom na link: {oznakaDokumenta}";
-                await ProveraVestPostoji(_page, ocekivaniTekst);
+                await ProveraVestPostoji(_page, oznakaDokumenta);
                 //await VestPostoji(_page, "Dokument \"Ulaz u centralni magacin\" je vraćen u izradu. \nDokument možete pogledati klikom na link: ", oznakaDokumenta);
-                ************************************************/
 
 
-                //await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
-                //await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
+
+                await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
 
                 //Sada obriši dokument
                 await _page.Locator("#btnObrisiDokument button").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0");
-
+                await _page.PauseAsync(); // Pauza da se vidi da li je 
                 // Proveri da li je za BO obrisana vest za verifikaciju jer je dokument obrisan
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
-                //ocekivaniTekst = $"{oznakaDokumenta}";
+                ocekivaniTekst = $"{oznakaDokumenta}";
+                await ProveraVestNijeObrisana(_page, ocekivaniTekst);
+                await ArhivirajVest(_page, ocekivaniTekst, oznakaDokumenta);
+
                 /****************************
                 ocekivaniTekst = $"Dokument \"Ulaz u centralni magacin\" je vraćen u izradu.\n" +
                                  $"Dokument možete pogledati klikom na link: {oznakaDokumenta}";
@@ -757,8 +762,9 @@ namespace Razvoj
                 ********************************************************/
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Autoodgovornost" }).ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata");
                 await _page.GetByText("Novi ulaz u centralni magacin").ClickAsync();
-
+                await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0");
                 await _page.Locator("#inpBrojOtpremice").ClickAsync();
                 await _page.Locator("//e-input[@id='inpBrojOtpremice']//input[@class='input']").FillAsync(DateTime.Now.ToString("yyyyMMdd-hhmmss"));
 
@@ -782,12 +788,12 @@ namespace Razvoj
                 await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
 
-                //PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
+                PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
                 //LogovanjeTesta.LogMessage($"✅ Poslednji mejl -> ID: {PrethodniZapisMejla.PoslednjiID}, IDMail: {PrethodniZapisMejla.PoslednjiIDMail}, Status: {PrethodniZapisMejla.Status}, Opis: {PrethodniZapisMejla.Opis}, Datum: {PrethodniZapisMejla.Datum}, Subject: {PrethodniZapisMejla.Subject}", false);
 
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 //Provera mejla za BO da je dokument poslat na verifikaciju
-                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl ka agentu da ima dokument za verifikaciju nije poslat");
 
 
                 //Provera da li se vidi novi dokument za verifikaciju u gridu
@@ -805,7 +811,7 @@ namespace Razvoj
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran verifikovan dokument stroge evidencije AO:");
 
                 //Provera mejla za BO da je dokument verifikovan
-                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla,"------------------");
 
 
 
@@ -881,7 +887,7 @@ namespace Razvoj
 
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
 
-                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla,"------------------");
 
 
                 // Odjavljuje se BackOffice
@@ -919,7 +925,7 @@ namespace Razvoj
 
                 await _page.Locator("button").Filter(new() { HasText = "Vrati u izradu" }).ClickAsync();
 
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla,"------------------");
 
                 //LogovanjeTesta.LogMessage($"❌ Proverava se da li je vest arhivirana za agenta nakon vraćanja u izradu: {oznakaDokumenta}.", false);
 
@@ -959,7 +965,7 @@ namespace Razvoj
                 //vrati nazad na verifikaciju
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
 
-                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla,"------------------");
 
                 // Proveri da li je vest arhivirana za BO nakon vraćanja na verifikaciju
                 await _page.Locator(".ico-ams-logo").ClickAsync();
@@ -1011,7 +1017,7 @@ namespace Razvoj
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran verifikovan dokument stroge evidencije AO:");
-                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla,"------------------");
 
                 
                 ocekivaniTekst = $"Imate novi dokument \"Prenos zaduženja polisa\" za verifikaciju\n" +
@@ -1456,7 +1462,7 @@ namespace Razvoj
                 //Pošalji na verifikaciju
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 //Provera mejla za BO da je dokument poslat na verifikaciju
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
                 //Proveri štampu neverifikovanog dokumenta
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran neverifikovan dokument stroge evidencije AO:");
 
@@ -1506,7 +1512,7 @@ namespace Razvoj
                 await _page.Locator("button").Filter(new() { HasText = "Vrati u izradu" }).ClickAsync();
 
                 //Provera mejla za BO da je dokument vraćen u izradu
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
 
 
                 //Provera da li je vest obrisana za agenta
@@ -1549,7 +1555,7 @@ namespace Razvoj
 
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 //Provera mejla za BO da je dokument poslat na verifikaciju
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
 
 
                 //Provera da li je vest obrisana za BO
@@ -1592,7 +1598,7 @@ namespace Razvoj
                 LogovanjeTesta.LogMessage($"✅ Poslednji mejl -> ID: {PrethodniZapisMejla.PoslednjiID}, IDMail: {PrethodniZapisMejla.PoslednjiIDMail}, Status: {PrethodniZapisMejla.Status}, Opis: {PrethodniZapisMejla.Opis}, Datum: {PrethodniZapisMejla.Datum}, Subject: {PrethodniZapisMejla.Subject}", false);
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
                 //Provera mejla za BO da je dokument verifikovan
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran verifikovan dokument stroge evidencije AO:");
 
 
@@ -3261,7 +3267,7 @@ namespace Razvoj
                     System.Windows.MessageBox.Show("Proveri da li je i kome otišao mejl", "Info", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 **********************************************/
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
                 //Sada se izloguj, pa uloguj kao BackOffice
                 await IzlogujSe(_page);
                 //await ProveriURL(_page, PocetnaStrana, "/Login");
@@ -3604,7 +3610,7 @@ namespace Razvoj
                     System.Windows.MessageBox.Show("Proveri da li je i kome otišao mejl", "Info", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 **********************************************/
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
                 //Sada se izloguj, pa uloguj kao BackOffice
                 await IzlogujSe(_page);
                 //await ProveriURL(_page, PocetnaStrana, "/Login");
@@ -3936,7 +3942,7 @@ namespace Razvoj
                     System.Windows.MessageBox.Show("Proveri da li je i kome otišao mejl", "Info", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 **********************************************/
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
                 //Sada se izloguj, pa uloguj kao BackOffice
                 await IzlogujSe(_page);
                 //await ProveriURL(_page, PocetnaStrana, "/Login");
@@ -8054,7 +8060,7 @@ namespace Razvoj
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("+38163123456");
                 await _page.Locator("#ugovarac").GetByText("Email").ClickAsync();
-                await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("kojejude@hotmail.com");
+                await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("kojekude@hotmail.com");
 
                 await _page.Locator("//e-select[@id='selVrstaVozila']//div[contains(@class,'multiselect-dropdown input')]").ClickAsync();
                 await _page.GetByText("Putničko vozilo").ClickAsync();
@@ -9659,7 +9665,7 @@ namespace Razvoj
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/9/Kasko/Dokument/4/{PoslednjiDokumentStroga + 1}");
                 string oznakaDokumenta = await _page.Locator("//div[@class='obrazac-container commonBox']//div[@class='col-3']//input[@class='input']").InputValueAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
                 //Ovde treba dodati proveru štampanja
                 //Proveri štampu neverifikovanog dokumenta
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran neverifikovan dokument stroge evidencije KA:");
@@ -9701,7 +9707,7 @@ namespace Razvoj
                 PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
 
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla);
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
 
                 //Proveri štampu neverifikovanog dokumenta
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran neverifikovan dokument stroge evidencije AO:");

@@ -125,16 +125,6 @@ namespace Razvoj
         {
             try
             {
-                /*
-                Server = Okruzenje switch
-                {
-                    "Razvoj" => "10.5.41.99",
-                    "Proba2" => "49.13.25.19",
-                    "UAT" => "10.41.5.5",
-                    "Produkcija" => "",
-                    _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
-                };
-                */
                 Server = OdrediServer(Okruzenje);
                 string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 //string qryPoslednjiMejl = "SELECT TOP 1 * FROM [NotificationsDB].[mail].[MailDeliveryStatus] ORDER BY [ID] DESC;";
@@ -195,7 +185,7 @@ namespace Razvoj
         }
 
 
-        private static async Task ProveriStatusSlanjaMejla(ZapisOSlanjuMejla PrethodniZapisMejla)
+        private static async Task ProveriStatusSlanjaMejla(ZapisOSlanjuMejla PrethodniZapisMejla, string poruka)
         {
             try
             {
@@ -233,7 +223,7 @@ namespace Razvoj
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"❌ Greška prilikom provere statusa slanja mejla: {ex.Message}");
-                await LogovanjeTesta.LogException($"❌ Greška prilikom provere statusa slanja mejla", ex);
+                await LogovanjeTesta.LogException($"❌ {poruka}", ex);
                 Loguj($"Greška: {ex.Message}");
             }
 
@@ -1678,18 +1668,21 @@ namespace Razvoj
         {
             try
             {
-                //string sadrzajStranice = await _page.InnerTextAsync("body");
-                string sadrzajStranice = await _page.InnerTextAsync("podaci");
+                string sadrzajStranice = await _page.InnerTextAsync("body");
+                //string sadrzajStranice = await _page.InnerTextAsync("podaci");
                 bool sadrziTekst = sadrzajStranice.Contains(ocekivaniTekst);
+                await LogovanjeTesta.LogException("❌ Nije obrisana vest za BO nakon brisanja ulaza u CM", new Exception($"Vest nije obrisana: {ocekivaniTekst}"));
                 // Loguj rezultat
                 LogovanjeTesta.LogMessage($"❌ Stranica sadrži tekst: '{ocekivaniTekst}'", false);
                 // Assertuj rezultat
                 Assert.That(sadrziTekst, Is.True, $"Tekst '{ocekivaniTekst}' JE pronađen na stranici.");
+
             }
             catch (Exception ex)
             {
                 await LogovanjeTesta.LogException(NazivTekucegTesta, ex);
                 LogovanjeTesta.LogTestResult(NazivTekucegTesta, false);
+
                 //throw;
             }
         }

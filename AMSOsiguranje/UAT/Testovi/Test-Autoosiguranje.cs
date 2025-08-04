@@ -8054,7 +8054,7 @@ namespace UAT
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("+38163123456");
                 await _page.Locator("#ugovarac").GetByText("Email").ClickAsync();
-                await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("kojejude@hotmail.com");
+                await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("kojekude@hotmail.com");
 
                 await _page.Locator("//e-select[@id='selVrstaVozila']//div[contains(@class,'multiselect-dropdown input')]").ClickAsync();
                 await _page.GetByText("Putničko vozilo").ClickAsync();
