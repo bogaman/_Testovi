@@ -544,7 +544,7 @@ namespace Proba2
             {
                 Console.WriteLine("Stranica se učitala, ali element nije pronađen.");
             }
-            await _page.PauseAsync();
+            //await _page.PauseAsync();
             //await NovaPolisa(_page, "Nova polisa - lom");
             //await ProveriURL(_page, Variables.PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Dokument/0");
 

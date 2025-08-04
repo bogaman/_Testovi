@@ -734,7 +734,7 @@ namespace UAT
                 await _page.Locator("#btnObrisiDokument button").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/0");
-                await _page.PauseAsync(); // Pauza da se vidi da li je 
+                //await _page.PauseAsync(); // Pauza da se vidi da li je 
                 // Proveri da li je za BO obrisana vest za verifikaciju jer je dokument obrisan
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
@@ -2748,7 +2748,7 @@ namespace UAT
                 await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{PoslednjiBrojDokumenta + 1}");
                 //await _page.EvaluateAsync("location.reload(true);");
 
-                //await _page.PauseAsync();
+                // await _page.PauseAsync();
 
                 int maxPokusaja = 5;
                 int brojPokusaja = 0;
@@ -4164,7 +4164,7 @@ namespace UAT
                 {
                     System.Windows.MessageBox.Show($"Ukupan broj redova (obrazaca) za razduživanje je: {brojElemenata - 1}", "AO - Razdužna lista", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                //await _page.PauseAsync();{}
+                //await _page.PauseAsync();
 
                 //await _page.PauseAsync();
                 // Kliknite na svaki element
@@ -7861,7 +7861,7 @@ namespace UAT
                 string kriterijumFiltera = RucnaUloga;
                 await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 9);
 
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
                 return; // Zaustavi test ako je pokrenut ručno
 
 
@@ -8115,7 +8115,7 @@ namespace UAT
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za članove AMSS" }).Locator("i").ClickAsync();
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za invalide" }).Locator("i").ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Snimi" }).ClickAsync();
 
                 //await _page.PauseAsync();
