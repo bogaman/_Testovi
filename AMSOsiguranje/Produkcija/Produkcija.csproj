@@ -18,14 +18,14 @@
     <PackageReference Include="FlaUI.Core" Version="5.0.0"/>
     <PackageReference Include="FlaUI.UIA2" Version="5.0.0"/>
     <PackageReference Include="FlaUI.UIA3" Version="5.0.0"/>
-    <PackageReference Include="Microsoft.Playwright" Version="1.53.0"/>
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.53.0"/>
-    <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.53.0"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.1"/>
+    <PackageReference Include="Microsoft.Playwright" Version="1.54.0"/>
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.54.0"/>
+    <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.54.0"/>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0"/>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-    <PackageReference Include="System.Data.OleDb" Version="9.0.7"/>
-    <PackageReference Include="HtmlAgilityPack" Version="1.12.1"/>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2"/>
+    <PackageReference Include="System.Data.OleDb" Version="9.0.8"/>
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.2"/>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.0"/>
   </ItemGroup>
   <ItemGroup>
     <Using Include="NUnit.Framework"/>

@@ -1,32 +1,241 @@
 
-using System.Threading.Tasks;
-
 namespace Produkcija
 {
 
     public partial class OsiguranjeVozila : Osiguranje
     {
 
-
-        private static string OdrediServer(string okruzenje)
+        /// <summary>
+        /// Uloguj se koristeći korisničko ime i lozinku.
+        /// <para>Korisničko ime i lozinka određuju se na osnovu NacinPokretanjaTesta i RucnaUloga </para></summary>
+        /// <param name="_page"></param>
+        /// <param name="korisnickoIme">Može biti BOkorisnickoIme_/AkorisnickoIme_</param>
+        /// <param name="lozinka">Može biti BOlozinka_/Alozinka_</param>
+        public static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
         {
-            string server;
-            server = okruzenje switch
+            try
             {
-                "Razvoj" => "10.5.41.99",
-                "Proba2" => "49.13.25.19",
-                "UAT" => "10.41.5.5",
-                "Produkcija" => "",
-                _ => throw new ArgumentException($"Nepoznato okruženje: {okruzenje}.\nIP adresa servera nije dobro određena."),
-            };
-            return server;
+                // Unesi korisničko ime
+                await _page.GetByText("Korisničko ime").ClickAsync();
+                await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
+                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync(korisnickoIme);
+                // Unesi lozinku
+                await _page.GetByText("Lozinka").ClickAsync();
+                await _page.Locator("input[type=\"password\"]").FillAsync(lozinka);
+                // Klik na Prijava
+                await _page.Locator("//text[.='Prijava']").ClickAsync();
+
+                LogovanjeTesta.LogMessage($"✅ Ulogovan je korisnik: {KorisnikMejl}.", false);
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Logovanje korisnika {KorisnikMejl} neuspešno. {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Logovanje korisnika {KorisnikMejl} neuspešno.", ex);
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Odjavi se iz aplikacije.
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <returns></returns>
+        public static async Task IzlogujSe(IPage _page)
+        {
+            try
+            {
+                //Trace.Write($"Odjavljivanje - ");
+                await _page.Locator(".korisnik").ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+                //await _page.GotoAsync(PocetnaStrana + "/Login");
+                //await ProveriURL(_page, PocetnaStrana, "/Login");
+                LogovanjeTesta.LogMessage($"✅ Korisnik izlogovan.", false);
+                //Trace.WriteLine($"OK");
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Odjavljivanje korisnika. {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Odjavljivanje korisnika {KorisnikMejl} neuspešno.", ex);
+                throw;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Proverava da li postoji grid sa zadatim tipom.
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <param name="tipGrida">Tip grida koji se očekuje, npr "Pregled polisa AO"</param>
+        private static async Task ProveraPostojiGrid(IPage _page, string tipGrida)
+        {
+            string lokatorGrid = string.Empty;
+            try
+            {
+
+                lokatorGrid = tipGrida switch
+                {
+                    "Pregled polisa AO" => "//e-grid[@id='grid_dokumenti']",
+                    "Obrasci polisa AO" => "//e-grid[@id='grid_obrasci']",
+                    "Dokumenta stroge evidencije za polise AO" => "//e-grid[@id='grid_dokumenti']",
+                    "Zahtevi za izmenu polisa AO" => "//e-grid[@id='grid_zahtevi_za_izmenu']",
+                    "Razdužne liste AO" => "//e-grid[@id='grid_dokumenti']",
+                    "Obrasci polisa ZK" => "//e-grid[@id='grid_obrasci']",
+                    "Dokumenti Stroge evidencije za polise ZK" => "//e-grid[@id='grid_dokumenti']",
+                    "Polise ZK" => "//e-grid[@id='grid_dokumenti']",
+                    "grid Dokumenti" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled razdužnih listi za JS" => "//e-grid[@id='grid_dokumenti']",
+                    "grid Obrasci" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled razdužnih listi za DK" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled razdužnih listi za SE" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled dokumenata za BO" => "//e-grid[@id='grid_dokumenti']",
+                    "Polise Kasko" => "//e-grid[@id='grid_dokumenti']",
+                    "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']",
+                    "Produkcija" => "",
+                    _ => throw new ArgumentException($"Nepoznato okruženje: {tipGrida}.\nIP adresa servera nije dobro određena."),
+                };
+
+                await _page.Locator(lokatorGrid).ClickAsync(new LocatorClickOptions
+                {
+                    Position = new Position { X = 99, Y = 1 }  // 99% širine, 1% visine
+                });
+                LogovanjeTesta.LogMessage($"✅ Grid: {tipGrida} - {lokatorGrid} pronađena.", false);
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Grid nije pronađen: {tipGrida} - {lokatorGrid} \\n {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Grid nije pronađen: {tipGrida} - {lokatorGrid}", ex);
+                throw;
+            }
+        }
+
+
+
+
+        /// <summary>
+        /// Proverava da li radi filter na gridu.
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <param name="kriterijum">Kriterijum za filtriranje, npr. "Kreiran".</param>
+        /// <param name="tipGrida">Tip grida koji se očekuje, npr. "Pregled polisa AO".</param>
+        /// <param name="kolona">Broj kolone na kojoj se primenjuje filter.</param>
+        /// <param name="tipPolja">Tip polja koje se filtrira, Lista ili TekstBoks".</param>
+        /// <param name="izbor">Indeks izbora u listi (ako je tip polja Lista).</param>
+        /// <returns>Ne vraća vrednost</returns>
+        /// <exception cref="Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
+        private static async Task FiltrirajGrid(IPage _page, string kriterijum, string tipGrida, int kolona, string tipPolja, int izbor)
+        {
+            try
+            {
+                string ukupanBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
+                if (tipPolja == "TekstBoks")
+                {
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync(kriterijum);
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
+                }
+                else if (tipPolja == "Lista")
+                {
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                    await _page.Locator("div").Filter(new() { HasTextRegex = new Regex($"^{kriterijum}$") }).Locator("div").Nth(izbor).ClickAsync();
+                    await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+                }
+                else
+                {
+
+                }
+
+                await Task.Delay(3000); // Pauza od 3 sekunde (3000 ms) da se filter učita
+
+                string filtriraniBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
+                if ((Convert.ToInt32(ukupanBrojStrana) >= Convert.ToInt32(filtriraniBrojStrana)) && (Convert.ToInt32(filtriraniBrojStrana) > 0))
+                {
+                    LogovanjeTesta.LogMessage($"✅ Filter na gridu {tipGrida} radi OK", false);
+                }
+                else
+                {
+                    throw new Exception($"❌Filter na gridu {tipGrida} ne radi.");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Filter na gridu {tipGrida} ne radi. {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Filter na gridu {tipGrida} ne radi.", ex);
+                throw;
+            }
+
+        }
+
+
+
+        /// <summary>
+        /// Proverava da li radi filter na gridu.
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <param name="kriterijum">Kriterijum za filtriranje, npr. "Kreiran".</param>
+        /// <param name="tipGrida">Tip grida koji se očekuje, npr. "Pregled polisa AO".</param>
+        /// <param name="kolona">Broj kolone na kojoj se primenjuje filter.</param>
+        /// <returns>Ne vraća vrednost</returns>
+        /// <exception cref="Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
+        private static async Task ProveriFilterGrida(IPage _page, string kriterijum, string tipGrida, int kolona)
+        {
+            try
+            {
+                //Trace.Write($"Filter na gridu obrazaca AO za admina - ");
+                string ukupanBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
+                if (kolona == 5)
+                {
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                    //await _page.Locator("div").Filter(new() { HasTextRegex = new Regex($"^Na verifikacijiU izradiVerifikovan$") }).Locator("div").Nth(2).ClickAsync();
+                    await _page.Locator("div").Filter(new() { HasTextRegex = new Regex($"Na verifikacijiU") }).Locator("div").Nth(2).ClickAsync();
+                    //await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+                }
+                else if (kolona == 9 || kolona == 10)
+                {
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                    //await _page.Locator("div").Filter(new() { HasTextRegex = new Regex($"^KreiranRaskinutStorniranU izradi$") }).Locator("div").Nth(0).ClickAsync();
+                    await _page.Locator("div").Filter(new() { HasTextRegex = new Regex($"KreiranR") }).Locator("div").Nth(0).ClickAsync();
+                    //await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+                }
+                else
+                {
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync(kriterijum);
+                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
+                }
+                await Task.Delay(3000); // Pauza od 3 sekunde (3000 ms) da se filter učita
+
+                string filtriraniBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
+                if ((Convert.ToInt32(ukupanBrojStrana) >= Convert.ToInt32(filtriraniBrojStrana)) && (Convert.ToInt32(filtriraniBrojStrana) > 0))
+                {
+                    LogovanjeTesta.LogMessage($"✅ Filter na gridu {tipGrida} radi OK", false);
+                }
+                else
+                {
+                    throw new Exception($"❌Filter na gridu {tipGrida} ne radi.");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogovanjeTesta.LogError($"❌ Filter na gridu {tipGrida} ne radi. {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Filter na gridu {tipGrida} ne radi.", ex);
+                throw;
+            }
+
         }
 
 
 
 
 
-
+        /// <summary>
+        /// Čita tekst iz određene ćelije u gridu.
+        /// </summary>
+        /// <param name="red">Red u gridu (1-based index).</param>
+        /// <param name="kolona">Kolona u gridu (1-based index).</param>
+        /// <returns>Vraća tekst iz ćelije.</returns>
+        /// <exception cref="ArgumentNullException">Baca grešku ako je _page instanca null.</exception>
         private async Task<string> ProcitajCeliju(int red, int kolona)
         {
             try
@@ -49,6 +258,82 @@ namespace Produkcija
                 return string.Empty;
             }
         }
+
+
+
+        /// <summary>
+        /// Proverava da li se otvara stranica sa greškom 404 prilikom štampe.
+        /// Ako se otvori, upisuje u log fajl i baca grešku
+        /// </summary>
+        /// <param name="_page"></param>
+        /// <param name="Dugme">Dugme na koje treba kliknuti da bi se otvorio printout</param>
+        /// <param name="Poruka">Poruka koja sadrži šta se otvara (koja štampa)</param>
+        /// <returns></returns>
+        private static async Task ProveriStampu404(IPage _page, string Dugme, string Poruka)
+        {
+            var pageStampa = await _page.RunAndWaitForPopupAsync(async () =>
+                        {
+                            await _page.Locator("button").Filter(new() { HasText = Dugme }).ClickAsync();
+                        });
+
+            var errorElement = pageStampa.Locator("text=HTTP ERROR 404");
+            try
+            {
+
+                if (await errorElement.IsVisibleAsync())
+                {
+                    //Assert.That(await errorElement.IsHiddenAsync(), Is.True, $"{Poruka} 'HTTP ERROR 404' je vidljiv na stranici.");
+
+                    File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"+++++++++++++++++++++{DateTime.Now:dd.MM.yyyy HH:mm:ss} {Environment.NewLine}");
+                    LogovanjeTesta.LogMessage($"✅ {Poruka} ima 'HTTP ERROR 404'", false);
+                    Exception ex = new PlaywrightException();
+                    await LogovanjeTesta.LogException($"✅ {Poruka} ima 'HTTP ERROR 404'", ex);
+                }
+                else
+                {
+                    //Exception ex = new PlaywrightException();
+                    //await LogovanjeTesta.LogException($"✅ {Poruka} nema 'HTTP ERROR 404'", ex);
+                }
+            }
+            //catch (AssertionException ex)
+            catch (PlaywrightException ex)
+            {
+                // Upisivanje u fajl
+                File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"--------------------------{DateTime.Now:dd.MM.yyyy HH:mm:ss} - {ex.Message}{Environment.NewLine}");
+                LogovanjeTesta.LogError($"❌ {Poruka} ima 'HTTP ERROR 404'");
+
+                //throw; // Sa throw se test prekida, bez throw se test nastavlja.
+            }
+            await pageStampa.CloseAsync();
+        }
+
+
+
+
+
+
+
+        private static string OdrediServer(string okruzenje)
+        {
+            string server;
+            server = okruzenje switch
+            {
+                "Razvoj" => "10.5.41.99",
+                "Proba2" => "49.13.25.19",
+                "UAT" => "10.41.5.5",
+                "Produkcija" => "",
+                _ => throw new ArgumentException($"Nepoznato okruženje: {okruzenje}.\nIP adresa servera nije dobro određena."),
+            };
+            return server;
+        }
+
+
+
+
+
+
+
+
 
         //Definišu se podaci potrebni za logovanje - mejl, ime i kozinka
         private static void PodaciZaLogovanje(string uloga, string okruzenje, out string mejl, out string ime, out string lozinka)
@@ -323,48 +608,6 @@ namespace Produkcija
 
             //return Task.CompletedTask;
             #endregion Pročitaj poslednji mejl
-        }
-
-        private static async Task ProveriStampu404(IPage _page, string Dugme, string Poruka)
-        {
-            var pageStampa = await _page.RunAndWaitForPopupAsync(async () =>
-                        {
-                            await _page.Locator("button").Filter(new() { HasText = Dugme }).ClickAsync();
-                        });
-
-            var errorElement = pageStampa.Locator("text=HTTP ERROR 404");
-            try
-            {
-
-                if (await errorElement.IsVisibleAsync())
-                {
-                    //Assert.That(await errorElement.IsHiddenAsync(), Is.True, $"{Poruka} 'HTTP ERROR 404' je vidljiv na stranici.");
-
-                    File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"+++++++++++++++++++++{DateTime.Now:dd.MM.yyyy HH:mm:ss} {Environment.NewLine}");
-                    LogovanjeTesta.LogMessage($"✅ {Poruka} ima 'HTTP ERROR 404'", false);
-                    Exception ex = new PlaywrightException();
-                    await LogovanjeTesta.LogException($"✅ {Poruka} ima 'HTTP ERROR 404'", ex);
-                }
-                else
-                {
-                    //Exception ex = new PlaywrightException();
-                    //await LogovanjeTesta.LogException($"✅ {Poruka} nema 'HTTP ERROR 404'", ex);
-                }
-
-            }
-
-            //catch (AssertionException ex)
-            catch (PlaywrightException ex)
-            {
-                // Upisivanje u fajl
-                File.AppendAllText($"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\test_log_AO1.txt", $"--------------------------{DateTime.Now:dd.MM.yyyy HH:mm:ss} - {ex.Message}{Environment.NewLine}");
-                LogovanjeTesta.LogError($"❌ {Poruka} ima 'HTTP ERROR 404'");
-
-                //throw; // Sa throw se test prekida, bez throw se test nastavlja.
-            }
-
-
-            await pageStampa.CloseAsync();
         }
 
 
@@ -1094,35 +1337,7 @@ namespace Produkcija
         }
 
 
-        /// <summary>
-        /// Uloguj se koristeći korisničko ime i lozinku.
-        /// <para>Korisničko ime i lozinka određuju se na osnovu NacinPokretanjaTesta i RucnaUloga </para></summary>
-        /// <param name="_page"></param>
-        /// <param name="korisnickoIme">Može biti BackOffice ili Agent</param>
-        /// <param name="lozinka">Može biti BackOffice ili Agent</param>
-        public static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
-        {
-            try
-            {
-                // Unesi korisničko ime
-                await _page.GetByText("Korisničko ime").ClickAsync();
-                await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
-                await _page.Locator("#rightBox input[type=\"text\"]").FillAsync(korisnickoIme);
-                // Unesi lozinku
-                await _page.GetByText("Lozinka").ClickAsync();
-                await _page.Locator("input[type=\"password\"]").FillAsync(lozinka);
-                // Klik na Prijava
-                await _page.Locator("//text[.='Prijava']").ClickAsync();
 
-                LogovanjeTesta.LogMessage($"✅ Ulogovan je korisnik: {KorisnikMejl}.", false);
-            }
-            catch (Exception ex)
-            {
-                LogovanjeTesta.LogError($"❌ Logovanje korisnika {KorisnikMejl} neuspešno. {ex.Message}");
-                await LogovanjeTesta.LogException($"❌ Logovanje korisnika {KorisnikMejl} neuspešno.", ex);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Uloguj se koristeći korisničko ime i lozinku.
@@ -1285,32 +1500,6 @@ namespace Produkcija
             }
         }
 
-        /// <summary>
-        /// Odjavi se iz aplikacije.
-        /// </summary>
-        /// <param name="_page"></param>
-        /// <returns></returns>
-        public static async Task IzlogujSe(IPage _page)
-        {
-            try
-            {
-                //Trace.Write($"Odjavljivanje - ");
-                await _page.Locator(".korisnik").ClickAsync();
-                await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
-                //await _page.GotoAsync(PocetnaStrana + "/Login");
-                //await ProveriURL(_page, PocetnaStrana, "/Login");
-                LogovanjeTesta.LogMessage($"✅ Korisnik izlogovan.", false);
-                //Trace.WriteLine($"OK");
-            }
-            catch (Exception ex)
-            {
-                LogovanjeTesta.LogError($"❌ Odjavljivanje korisnika. {ex.Message}");
-                await LogovanjeTesta.LogException($"❌ Odjavljivanje korisnika {KorisnikMejl} neuspešno.", ex);
-                throw;
-            }
-        }
-
-
         private static async Task SnimiDokument(IPage _page, int brDokument, string staSeSnima)
         {
             try
@@ -1422,48 +1611,7 @@ namespace Produkcija
         }
 
 
-        //Provera da li postoji grid
-        private static async Task ProveraPostojiGrid(IPage _page, string tipGrida)
-        {
-            string lokatorGrid = string.Empty;
-            try
-            {
 
-                lokatorGrid = tipGrida switch
-                {
-                    "Polise AO" => "//e-grid[@id='grid_dokumenti']",
-                    "Obrasci polisa AO" => "//e-grid[@id='grid_obrasci']",
-                    "Dokumenta stroge evidencije za polise AO" => "//e-grid[@id='grid_dokumenti']",
-                    "Zahtevi za izmenu polisa AO" => "//e-grid[@id='grid_zahtevi_za_izmenu']",
-                    "Razdužne liste AO" => "//e-grid[@id='grid_dokumenti']",
-                    "Obrasci polisa ZK" => "//e-grid[@id='grid_obrasci']",
-                    "Dokumenti Stroge evidencije za polise ZK" => "//e-grid[@id='grid_dokumenti']",
-                    "Polise ZK" => "//e-grid[@id='grid_dokumenti']",
-                    "grid Dokumenti" => "//e-grid[@id='grid_dokumenti']",
-                    "Pregled razdužnih listi za JS" => "//e-grid[@id='grid_dokumenti']",
-                    "grid Obrasci" => "//e-grid[@id='grid_dokumenti']",
-                    "Pregled razdužnih listi za DK" => "//e-grid[@id='grid_dokumenti']",
-                    "Pregled razdužnih listi za SE" => "//e-grid[@id='grid_dokumenti']",
-                    "Pregled dokumenata za BO" => "//e-grid[@id='grid_dokumenti']",
-                    "Polise Kasko" => "//e-grid[@id='grid_dokumenti']",
-                    "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']",
-                    "Produkcija" => "",
-                    _ => throw new ArgumentException($"Nepoznato okruženje: {tipGrida}.\nIP adresa servera nije dobro određena."),
-                };
-
-                await _page.Locator(lokatorGrid).ClickAsync(new LocatorClickOptions
-                {
-                    Position = new Position { X = 99, Y = 1 }  // 99% širine, 1% visine
-                });
-                LogovanjeTesta.LogMessage($"✅ Grid: {tipGrida} - {lokatorGrid} pronađena.", false);
-            }
-            catch (Exception ex)
-            {
-                LogovanjeTesta.LogError($"❌ Grid nije pronađen: {tipGrida} - {lokatorGrid} \\n {ex.Message}");
-                await LogovanjeTesta.LogException($"❌ Grid nije pronađen: {tipGrida} - {lokatorGrid}", ex);
-                throw;
-            }
-        }
 
         //Proveri postojanje kontrole
         public static async Task ProveriPostojanjeKontrole(IPage _page, string kontrola, string tip)
@@ -1530,58 +1678,6 @@ namespace Produkcija
         }
 
 
-        //Proveri da li radi filter na gridu
-        private static async Task ProveriFilterGrida(IPage _page, string kriterijum, string tipGrida, int kolona)
-        {
-            try
-            {
-                //Trace.Write($"Filter na gridu obrazaca AO za admina - ");
-                string ukupanBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
-                if (kolona == 5)
-                {
-                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                    await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Na verifikacijiU izradiVerifikovan$") }).Locator("div").Nth(2).ClickAsync();
-                    await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
-                }
-
-
-
-
-
-
-                else if (kolona == 9 || kolona == 10)
-                {
-                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                    await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^KreiranRaskinutStorniranU izradi$") }).Locator("div").Nth(0).ClickAsync();
-                    await _page.Locator($"div:nth-child({kolona + 1}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
-                }
-
-                else
-                {
-                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
-                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync(kriterijum);
-                    await _page.Locator($"div:nth-child({kolona}) > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
-                }
-                await Task.Delay(3000); // Pauza od 3 sekunde (3000 ms) da se filter učita
-
-                string filtriraniBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
-                if ((Convert.ToInt32(ukupanBrojStrana) >= Convert.ToInt32(filtriraniBrojStrana)) && (Convert.ToInt32(filtriraniBrojStrana) > 0))
-                {
-                    LogovanjeTesta.LogMessage($"✅ Filter na gridu {tipGrida} radi OK", false);
-                }
-                else
-                {
-                    throw new Exception($"❌Filter na gridu {tipGrida} ne radi.");
-                }
-            }
-            catch (Exception ex)
-            {
-                LogovanjeTesta.LogError($"❌ Filter na gridu {tipGrida} ne radi. {ex.Message}");
-                await LogovanjeTesta.LogException($"❌ Filter na gridu {tipGrida} ne radi.", ex);
-                throw;
-            }
-
-        }
 
         public async Task ProveraVestPostoji_old(IPage _page, string ocekivaniTekst)
         {

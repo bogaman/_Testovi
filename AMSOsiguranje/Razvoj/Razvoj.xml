@@ -9,8 +9,65 @@
             Uloguj se koristeći korisničko ime i lozinku.
             <para>Korisničko ime i lozinka određuju se na osnovu NacinPokretanjaTesta i RucnaUloga </para></summary>
             <param name="_page"></param>
-            <param name="korisnickoIme">Može biti BackOffice ili Agent</param>
-            <param name="lozinka">Može biti BackOffice ili Agent</param>
+            <param name="korisnickoIme">Može biti BOkorisnickoIme_/AkorisnickoIme_</param>
+            <param name="lozinka">Može biti BOlozinka_/Alozinka_</param>
+        </member>
+        <member name="M:Razvoj.OsiguranjeVozila.IzlogujSe(Microsoft.Playwright.IPage)">
+            <summary>
+            Odjavi se iz aplikacije.
+            </summary>
+            <param name="_page"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.OsiguranjeVozila.ProveraPostojiGrid(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Proverava da li postoji grid sa zadatim tipom.
+            </summary>
+            <param name="_page"></param>
+            <param name="tipGrida">Tip grida koji se očekuje, npr "Pregled polisa AO"</param>
+        </member>
+        <member name="M:Razvoj.OsiguranjeVozila.FiltrirajGrid(Microsoft.Playwright.IPage,System.String,System.String,System.Int32,System.String,System.Int32)">
+            <summary>
+            Proverava da li radi filter na gridu.
+            </summary>
+            <param name="_page"></param>
+            <param name="kriterijum">Kriterijum za filtriranje, npr. "Kreiran".</param>
+            <param name="tipGrida">Tip grida koji se očekuje, npr. "Pregled polisa AO".</param>
+            <param name="kolona">Broj kolone na kojoj se primenjuje filter.</param>
+            <param name="tipPolja">Tip polja koje se filtrira, Lista ili TekstBoks".</param>
+            <param name="izbor">Indeks izbora u listi (ako je tip polja Lista).</param>
+            <returns>Ne vraća vrednost</returns>
+            <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
+        </member>
+        <member name="M:Razvoj.OsiguranjeVozila.ProveriFilterGrida(Microsoft.Playwright.IPage,System.String,System.String,System.Int32)">
+            <summary>
+            Proverava da li radi filter na gridu.
+            </summary>
+            <param name="_page"></param>
+            <param name="kriterijum">Kriterijum za filtriranje, npr. "Kreiran".</param>
+            <param name="tipGrida">Tip grida koji se očekuje, npr. "Pregled polisa AO".</param>
+            <param name="kolona">Broj kolone na kojoj se primenjuje filter.</param>
+            <returns>Ne vraća vrednost</returns>
+            <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
+        </member>
+        <member name="M:Razvoj.OsiguranjeVozila.ProcitajCeliju(System.Int32,System.Int32)">
+            <summary>
+            Čita tekst iz određene ćelije u gridu.
+            </summary>
+            <param name="red">Red u gridu (1-based index).</param>
+            <param name="kolona">Kolona u gridu (1-based index).</param>
+            <returns>Vraća tekst iz ćelije.</returns>
+            <exception cref="T:System.ArgumentNullException">Baca grešku ako je _page instanca null.</exception>
+        </member>
+        <member name="M:Razvoj.OsiguranjeVozila.ProveriStampu404(Microsoft.Playwright.IPage,System.String,System.String)">
+            <summary>
+            Proverava da li se otvara stranica sa greškom 404 prilikom štampe.
+            Ako se otvori, upisuje u log fajl i baca grešku
+            </summary>
+            <param name="_page"></param>
+            <param name="Dugme">Dugme na koje treba kliknuti da bi se otvorio printout</param>
+            <param name="Poruka">Poruka koja sadrži šta se otvara (koja štampa)</param>
+            <returns></returns>
         </member>
         <member name="M:Razvoj.OsiguranjeVozila.UlogujSe_2(Microsoft.Playwright.IPage,System.String)">
             <summary>
@@ -28,13 +85,6 @@
             <param name="_page"></param>
             <param name="OsnovnaUloga">Može biti BackOffice ili Agent</param>
             <param name="RucnaUloga">Može biti "Ne" ili ime korisnika (npr. Bogdan, Mario)</param>
-            <returns></returns>
-        </member>
-        <member name="M:Razvoj.OsiguranjeVozila.IzlogujSe(Microsoft.Playwright.IPage)">
-            <summary>
-            Odjavi se iz aplikacije.
-            </summary>
-            <param name="_page"></param>
             <returns></returns>
         </member>
         <member name="M:Razvoj.OsiguranjeVozila.IzaberiOpcijuIzListe(Microsoft.Playwright.IPage,System.String,System.String,System.Boolean)">
@@ -115,6 +165,13 @@
             <summary>
             Definiše se početna stranica za testiranje.
             <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Razvoj.Osiguranje.DodatakNaURL">
+            <summary>
+            Dodaje se na URL osnovne stranice.
+            Ova putanja se koristi za navigaciju na specifične stranice
             </summary>
             <value></value>
         </member>

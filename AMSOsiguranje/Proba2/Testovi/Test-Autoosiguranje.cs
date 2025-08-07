@@ -82,23 +82,29 @@ namespace Proba2
             try
             {
                 await Pauziraj(_page);
+
                 await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
-                // Pređi mišem preko teksta Osiguranje vozila
+
+                //Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
-                // Klikni na tekst Osiguranje vozila
+                //Klikni na tekst Osiguranje vozila
                 await _page.GetByText("Osiguranje vozila").ClickAsync();
-                // Klikni u meniju na Autoodgovornost
+                //Klikni u meniju na Autoodgovornost
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Autoodgovornost" }).First.ClickAsync();
-                // Provera da li se otvorila stranica sa pregledom polisa AO
-                await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata");
+                //Provera da li se otvorila stranica sa pregledom polisa AO
+                DodatakNaURL = "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
                 // Proveri da li stranica sadrži grid Obrasci i da li radi filter na gridu Obrasci
-                string tipGrida = "Polise AO";
+                string tipGrida = "Pregled polisa AO";
                 await ProveraPostojiGrid(_page, tipGrida);
 
-                string kriterijumFiltera = "Kreiran";
-                await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 10);
+                string kriterijumFiltera = "KreiranRaskinutStorniranU izradi";
+                //await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 10);
+
+                await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 10, "Lista", 0);
+
 
                 // Izbroj koliko ima redova u gridu
                 var redovi = _page.Locator("//div[@class='podaci']//div[contains(@class, 'grid-row')]");
@@ -136,10 +142,8 @@ namespace Proba2
                                                          $"Serijski broj obrasca: {serijskiBrojObrasca} \n" +
                                                          $"Broj polise AO: {brojPolise}", "Informacija", MessageBoxButtons.OK);
                 }
-
                 try
                 {
-                    //brojDokumenta = "7364";
                     // Pronađi lokator za ćeliju koja sadrži broj dokumenta polise AO
                     var celijaBrojDokumenta = _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{brojDokumenta}']");
 
@@ -157,21 +161,15 @@ namespace Proba2
                 }
                 catch (Exception ex)
                 {
-                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju sa vrednošću '{brojDokumenta}'.", ex);
+                    await LogovanjeTesta.LogException($"Greška prilikom pokušaja klika na ćeliju koja ima vrednost '{brojDokumenta}'.", ex);
                 }
+                // Provera da li se otvorila odgovarajuća polisa AO
+                await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}");
 
-                await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}"); // Provera da li se otvorila odgovarajuća kartica obrasca
-
-                //await _page.PauseAsync();
                 await ProveriStampu404(_page, "Štampaj polisu", "Štampa polise AO");
                 //await ProveriStampuPdf(_page, "Štampaj polisu", "Štampa polise AO");
                 await ProveriStampu404(_page, "Štampaj uplatnicu/fakturu", "Štampa uplatnice/fakture polise AO");
                 //await ProveriStampuPdf(_page, "Štampaj uplatnicu/fakturu", "Štampa uplatnice/fakture polise AO");
-
-
-
-
-
 
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
                 await ProveriStampu404(_page, "Štampaj prepis polise", "Prepis polise AO");
@@ -184,13 +182,60 @@ namespace Proba2
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = " Skloni panel" }).ClickAsync();
 
+                //Brisanje polise koja je u izradi
+                await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+                // Provera da li se otvorila stranica sa pregledom polisa AO
+                DodatakNaURL = "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+                //Sortiraj po datumu kreiranja
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Datum kreiranja -$") }).Locator("div").Nth(1).ClickAsync();
+                await _page.Locator(".multiselect-dropdown").First.ClickAsync();
+                //Filtriraj "U izradi"
+                await _page.GetByText("U izradi").First.ClickAsync();
+                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
+                //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").FillAsync("Davor");
+                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync("Davor");
+                //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").PressAsync("Tab");
+                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
+
+                string filtriraniBrojStrana = await _page.Locator("//e-button[@class='btn-page-num num-max']").InnerTextAsync();
+
+                // Izbroj koliko ima redova u gridu
+                redovi = _page.Locator("//div[@class='podaci']//div[contains(@class, 'grid-row')]");
+                brojRedova = await redovi.CountAsync();
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.Forms.MessageBox.Show($"Redova ima-1: {brojRedova}", "Informacija", MessageBoxButtons.OK);
+                }
+
+                if (brojRedova > 0)
+                {
+                    // Pročitaj broj dokumenta (sadržaj ćelije u prvom redu i prvoj koloni)
+                    brojDokumenta = await ProcitajCeliju(1, 1);
+
+                    await _page.GetByRole(AriaRole.Link, new() { Name = $"{brojDokumenta}" }).ClickAsync();
+                    await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}");
+                    await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
+                    await _page.GetByRole(AriaRole.Button, new() { Name = " Obriši dokument" }).ClickAsync();
+                    await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
+                    await _page.GetByText("Dokument uspešno obrisan").ClickAsync();
+                    await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
+
+                }
+                else
+                {
+                    await LogovanjeTesta.LogException($"{NazivTekucegTesta}", new Exception("Nema polisa AO za brisanje"));
+                }
 
 
 
-
+                //await _page.PauseAsync();
+                //return; // Ova linija je dodata da bi se test završio ovde, ako je potrebno
 
                 await IzlogujSe(_page);
-                await ProveriURL(_page, PocetnaStrana, "/Login");
+                // Proveri da li si uspešno izlogovan
+                DodatakNaURL = "/Login";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
 
 
@@ -562,8 +607,8 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata"); //Provera da li se otvorila stranica sa pregledom polisa AO
 
                 await Pauziraj(_page);
-                // Provera da li stranica sadrži grid Dokumenta - Polise AO
-                tipGrida = "Polise AO";
+                // Provera da li stranica sadrži grid Dokumenta - Pregled polisa AO
+                tipGrida = "Pregled polisa AO";
                 //lokatorGrida = "//e-grid[@id='grid_dokumenti']*";
                 await ProveraPostojiGrid(_page, tipGrida);
 
@@ -1282,8 +1327,8 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata"); //Provera da li se otvorila stranica sa pregledom polisa AO
 
                 //await Pauziraj(_page);
-                // Provera da li stranica sadrži grid Dokumenta - Polise AO
-                tipGrida = "Polise AO";
+                // Provera da li stranica sadrži grid Dokumenta - Pregled polisa AO
+                tipGrida = "Pregled polisa AO";
                 //lokatorGrida = "//e-grid[@id='grid_dokumenti']*";
                 await ProveraPostojiGrid(_page, tipGrida);
 

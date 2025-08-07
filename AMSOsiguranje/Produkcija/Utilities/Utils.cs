@@ -3,6 +3,8 @@ namespace Produkcija
 {
     public partial class Osiguranje
     {
+
+
         /// <summary>
         /// Promenljiva koja definiše koji agent se loguje prilikom ručnog pokretanja testa.
         /// <para>Vrednost se ručno unose pre početka testiranja.</para>
@@ -88,6 +90,12 @@ namespace Produkcija
 
         #region Putanje i folderi
 
+        /// <summary>
+        /// Dodaje se na URL osnovne stranice.
+        /// Ova putanja se koristi za navigaciju na specifične stranice
+        /// </summary>
+        /// <value></value>
+        public static string DodatakNaURL { get; set; } = "";
         public static string RadniFolder { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
         //public static string RadniFolder2 = AppContext.BaseDirectory; 
 
@@ -271,6 +279,11 @@ namespace Produkcija
                 throw;
             }
         }
+
+
+
+
+
         private async Task ApplyZoomWithObserverAsync(IPage page)
         {
             string js = @"
