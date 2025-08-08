@@ -11,7 +11,7 @@ namespace Razvoj
         /// <param name="_page"></param>
         /// <param name="korisnickoIme">Može biti BOkorisnickoIme_/AkorisnickoIme_</param>
         /// <param name="lozinka">Može biti BOlozinka_/Alozinka_</param>
-        public static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
+        private static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
         {
             try
             {

@@ -72,8 +72,6 @@ namespace UAT
 
         #endregion Cookie
 
-
-
         #region Testovi
 
         [Test]
@@ -101,10 +99,7 @@ namespace UAT
                 await ProveraPostojiGrid(_page, tipGrida);
 
                 string kriterijumFiltera = "KreiranRaskinutStorniranU izradi";
-                //await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 10);
-
                 await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 10, "Lista", 0);
-
 
                 // Izbroj koliko ima redova u gridu
                 var redovi = _page.Locator("//div[@class='podaci']//div[contains(@class, 'grid-row')]");
@@ -194,7 +189,7 @@ namespace UAT
                 await _page.GetByText("U izradi").First.ClickAsync();
                 await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
                 //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").FillAsync("Davor");
-                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync("Davor");
+                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync("90200");
                 //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").PressAsync("Tab");
                 await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
 
@@ -227,19 +222,10 @@ namespace UAT
                     await LogovanjeTesta.LogException($"{NazivTekucegTesta}", new Exception("Nema polisa AO za brisanje"));
                 }
 
-
-
-                //await _page.PauseAsync();
-                //return; // Ova linija je dodata da bi se test završio ovde, ako je potrebno
-
                 await IzlogujSe(_page);
                 // Proveri da li si uspešno izlogovan
                 DodatakNaURL = "/Login";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
-
-
-
-
 
                 if (NacinPokretanjaTesta == "ručno")
                 {
@@ -249,7 +235,6 @@ namespace UAT
 
                 //Assert.Pass();
                 LogovanjeTesta.LogMessage($"✅ Uspešan test {NazivTekucegTesta} ");
-
             }
             catch (Exception ex)
             {
@@ -4298,7 +4283,8 @@ namespace UAT
             }
             catch (Exception ex)
             {
-                await LogovanjeTesta.LogException("Greška u testu", ex);
+                //await LogovanjeTesta.LogException("Greška u testu", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 throw;
             }
@@ -7503,7 +7489,8 @@ namespace UAT
             }
             catch (Exception ex)
             {
-                await LogovanjeTesta.LogException("Greška u testu", ex);
+                //await LogovanjeTesta.LogException("Greška u testu", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 throw;
             }
@@ -9793,17 +9780,12 @@ namespace UAT
             }
             catch (Exception ex)
             {
-                await LogovanjeTesta.LogException("Greška u testu", ex);
+                //await LogovanjeTesta.LogException("Greška u testu", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 throw;
             }
-
-
         }
-
-
-
-
         #endregion Testovi
     }
 

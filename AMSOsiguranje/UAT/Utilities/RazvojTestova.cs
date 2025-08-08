@@ -1190,7 +1190,7 @@ namespace UAT
             try
             {
                 await _page!.PauseAsync();
-                await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
                 await OsiguranjeVozila.IzlogujSe(_page!);
                 await _page!.PauseAsync();
 
@@ -1294,7 +1294,7 @@ namespace UAT
             {
                 Console.WriteLine(ex.Message);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
-                LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
 
@@ -1408,7 +1408,7 @@ namespace UAT
                 //await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
 
 
 

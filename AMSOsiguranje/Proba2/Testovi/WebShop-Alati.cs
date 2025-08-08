@@ -1,7 +1,11 @@
-namespace Razvoj
+namespace Proba2
 {
     public partial class WebShop
     {
+
+
+
+
         //Bira se početna strana Web shopa na osnovu zadatog okruženja - Razvoj, test, ...
         private static string DefinisiPocetnuStranuWS(string okruzenje)
         {
@@ -15,16 +19,15 @@ namespace Razvoj
             };
             return pocetnaStranaWS;
         }
-        /*************************************
-                private static async Task SacekajUcitavanjestranice(IPage _page, string dodatak)
-                {
-                    await _page.WaitForURLAsync(PocetnaStranaWS + dodatak);
-                    // Sačekaj da DOM bude učitan
-                    await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
-                    await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-
-                }
-        ********************************************/
+        /*******************************************************************************
+        private static async Task SacekajUcitavanjestranice(IPage _page, string dodatak)
+        {
+            await _page.WaitForURLAsync(PocetnaStranaWS + dodatak);
+            // Sačekaj da DOM bude učitan
+            await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
+            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        }
+        *******************************************************************************/
         private static async Task ProveriTitlStranice(IPage _page, string naslov) //proverava da li se stvarni rezultat (title) poklapa sa očekivanim (naslov)
         {
             var title = await _page.TitleAsync();

@@ -162,8 +162,18 @@ namespace Produkcija
 
                 //File.AppendAllText($"{logFajlOpsti}", $"[INFO] Test: {TestContext.CurrentContext.Test.Name}, Okruženje: {Okruzenje} ({PocetnaStrana}), {DateTime.Now.ToString("dd.MM.yyy.")} u {DateTime.Now.ToString("hh:mm:ss")}\n");
 
-                //Otvaranje početne strane
-                await _page.GotoAsync(PocetnaStrana);
+                try
+                {
+                    //Otvaranje početne strane
+                    await _page.GotoAsync(PocetnaStrana);
+                    //await ProveriURL(_page, PocetnaStrana, "/login?url=/");
+                }
+                catch (Exception ex)
+                {
+                    await LogovanjeTesta.LogException("Nije otvorena početna strana", ex);
+                    throw;
+                }
+
 
                 if (nazivKlase == "WebShop")
                 {
@@ -390,8 +400,6 @@ namespace Produkcija
 /******************************************************************************
 Ovo je deo koji se nalazio u OnTimeSetUp metodi i odnosi se na rad sa sesijama
 ******************************************************************************/
-
-
 /*********************************
            // Početna strana zavisi od okruženja
            PocetnaStrana = DefinisiPocetnuStranu(Okruzenje);
