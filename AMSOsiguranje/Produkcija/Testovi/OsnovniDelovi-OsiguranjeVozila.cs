@@ -9,8 +9,8 @@ namespace Produkcija
         /// Uloguj se koristeći korisničko ime i lozinku.
         /// <para>Korisničko ime i lozinka određuju se na osnovu NacinPokretanjaTesta i RucnaUloga </para></summary>
         /// <param name="_page"></param>
-        /// <param name="korisnickoIme">Može biti BOkorisnickoIme_/AkorisnickoIme_</param>
-        /// <param name="lozinka">Može biti BOlozinka_/Alozinka_</param>
+        /// <param name="korisnickoIme">Može biti BOkorisnickoIme/AkorisnickoIme</param>
+        /// <param name="lozinka">Može biti BOlozinka/Alozinka</param>
         private static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
         {
             try

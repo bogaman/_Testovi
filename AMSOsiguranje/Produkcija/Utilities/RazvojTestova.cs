@@ -1190,7 +1190,7 @@ namespace Produkcija
             try
             {
                 await _page!.PauseAsync();
-                //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await OsiguranjeVozila.IzlogujSe(_page!);
                 await _page!.PauseAsync();
 
@@ -1408,7 +1408,7 @@ namespace Produkcija
                 //await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme, Alozinka);
 
 
 

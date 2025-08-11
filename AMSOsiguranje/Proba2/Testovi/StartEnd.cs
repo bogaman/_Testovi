@@ -13,14 +13,13 @@ namespace Proba2
         protected IPlaywright _playwright;
         protected IBrowserContext context;
 
-
-        public string BOkorisnickoIme_ = string.Empty;
-        public string BOlozinka_ = string.Empty;
-        public string AkorisnickoIme_ = string.Empty;
-        public string Alozinka_ = string.Empty;
-        public string SertifikatName_ = string.Empty;
-        public string Asaradnik_ = string.Empty;
-        public int IdLice_ = 0;
+        public string BOkorisnickoIme = string.Empty;
+        public string BOlozinka = string.Empty;
+        public string AkorisnickoIme = string.Empty;
+        public string Alozinka = string.Empty;
+        public string SertifikatName = string.Empty;
+        public string Asaradnik = string.Empty;
+        public int IdLice = 0;
 
         #region OnTimeSetUp
         //Metoda koja se pokreće samo jednom na početku testiranja
@@ -80,7 +79,6 @@ namespace Proba2
             }
         }
         #endregion OnTimeSetUp
-
 
         #region SetUp 
         // Metoda koja se pokreće pre svakog pojedinačnog testa
@@ -198,13 +196,13 @@ namespace Proba2
                     var korisnici_ = KorisnikLoader.UcitajKorisnike();
 
                     var BOkorisnik_ = korisnici_.ElementAtOrDefault(0);
-                    BOkorisnickoIme_ = BOkorisnik_?.KorisnickoIme ?? string.Empty;
-                    BOlozinka_ = BOkorisnik_?.Lozinka1 ?? string.Empty;
+                    BOkorisnickoIme = BOkorisnik_?.KorisnickoIme ?? string.Empty;
+                    BOlozinka = BOkorisnik_?.Lozinka1 ?? string.Empty;
 
                     if (Prostor == "Produkcija")
                     {
                         //Ako je radno okruženje produkcija, koristi za Davora Lozinka2
-                        BOlozinka_ = BOkorisnik_?.Lozinka2 ?? string.Empty;
+                        BOlozinka = BOkorisnik_?.Lozinka2 ?? string.Empty;
                     }
 
                     //Agent je Mario za automatsko pokretanje
@@ -219,11 +217,11 @@ namespace Proba2
                         //Ako je ručno pokretanje testa, koristi korisnika Mario
                         Akorisnik_ = korisnici_.ElementAtOrDefault(2);
                     }
-                    AkorisnickoIme_ = Akorisnik_?.KorisnickoIme ?? string.Empty;
-                    Alozinka_ = Akorisnik_?.Lozinka1 ?? string.Empty;
-                    SertifikatName_ = Akorisnik_?.Sertifikat ?? string.Empty;
-                    Asaradnik_ = Akorisnik_?.Saradnik1 ?? string.Empty;
-                    IdLice_ = int.TryParse(Akorisnik_?.IdLica, out var idLica) ? idLica : 0;
+                    AkorisnickoIme = Akorisnik_?.KorisnickoIme ?? string.Empty;
+                    Alozinka = Akorisnik_?.Lozinka1 ?? string.Empty;
+                    SertifikatName = Akorisnik_?.Sertifikat ?? string.Empty;
+                    Asaradnik = Akorisnik_?.Saradnik1 ?? string.Empty;
+                    IdLice = int.TryParse(Akorisnik_?.IdLica, out var idLica) ? idLica : 0;
                     // Proveri da li je korisnik učitan
                     if (BOkorisnik_ == null || Akorisnik_ == null)
                     {
@@ -233,11 +231,11 @@ namespace Proba2
                     if (NacinPokretanjaTesta == "ručno")
                     {
                         System.Windows.MessageBox.Show($"Korisnik Back Office: {BOkorisnik_?.Ime}\n" +
-                                                       $"Korisničko ime: {BOkorisnickoIme_}\n" +
-                                                       $"Lozinka: {BOlozinka_}\n\n" +
+                                                       $"Korisničko ime: {BOkorisnickoIme}\n" +
+                                                       $"Lozinka: {BOlozinka}\n\n" +
                                                        $"Agent je: {Akorisnik_?.Ime}\n" +
-                                                       $"Korisničko ime: {AkorisnickoIme_}\n" +
-                                                       $"Lozinka: {Alozinka_}\n\n" +
+                                                       $"Korisničko ime: {AkorisnickoIme}\n" +
+                                                       $"Lozinka: {Alozinka}\n\n" +
                                                        $"Saradnik: {Akorisnik_?.Saradnik1}\n",
                                                        $"Ko će Testirati", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -268,7 +266,6 @@ namespace Proba2
 
         #endregion SetUp
 
-
         #region TearDown
         // Metoda koja se pokreće posle svakog testa
         [TearDown]
@@ -284,9 +281,9 @@ namespace Proba2
                 string stackTrace = TestContext.CurrentContext.Result.StackTrace ?? string.Empty;
                 //string poruka = TestContext.CurrentContext.Result.
 
-                //LogovanjeTesta.UnesiRezultatTesta1(LogovanjeTesta.IDTesta1, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_);
+                //LogovanjeTesta.UnesiRezultatTesta1(LogovanjeTesta.IDTesta1, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme);
 
-                LogovanjeTesta.UnesiRezultatTesta(LogovanjeTesta.IDTestaSQL, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme_, BOkorisnickoIme_);
+                LogovanjeTesta.UnesiRezultatTesta(LogovanjeTesta.IDTestaSQL, LogovanjeTesta.KrajTesta, StatusTesta, errorMessage, stackTrace, AkorisnickoIme, BOkorisnickoIme);
                 // Upisivanje opšteg rezultata testa u logOpsti.txt
                 LogovanjeTesta.UnesiKrajTesta();
 
@@ -346,8 +343,6 @@ namespace Proba2
 
         #endregion TearDown
 
-
-
         #region OneTimeTearDown
         // Ova metoda se pokreće jednom, nakon svih testovaS
         [OneTimeTearDown]
@@ -390,8 +385,6 @@ namespace Proba2
             }
         }
         #endregion OneTimeTearDown
-
-
 
     }
 }

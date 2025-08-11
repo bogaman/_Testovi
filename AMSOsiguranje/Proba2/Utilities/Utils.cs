@@ -20,13 +20,12 @@ namespace Proba2
         /// <value>"Chromium", "Firefox" ili "Webkit"</value>
         public static string Pregledac { get; set; } = "Chromium"; // "Chromium", "Firefox", "Webkit"
 
-        //public static string BOkorisnickoIme = KorisnikLoader5.Korisnik1 != null ? KorisnikLoader5.Korisnik1.KorisnickoIme : string.Empty;
         //public static string BOlozinka = KorisnikLoader5.Korisnik1 != null ? KorisnikLoader5.Korisnik1.Lozinka1 : string.Empty;
 
-        public static string AkorisnickoIme = KorisnikLoader5.Korisnik2 != null ? KorisnikLoader5.Korisnik2.KorisnickoIme : string.Empty;
+        //public static string AkorisnickoIme = KorisnikLoader5.Korisnik2 != null ? KorisnikLoader5.Korisnik2.KorisnickoIme : string.Empty;
         //public static string Alozinka = KorisnikLoader5.Korisnik2 != null ? KorisnikLoader5.Korisnik2.Lozinka1 : string.Empty;
-        public static string Asaradnik = KorisnikLoader5.Korisnik2 != null ?
-                           $"{KorisnikLoader5.Korisnik2.SaradnickaSifra1} - {KorisnikLoader5.Korisnik2?.Ime} {KorisnikLoader5.Korisnik2?.Prezime}" : string.Empty;
+        //public static string Asaradnik = KorisnikLoader5.Korisnik2 != null ?
+        //                   $"{KorisnikLoader5.Korisnik2.SaradnickaSifra1} - {KorisnikLoader5.Korisnik2?.Ime} {KorisnikLoader5.Korisnik2?.Prezime}" : string.Empty;
 
         #region Šta se i ko testira
 

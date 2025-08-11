@@ -81,7 +81,7 @@ namespace Razvoj
             {
                 await Pauziraj(_page);
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //Pređi mišem preko teksta Osiguranje vozila
@@ -251,7 +251,7 @@ namespace Razvoj
             try
             {
                 await Pauziraj(_page);
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -398,7 +398,7 @@ namespace Razvoj
             {
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -584,7 +584,7 @@ namespace Razvoj
                     Magacin = "Centralni magacin"; //Magacin u koji se vrši ulaz u centralni magacin
                 }
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.GetByText("Osiguranje vozila").HoverAsync(); //Pređi mišem preko teksta Osiguranje vozila
                 await _page.GetByText("Osiguranje vozila").ClickAsync(); //Klikni na tekst Osiguranje vozila
@@ -885,7 +885,7 @@ namespace Razvoj
                 //await UnesiMagacin(_page, "#selRazduzenje");
                 await IzaberiOpcijuIzListe(_page, "#selRazduzenje", Magacin, false);
 
-                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik_, false);
+                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik, false);
 
                 await _page.Locator("#inpOdBroja input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#inpOdBroja input[type=\"text\"]").FillAsync($"{PoslednjiSerijski + 1}");
@@ -930,7 +930,7 @@ namespace Razvoj
 
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 // Sačekaj na URL posle logovanja
                 //await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
                 //await _page.Locator(".ico-ams-logo").ClickAsync();
@@ -973,7 +973,7 @@ namespace Razvoj
                 // Prijavljuje se BackOffice
 
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1017,7 +1017,7 @@ namespace Razvoj
                 // Prijavljuje se agent
 
 
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
 
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
@@ -1042,7 +1042,7 @@ namespace Razvoj
                 LogovanjeTesta.LogMessage($"✅ Poslednji mejl -> ID: {PrethodniZapisMejla.PoslednjiID}, IDMail: {PrethodniZapisMejla.PoslednjiIDMail}, Status: {PrethodniZapisMejla.Status}, Opis: {PrethodniZapisMejla.Opis}, Datum: {PrethodniZapisMejla.Datum}, Subject: {PrethodniZapisMejla.Subject}", false);
 
                 //await _page.PauseAsync();
-                //if (IdLice_ == 1002)
+                //if (IdLice == 1002)
                 //await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
 
@@ -1062,7 +1062,7 @@ namespace Razvoj
 
 
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
 
@@ -1304,7 +1304,7 @@ namespace Razvoj
                     Magacin = "Centralni magacin"; //Magacin u koji se vrši ulaz u centralni magacin
                 }
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.GetByText("Osiguranje vozila").HoverAsync(); //Pređi mišem preko teksta Osiguranje vozila
                 await _page.GetByText("Osiguranje vozila").ClickAsync(); //Klikni na tekst Osiguranje vozila
@@ -1347,7 +1347,7 @@ namespace Razvoj
 
                 await IzaberiOpcijuIzListe(_page, "#selRazduzenje", Magacin, false);
 
-                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik_, false);
+                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik, false);
 
 
 
@@ -1465,7 +1465,7 @@ namespace Razvoj
                 ******************************************/
                 await IzaberiOpcijuIzListe(_page, "#selRazduzenje", Magacin, false);
 
-                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik_, false);
+                await IzaberiOpcijuIzListe(_page, "#selZaduzenje", Asaradnik, false);
 
 
 
@@ -1512,7 +1512,7 @@ namespace Razvoj
                 // Prijavljuje se agent
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1567,7 +1567,7 @@ namespace Razvoj
                 await ProveriURL(_page, PocetnaStrana, "/Login");
 
                 // Prijavljuje se BackOffice
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1611,7 +1611,7 @@ namespace Razvoj
                 // Prijavljuje se agent
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1650,7 +1650,7 @@ namespace Razvoj
                 // Prijavljuje se BO
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 // Sačekaj na URL posle logovanja
                 await _page.WaitForURLAsync(PocetnaStrana + "/Dashboard");
 
@@ -1918,7 +1918,7 @@ namespace Razvoj
             try
             {
                 await Pauziraj(_page);
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page!.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
@@ -1984,18 +1984,18 @@ namespace Razvoj
 
                 string Lokacija = "(7, 8)";
 
-                if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
+                if (AkorisnickoIme == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
                     Lokacija = "(3)";
                 }
-                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
+                else if (AkorisnickoIme == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
 
 
 
-                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme_);
+                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
 
                 if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
@@ -2951,14 +2951,14 @@ namespace Razvoj
 
                     // Pronalazak TreeItem sa tekstom "Petrović Petar"
                     //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
-                    //var SertifikatName_ = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
-                    //var SertifikatName_ = AKorisnik_?.Sertifikat ?? string.Empty;
-                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(SertifikatName_))).AsTreeItem();
+                    //var SertifikatName = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
+                    //var SertifikatName = AKorisnik_?.Sertifikat ?? string.Empty;
+                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(SertifikatName))).AsTreeItem();
 
 
                     var treeItem = Retry.WhileNull(
                         () => treeView?.FindFirstDescendant(cf =>
-                            cf.ByControlType(ControlType.TreeItem).And(cf.ByName(SertifikatName_)))?.AsTreeItem(),
+                            cf.ByControlType(ControlType.TreeItem).And(cf.ByName(SertifikatName)))?.AsTreeItem(),
                         TimeSpan.FromSeconds(5)).Result;
 
 
@@ -2971,7 +2971,7 @@ namespace Razvoj
                     }
                     else
                     {
-                        throw new Exception($"TreeItem '{SertifikatName_}' not found.");
+                        throw new Exception($"TreeItem '{SertifikatName}' not found.");
                     }
 
                     // Pronalazak dugmeta "Cancel"
@@ -3091,7 +3091,7 @@ namespace Razvoj
                 var PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //Otvori Autoodgovornost
@@ -3209,7 +3209,7 @@ namespace Razvoj
                 ******************/
                 string qBrojDokumenta = $"SELECT MIN ([Dokument].[idDokument]) FROM [MtplDB].[mtpl].[Dokument] " +
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
-                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice_} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
+                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -3309,7 +3309,7 @@ namespace Razvoj
                 //uloguj se kao BO
 
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
@@ -3359,7 +3359,7 @@ namespace Razvoj
 
 
 
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("bogdan.mandaric@eonsystem.com");
@@ -3434,7 +3434,7 @@ namespace Razvoj
                 var PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //Otvori Autoodgovornost
@@ -3552,7 +3552,7 @@ namespace Razvoj
                 ******************/
                 string qBrojDokumenta = $"SELECT MIN ([Dokument].[idDokument]) FROM [MtplDB].[mtpl].[Dokument] " +
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
-                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice_} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
+                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -3652,7 +3652,7 @@ namespace Razvoj
                 //uloguj se kao BO
 
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
@@ -3702,7 +3702,7 @@ namespace Razvoj
 
 
 
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("bogdan.mandaric@eonsystem.com");
@@ -3776,7 +3776,7 @@ namespace Razvoj
                 var PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //Otvori Autoodgovornost
@@ -3894,7 +3894,7 @@ namespace Razvoj
                 ******************/
                 string qBrojDokumenta = $"SELECT MIN ([Dokument].[idDokument]) FROM [MtplDB].[mtpl].[Dokument] " +
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
-                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice_} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
+                                        $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
                 string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
@@ -3984,7 +3984,7 @@ namespace Razvoj
                 //Uloguj se kao BO
 
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //await _page.PauseAsync();
@@ -4024,7 +4024,7 @@ namespace Razvoj
 
 
 
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
                 //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("bogdan.mandaric@eonsystem.com");
@@ -4098,7 +4098,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
@@ -4142,7 +4142,7 @@ namespace Razvoj
                 await _page.GetByLabel(CurrentDate.ToString("MMMM d,")).ClickAsync();
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik_).ClickAsync();
+                await _page.GetByText(Asaradnik).ClickAsync();
 
                 await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
@@ -4230,7 +4230,7 @@ namespace Razvoj
                                 await _page.Locator(".korisnik").ClickAsync();
                                 await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
                                 ***************/
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 /**********************
                 await _page.Locator("css = [inner-label='Korisničko ime*']").ClickAsync();
@@ -4301,7 +4301,7 @@ namespace Razvoj
                 await Pauziraj(_page);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
@@ -4322,7 +4322,7 @@ namespace Razvoj
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik_).ClickAsync();
+                await _page.GetByText(Asaradnik).ClickAsync();
 
                 await _page.Locator("textarea").First.ClickAsync();
                 await _page.Locator("textarea").First.ClickAsync();
@@ -4356,18 +4356,18 @@ namespace Razvoj
 
                 string Lokacija = "(7, 8)";
 
-                if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
+                if (AkorisnickoIme == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
                     Lokacija = "(3)";
                 }
-                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
+                else if (AkorisnickoIme == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
 
 
 
-                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme_);
+                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
 
                 if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
@@ -4524,7 +4524,7 @@ namespace Razvoj
                 //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
                 //await _page.Locator("a").First.ClickAsync();
                 //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await Pauziraj(_page!);
                 // Sačekaj na URL posle logovanja
@@ -4587,7 +4587,7 @@ namespace Razvoj
             try
             {
                 await Pauziraj(_page);
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -4670,7 +4670,7 @@ namespace Razvoj
 
             try
             {
-                await UlogujSe(_page!, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page!, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -4827,7 +4827,7 @@ namespace Razvoj
         {
             try
             {
-                await UlogujSe(_page!, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page!, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -4998,7 +4998,7 @@ namespace Razvoj
             try
             {
                 await Pauziraj(_page!);
-                await UlogujSe(_page!, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page!, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -5188,17 +5188,17 @@ namespace Razvoj
                 await _page.Locator("#selZaduzenje").ClickAsync();
                 if (Okruzenje == "Razvoj")
                 {
-                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik_).ClickAsync();
+                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik).ClickAsync();
                 }
                 else if (Okruzenje == "Proba2")
                 {
                     //await _page.GetByText("Centralni magacin 2").ClickAsync(); 
-                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik_).ClickAsync();
+                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik).ClickAsync();
                 }
                 else
                 {
                     //await _page.GetByText("90202 - Bogdan Mandarić", new() { Exact = true }).ClickAsync();
-                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik_).ClickAsync();
+                    await _page.Locator("#selZaduzenje").GetByText(Asaradnik).ClickAsync();
                 }
 
                 //await _page.PauseAsync();
@@ -5238,7 +5238,7 @@ namespace Razvoj
                 //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
                 //await _page.Locator("a").First.ClickAsync();
                 //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.PauseAsync();
                 // Sačekaj na URL posle logovanja
@@ -5280,7 +5280,7 @@ namespace Razvoj
             try
             {
                 await Pauziraj(_page!);
-                await UlogujSe(_page!, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page!, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -5379,18 +5379,18 @@ namespace Razvoj
 
                 string Lokacija = "(7, 8)";
 
-                if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
+                if (AkorisnickoIme == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
                     Lokacija = "(3)";
                 }
-                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
+                else if (AkorisnickoIme == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
 
 
 
-                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme_);
+                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
 
                 if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
@@ -5542,7 +5542,7 @@ namespace Razvoj
             try
             {
                 await Pauziraj(_page!);
-                await UlogujSe(_page!, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page!, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -5576,7 +5576,7 @@ namespace Razvoj
 
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                await _page.GetByText(Asaradnik_).ClickAsync();
+                await _page.GetByText(Asaradnik).ClickAsync();
 
                 //await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
@@ -5660,7 +5660,7 @@ namespace Razvoj
                 //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
                 await IzlogujSe(_page);
                 //await ProveriURL(_page, PocetnaStrana, "/Login");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //await _page.PauseAsync();
@@ -5708,7 +5708,7 @@ namespace Razvoj
             {
 
                 await Pauziraj(_page!);
-                await UlogujSe(_page!, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page!, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page!, PocetnaStrana, "/Dashboard");
 
 
@@ -5730,7 +5730,7 @@ namespace Razvoj
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik_).ClickAsync();
+                await _page.GetByText(Asaradnik).ClickAsync();
 
                 await _page.Locator("textarea").First.ClickAsync();
                 await _page.Locator("textarea").First.FillAsync("Dragan je prosuo kafu i rakiju!");
@@ -5754,18 +5754,18 @@ namespace Razvoj
 
                 string Lokacija = "(7, 8)";
 
-                if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
+                if (AkorisnickoIme == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
                     Lokacija = "(3)";
                 }
-                else if (AkorisnickoIme_ == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
+                else if (AkorisnickoIme == "mario.radomir@eonsystem.com" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
 
 
 
-                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme_);
+                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
 
                 if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
@@ -5920,7 +5920,7 @@ namespace Razvoj
                 //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
                 await IzlogujSe(_page);
                 //await ProveriURL(_page, PocetnaStrana, "/Login");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //await _page.PauseAsync();
@@ -5977,7 +5977,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -6151,7 +6151,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await NovaPolisa(_page, "Nova polisa JS");
@@ -6715,7 +6715,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page!.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
@@ -6749,7 +6749,7 @@ namespace Razvoj
 
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik_).ClickAsync();
+                await _page.GetByText(Asaradnik).ClickAsync();
                 //await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
                 //Nalaženje poslednjeg broja dokumenta u Strogoj evidenciji
@@ -6833,7 +6833,7 @@ namespace Razvoj
                                 await _page.Locator("a").First.ClickAsync();
                                 await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
                 */
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 //await _page.PauseAsync();
                 // Sačekaj na URL posle logovanja
@@ -6880,7 +6880,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -7056,7 +7056,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page!.GetByText("Osiguranje vozila").HoverAsync();
@@ -7240,7 +7240,7 @@ namespace Razvoj
                 {
 
                     await _page.Locator("#chkAn div").Nth(3).ClickAsync();
-                    if (IdLice_ == 1001)
+                    if (IdLice == 1001)
                     {
                         await _page.Locator("#selSumeOsiguranjaAn > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
 
@@ -7260,7 +7260,7 @@ namespace Razvoj
                         string formatiraniBroj = doubleOsiguranaSumaSmrt.ToString("#,##0.00", new CultureInfo("sr-RS"));
                         await _page.GetByText($"Suma smrt {formatiraniBroj} - suma").ClickAsync();
                     }
-                    else if (IdLice_ == 1002)
+                    else if (IdLice == 1002)
                     {
                         //await _page.Locator("//e-input[@id='idSumeOsiguranjaAN']//input[@class='input']").ClickAsync();
                         //await _page.Locator("#idSumeOsiguranjaAN input[type=\"text\"]").ClickAsync();
@@ -7338,7 +7338,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page!.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
@@ -7371,7 +7371,7 @@ namespace Razvoj
 
                 await Pauziraj(_page!);
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                await _page.GetByText(Asaradnik_).ClickAsync();
+                await _page.GetByText(Asaradnik).ClickAsync();
 
                 //await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
@@ -7446,7 +7446,7 @@ namespace Razvoj
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await IzlogujSe(_page);
                 //await ProveriURL(_page, PocetnaStrana, "/Login");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 /*
                                                                 await _page.Locator(".korisnik").ClickAsync();
@@ -7505,7 +7505,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Putno zdravstveno
                 //await _page!.GetByText("Putno zdravstveno  osiguranje").HoverAsync();
@@ -7870,7 +7870,7 @@ namespace Razvoj
             try
             {
                 await Pauziraj(_page);
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -7963,7 +7963,7 @@ namespace Razvoj
 
                 try
                 {
-                    string[] expectedValues = [brojDokumenta, status, Asaradnik_, brojPolise];
+                    string[] expectedValues = [brojDokumenta, status, Asaradnik, brojPolise];
                     bool allFound = true;
 
                     foreach (string value in expectedValues)
@@ -8026,7 +8026,7 @@ namespace Razvoj
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null when calling NovaPolisa.");
                 await Pauziraj(_page);
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //await _page.GetByText("Osiguranje vozila").HoverAsync(); //Pređi mišem preko teksta Osiguranje vozila
@@ -9598,7 +9598,7 @@ namespace Razvoj
                 await Pauziraj(_page!);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).HoverAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
@@ -9632,7 +9632,7 @@ namespace Razvoj
                 await _page.GetByLabel(CurrentDate.ToString("MMMM d,")).ClickAsync();
                 await _page.Locator("#selRazduzenje > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("90202 - Bogdan Mandarić").ClickAsync();
-                await _page.GetByText(Asaradnik_).ClickAsync();
+                await _page.GetByText(Asaradnik).ClickAsync();
 
                 await _page.GetByText("Arhivski magacin Arhivski").ClickAsync();
 
@@ -9710,7 +9710,7 @@ namespace Razvoj
                 await IzlogujSe(_page);
                 await ProveriURL(_page, PocetnaStrana, "/Login");
 
-                await UlogujSe(_page, BOkorisnickoIme_, BOlozinka_);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //await _page.PauseAsync();
@@ -9759,7 +9759,7 @@ namespace Razvoj
                 await IzlogujSe(_page);
                 await ProveriURL(_page, PocetnaStrana, "/Login");
 
-                await UlogujSe(_page, AkorisnickoIme_, Alozinka_);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
