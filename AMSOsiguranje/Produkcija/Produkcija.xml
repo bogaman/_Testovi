@@ -97,110 +97,6 @@
             <param name="koristiSelectOption"></param>
             <returns></returns>
         </member>
-        <member name="P:Produkcija.Osiguranje.RucnaUloga">
-            <summary>
-            Promenljiva koja definiše koji agent se loguje prilikom ručnog pokretanja testa.
-            <para>Vrednost se ručno unose pre početka testiranja.</para>
-            </summary> 
-            <value>"Bogdan", "Mario"</value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.Pregledac">
-            <summary>
-            Promenljiva koja definiše koji pregledac se koristi za testiranje. 
-            <para>Vrednost se ručno unosi pre početka testiranja.</para>
-            <para>Podrazumevano je "Chromium".</para>
-            </summary>
-            <value>"Chromium", "Firefox" ili "Webkit"</value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.NazivNamespace">
-            <summary>
-            Promenjiva koja definiše naziv prostora (namespace) u kojem se nalaze testovi.
-            <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para></summary>
-            <value>"Razvoj", "Proba2", "UAT", "Produkcija"</value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.Prostor">
-            <summary>
-            Promenjive Prostor i Okruzenje su sustinski iste kao promenjiva NazivNamespace.
-            <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para></summary>
-            <value>"Razvoj", "Proba2", "UAT", "Produkcija"</value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.Okruzenje">
-            <summary>
-            Promenjive Prostor i Okruzenje su sustinski iste kao promenjiva NazivNamespace.
-            <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para>
-            <para>Može imati vrednosti "Razvoj"/"Proba2"/"UAT"/"Produkcija".</para>
-            </summary>
-        </member>
-        <member name="P:Produkcija.Osiguranje.NazivTekucegTesta">
-            <summary>
-            Kako se zove test koji je pokrenut, na osnovu njega definiše se uloga Agent ili BackOffice
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.DeviceName">
-            <summary>
-            Naziv kompjutera na kom se izvršava testiranje.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.OsnovnaUloga">
-            <summary>
-            Zadaje se primarna uloga koju korisnik ima u testiranju.
-            <para>Primarna uloga zavisi od NazivaTesta.</para>
-            <para>Ako je uloga Agent, U zavisnosti od NazivTekucegTesta, Okruzenje i NacinPokretanjaTesta</para>
-            <para>definisaće se da li je Agent1 ili Agent2.</para>
-            </summary>
-            <value>"Agent", "BackOffice"</value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.NacinPokretanjaTesta">
-            <summary>
-            Koristi se za određivanje načina pokretanja testa, ručno/automatski.
-            <para>ručno - test se pokreće direktno iz IDE-a ili komandne linije.</para>
-            <para>automatski - test se pokreće pomoću batch fajla ili CI/CD alata.</para>
-            </summary>
-            <remarks>Koristiti se za prilagođavanje ponašanja testa u zavisnosti od načina pokretanja.</remarks>
-            <value>"ručno", "automatski"</value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.PocetnaStrana">
-            <summary>
-            Definiše se početna stranica za testiranje.
-            <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Produkcija.Osiguranje.DodatakNaURL">
-            <summary>
-            Dodaje se na URL osnovne stranice.
-            Ova putanja se koristi za navigaciju na specifične stranice
-            </summary>
-            <value></value>
-        </member>
-        <member name="M:Produkcija.Osiguranje.Pauziraj(Microsoft.Playwright.IPage)">
-            <summary>
-            Pauzira samo ako test nije pokrenut automatski.
-            </summary>
-        </member>
-        <member name="M:Produkcija.Osiguranje.DefinisiPocetnuStranu(System.String,System.String)">
-            <summary>
-            Definiše se početna stranica za testiranje. Ona zavisi od klase i okruženja
-            </summary>
-            <param name="nazivKlase">OsiguranjeVozila ili WebShop.</param>
-            <param name="okruzenje">Razvoj, Proba2, UAT ili Produkcija.</param>  
-            <returns>Vraća string PocetnaStrana, to je URL.</returns>    
-            <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
-            <remarks></remarks>
-        </member>
-        <member name="M:Produkcija.Osiguranje.ProveriURL(Microsoft.Playwright.IPage,System.String,System.String)">
-            <summary>
-            Čeka se na učitavanje određenog URL-a i proverava link
-            </summary>
-            <param name="_page">Instanca stranice na kojoj se vrši provera URL-a.</param>
-            <param name="osnovnaStrana">Osnovna stranica koja se koristi za formiranje URL-a.</param>
-            <param name="dodatak">Dodatak koji se dodaje na osnovnu stranu, npr. "/Login".</param>
-            <returns>Ne vraća vrednost</returns>
-            <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
-            <remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
-        </member>
         <member name="M:Produkcija.Alati.PokreniVpnAkoTreba">
             <summary>
             Proverava da li je OpenVPN GUI pokrenut, ako nije, pokreće ga i uspostavlja VPN konekciju.
@@ -330,6 +226,110 @@
         </member>
         <member name="M:Produkcija.LogovanjeTesta.FormirajSumarniIzvestaj">
             Metoda za kreiranje sumarnog izveštaja, poziva se iz OneTimeTearDown()
+        </member>
+        <member name="P:Produkcija.Osiguranje.RucnaUloga">
+            <summary>
+            Promenljiva koja definiše koji agent se loguje prilikom ručnog pokretanja testa.
+            <para>Vrednost se ručno unose pre početka testiranja.</para>
+            </summary> 
+            <value>"Bogdan", "Mario"</value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.Pregledac">
+            <summary>
+            Promenljiva koja definiše koji pregledac se koristi za testiranje. 
+            <para>Vrednost se ručno unosi pre početka testiranja.</para>
+            <para>Podrazumevano je "Chromium".</para>
+            </summary>
+            <value>"Chromium", "Firefox" ili "Webkit"</value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.NazivNamespace">
+            <summary>
+            Promenjiva koja definiše naziv prostora (namespace) u kojem se nalaze testovi.
+            <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para></summary>
+            <value>"Razvoj", "Proba2", "UAT", "Produkcija"</value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.Prostor">
+            <summary>
+            Promenjive Prostor i Okruzenje su sustinski iste kao promenjiva NazivNamespace.
+            <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para></summary>
+            <value>"Razvoj", "Proba2", "UAT", "Produkcija"</value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.Okruzenje">
+            <summary>
+            Promenjive Prostor i Okruzenje su sustinski iste kao promenjiva NazivNamespace.
+            <para>Koristi se za organizaciju i identifikaciju testova unutar projekta.</para>
+            <para>Može imati vrednosti "Razvoj"/"Proba2"/"UAT"/"Produkcija".</para>
+            </summary>
+        </member>
+        <member name="P:Produkcija.Osiguranje.NazivTekucegTesta">
+            <summary>
+            Kako se zove test koji je pokrenut, na osnovu njega definiše se uloga Agent ili BackOffice
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.DeviceName">
+            <summary>
+            Naziv kompjutera na kom se izvršava testiranje.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.OsnovnaUloga">
+            <summary>
+            Zadaje se primarna uloga koju korisnik ima u testiranju.
+            <para>Primarna uloga zavisi od NazivaTesta.</para>
+            <para>Ako je uloga Agent, U zavisnosti od NazivTekucegTesta, Okruzenje i NacinPokretanjaTesta</para>
+            <para>definisaće se da li je Agent1 ili Agent2.</para>
+            </summary>
+            <value>"Agent", "BackOffice"</value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.NacinPokretanjaTesta">
+            <summary>
+            Koristi se za određivanje načina pokretanja testa, ručno/automatski.
+            <para>ručno - test se pokreće direktno iz IDE-a ili komandne linije.</para>
+            <para>automatski - test se pokreće pomoću batch fajla ili CI/CD alata.</para>
+            </summary>
+            <remarks>Koristiti se za prilagođavanje ponašanja testa u zavisnosti od načina pokretanja.</remarks>
+            <value>"ručno", "automatski"</value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.PocetnaStrana">
+            <summary>
+            Definiše se početna stranica za testiranje.
+            <para>Ova stranica zavisi od klase (OsiguranjeVozila ili WebShop) i okruženja (Razvoj, Proba2, UAT, Produkcija).</para>
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Produkcija.Osiguranje.DodatakNaURL">
+            <summary>
+            Dodaje se na URL osnovne stranice.
+            Ova putanja se koristi za navigaciju na specifične stranice
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:Produkcija.Osiguranje.Pauziraj(Microsoft.Playwright.IPage)">
+            <summary>
+            Pauzira samo ako test nije pokrenut automatski.
+            </summary>
+        </member>
+        <member name="M:Produkcija.Osiguranje.DefinisiPocetnuStranu(System.String,System.String)">
+            <summary>
+            Definiše se početna stranica za testiranje. Ona zavisi od klase i okruženja
+            </summary>
+            <param name="nazivKlase">OsiguranjeVozila ili WebShop.</param>
+            <param name="okruzenje">Razvoj, Proba2, UAT ili Produkcija.</param>  
+            <returns>Vraća string PocetnaStrana, to je URL.</returns>    
+            <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>  
+            <remarks></remarks>
+        </member>
+        <member name="M:Produkcija.Osiguranje.ProveriURL(Microsoft.Playwright.IPage,System.String,System.String)">
+            <summary>
+            Čeka se na učitavanje određenog URL-a i proverava link
+            </summary>
+            <param name="_page">Instanca stranice na kojoj se vrši provera URL-a.</param>
+            <param name="osnovnaStrana">Osnovna stranica koja se koristi za formiranje URL-a.</param>
+            <param name="dodatak">Dodatak koji se dodaje na osnovnu stranu, npr. "/Login".</param>
+            <returns>Ne vraća vrednost</returns>
+            <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
+            <remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
         </member>
     </members>
 </doc>
