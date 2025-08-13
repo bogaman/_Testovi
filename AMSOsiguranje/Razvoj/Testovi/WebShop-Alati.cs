@@ -2,10 +2,7 @@ namespace Razvoj
 {
     public partial class WebShop
     {
-
-
-
-
+        /*******************************************************************************
         //Bira se početna strana Web shopa na osnovu zadatog okruženja - Razvoj, test, ...
         private static string DefinisiPocetnuStranuWS(string okruzenje)
         {
@@ -19,6 +16,7 @@ namespace Razvoj
             };
             return pocetnaStranaWS;
         }
+        ********************************************************************************/
         /*******************************************************************************
         private static async Task SacekajUcitavanjestranice(IPage _page, string dodatak)
         {
@@ -44,7 +42,7 @@ namespace Razvoj
             }
         }
 
-        private async Task UnosBrojaOdraslih(IPage _page, string brojOdraslih)
+        private static async Task UnosBrojaOdraslih(IPage _page, string brojOdraslih)
         {
             await _page.Locator("#spinOdrasli").GetByRole(AriaRole.Textbox).ClickAsync();
             await _page.Locator("#spinOdrasli").GetByRole(AriaRole.Button, new() { Name = "+" }).ClickAsync();
@@ -68,7 +66,7 @@ namespace Razvoj
             await _page.Locator("#spbDeca").GetByRole(AriaRole.Textbox).FillAsync(brojDece);
         }
 
-        private async Task UnosBrojaSeniora(IPage _page, string brojDece)
+        private static async Task UnosBrojaSeniora(IPage _page, string brojDece)
         {
             await _page.Locator("#spinSeniori").GetByRole(AriaRole.Textbox).ClickAsync();
             await _page.Locator("#spinSeniori").GetByRole(AriaRole.Button, new() { Name = "+" }).ClickAsync();
@@ -80,21 +78,21 @@ namespace Razvoj
             await _page.Locator("#spinSeniori").GetByRole(AriaRole.Textbox).FillAsync(brojDece);
         }
 
-        private async Task DatumPocetka(IPage _page)
+        private static async Task DatumPocetka(IPage _page)
         {
             //unos datuma početka
             await _page.Locator("#cal_calPocetak").GetByPlaceholder("dd.mm.yyyy.").ClickAsync();
             await _page.GetByLabel(NextDate.ToString("MMMM d")).First.ClickAsync();
         }
 
-        private async Task UnosTrajanja(IPage _page, string Trajanje)
+        private static async Task UnosTrajanja(IPage _page, string Trajanje)
         {
             //unos trajanja
             await _page.GetByRole(AriaRole.Textbox, new() { Name = "od 1 do 90" }).ClickAsync();
             await _page.GetByRole(AriaRole.Textbox, new() { Name = "od 1 do 90" }).FillAsync(Trajanje);
         }
 
-        private async Task IzborTrajanja(IPage _page, string TrajanjeDo)
+        private static async Task IzborTrajanja(IPage _page, string TrajanjeDo)
         {
             await _page.Locator(".multiselect-dropdown").First.ClickAsync();
             await _page.GetByText("do 30 dana").ClickAsync();
@@ -110,7 +108,7 @@ namespace Razvoj
             await _page.GetByText(TrajanjeDo).ClickAsync();
         }
 
-        private async Task IzborPeriodaPokrica(IPage _page, string PeriodPokrica)
+        private static async Task IzborPeriodaPokrica(IPage _page, string PeriodPokrica)
         {
             await _page.Locator("#selPeriodPokrica > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
             await _page.Locator("#selPeriodPokrica").GetByText("5", new() { Exact = true }).ClickAsync();
@@ -125,7 +123,7 @@ namespace Razvoj
 
         }
 
-        public static async Task IzaberiOpcijuIzListe(IPage page, string selektorListe, string vrednostOpcije, bool koristiSelectOption = true)
+        private static async Task IzaberiOpcijuIzListe(IPage page, string selektorListe, string vrednostOpcije, bool koristiSelectOption = true)
         {
             try
             {
@@ -163,7 +161,7 @@ namespace Razvoj
                 throw;
             }
         }
-        private async Task SvrhaPutovanja(IPage _page, string Svrha)
+        private static async Task SvrhaPutovanja(IPage _page, string Svrha)
         {
             //Svrha putovanja
             await _page.Locator("#selSvrha > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
@@ -184,14 +182,14 @@ namespace Razvoj
             await _page.GetByText(Svrha).ClickAsync();
         }
 
-        private async Task Covid(IPage _page, string Pristanak)
+        private static async Task Covid(IPage _page, string Pristanak)
         {
             // Covid 19
             await _page.GetByRole(AriaRole.Button, new() { Name = Pristanak, Exact = true }).ClickAsync();
             //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
         }
 
-        private async Task TeritorijaSrbije(IPage _page)
+        private static async Task TeritorijaSrbije(IPage _page)
         {
             // Teritorija Srbije
             await _page.GetByText("Nalazim se na teritoriji").ClickAsync();
@@ -199,13 +197,13 @@ namespace Razvoj
             await _page.GetByText("Nalazim se na teritoriji").ClickAsync();
         }
 
-        private async Task Dalje(IPage _page, string Kuda)
+        private static async Task Dalje(IPage _page, string Kuda)
         {
             // Dalje
             await _page.GetByRole(AriaRole.Button, new() { Name = Kuda }).ClickAsync();
         }
 
-        private async Task ProveraNaStraniciPaketiPokrica(IPage _page)
+        private static async Task ProveraNaStraniciPaketiPokrica(IPage _page)
         {
 
             await _page.GetByText("Evropa i deo sveta").First.ClickAsync();
@@ -242,7 +240,7 @@ namespace Razvoj
             //await _page.GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
         }
 
-        private async Task IzborPaketaPokrica(IPage _page, string PaketPokrica)
+        private static async Task IzborPaketaPokrica(IPage _page, string PaketPokrica)
         {
             if (PaketPokrica == "Paket1")
                 await _page.GetByText("Evropa i deo sveta").First.ClickAsync();
@@ -250,7 +248,7 @@ namespace Razvoj
                 await _page.GetByText("Evropa i deo sveta").Nth(1).ClickAsync();
         }
 
-        private async Task UnesiUgovaraca(IPage _page, string UgovaracIme, string UgovaracPrezime, string UgovaracJMBG, string UgovaracUlica, string UgovaracBroj, string UgovaracPretrazi, string UgovaracMesto, string UgovaracPasos, string UgovaracTelefon, string UgovaracMejl)
+        private static async Task UnesiUgovaraca(IPage _page, string UgovaracIme, string UgovaracPrezime, string UgovaracJMBG, string UgovaracUlica, string UgovaracBroj, string UgovaracPretrazi, string UgovaracMesto, string UgovaracPasos, string UgovaracTelefon, string UgovaracMejl)
         {
             await _page.Locator(".input").First.ClickAsync();
             await _page.Locator(".input").First.FillAsync(UgovaracIme);
@@ -274,7 +272,7 @@ namespace Razvoj
             await _page.GetByText(UgovaracMesto).First.ClickAsync();
         }
 
-        private async Task UnesiDetePrvo(IPage _page, string DeteImePrvo, string DetePrezimePrvo, string DeteJMBGPrvo, string DetePasosPrvo)
+        private static async Task UnesiDetePrvo(IPage _page, string DeteImePrvo, string DetePrezimePrvo, string DeteJMBGPrvo, string DetePasosPrvo)
         {
             await _page.GetByText("OSIGURANIK 2 - DETE").ClickAsync();
             await _page.Locator("div:nth-child(5) > div:nth-child(2) > div > e-input > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
@@ -287,7 +285,7 @@ namespace Razvoj
             await _page.Locator("div:nth-child(5) > div:nth-child(4) > .col-4 > e-input > .control-wrapper > .control > .control-main > .input").First.FillAsync(DetePasosPrvo);
         }
 
-        private async Task UnesiDeteDrugo(IPage _page, string DeteImeDrugo, string DetePrezimeDrugo, string DeteJMBGDrugo, string DetePasosDrugo)
+        private static async Task UnesiDeteDrugo(IPage _page, string DeteImeDrugo, string DetePrezimeDrugo, string DeteJMBGDrugo, string DetePasosDrugo)
         {
             await _page.GetByText("OSIGURANIK 3 - DETE").ClickAsync();
             await _page.Locator("div:nth-child(6) > div:nth-child(2) > div > e-input > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
@@ -302,7 +300,7 @@ namespace Razvoj
             await _page.Locator("div:nth-child(6) > div:nth-child(4) > .col-4 > e-input > .control-wrapper > .control > .control-main > .input").FillAsync(DetePasosDrugo);
         }
 
-        private async Task UnesiSeniora(IPage _page, string SeniorIme, string SeniorPrezime, string SeniorJMBG, string SeniorPasos)
+        private static async Task UnesiSeniora(IPage _page, string SeniorIme, string SeniorPrezime, string SeniorJMBG, string SeniorPasos)
         {
             await _page.GetByText("OSIGURANIK 2 - STARIJA OSOBA").ClickAsync();
             await _page.Locator("div:nth-child(5) > div:nth-child(2) > div > e-input > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
@@ -319,20 +317,20 @@ namespace Razvoj
             await _page.Locator("div:nth-child(5) > div:nth-child(4) > .col-4 > e-input > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
         }
 
-        private async Task UgovaracJeOsiguranoLice(IPage _page)
+        private static async Task UgovaracJeOsiguranoLice(IPage _page)
         {
             await _page.GetByText("Ugovarač je osigurano lice").ClickAsync();
             await _page.GetByText("Prekopiraj adresne podatke na").ClickAsync();
         }
 
-        private async Task PotvrdaRekapitulacije(IPage _page)
+        private static async Task PotvrdaRekapitulacije(IPage _page)
         {
             await _page.Locator("#chkUslovi i").ClickAsync();
             await _page.Locator("#container i").Nth(1).ClickAsync();
             await _page.Locator("#container i").Nth(1).ClickAsync();
         }
 
-        private async Task Placanje(IPage _page, string BrojKartice, string mesecVazenja, string godinaVazenja)
+        private static async Task Placanje(IPage _page, string BrojKartice, string mesecVazenja, string godinaVazenja)
         {
             await _page.GetByRole(AriaRole.Img, new() { Name = "MasterCard" }).ClickAsync();
             await _page.Locator("#cardRadioDiv label").Nth(1).ClickAsync();

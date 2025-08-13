@@ -1,6 +1,6 @@
 namespace Razvoj
 {
-    [TestFixture, Order(2)]
+    [TestFixture, Order(3)]
     [Parallelizable(ParallelScope.Self)]
     public partial class WebShop : Osiguranje
     {

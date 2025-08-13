@@ -2,7 +2,7 @@ namespace UAT
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class TestDevelopment : Osiguranje
+    public class WTestDevelopment : Osiguranje
     {
 
 

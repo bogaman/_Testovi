@@ -29,6 +29,7 @@ global using static System.Windows.Forms.HtmlDocument;
 global using System.IdentityModel.Tokens.Jwt;
 //global using Newtonsoft.Json;
 //global using Microsoft.Playwright.Assertions;
+global using Microsoft.ApplicationInsights.DataContracts;
 global using NUnit.Framework;
 global using NUnit.Framework.Interfaces;
 global using Microsoft.VisualBasic;

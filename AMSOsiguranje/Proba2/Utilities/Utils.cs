@@ -206,19 +206,19 @@ namespace Proba2
                 {
                     PocetnaStrana = "https://webshop.ams.co.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "Razvoj")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "Razvoj")
                 {
                     PocetnaStrana = "https://razvojamso-master.eonsystem.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "Proba2")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "Proba2")
                 {
                     PocetnaStrana = "https://proba2amsomaster.eonsystem.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "UAT")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "UAT")
                 {
                     PocetnaStrana = "https://master-test.ams.co.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment") && okruzenje == "Produkcija")
+                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "Produkcija")
                 {
                     PocetnaStrana = "https://eos.ams.co.rs/Osiguranje-vozila";
                 }
@@ -272,9 +272,7 @@ namespace Proba2
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"❌ 1Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}\n{ex.Message}");
-
                 await LogovanjeTesta.LogException($"❌ Greška prilikom učitavanja stranice: - {osnovnaStrana + dodatak}", ex);
-                //await LogovanjeTesta.LogException($"❌ 3Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
                 throw;
             }
         }

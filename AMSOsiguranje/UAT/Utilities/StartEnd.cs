@@ -164,14 +164,12 @@ namespace UAT
                 {
                     //Otvaranje početne strane
                     await _page.GotoAsync(PocetnaStrana);
-                    //await ProveriURL(_page, PocetnaStrana, "/login?url=/");
                 }
                 catch (Exception ex)
                 {
                     await LogovanjeTesta.LogException("Nije otvorena početna strana", ex);
                     throw;
                 }
-
 
                 if (nazivKlase == "WebShop")
                 {
@@ -190,7 +188,7 @@ namespace UAT
                     // odbijanje kolačića
                     //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne" }).ClickAsync(); 
                 }
-                else if (nazivKlase == "OsiguranjeVozila" || nazivKlase == "TestDevelopment")
+                else if (nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment")
                 {
 
                     var korisnici_ = KorisnikLoader.UcitajKorisnike();

@@ -2,7 +2,7 @@
 namespace UAT
 {
 
-    public partial class OsiguranjeVozila : Osiguranje
+    public partial class Osiguranje
     {
 
         /// <summary>
@@ -11,7 +11,7 @@ namespace UAT
         /// <param name="_page"></param>
         /// <param name="korisnickoIme">Može biti BOkorisnickoIme/AkorisnickoIme</param>
         /// <param name="lozinka">Može biti BOlozinka/Alozinka</param>
-        private static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
+        public static async Task UlogujSe(IPage _page, string korisnickoIme, string lozinka)
         {
             try
             {
@@ -48,8 +48,6 @@ namespace UAT
                 //Trace.Write($"Odjavljivanje - ");
                 await _page.Locator(".korisnik").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
-                //await _page.GotoAsync(PocetnaStrana + "/Login");
-                //await ProveriURL(_page, PocetnaStrana, "/Login");
                 LogovanjeTesta.LogMessage($"✅ Korisnik izlogovan.", false);
                 //Trace.WriteLine($"OK");
             }
@@ -68,7 +66,7 @@ namespace UAT
         /// </summary>
         /// <param name="_page"></param>
         /// <param name="tipGrida">Tip grida koji se očekuje, npr "Pregled polisa AO"</param>
-        private static async Task ProveraPostojiGrid(IPage _page, string tipGrida)
+        public static async Task ProveraPostojiGrid(IPage _page, string tipGrida)
         {
             string lokatorGrid = string.Empty;
             try
@@ -89,7 +87,7 @@ namespace UAT
                     "grid Obrasci" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled razdužnih listi za DK" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled razdužnih listi za SE" => "//e-grid[@id='grid_dokumenti']",
-                    "Pregled dokumenata za BO" => "//e-grid[@id='grid_dokumenti']",
+                    "Pregled dokumenata za BO" => "//e-grid[@id='grid_dokumenti']", //OK
                     "Polise Kasko" => "//e-grid[@id='grid_dokumenti']",
                     "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']",
                     "Produkcija" => "",
@@ -124,7 +122,7 @@ namespace UAT
         /// <param name="izbor">Indeks izbora u listi (ako je tip polja Lista).</param>
         /// <returns>Ne vraća vrednost</returns>
         /// <exception cref="Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
-        private static async Task FiltrirajGrid(IPage _page, string kriterijum, string tipGrida, int kolona, string tipPolja, int izbor)
+        public static async Task FiltrirajGrid(IPage _page, string kriterijum, string tipGrida, int kolona, string tipPolja, int izbor)
         {
             try
             {
@@ -178,7 +176,7 @@ namespace UAT
         /// <param name="kolona">Broj kolone na kojoj se primenjuje filter.</param>
         /// <returns>Ne vraća vrednost</returns>
         /// <exception cref="Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
-        private static async Task ProveriFilterGrida(IPage _page, string kriterijum, string tipGrida, int kolona)
+        public static async Task ProveriFilterGrida(IPage _page, string kriterijum, string tipGrida, int kolona)
         {
             try
             {
@@ -236,7 +234,7 @@ namespace UAT
         /// <param name="kolona">Kolona u gridu (1-based index).</param>
         /// <returns>Vraća tekst iz ćelije.</returns>
         /// <exception cref="ArgumentNullException">Baca grešku ako je _page instanca null.</exception>
-        private async Task<string> ProcitajCeliju(int red, int kolona)
+        public async Task<string> ProcitajCeliju(int red, int kolona)
         {
             try
             {
@@ -269,7 +267,7 @@ namespace UAT
         /// <param name="Dugme">Dugme na koje treba kliknuti da bi se otvorio printout</param>
         /// <param name="Poruka">Poruka koja sadrži šta se otvara (koja štampa)</param>
         /// <returns></returns>
-        private static async Task ProveriStampu404(IPage _page, string Dugme, string Poruka)
+        public static async Task ProveriStampu404(IPage _page, string Dugme, string Poruka)
         {
             var pageStampa = await _page.RunAndWaitForPopupAsync(async () =>
                         {
@@ -313,7 +311,7 @@ namespace UAT
 
 
 
-        private static string OdrediServer(string okruzenje)
+        public static string OdrediServer(string okruzenje)
         {
             string server;
             server = okruzenje switch
@@ -336,7 +334,7 @@ namespace UAT
 
 
         //Definišu se podaci potrebni za logovanje - mejl, ime i kozinka
-        private static void PodaciZaLogovanje(string uloga, string okruzenje, out string mejl, out string ime, out string lozinka)
+        public static void PodaciZaLogovanje(string uloga, string okruzenje, out string mejl, out string ime, out string lozinka)
         {
             switch (uloga, okruzenje)
             {
@@ -388,7 +386,7 @@ namespace UAT
 
 
 
-        private static void Loguj(string poruka)
+        public static void Loguj(string poruka)
         {
             string putanja = $"{LogovanjeTesta.LogFolder}\\monitoring_log.txt";
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -406,7 +404,7 @@ namespace UAT
         }
 
         // Čita poslednji zapis o slanju mejla, uoči provere slanja sledećeg mejla
-        static async Task<ZapisOSlanjuMejla> ProcitajPoslednjiZapisMejla()
+        public static async Task<ZapisOSlanjuMejla> ProcitajPoslednjiZapisMejla()
         {
             try
             {
@@ -442,7 +440,6 @@ namespace UAT
                 {
                     return await Task.FromResult<ZapisOSlanjuMejla?>(null); // Nema zapisa
                 }
-
             }
             catch (Exception ex)
             {
@@ -455,7 +452,7 @@ namespace UAT
 
 
         // Funkcija koja proverava zadati RB i status u petlji do timeout-a
-        static async Task<ZapisOSlanjuMejla?> CekajNoviZapis(int noviID, int? status, int timeoutMs)
+        public static async Task<ZapisOSlanjuMejla?> CekajNoviZapis(int noviID, int? status, int timeoutMs)
         {
             var start = DateTime.Now;
             while ((DateTime.Now - start).TotalMilliseconds < timeoutMs)
@@ -470,7 +467,7 @@ namespace UAT
         }
 
 
-        private static async Task ProveriStatusSlanjaMejla(ZapisOSlanjuMejla PrethodniZapisMejla, string poruka)
+        public static async Task ProveriStatusSlanjaMejla(ZapisOSlanjuMejla PrethodniZapisMejla, string poruka)
         {
             try
             {
@@ -611,7 +608,7 @@ namespace UAT
         }
 
 
-        private static async Task ProveriStampuPdf(IPage _page, string Dugme, string Poruka)
+        public static async Task ProveriStampuPdf(IPage _page, string Dugme, string Poruka)
         {
             var pageStampa = await _page.RunAndWaitForPopupAsync(async () =>
                             {
@@ -701,7 +698,7 @@ namespace UAT
         }
 
 
-        private static string IzracunajKontrolnuCifruZK(string SerijskiBrojObrasca)
+        public static string IzracunajKontrolnuCifruZK(string SerijskiBrojObrasca)
         {
             int intSerijskiBrojObrasca = Convert.ToInt32(SerijskiBrojObrasca);
             int kontrolna = intSerijskiBrojObrasca % 11;
@@ -718,7 +715,7 @@ namespace UAT
 
             return kontrolnaCifra;
         }
-        private static int OdrediBrojDokumenta()
+        public static int OdrediBrojDokumenta()
         {
 
             string qPoslednjiDokumentMtpl = "SELECT MAX([idDokument]) FROM [MtplDB].[mtpl].[Dokument];";
@@ -766,7 +763,7 @@ namespace UAT
 
             return vrednost;
         }
-        private static string DefinisiBrojSasije()
+        public static string DefinisiBrojSasije()
         {
             // Definišite skup karaktera (25 slova i 10 cifara)
             const string skupKaraktera = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -792,7 +789,7 @@ namespace UAT
             string BrojSasije = kombinacija.ToString();
             return BrojSasije;
         }
-        private static string DefinisiRegistarskuOznaku()
+        public static string DefinisiRegistarskuOznaku()
         {
             // Definišite skup karaktera (25 slova i 10 cifara)
             const string skupCifara = "0123456789";
@@ -977,7 +974,7 @@ namespace UAT
 
 
 
-        private static async Task UnesiTipPolise(IPage _page, string _tipPolise)
+        public static async Task UnesiTipPolise(IPage _page, string _tipPolise)
         {
             await _page.GetByText("Tip polise").ClickAsync();
 
@@ -999,7 +996,7 @@ namespace UAT
             await _page.GetByText(_tipPolise).ClickAsync();
         }
 
-        private static async Task DatumOd(IPage _page)
+        public static async Task DatumOd(IPage _page)
         {
             //unos datuma početka
             await _page.Locator("#cal_calDatumOd").GetByRole(AriaRole.Textbox).ClickAsync();//await _page.Locator("#cal_calDatumOd").GetByPlaceholder("dd.mm.yyyy.").ClickAsync();
@@ -1009,7 +1006,7 @@ namespace UAT
             //await page.GetByLabel("Avgust 28,").Nth(2).ClickAsync();
         }
 
-        private static async Task OcitajDokument(IPage _page, string tipDokumenta)
+        public static async Task OcitajDokument(IPage _page, string tipDokumenta)
         {
 
             if (tipDokumenta == "Saobracajna")
@@ -1048,7 +1045,7 @@ namespace UAT
 
         }
 
-        private static async Task ObradiPomoc(IPage _page, string tipPomoci)
+        public static async Task ObradiPomoc(IPage _page, string tipPomoci)
         {
             //await _page.Locator(tipPomoci).GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
             await _page.Locator(tipPomoci).ClickAsync();
@@ -1140,7 +1137,7 @@ namespace UAT
 
         }
 
-        private static async Task ProveriPadajucuListu(IPage _page, string kontrola)
+        public static async Task ProveriPadajucuListu(IPage _page, string kontrola)
         {
 
             var elementPostoji = await _page.QuerySelectorAsync(kontrola);
@@ -1214,7 +1211,7 @@ namespace UAT
         }
 
 
-        private static async Task UnesiPorez(IPage _page, string _oslobodjenPoreza)
+        public static async Task UnesiPorez(IPage _page, string _oslobodjenPoreza)
         {
             var elementPorez = _page.Locator("//e-checkbox[@id='chkOslobodjenPoreza']//div[@class='control ']");
             //var elementPorezId = await elementPorez.EvaluateAsync<string>("el => el.id");
@@ -1500,7 +1497,7 @@ namespace UAT
             }
         }
 
-        private static async Task SnimiDokument(IPage _page, int brDokument, string staSeSnima)
+        public static async Task SnimiDokument(IPage _page, int brDokument, string staSeSnima)
         {
             try
             {
@@ -1591,7 +1588,7 @@ namespace UAT
             }
 
         }
-        private static async Task ObrisiDokument(IPage _page, int brDokument)
+        public static async Task ObrisiDokument(IPage _page, int brDokument)
         {
             try
             {
@@ -1819,7 +1816,7 @@ namespace UAT
 
 
         //Arhiviranje vesti
-        private static async Task ArhivirajVest(IPage _page, string ocekivaniTekst, string oznakaDokumenta)
+        public static async Task ArhivirajVest(IPage _page, string ocekivaniTekst, string oznakaDokumenta)
         {
             try
             {
@@ -1937,7 +1934,7 @@ namespace UAT
 
 
         //Nalaženje poslednjeg serijskog broja obrasca polise koji je u sistemu (tipObrasca = 1 - AO, 4 - ZK)
-        private static async Task<long> PoslednjiSerijskiStroga(int tipObrasca, string dodatniUslov)
+        public static async Task<long> PoslednjiSerijskiStroga(int tipObrasca, string dodatniUslov)
         {
             try
             {
@@ -2006,7 +2003,7 @@ namespace UAT
 
         }
 
-        private static async Task<int> PoslednjiDokumentStroga()
+        public static async Task<int> PoslednjiDokumentStroga()
         {
             try
             {
@@ -2049,7 +2046,7 @@ namespace UAT
 
 
 
-        private static string IzracunajKontrolnuCifru(string SerijskiBrojObrasca)
+        public static string IzracunajKontrolnuCifru(string SerijskiBrojObrasca)
         {
             char KonChar1 = SerijskiBrojObrasca[7];
             char KonChar2 = SerijskiBrojObrasca[6];
