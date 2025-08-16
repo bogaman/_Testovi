@@ -4,13 +4,16 @@ namespace Produkcija
     [Parallelizable(ParallelScope.Self)]
     public partial class WebShop : Osiguranje
     {
-        [Test]
+        [Test, Order(1)]
         public async Task IndividualnoPutno()
         {
             try
             {
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                await Pauziraj(_page);
                 //izbor Individualnog osiguranja
-                await _page!.Locator("a").Filter(new() { HasText = "INDIVIDUALNO PUTNO OSIGURANJE" }).First.ClickAsync();
+                await _page.Locator("a").Filter(new() { HasText = "INDIVIDUALNO PUTNO OSIGURANJE" }).First.ClickAsync();
 
                 //sačekaj da se stranica učita
                 await ProveriURL(_page, PocetnaStrana, "/Putno1");
@@ -67,7 +70,7 @@ namespace Produkcija
                                      "Petar-DaCovid", "IndividualniPetrović",
                                      "2612962710096", "Japanska", "442",
                                      "111", "- Rušanj", "Pasoš br. 1",
-                                     "+381123456789", "bogaman@hotmail.com");
+                                     "+381123456789", "amso.bogdan@mail.eonsystem.com");
 
                 //Ugovarač je osigurano lice i prekopiraj podatke
                 await UgovaracJeOsiguranoLice(_page);
@@ -113,13 +116,16 @@ namespace Produkcija
             }
         }
 
-        [Test]
+        [Test, Order(2)]
         public async Task PorodicnoPutno()
         {
             try
             {
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                await Pauziraj(_page);
                 //izbor Porodičnog osiguranja
-                await _page!.Locator("a").Filter(new() { HasText = "PORODIČNO PUTNO OSIGURANJE" }).First.ClickAsync();
+                await _page.Locator("a").Filter(new() { HasText = "PORODIČNO PUTNO OSIGURANJE" }).First.ClickAsync();
                 //await _page.GetByRole(AriaRole.Link, new() { NameRegex = new Regex("PORODIČNO PUTNO OSIGURANJE"), Exact = true }).First.ClickAsync();
 
                 //sačekaj da se stranica učita
@@ -177,7 +183,7 @@ namespace Produkcija
                                      "Mitar-NoCovid", "PorodičnoMirić",
                                      "2612962710096", "Kojekude", "100",
                                      "111", "- Kaluđerica", "Pasoš br. 123",
-                                     "+3819876543216789", "bogaman@hotmail.com");
+                                     "+3819876543216789", "amso.bogdan@mail.eonsystem.com");
 
                 //Ugovarač je osigurano lice i prekopiraj podatke
                 await UgovaracJeOsiguranoLice(_page);
@@ -229,14 +235,16 @@ namespace Produkcija
 
         }
 
-        [Test]
+        [Test, Order(3)]
         public async Task SaViseUlazaka()
         {
             try
             {
-                //await _page.PauseAsync();
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                await Pauziraj(_page);
                 //await _page.GetByRole(AriaRole.Link, new() { NameRegex = new Regex("INDIVIDUALNO PUTNO OSIGURANJE VIŠE ULAZAKA"), Exact = true }).First.ClickAsync(); // izbor Individualnog sa više ulazaka
-                await _page!.Locator("a").Filter(new() { HasText = "INDIVIDUALNO PUTNO OSIGURANJE VIŠE ULAZAKA" }).First.ClickAsync();
+                await _page.Locator("a").Filter(new() { HasText = "INDIVIDUALNO PUTNO OSIGURANJE VIŠE ULAZAKA" }).First.ClickAsync();
 
                 //sačekaj da se stranica učita
                 await ProveriURL(_page, PocetnaStrana, "/Putno1");
@@ -296,7 +304,7 @@ namespace Produkcija
                                      "Zoki-DaCovid", "VišeUlazaka Zorić",
                                      "2612962710096", "Kineska", "bb",
                                      "111", "- Rušanj", "Pasoš br. 333",
-                                     "+381123456789", "bogaman@hotmail.com");
+                                     "+381123456789", "amso.bogdan@mail.eonsystem.com");
 
                 //Ugovarač je osigurano lice i prekopiraj podatke
                 await UgovaracJeOsiguranoLice(_page);
@@ -348,6 +356,119 @@ namespace Produkcija
                 throw;
             }
 
+        }
+
+        [Test, Order(4)]
+        public async Task IndividualnoPutno_nedovrsena()
+        {
+            try
+            {
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                await Pauziraj(_page);
+                //izbor Individualnog osiguranja
+                await _page.Locator("a").Filter(new() { HasText = "INDIVIDUALNO PUTNO OSIGURANJE" }).First.ClickAsync();
+
+                //sačekaj da se stranica učita
+                await ProveriURL(_page, PocetnaStrana, "/Putno1");
+                await ProveriTitlStranice(_page, "Osnovni podaci");
+
+                //unos broja putnika
+                await UnosBrojaOdraslih(_page, "1");
+                await UnosBrojaDece(_page, "0");
+                await UnosBrojaSeniora(_page, "0");
+
+                //unos datuma početka
+                await DatumPocetka(_page);
+
+                //unos trajanja
+                await UnosTrajanja(_page, "5");
+
+                //Svrha putovanja
+                await IzaberiOpcijuIzListe(_page, "#selSvrha", "Doplatak za privremeni rad u inostranstvu", false);
+
+                // Covid 19
+                await Covid(_page, "Da");
+
+                // Teritorija Srbije
+                await TeritorijaSrbije(_page);
+
+                // Dalje
+                await Dalje(_page, "Dalje");
+
+                //sačekaj da se stranica učita
+                await ProveriURL(_page, PocetnaStrana, "/Putno2");
+                //Provera da li se otvorila stranica za izbor Paketa pokrića
+                await ProveriTitlStranice(_page, "Paketi pokrića");
+
+                //Provera stranice Paketi pokrića
+                await ProveraNaStraniciPaketiPokrica(_page);
+
+                // Izbor paketa pokrića
+                await IzborPaketaPokrica(_page, "Paket1");
+
+                // Dalje
+                await Dalje(_page, "Dalje"); //ili Nazad
+
+                //Stranica za unos putnika
+                //sačekaj da se stranica učita
+                await ProveriURL(_page, PocetnaStrana, "/Putno3");
+
+                await ProveriTitlStranice(_page, "Osigurana lica");
+
+                await _page.GetByRole(AriaRole.Heading, new() { Name = "INDIVIDUALNO PUTNO OSIGURANJE" }).ClickAsync();
+                await _page.GetByText("PODACI O UGOVARAČU").ClickAsync();
+
+                // Ugovarač je jedan odrasli
+                await UnesiUgovaraca(_page,
+                                     "Petar-DaCovid", "IndividualniPetrović",
+                                     "2612962710096", "Japanska", "442",
+                                     "111", "- Rušanj", "Pasoš br. 1",
+                                     "+381123456789", "amso.bogdan@mail.eonsystem.com");
+
+                //Ugovarač je osigurano lice i prekopiraj podatke
+                await UgovaracJeOsiguranoLice(_page);
+
+                await _page.GetByText("PODACI O OSIGURANICIMA").ClickAsync();
+
+                // Dalje
+                await Dalje(_page, "Dalje"); //ili "Nazad"
+
+                //sačekaj da se stranica učita
+                await ProveriURL(_page, PocetnaStrana, "/Putno4");
+
+                await ProveriTitlStranice(_page, "Rekapitulacija");
+
+                //Potvrde na stranici rekapitulacija
+                await PotvrdaRekapitulacije(_page);
+
+                // Klik na Plaćanje
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Plaćanje" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Nazad" }).ClickAsync();
+                /**************************************************
+                // Na stranici Plaćanje
+                await Placanje(_page, "5342230500001234", "08", "2025");
+
+                await ProveriURL(_page, PocetnaStrana, "/Uspesno");
+                await ProveriTitlStranice(_page, "Uspešna kupovina");
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Početna" }).ClickAsync();
+
+                //await _page.GetByText("Webshop AMS Osiguranja").ClickAsync(); // Klik na pop-up prozor
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Da" }).ClickAsync(); // potvrda kolačića
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne" }).ClickAsync(); // odbijanje kolačića
+                //await Expect(_page).ToHaveTitleAsync(RegexAMSOsiguranjeWebshop());
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Da" }).ClickAsync();
+                //Assert.Pass();
+                ****************************************************/
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
+            }
         }
 
     }

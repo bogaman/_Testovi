@@ -2,7 +2,7 @@
 namespace Produkcija
 {
 
-    public partial class OsiguranjeVozila : Osiguranje
+    public partial class Osiguranje
     {
 
 

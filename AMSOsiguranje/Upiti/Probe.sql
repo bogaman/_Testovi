@@ -20,3 +20,8 @@ FROM (
     GROUP BY [SerijskiBroj]
     HAVING MAX([IDLokacijaZaduzena]) = 0 AND MIN([IDLokacijaZaduzena]) = 0
 ) AS Podskup;
+
+
+SELECT  [idDokument], [brojPonude], [brojUgovora] 
+FROM [WebshopDB].[webshop].[Dokument] 
+WHERE [brojUgovora] = '' AND [brojPonude] = (SELECT MAX([brojPonude]) FROM [WebshopDB].[webshop].[Dokument] WHERE [brojUgovora] = '' AND [idDokument] > 182);

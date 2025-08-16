@@ -2,7 +2,7 @@
 namespace Proba2
 {
 
-    public partial class OsiguranjeVozila : Osiguranje
+    public partial class Osiguranje
     {
 
 

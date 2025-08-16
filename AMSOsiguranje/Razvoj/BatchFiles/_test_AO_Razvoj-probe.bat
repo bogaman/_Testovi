@@ -18,7 +18,9 @@ set NACIN_POKRETANJA=automatski
 
 echo. > Logovi\_log_AO_Razvoj.txt
 echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Razvoj.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Razvoj.txt
-dotnet test --filter FullyQualifiedName=Razvoj.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Razvoj.PutnePolise.BO_2_PregledIzmenaPolisePZO >> Logovi\_log_BO_Razvoj.txt
+dotnet test --filter FullyQualifiedName=Razvoj.PutnePolise.BO_3_KreiranjePolisePZO >> Logovi\_log_BO_Razvoj.txt
+
 
 ::echo. > Logovi\_log_AO_Razvoj.txt 
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Razvoj.txt

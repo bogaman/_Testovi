@@ -17,7 +17,7 @@ set NACIN_POKRETANJA=automatski
 ::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
 echo. > Logovi\_log_AO_Produkcija.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Produkcija.txt
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.PutnePolise... >> Logovi\_log_AO_Produkcija.txt
 ::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 ::dotnet test --filter "(FullyQualifiedName~Produkcija.OsiguranjeVozila | FullyQualifiedName~Produkcija.WebShop)" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
 ::dotnet test --filter "(FullyQualifiedName~Produkcija.OsiguranjeVozila | FullyQualifiedName~Produkcija.WebShop)" >> Logovi\_log_AO_Produkcija.txt 2>&1

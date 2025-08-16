@@ -169,7 +169,7 @@ namespace Razvoj
         /// <summary>
         /// Pauzira samo ako test nije pokrenut automatski.
         /// </summary>
-        public static async Task Pauziraj(IPage _page)
+        protected static async Task Pauziraj(IPage _page)
         {
             if (Environment.GetEnvironmentVariable("NACIN_POKRETANJA") != "automatski")
             {
@@ -206,19 +206,19 @@ namespace Razvoj
                 {
                     PocetnaStrana = "https://webshop.ams.co.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "Razvoj")
+                else if (nazivKlase != "WebShop" && okruzenje == "Razvoj")
                 {
                     PocetnaStrana = "https://razvojamso-master.eonsystem.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "Proba2")
+                else if (nazivKlase != "WebShop" && okruzenje == "Proba2")
                 {
                     PocetnaStrana = "https://proba2amsomaster.eonsystem.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "UAT")
+                else if (nazivKlase != "WebShop" && okruzenje == "UAT")
                 {
                     PocetnaStrana = "https://master-test.ams.co.rs";
                 }
-                else if ((nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment") && okruzenje == "Produkcija")
+                else if (nazivKlase != "WebShop" && okruzenje == "Produkcija")
                 {
                     PocetnaStrana = "https://eos.ams.co.rs/Osiguranje-vozila";
                 }
@@ -248,7 +248,7 @@ namespace Razvoj
         ///<returns>Ne vraća vrednost</returns>
         ///<exception cref="Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
         ///<remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
-        public static async Task ProveriURL(IPage _page, string osnovnaStrana, string dodatak)
+        protected static async Task ProveriURL(IPage _page, string osnovnaStrana, string dodatak)
         {
             try
             {
@@ -307,7 +307,7 @@ namespace Razvoj
             await page.EvaluateAsync(js);
         }
 
-        private async Task ForceZoomAsync(IPage page)
+        private static async Task ForceZoomAsync(IPage page)
         {
             await page.SetViewportSizeAsync(1280, 720);
             //await page.SetViewportSizeAsync(1920, 1080);

@@ -10,9 +10,11 @@ namespace Produkcija
         [Test]
         public async Task _AO_4_ZamenaSerijskihBrojeva()
         {
-            await _page!.PauseAsync();
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
 
-            await _page!.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
+            await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
             await _page.Locator("button").Filter(new() { HasText = "Autoodgovornost" }).ClickAsync();
             await _page.GetByText("Zamena serijskih brojeva").ClickAsync();
             await _page.GetByText("---Zamena serijskih brojevaPogrešno izdata polisa ---").ClickAsync();
@@ -41,11 +43,13 @@ namespace Produkcija
         [Test]
         public async Task _ProveraDashboard()
         {
-            //await _page.PauseAsync();
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             string[] tekstZaProveru; // Definiše šta se proverava na stranici
 
             #region Dashboard
-            await _page!.Locator(".ico-ams-logo").ClickAsync();
+            await _page.Locator(".ico-ams-logo").ClickAsync();
             await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
             #region Glavni i meni
@@ -501,12 +505,14 @@ namespace Produkcija
         [Test]
         public async Task UcitavanjeStranice()
         {
-            //await _page!.PauseAsync();
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
 
 
 
-            await OsiguranjeVozila.NovaPolisa(_page!, "Nova polisa - lom");
-            await _page!.PauseAsync();
+            await OsiguranjeVozila.NovaPolisa(_page, "Nova polisa - lom");
+            await _page.PauseAsync();
             await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Dokument/0");
 
             // Proveri trenutni URL
@@ -556,11 +562,14 @@ namespace Produkcija
         [Test]
         public async Task CitajAtribute()
         {
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             //await NovaPolisa(_page, "Nova polisa OP");
-            await OsiguranjeVozila.NovaPolisa(_page!, "Novi zeleni karton");
+            await OsiguranjeVozila.NovaPolisa(_page, "Novi zeleni karton");
             //await NovaPolisa(_page, "Nova polisa - lom");
             //await ProveriURL(_page, Variables.PocetnaStrana, "/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Dokument/0");
-            await _page!.PauseAsync();
+            await _page.PauseAsync();
             string mojElement = "//e-select[@id='selPartner']";
 
 
@@ -1017,8 +1026,11 @@ namespace Produkcija
         [Test]
         public async Task ProveriStampu()
         {
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             // Otvorite stranicu sa gridom
-            await _page!.GotoAsync("https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Pregled-dokumenata");
+            await _page.GotoAsync("https://razvojamso-master.eonsystem.rs/Osiguranje-vozila/7/Lom-stakla-auto-nezgoda/Pregled-dokumenata");
 
             await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);  // čeka dok mrežni zahtevi ne prestanu
             string column3Text = "";
@@ -1180,6 +1192,9 @@ namespace Produkcija
         [Test]
         public async Task _TestTestova()
         {
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
 
             var factory = DbProviderFactories.GetFactory("System.Data.OleDb");
@@ -1189,14 +1204,14 @@ namespace Produkcija
             }
             try
             {
-                await _page!.PauseAsync();
+                await _page.PauseAsync();
                 //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme, Alozinka);
-                await OsiguranjeVozila.IzlogujSe(_page!);
-                await _page!.PauseAsync();
+                await OsiguranjeVozila.IzlogujSe(_page);
+                await _page.PauseAsync();
 
 
                 await OsiguranjeVozila.UlogujSe_2(_page, "BackOffice");
-                await _page!.PauseAsync();
+                await _page.PauseAsync();
                 System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 //Trace.Write($"////////Provera da li ima 404 ");
                 await _page.GotoAsync("https:master-test.ams.co.rs/BackOffice/BackOffice/1/Putno-osiguranje/3894");
@@ -1381,9 +1396,11 @@ namespace Produkcija
         [Test, TestCaseSource(nameof(GetTestUrls))]
         public async Task _TestTestova_radni_2(string NacinPokretanjaTesta)
         {
-            await _page!.PauseAsync();
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             Console.WriteLine("BaseUrls iz TestContext.Parameters: " + TestContext.Parameters.Get("BaseUrls", "Nema podataka"));
-            await _page!.GotoAsync(NacinPokretanjaTesta);
+            await _page.GotoAsync(NacinPokretanjaTesta);
             //Trace.WriteLine("Recording a trace: TestMethod1 started");
             await _page.PauseAsync();
             await OsiguranjeVozila.IzlogujSe(_page);
@@ -1405,7 +1422,9 @@ namespace Produkcija
             try
             {
 
-                //await Pauziraj(_page!);
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                await Pauziraj(_page);
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), "_page cannot be null before calling UlogujSe.");
                 //await OsiguranjeVozila.UlogujSe(_page, AkorisnickoIme, Alozinka);
@@ -1420,11 +1439,11 @@ namespace Produkcija
 
 
 
-                await OsiguranjeVozila.IzlogujSe(_page!);
-                await _page!.PauseAsync();
+                await OsiguranjeVozila.IzlogujSe(_page);
+                await _page.PauseAsync();
                 await OsiguranjeVozila.UlogujSe_2(_page, "Agent");
 
-                await _page!.PauseAsync();
+                await _page.PauseAsync();
                 System.Windows.MessageBox.Show("", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 DbProviderFactories.RegisterFactory("System.Data.OleDb", System.Data.OleDb.OleDbFactory.Instance);
@@ -1471,7 +1490,7 @@ namespace Produkcija
                     _application = FlaUI.Core.Application.Launch(AppPath);
                 }
 
-                await _page!.PauseAsync();
+                await _page.PauseAsync();
 
                 // Inicijalizacija FlaUI
                 _automation = new UIA3Automation();
@@ -1566,7 +1585,7 @@ namespace Produkcija
                 }
 
                 #endregion Sertifikat
-                await _page!.PauseAsync();
+                await _page.PauseAsync();
                 //return;
 
                 await OsiguranjeVozila.IzlogujSe(_page);
@@ -1589,11 +1608,14 @@ namespace Produkcija
         [Test]
         public async Task _TestSvegaISvacega()
         {
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             System.Windows.Forms.MessageBox.Show("Test je počeo!");
 
 
             //Nova polisa
-            await _page!.GotoAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
+            await _page.GotoAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
             await _page.WaitForURLAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
 
             //Kreirana
@@ -1727,11 +1749,14 @@ namespace Produkcija
         [Test]
         public async Task TestKontrolePadajucaLista()
         {
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             System.Windows.Forms.MessageBox.Show("Test je počeo!");
 
 
             //Nova polisa
-            await _page!.GotoAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
+            await _page.GotoAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
             await _page.WaitForURLAsync(PocetnaStrana + "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
 
             //Kreirana
@@ -2241,7 +2266,9 @@ namespace Produkcija
         //[TestCase("https://eos.ams.co.rs")]
         public async Task _TestTestova_radni_1(string NacinPokretanjaTesta)
         {
-            await _page!.PauseAsync();
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             await _page.GotoAsync(NacinPokretanjaTesta);
             //Trace.WriteLine("Recording a trace: TestMethod1 started");
             await _page.PauseAsync();
@@ -2258,10 +2285,13 @@ namespace Produkcija
         [Test]
         public async Task TestExample()
         {
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             string testName = "TestExample";
             try
             {
-                await _page!.GotoAsync("https://example.com");
+                await _page.GotoAsync("https://example.com");
                 bool containsText = await _page.InnerTextAsync("body").ContinueWith(t => t.Result.Contains("Example Domain"));
                 Assert.That(containsText, Is.True, "Očekivani tekst nije pronađen.");
                 LogovanjeTesta.LogTestResult(testName, true);
@@ -2278,7 +2308,9 @@ namespace Produkcija
         [Test]
         public async Task CuvanjeSesije()
         {
-            await _page!.PauseAsync();
+            if (_page == null)
+                throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+            await Pauziraj(_page);
             //Console.WriteLine("Unesi vrednost za testiranje:");
 
             // Koristi konzolu da simuliraš unos vrednosti

@@ -188,7 +188,7 @@ namespace Razvoj
                     // odbijanje kolačića
                     //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne" }).ClickAsync(); 
                 }
-                else if (nazivKlase == "OsiguranjeVozila" || nazivKlase == "PutnePolise" || nazivKlase == "WTestDevelopment")
+                else if (nazivKlase != "WebShop" || nazivKlase == "WTestDevelopment")
                 {
 
                     var korisnici_ = KorisnikLoader.UcitajKorisnike();
