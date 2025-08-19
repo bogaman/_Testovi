@@ -94,7 +94,7 @@ namespace Razvoj
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Putno zdravstveno
                 //await _page.GetByText("Putno zdravstveno  osiguranje").HoverAsync();
-                await _page!.GetByText("Putno zdravstveno  osiguranje").ClickAsync();
+                await _page.GetByText("Putno zdravstveno  osiguranje").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Webshop backoffice" }).ClickAsync();
                 DodatakNaURL = "/Backoffice/Backoffice/1/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);

@@ -94,7 +94,7 @@ namespace Proba2
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Putno zdravstveno
                 //await _page.GetByText("Putno zdravstveno  osiguranje").HoverAsync();
-                await _page!.GetByText("Putno zdravstveno  osiguranje").ClickAsync();
+                await _page.GetByText("Putno zdravstveno  osiguranje").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Webshop backoffice" }).ClickAsync();
                 DodatakNaURL = "/Backoffice/Backoffice/1/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
@@ -276,7 +276,7 @@ namespace Proba2
                 /*
                 //await _page.Locator('#cal_calPocetak').getByRole('textbox', { name: 'dd.mm.yyyy.' }).click();
                 await DatumOd(_page, "#cal_calPocetak");
-                //await page.getByLabel('Avgust 14,').click();
+                //await _page.getByLabel('Avgust 14,').click();
                 //await _page.Locator('#cal_calPocetak').getByRole('textbox', { name: 'dd.mm.yyyy.' }).fill('14.08.2025.');
                 await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(2) > .editabilno > .control-wrapper > .control > .control-main > .input").First().ClickAsync();
                 await _page.Locator('.col-2 > .editabilno > .control-wrapper > .control > .control-main > .input').first().click();
@@ -291,13 +291,13 @@ namespace Proba2
                 await _page.Locator('.control-wrapper.field.inner-label-field.info-text-field.focus > .control > .control-main > .input').press('ArrowRight');
                 await _page.Locator('.control-wrapper.field.inner-label-field.info-text-field.focus > .control > .control-main > .input').fill('26129627100');
                 await _page.Locator('div:nth-child(6) > .editabilno > .control-wrapper > .control > .control-main > .input').first().click();
-                await page.getByRole('button', { name: ' Izmeni' }).click();
-                await page.getByRole('button', { name: ' Snimi' }).click();
-                await page.getByRole('button', { name: ' Kreiraj polisu' }).click();
-                const page1Promise = page.waitForEvent('popup');
-                await page.getByRole('button', { name: ' Štampaj polisu' }).click();
+                await _page.getByRole('button', { name: ' Izmeni' }).click();
+                await _page.getByRole('button', { name: ' Snimi' }).click();
+                await _page.getByRole('button', { name: ' Kreiraj polisu' }).click();
+                const page1Promise = _page.waitForEvent('popup');
+                await _page.getByRole('button', { name: ' Štampaj polisu' }).click();
                 const page1 = await page1Promise;
-                await page.getByRole('button', { name: ' Pošalji mejl' }).click();
+                await _page.getByRole('button', { name: ' Pošalji mejl' }).click();
 */
 
                 //Zapis poslednjeg mejla (Pre izmene polise)
@@ -946,7 +946,7 @@ Trace.WriteLine($"[TRACE] Test pokrenut: {DateTime.Now}");
 //await context.StorageStateAsync(new BrowserContextStorageStateOptions { Path = null });
 
 //await _page.Context.Tracing.StartAsync(new TracingStartOptions { Screenshots = true });
-//await _page.Context.ClearCookiesAsync();  // ili page.ClearCacheAsync() ako dodatno želiš
+//await _page.Context.ClearCookiesAsync();  // ili _page.ClearCacheAsync() ako dodatno želiš
 
 //await _page.ReloadAsync(); // osvežava stranicu nakon brisanja - simulacija standardnog F5
 

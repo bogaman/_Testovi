@@ -758,7 +758,7 @@ namespace UAT
 
             return kontrolnaCifra;
         }
-        protected static int OdrediBrojDokumenta()
+        protected static int OdrediBrojDokumentaMtpl()
         {
 
             string qPoslednjiDokumentMtpl = "SELECT MAX([idDokument]) FROM [MtplDB].[mtpl].[Dokument];";
@@ -806,6 +806,50 @@ namespace UAT
 
             return vrednost;
         }
+
+        protected static int OdrediBrojDokumentaKasko()
+        {
+
+            string qPoslednjiDokumentKasko = "SELECT MAX([idDokument]) FROM [CascoDB].[casco].[Dokument];";
+            string qPoslednjiDokumentKaskoMtplHistory = "SELECT MAX([idDokument]) FROM [CascoDB].[casco].[DokumentHistory];";
+            int PoslednjiDokumentKasko;
+            int PoslednjiDokumentKaskoHistory;
+
+            Server = OdrediServer(Okruzenje);
+            string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+
+            using (SqlConnection konekcija = new(connectionStringStroga))
+            {
+                konekcija.Open();
+                using (SqlCommand command = new(qPoslednjiDokumentKasko, konekcija))
+                {
+                    PoslednjiDokumentKasko = (int)command.ExecuteScalar();
+                }
+                konekcija.Close();
+            }
+            Console.WriteLine($"Poslednji broj dokumenta u Mtpl je: {PoslednjiDokumentKasko}.\n");
+
+            using (SqlConnection konekcija = new(connectionStringStroga))
+            {
+                konekcija.Open();
+                using (SqlCommand command = new(qPoslednjiDokumentKaskoMtplHistory, konekcija))
+                {
+                    PoslednjiDokumentKaskoHistory = (int)command.ExecuteScalar();
+                }
+                konekcija.Close();
+            }
+
+            Console.WriteLine($"Poslednji broj dokumenta u Mtpl History je: {PoslednjiDokumentKaskoHistory}.\n");
+
+            int vrednost = Math.Max(PoslednjiDokumentKasko, PoslednjiDokumentKaskoHistory);
+            Console.WriteLine($"Poslednji broj dokumenta je: {vrednost}.\n");
+
+            return vrednost;
+        }
+
+
+
+
         protected static string DefinisiBrojSasije()
         {
             // Definišite skup karaktera (25 slova i 10 cifara)
@@ -1046,7 +1090,7 @@ namespace UAT
             await _page.Locator(Lokator).GetByRole(AriaRole.Textbox).FillAsync(NextDate.ToString("dd.MM.yyyy."));//await _page.GetByLabel(Variables.NextDate.ToString("MMMM d")).First.ClickAsync();
 
             //await _page.GetByLabel(NextDate.ToString("MMMM d")).Nth(2).ClickAsync();
-            //await page.GetByLabel("Avgust 28,").Nth(2).ClickAsync();
+            //await _page.GetByLabel("Avgust 28,").Nth(2).ClickAsync();
         }
 
         protected static async Task OcitajDokument(IPage _page, string tipDokumenta)
@@ -1087,6 +1131,166 @@ namespace UAT
 */
 
         }
+
+
+        protected static async Task<string> OcitajDokument_1(IPage _page, string tipDokumenta)
+        {
+            string tekstNotifikacije = "";
+            int maxPokusaja = 5; // Osiguraj da se test ne zaglavi u petlji
+            int trenutniPokusaj = 0;
+
+            // Lokatori za pop-upove i krstiće. 
+            // Koristi `HasText` ili `Has` za pouzdanost, a ne samo ID.
+            var notifyPopup = _page.Locator("//div[@class='notify greska']");
+
+
+            //var notifikacija2Locator = _page.Locator("//div[@class='notify greska']");
+            //var krstic1Locator = notifyPopup.Locator(".krstic");
+            //var krstic2Locator = notifikacija2Locator.Locator(".krstic");
+
+
+            // Playwright ne blokira izvršavanje ako element nije vidljiv.
+            // Zbog toga je ovo idealno za if-else grananje
+            bool notifikacijaVidljiva = false;
+            //bool notifikacija2Vidljiva = false;
+            while (true)
+            {
+                if (tipDokumenta == "Saobracajna")
+                {
+                    //await _page.GetByRole(AriaRole.Button, new() { Name = "Očitaj saobraćajnu" }).ClickAsync();
+                    await _page.Locator("button").Filter(new() { HasText = "Očitaj saobraćajnu" }).ClickAsync();
+                }
+                else if (tipDokumenta == "Licna1")
+                {
+                    await _page.Locator("#btnOcitajLKUgovarac").GetByRole(AriaRole.Button, new() { Name = "Očitaj ličnu kartu" }).ClickAsync();
+                }
+                else if (tipDokumenta == "Licna2")
+                {
+                    await _page.Locator("#btnOcitajLKKorisnik").GetByRole(AriaRole.Button, new() { Name = "Očitaj ličnu kartu" }).ClickAsync();
+                }
+
+                trenutniPokusaj++;
+                if (trenutniPokusaj > maxPokusaja)
+                {
+                    Assert.Fail("Prekoračen maksimalan broj pokušaja. Nijedna notifikacija nije uspela da se zatvori.");
+                }
+
+                try
+                {
+                    await notifyPopup.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 3000 });
+                    notifikacijaVidljiva = true;
+
+                    //Pojavila se Notifikacija
+                    Console.WriteLine("Pojavila se Notifikacija1. Pokrećem WindowsProgram1.exe i ponavljam akciju.");
+                    // Uzimamo tekst notifikacije
+                    tekstNotifikacije = await notifyPopup.InnerTextAsync();
+
+                    if (tekstNotifikacije.Contains("Servis nije pokrenut"))
+                    {
+
+                        Console.WriteLine("Servis nije pokrenut. Pokrećem CitacEdoc.exe.");
+                        // Pokreće eksterni program
+                        Process.Start(@"C:\Users\bogdan.mandaric\AppData\Local\Apps\2.0\2LRG08ZX.N6J\JO5A516J.KMK\cita..tion_2fca89819740be51_0001.0000_6c66621e7342d7e9\CitacEdoc.exe");
+
+                        // Zatvori pop-up
+                        await _page.GetByText("Servis nije pokrenut!").ClickAsync();
+                        await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                    }
+                    else if (tekstNotifikacije.Contains("U čitaču/ima nije pronađena "))
+                    {
+                        // Akcija 1 ako je prozor otvoren i sadrži tekst
+                        Console.WriteLine("Prozor je otvoren i sadrži očekivani tekst.");
+
+                        // Zatvori pop-up
+                        await _page.GetByText("U čitaču/ima nije pronađena ").ClickAsync();
+                        await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Prozor je otvoren, ali ne sadrži očekivani tekst.");
+                    }
+
+
+                }
+                catch (TimeoutException)
+                {
+                    notifikacijaVidljiva = false;
+                }
+
+                /*
+                try
+                {
+                    await notifikacija2Locator.WaitForAsync(new LocatorWaitForOptions { State = WaitForSelectorState.Visible, Timeout = 3000 });
+                    notifikacija2Vidljiva = true;
+                }
+                catch (TimeoutException)
+                {
+                    notifikacija2Vidljiva = false;
+                }
+                */
+                /*
+                if (notifikacijaVidljiva)
+                {
+                    // Situacija 1: Pojavila se Notifikacija1
+                    Console.WriteLine("Pojavila se Notifikacija1. Pokrećem WindowsProgram1.exe i ponavljam akciju.");
+                    // Uzimamo tekst notifikacije
+                    tekstNotifikacije = await notifyPopup.InnerTextAsync();
+
+                    // Pokreće eksterni program
+                    Process.Start(@"C:\Users\bogdan.mandaric\AppData\Local\Apps\2.0\2LRG08ZX.N6J\JO5A516J.KMK\cita..tion_2fca89819740be51_0001.0000_6c66621e7342d7e9\CitacEdoc.exe");
+                    // Zatvori pop-up
+                    await krstic1Locator.ClickAsync();
+
+                    // Petlja će se ponovo pokrenuti i ponoviti klik na Dugme1
+                }
+                else if (notifikacija2Vidljiva)
+                {
+                    // Situacija 2: Pojavila se Notifikacija2
+                    Console.WriteLine("Pojavila se Notifikacija2. Završavam scenario.");
+
+                    // Zatvori pop-up
+                    await krstic2Locator.ClickAsync();
+
+                    // Izlazi iz petlje jer je scenario završen
+                    //break;
+                }
+                else
+                {
+                    // Situacija 3: Nijedan pop-up se nije pojavio
+                    Console.WriteLine("Nijedan pop-up nije detektovan. Scenario se nastavlja.");
+                    //break; // Izlazi iz petlje da bi nastavio sa daljim testom
+                }
+
+                // Opcija: Dodati kratko čekanje pre sledećeg pokusaja
+                await Task.Delay(500);
+
+
+                // Mesto za dalji kod, npr. asercije
+                //Assert.That(await _page.Locator("#dashboard").IsVisibleAsync(), Is.True);
+
+*/
+                /*
+                            string popupText = await _page.InnerTextAsync("body");
+
+                            if (popupText.Contains("U čitaču/ima nije pronađena "))
+                            {
+                                // Akcija 1 ako je prozor otvoren i sadrži tekst
+                                Console.WriteLine("Prozor je otvoren i sadrži očekivani tekst.");
+
+                                //await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+
+                            }
+
+                            // Akcija 1 ako je prozor otvoren i sadrži tekst
+                            Console.WriteLine("Prozor je otvoren i sadrži očekivani tekst.");
+
+                await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+            */
+
+                return tekstNotifikacije;
+            }
+        }
+
 
         protected static async Task ObradiPomoc(IPage _page, string tipPomoci)
         {
@@ -1674,13 +1878,13 @@ namespace UAT
                 }
 
                 LogovanjeTesta.LogMessage("222222222222222222", false);
-                
+
                 //else
                 //{
                     //Trace.WriteLine($"Pronađena je kontrola: {kontrola} - OK");
                 //    LogovanjeTesta.LogMessage($"✅ Postoji kontrola: {tip} -  {kontrola}.", false);
                 //}
-*********************/
+        *********************/
             }
             catch (Exception ex)
             {
