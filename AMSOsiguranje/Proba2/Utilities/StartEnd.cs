@@ -188,7 +188,7 @@ namespace Proba2
                     // odbijanje kolačića
                     //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne" }).ClickAsync(); 
                 }
-                else if (nazivKlase != "WebShop" || nazivKlase == "WTestDevelopment")
+                else if (nazivKlase != "WebShop" || nazivKlase == "ZTestDevelopment")
                 {
 
                     var korisnici_ = KorisnikLoader.UcitajKorisnike();

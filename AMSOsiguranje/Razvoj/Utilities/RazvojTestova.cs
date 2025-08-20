@@ -2,7 +2,7 @@ namespace Razvoj
 {
     [Parallelizable(ParallelScope.Self)]
     [TestFixture]
-    public class WTestDevelopment : Osiguranje
+    public class ZTestDevelopment : Osiguranje
     {
 
 

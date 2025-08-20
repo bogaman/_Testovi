@@ -9,8 +9,8 @@ set NACIN_POKRETANJA=automatski
 ::set BASE_URL=https://eos.ams.co.rs
 
 ::echo. > Logovi\_log_AO_Proba2.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Proba2.WTestDevelopment... >> Logovi\_log_AO_Proba2.txt
-::dotnet test --filter FullyQualifiedName=Proba2.WTestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Proba2.ZTestDevelopment... >> Logovi\_log_AO_Proba2.txt
+::dotnet test --filter FullyQualifiedName=Proba2.ZTestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
 
 ::echo. > Logovi\_log_AO_Proba2.txt
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Proba2.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_Proba2.txt

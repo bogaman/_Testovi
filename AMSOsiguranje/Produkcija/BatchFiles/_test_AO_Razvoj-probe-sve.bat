@@ -9,8 +9,8 @@ set NACIN_POKRETANJA=automatski
 ::set BASE_URL=https://eos.ams.co.rs
 
 ::echo. > Logovi\_log_AO_Produkcija.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.WTestDevelopment... >> Logovi\_log_AO_Produkcija.txt
-::dotnet test --filter FullyQualifiedName=Produkcija.WTestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.ZTestDevelopment... >> Logovi\_log_AO_Produkcija.txt
+::dotnet test --filter FullyQualifiedName=Produkcija.ZTestDevelopment | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
 ::echo. > Logovi\_log_AO_Produkcija.txt
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_Produkcija.txt
@@ -27,10 +27,10 @@ dotnet test --filter "(FullyQualifiedName~Produkcija.Osiguranje | FullyQualified
 echo ==== TEST ZAVRŠEN ==== >> Logovi\_log_AO_Produkcija.txt
 echo. >> Logovi\_log_AO_Produkcija.txt
 
-::dotnet test --filter "FullyQualifiedName!~Produkcija.WTestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
+::dotnet test --filter "FullyQualifiedName!~Produkcija.ZTestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
 ::# Primer slozenog filtra (ako bi ti zaista trebao):
 ::# Pokreni testove koji su u Osiguranju ILI Web-u, I ISTOVREMENO NISU u TestDevelopmentu
-::dotnet test --filter "(FullyQualifiedName~Produkcija.OsiguranjeVozila | FullyQualifiedName~Produkcija.WebShop) & FullyQualifiedName!~Produkcija.WTestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
+::dotnet test --filter "(FullyQualifiedName~Produkcija.OsiguranjeVozila | FullyQualifiedName~Produkcija.WebShop) & FullyQualifiedName!~Produkcija.ZTestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1
 
 
 ::echo. > Logovi\_log_AO_Produkcija.txt
