@@ -1,9 +1,9 @@
 
-namespace Proba2
+namespace Razvoj
 {
     [TestFixture, Order(2)]
     [Parallelizable(ParallelScope.Self)]
-    public partial class PutnePolise : Osiguranje
+    public partial class PutnePoliseBO : Osiguranje
     {
         #region Testovi
 
@@ -233,7 +233,7 @@ namespace Proba2
                 Trace.WriteLine($"Proveri zašto postoji dugme Štampaj polisu za polisu koja nije kreirana?");
                 if (Okruzenje == "Razvoj")
                 {
-                    grBrojdokumenta = 1565;
+                    grBrojdokumenta = 1566;
                 }
 
                 // Konekcija sa bazom
@@ -309,35 +309,40 @@ namespace Proba2
                 try
                 {
                     await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();
+                    await _page.Locator("button").Filter(new() { HasText = "Otkaži" }).ClickAsync();
+                    await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();
                     await DatumOd(_page, "#cal_calPocetak");
 
-                    //await _page.Locator("#inpJmbg input[type=\"text\"]").ClickAsync();
+
                     await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.ClickAsync();
                     await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.bogdan@mail.eonsystem.com");
                     //await _page.Locator("#inpEmail input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.FillAsync("Kreirano Novo Ime");
                     await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
-                    await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
+                    await _page.GetByText("Podaci uspešno sačuvani").WaitForAsync(new() { Timeout = 4000 });
+                    //await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                     await _page.GetByText("Podaci uspešno sačuvani").ClickAsync();
 
 
                     //Provera da li je poslat mejl ka BO da je polisa izmenjena
                     await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa izmenjena nije poslat.");
 
-                    await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();
 
-                    await _page.Locator("button").Filter(new() { HasText = "Otkaži" }).ClickAsync();
 
                     //provera da li je poslat mejl BO da je polisa kreirana
                     PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
                     //Kreiraj polisu
                     var porukaLocator = _page.Locator("//div[contains(., 'Polisa uspešno kreirana') or contains(., 'INSERT INTO putno_polise')]");
-                    await _page.Locator("button").Filter(new() { HasText = "Kreiraj polisu" }).ClickAsync();
+                    //await _page.PauseAsync();
+                    await _page.Locator("button").Filter(new() { HasText = "Kreiraj polisu" }).First.ClickAsync();
+                    //await _page.Locator("//e-button[@id='createPolicy']//button[@class='left primary flat flex-center-center']").First.ClickAsync();
 
                     // Čekanje na promenu sadržaja
-                    await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
-                    await porukaLocator.WaitForAsync(new() { Timeout = 4000 });
+                    await porukaLocator.WaitForAsync(new() { Timeout = 14000 });
+                    //await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
+
+
 
                     string tekstPoruke = await porukaLocator.InnerTextAsync();
                     if (tekstPoruke.Contains("Polisa uspešno kreirana"))
@@ -367,7 +372,7 @@ namespace Proba2
                         //await _page.WaitForTimeoutAsync(1000);
                         throw (new Exception("Nepoznata greška"));
                     }
-
+                    //await _page.PauseAsync();
                     //await _page.GetByText("Polisa uspešno kreirana").ClickAsync();
 
                 }
@@ -387,7 +392,7 @@ namespace Proba2
 
                 //Provera slanja mejla za kupca
                 PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
                 //Pošalji mejl
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji mejl" }).ClickAsync();
 

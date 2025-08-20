@@ -18,7 +18,8 @@ set NACIN_POKRETANJA=automatski
 
 echo. > Logovi\_log_AO_Produkcija.txt
 echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila... >> Logovi\_log_AO_Produkcija.txt
-dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+dotnet test --filter "(FullyQualifiedName~Produkcija.Osiguranje | FullyQualifiedName~Produkcija.Autoodgovornost | FullyQualifiedName~Produkcija.KaskoOsiguranje | FullyQualifiedName~Produkcija.ZeleniKarton | FullyQualifiedName~Produkcija.JavniSaobracaj | FullyQualifiedName~Produkcija.DelimicniKasko)" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
 ::echo. > Logovi\_log_AO_Produkcija.txt
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Produkcija.txt

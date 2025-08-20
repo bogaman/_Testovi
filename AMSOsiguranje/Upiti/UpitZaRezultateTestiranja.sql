@@ -15,12 +15,13 @@ SELECT *
 				  [StackTrace],
 				  [BackOffice]
   FROM [TestLogDB].[test].[tReportIndividual]
-  --where IdTestiranje = 10
+  --where IdTestiranje = 3
   ORDER BY [IdTestiranje] DESC, [IdTest] ASC;
 
 
   SELECT *
-    FROM [TestLogDB].[test].[tErrorLog]
+    FROM [TestLogDB].[test].[tErrorLog] 
+	--where IdTestiranje = 3
 ORDER BY [IdTestiranje] DESC, [IdGreske] ASC;
 
 

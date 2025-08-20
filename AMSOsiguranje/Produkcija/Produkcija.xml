@@ -35,7 +35,7 @@
             <param name="tipGrida">Tip grida koji se očekuje, npr. "Pregled polisa AO".</param>
             <param name="kolona">Broj kolone na kojoj se primenjuje filter.</param>
             <param name="tipPolja">Tip polja koje se filtrira, Lista ili TekstBoks".</param>
-            <param name="izbor">Indeks izbora u listi (ako je tip polja Lista).</param>
+            <param name="izbor">Indeks izbora u listi (ako je tip polja Lista, inače je =).</param>
             <returns>Ne vraća vrednost</returns>
             <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
         </member>

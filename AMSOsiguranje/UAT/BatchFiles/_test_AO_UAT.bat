@@ -18,7 +18,8 @@ set NACIN_POKRETANJA=automatski
 
 echo. > Logovi\_log_AO_UAT.txt
 echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] UAT.OsiguranjeVozila... >> Logovi\_log_AO_UAT.txt
-dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
+dotnet test --filter "(FullyQualifiedName~UAT.Osiguranje | FullyQualifiedName~UAT.Autoodgovornost | FullyQualifiedName~UAT.KaskoOsiguranje | FullyQualifiedName~UAT.ZeleniKarton | FullyQualifiedName~UAT.JavniSaobracaj | FullyQualifiedName~UAT.DelimicniKasko)" | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
 
 ::echo. > Logovi\_log_AO_UAT.txt
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_UAT.txt

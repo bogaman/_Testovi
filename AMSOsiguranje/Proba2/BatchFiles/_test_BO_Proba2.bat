@@ -23,7 +23,7 @@ REM dotnet test --filter Name=SaViseUlazaka | findstr /i "Passed" >> Logovi\_log
 
 echo. >> Logovi\_log_BO_Proba2.txt
 echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] PutnePolise... >> Logovi\_log_BO_Proba2.txt
-dotnet test --filter FullyQualifiedName=Proba2.PutnePolise >> Logovi\_log_BO_Proba2.txt
+dotnet test --filter FullyQualifiedName=Proba2.PutnePoliseBO >> Logovi\_log_BO_Proba2.txt
 ::echo dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozilaNovi._TestTestova | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
 
 ::PAUSE

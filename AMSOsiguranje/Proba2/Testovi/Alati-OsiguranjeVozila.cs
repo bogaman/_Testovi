@@ -121,6 +121,7 @@ namespace Proba2
                 {
                     "Pregled polisa PZO" => "//e-grid[@id='grid_dokumenti']", //OK
                     "Pregled polisa Kasko Osiguranja" => "//e-grid[@id='grid_dokumenti']",//OK
+                    "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']", //OK
                     "Pregled polisa AO" => "//e-grid[@id='grid_dokumenti']",
                     "Obrasci polisa AO" => "//e-grid[@id='grid_obrasci']",
                     "Dokumenta stroge evidencije za polise AO" => "//e-grid[@id='grid_dokumenti']",
@@ -134,7 +135,6 @@ namespace Proba2
                     "grid Obrasci" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled razdužnih listi za DK" => "//e-grid[@id='grid_dokumenti']",
                     "Pregled razdužnih listi za SE" => "//e-grid[@id='grid_dokumenti']",
-                    "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']",
                     "Produkcija" => "",
                     _ => throw new ArgumentException($"Nepoznato okruženje: {tipGrida}.\nIP adresa servera nije dobro određena."),
                 };
@@ -161,7 +161,7 @@ namespace Proba2
         /// <param name="tipGrida">Tip grida koji se očekuje, npr. "Pregled polisa AO".</param>
         /// <param name="kolona">Broj kolone na kojoj se primenjuje filter.</param>
         /// <param name="tipPolja">Tip polja koje se filtrira, Lista ili TekstBoks".</param>
-        /// <param name="izbor">Indeks izbora u listi (ako je tip polja Lista).</param>
+        /// <param name="izbor">Indeks izbora u listi (ako je tip polja Lista, inače je =).</param>
         /// <returns>Ne vraća vrednost</returns>
         /// <exception cref="Exception">Baca grešku ako dođe do problema prilikom primene filtera.</exception>
         protected static async Task FiltrirajGrid(IPage _page, string kriterijum, string tipGrida, int kolona, string tipPolja, int izbor)
