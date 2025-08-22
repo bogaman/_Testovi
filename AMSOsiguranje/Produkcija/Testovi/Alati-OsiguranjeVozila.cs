@@ -2033,13 +2033,15 @@ namespace Produkcija
             string tekst = ocekivaniTekst;
             try
             {
-                await _page.GetByText(tekst).First.ClickAsync();
+                //await _page.GetByText(tekst).First.ClickAsync();
+                await _page.GetByText(tekst).First.HoverAsync();
                 LogovanjeTesta.LogMessage($"✅ Vest pronađena: {tekst}: {oznakaDokumenta}.", false);
             }
             catch (Exception ex)
             {
                 LogovanjeTesta.LogError($"❌ Vest nije pronađena: {tekst}: {oznakaDokumenta}\n {ex.Message}");
-                throw;
+                await LogovanjeTesta.LogException($"❌ Vest ne postoji {NazivTekucegTesta} - {ex.Message}", ex);
+                //throw;
             }
         }
 

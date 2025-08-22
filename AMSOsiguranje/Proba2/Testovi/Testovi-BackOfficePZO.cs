@@ -83,7 +83,7 @@ namespace Proba2
         }
 
         [Test, Order(102)]
-        public async Task BO_2_PregledIzmenaPolisePZO()
+        public async Task BO_02_PregledIzmenaPolisePZO()
         {
             try
             {
@@ -201,7 +201,7 @@ namespace Proba2
 
 
         [Test, Order(103)]
-        public async Task BO_3_KreiranjePolisePZO()
+        public async Task BO_03_KreiranjePolisePZO()
         {
             try
             {

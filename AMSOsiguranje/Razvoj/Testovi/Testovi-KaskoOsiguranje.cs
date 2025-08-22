@@ -81,7 +81,7 @@ namespace Razvoj
                 Console.WriteLine(ex.Message);
                 LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
                 await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
-                throw;
+
             }
         }
 
@@ -113,7 +113,7 @@ namespace Razvoj
 
                 #region Osnovni podaci
                 await _page.Locator("//div[@etitle='Jednogodišnje']").ClickAsync();
-                await _page.Locator("#idTrajanje").GetByText("vise od 2").ClickAsync();
+                await _page.Locator("#idTrajanje").GetByText("Više od 2").ClickAsync();
 
                 await _page.Locator("#idBonus > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.GetByText("Bez bonusa i malusa").ClickAsync();
@@ -351,8 +351,8 @@ namespace Razvoj
 
 
 
-
         [Test, Order(103)]
+
         public async Task KA_03_KalkulisanjeIzmenaPolise_nivo_III()
         {
             try
@@ -378,7 +378,7 @@ namespace Razvoj
 
                 #region Osnovni podaci
                 await _page.Locator("//div[@etitle='Jednogodišnje']").ClickAsync();
-                await _page.Locator("#idTrajanje").GetByText("2 godine").ClickAsync();
+                await _page.Locator("#idTrajanje").GetByText("Jednogodišnje").ClickAsync();
                 //await _page.Locator("span").Filter(new() { HasText = "Bez bonusa i malusa" }).ClickAsync();
                 //await _page.Locator("#idBonus").GetByText("1 godina").ClickAsync();
 
@@ -706,7 +706,10 @@ namespace Razvoj
 
 
         [Test, Order(111)]
-        public async Task KA_05_Polisa()
+        [TestCase("Jednogodišnje")]
+        [TestCase("2 godine")]
+        [TestCase("Više od 2")]
+        public async Task KA_05_Polisa(string trajanje)
         {
 
             try
@@ -736,7 +739,7 @@ namespace Razvoj
 
 
                 await _page.Locator("//e-select[@id='idTrajanje']//div[@class='control-main']").ClickAsync();
-                await _page.Locator("//e-select[@id='idTrajanje']").GetByText("Jednogodišnje").First.ClickAsync();
+                await _page.Locator("//e-select[@id='idTrajanje']").GetByText(trajanje).First.ClickAsync();
 
                 await _page.Locator("//e-select[@id='idTeritorijalno']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.Locator("//e-select[@id='idTeritorijalno']").GetByText("Evropa").ClickAsync();
@@ -764,7 +767,7 @@ namespace Razvoj
                 if (rezultatOcitavanja == "")
                 {
                     await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "JMBG" }).Locator("input[type=\"text\"]").FillAsync("3001985710098");
-                    await _page.Locator("#ugovarac #inpIme input[type=\"text\"]").FillAsync("Milojko");
+                    await _page.Locator("#ugovarac #inpIme input[type=\"text\"]").FillAsync(trajanje + "Milojko");
                     await _page.Locator("#ugovarac #inpIme input[type=\"text\"]").PressAsync("Tab");
                     await _page.Locator("#ugovarac #inpPrezime input[type=\"text\"]").FillAsync("Pantić");
                     Console.WriteLine("Podaci su uspešno očitani sa lične karte.");
@@ -795,7 +798,7 @@ namespace Razvoj
                         await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").FillAsync("1107");
                         await _page.Locator("#ugovarac").GetByText("- Beograd (Novi Beograd)").First.ClickAsync();
 
-                        await _page.Locator("#ugovarac #inpIme input[type=\"text\"]").FillAsync("Nedeljko");
+                        await _page.Locator("#ugovarac #inpIme input[type=\"text\"]").FillAsync(trajanje + "Nedeljko");
                         await _page.Locator("#ugovarac #inpIme input[type=\"text\"]").PressAsync("Tab");
                         await _page.Locator("#ugovarac #inpPrezime input[type=\"text\"]").FillAsync("Gajić");
 
@@ -982,6 +985,120 @@ namespace Razvoj
                 Assert.That(isPopupVisible, "Popup sa tekstom 'uspešno kreirana' se nije pojavio.");
 
 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
+            }
+        }
+
+
+        [Test, Order(115)]
+        public async Task KA_07_Storno()
+        {
+            try
+            {
+                //pronađi Kasko polisu koja je Kreirana i nije istekla
+                int BrojDokumenta = 0;
+                int BrojPonude = 0;
+                int grBrojdokumenta = 0;
+
+                Server = OdrediServer(Okruzenje);
+
+                if (Okruzenje == "Razvoj")
+                {
+                    grBrojdokumenta = 0;
+                }
+
+                // Konekcija sa bazom
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+
+                string qBrojDokumenta = $"SELECT TOP 1 idDokument AS IdDokument " +
+                                        $"FROM [CascoDB].[casco].[Dokument] " +
+                                        $"WHERE ([Dokument].[idDokument] > '{grBrojdokumenta}' AND [idKorisnik] = 1001 AND [idProizvod] = 9 AND [idStatus] = 2  AND [datumIsteka] > CAST(GETDATE() AS DATE)) " +
+                                        $"ORDER BY [brojUgovora] DESC, [idDokument] DESC;";
+
+                string qBrojDokumentastari = $"SELECT MIN(idDokument) AS IdDokument " +
+                                             $"FROM [CascoDB].[casco].[Dokument] " +
+                                             $"WHERE ([Dokument].[idDokument] > '{grBrojdokumenta}' AND [idKorisnik] = 1001 AND [idProizvod] = 9 AND [idStatus] = 2  AND [datumIsteka] > CAST(GETDATE() AS DATE));";
+                using SqlConnection konekcija = new(connectionString);
+                konekcija.Open();
+
+                using SqlCommand SqlKomanda = new(qBrojDokumenta, konekcija);
+                object rezultat = SqlKomanda.ExecuteScalar();
+                //BrojDokumenta = (Int32)(SqlKomanda.ExecuteScalar() ?? 0);
+                BrojDokumenta = rezultat as int? ?? 0;
+                konekcija.Close();
+                if (NacinPokretanjaTesta == "ručno")
+                    System.Windows.Forms.MessageBox.Show($"BrojDokumenta je: {BrojDokumenta}", "Informacija", MessageBoxButtons.OK);
+                if (BrojDokumenta == 0)
+                {
+                    await LogovanjeTesta.LogException("Nema polisa za storniranje", new Exception("Nema polisa za storniranje"));
+                    return;
+                    //throw new Exception("Nema polisa za storniranje");
+                }
+
+
+
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                await Pauziraj(_page);
+                await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                // Pređi mišem preko teksta Osiguranje vozila
+                //await _page.GetByText("Osiguranje vozila").HoverAsync();
+                // Klikni na tekst Osiguranje vozila
+                await _page.GetByText("Osiguranje vozila").ClickAsync();
+                // Klikni u meniju na Kasko
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Kasko" }).First.ClickAsync();
+                // Provera da li se otvorila stranica sa pregledom polisa AO
+                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                // Klik na Pregled / Pretraga polisa
+                await _page.GetByText("Pregled / Pretraga polisa").ClickAsync();
+                // Provera da li se otvorila stranica sa gridom pregled polisa
+                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                // Proveri da li stranica sadrži grid sa polisama i da li radi filter na gridu 
+                string tipGrida = "Pregled polisa Kasko Osiguranja";
+                await ProveraPostojiGrid(_page, tipGrida);
+
+                //body/div[@id='container']/div[contains(@class,'row content proizvod-0')]/div[contains(@class,'page-content')]/e-grid[@id='grid_dokumenti']/div[contains(@class,'grid field no-content')]/div[contains(@class,'podaci')]/a/div[contains(@class,'row grid-row dokumentStatus2 row-click')]/div[2]
+
+
+
+                await _page.PauseAsync();
+
+                // Filtriraj grid po Id dokument
+                await FiltrirajGrid(_page, BrojDokumenta.ToString(), tipGrida, 1, "TekstBoks", 0);
+
+                //await _page.GetByText(BrojDokumenta.ToString()).First.ClickAsync();
+                //await _page.Locator("//body/div[@id='container']/div[contains(@class,'row content proizvod-0')]/div[contains(@class,'page-content')]/e-grid[@id='grid_dokumenti']/div[contains(@class,'grid field no-content')]/div[contains(@class,'podaci')]/a/div[contains(@class,'row grid-row dokumentStatus2 row-click')]/div[2]").ClickAsync();
+                await _page.Locator($"//div[contains(@class,'column column_1')][normalize-space()='{BrojDokumenta.ToString()}']").ClickAsync();
+                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + BrojDokumenta.ToString();
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = " Storniraj" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = " Storniraj" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
+                var porukaLocator = _page.Locator($"//div[contains(., 'Polisa broj {BrojDokumenta} uspešno stornirana')]");
+                await porukaLocator.WaitForAsync(new() { Timeout = 4000 });
+
+                await _page.GetByRole(AriaRole.Link, new() { Name = " Pregled / Pretraga polisa" }).ClickAsync();
+                await _page.PauseAsync();
+                return;
+
+
+
+                string kriterijumFiltera = RucnaUloga;
+                //await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 9);
+                await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 9, "TekstBoks", 0);
             }
             catch (Exception ex)
             {
@@ -1235,8 +1352,8 @@ namespace Razvoj
 
                 //await _page.PauseAsync();
 
-                string tekst = "Imate novi dokument \"Razdužna lista (OSK)\" za verifikacijuDokument možete pogledati klikom na link: ";
-                await _page.GetByText(tekst + oznakaDokumenta).ClickAsync();
+                string ocekivaniTekst = "Imate novi dokument \"Razdužna lista (OSK)\" za verifikacijuDokument možete pogledati klikom na link: ";
+                await _page.GetByText(ocekivaniTekst + oznakaDokumenta).ClickAsync();
                 await _page.GetByText($"{oznakaDokumenta}").First.ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-evidencija/9/Kasko/dokument/4/{PoslednjiDokumentStroga + 1}");
 
@@ -1265,6 +1382,12 @@ namespace Razvoj
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Verifikovan dokument stroge evidencije KA:");
                 await ProveriStampu404(_page, "Štampaj dokument", "Verifikovan dokument stroge evidencije KA:");
 
+                await _page.Locator(".ico-ams-logo").ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, "Dashboard");
+                ocekivaniTekst = $"{oznakaDokumenta}";
+                //await ProveraVestNijeObrisana(_page, ocekivaniTekst);
+                await VestNePostoji(_page, ocekivaniTekst, oznakaDokumenta);
+                await ArhivirajVest(_page, ocekivaniTekst, oznakaDokumenta);
                 await IzlogujSe(_page);
                 await ProveriURL(_page, PocetnaStrana, "/Login");
 

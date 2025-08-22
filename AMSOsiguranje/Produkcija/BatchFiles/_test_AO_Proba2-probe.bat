@@ -16,30 +16,13 @@ set NACIN_POKRETANJA=automatski
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_Produkcija.txt
 ::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 
-
-echo ==== TEST POKRETANJE %DATE% %TIME% ==== >> Logovi\_log_AO_Produkcija.txt
-::dotnet test --filter "(FullyQualifiedName~Produkcija.Osiguranje | FullyQualifiedName~Produkcija.Web)" >> Logovi\_log_AO_Produkcija.txt 2>&1
-
-
-
-
-
-
 echo. > Logovi\_log_AO_Produkcija.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila... >> Logovi\_log_AO_Produkcija.txt
-::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-dotnet test --filter FullyQualifiedName=Produkcija.Osiguranje | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-dotnet test --filter FullyQualifiedName=Produkcija.Autoodgovornost | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-dotnet test --filter FullyQualifiedName=Produkcija.ZeleniKarton | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-dotnet test --filter FullyQualifiedName=Produkcija.JavniSaobracaj | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-dotnet test --filter FullyQualifiedName=Produkcija.DelimicniKasko | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-dotnet test --filter FullyQualifiedName=Produkcija.KaskoOsiguranje | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-echo ==== TEST ZAVRŠEN ==== >> Logovi\_log_AO_Produkcija.txt
-echo. >> Logovi\_log_AO_Produkcija.txt
-::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
-::dotnet test --filter "(FullyQualifiedName~Produkcija.Osiguranje | FullyQualifiedName~Produkcija.Autoodgovornost | FullyQualifiedName~Produkcija.KaskoOsiguranje | FullyQualifiedName~Produkcija.ZeleniKarton | FullyQualifiedName~Produkcija.JavniSaobracaj | FullyQualifiedName~Produkcija.DelimicniKasko)" | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Produkcija.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Produkcija.txt
+::dotnet test --filter FullyQualifiedName=Produkcija.PutnePolise.BO_2_PregledIzmenaPolisePZO >> Logovi\_log_BO_Produkcija.txt
+dotnet test --filter FullyQualifiedName=Produkcija.PutnePolise.BO_3_KreiranjePolisePZO >> Logovi\_log_BO_Produkcija.txt
 
-::echo. > Logovi\_log_AO_Produkcija.txt
+
+::echo. > Logovi\_log_AO_Produkcija.txt 
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Produkcija.txt
 ::dotnet test --filter FullyQualifiedName=Produkcija.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_Produkcija.txt 2>&1 
 

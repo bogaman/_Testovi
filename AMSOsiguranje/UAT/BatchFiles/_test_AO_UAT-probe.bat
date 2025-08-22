@@ -16,38 +16,13 @@ set NACIN_POKRETANJA=automatski
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] UAT.OsiguranjeVozila.AO_4_Polisa... >> Logovi\_log_AO_UAT.txt
 ::dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
 
-::echo. > Logovi\_log_AO_UAT.txt
-::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] UAT.OsiguranjeVozila.PutnePolise... >> Logovi\_log_AO_UAT.txt
-::dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-::dotnet test --filter "(FullyQualifiedName~UAT.OsiguranjeVozila | FullyQualifiedName~UAT.WebShop)" | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1
-::dotnet test --filter "(FullyQualifiedName~UAT.OsiguranjeVozila | FullyQualifiedName~UAT.WebShop)" >> Logovi\_log_AO_UAT.txt 2>&1
-
-echo ==== TEST POKRETANJE %DATE% %TIME% ==== >> Logovi\_log_AO_UAT.txt
-::dotnet test --filter "(FullyQualifiedName~UAT.Osiguranje | FullyQualifiedName~UAT.Web)" >> Logovi\_log_AO_UAT.txt 2>&1
-
-
-
-
-echo ==== TEST ZAVRŠEN ==== >> Logovi\_log_AO_UAT.txt
-echo. >> Logovi\_log_AO_UAT.txt
-
 echo. > Logovi\_log_AO_UAT.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] UAT.OsiguranjeVozila... >> Logovi\_log_AO_UAT.txt
-::dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-dotnet test --filter FullyQualifiedName=UAT.Osiguranje | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-dotnet test --filter FullyQualifiedName=UAT.Autoodgovornost | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-dotnet test --filter FullyQualifiedName=UAT.ZeleniKarton | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-dotnet test --filter FullyQualifiedName=UAT.JavniSaobracaj | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-dotnet test --filter FullyQualifiedName=UAT.DelimicniKasko | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-dotnet test --filter FullyQualifiedName=UAT.KaskoOsiguranje | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
-
-::dotnet test --filter "FullyQualifiedName!~UAT.ZTestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1
-::# Primer slozenog filtra (ako bi ti zaista trebao):
-::# Pokreni testove koji su u Osiguranju ILI Web-u, I ISTOVREMENO NISU u TestDevelopmentu
-::dotnet test --filter "(FullyQualifiedName~UAT.OsiguranjeVozila | FullyQualifiedName~UAT.WebShop) & FullyQualifiedName!~UAT.ZTestDevelopment" | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] UAT.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_UAT.txt
+::dotnet test --filter FullyQualifiedName=UAT.PutnePolise.BO_2_PregledIzmenaPolisePZO >> Logovi\_log_BO_UAT.txt
+dotnet test --filter FullyQualifiedName=UAT.PutnePolise.BO_3_KreiranjePolisePZO >> Logovi\_log_BO_UAT.txt
 
 
-::echo. > Logovi\_log_AO_UAT.txt
+::echo. > Logovi\_log_AO_UAT.txt 
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_UAT.txt
 ::dotnet test --filter FullyQualifiedName=UAT.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_UAT.txt 2>&1 
 
