@@ -378,7 +378,7 @@ namespace Razvoj
 
                 #region Osnovni podaci
                 await _page.Locator("//div[@etitle='Jednogodišnje']").ClickAsync();
-                await _page.Locator("#idTrajanje").GetByText("Jednogodišnje").ClickAsync();
+                await _page.Locator("#idTrajanje").GetByText("Jednogodišnje").First.ClickAsync();
                 //await _page.Locator("span").Filter(new() { HasText = "Bez bonusa i malusa" }).ClickAsync();
                 //await _page.Locator("#idBonus").GetByText("1 godina").ClickAsync();
 
@@ -554,6 +554,7 @@ namespace Razvoj
                 //Proveri štampu zapisnika
                 await ProveriStampu404(_page, "Štampaj zapisnik", "Štampa zapisnika polise kasko osiguranja");
 
+                await _page.PauseAsync();
                 //Finansijska analitika
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Finansijska analitika" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Plan otplate" }).ClickAsync();
@@ -946,6 +947,22 @@ namespace Razvoj
                 // Assert.That(isPopupVisible, "Popup sa tekstom 'uspešno' se nije pojavio.");
 
                 //await _page.PauseAsync();
+
+                //Info ponuda
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = " Izmeni" }).ClickAsync();
+                await _page.Locator(".no-content > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.Locator("e-tab-group").GetByText("učešće 10% min. 300€").ClickAsync();
+                await _page.Locator("e-tab-group").GetByText("učešće 10% min. 500€").ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = " Snimi i kalkuliši" }).ClickAsync();
+                await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
+                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + (PoslednjiBrojDokumenta + 1).ToString());
+                await _page.GetByText("Podaci uspešno snimljeni").ClickAsync();
+
+
+                await ProveriStampu404(_page, "Štampaj info ponudu", "Štampa info ponude polise kasko osiguranja");
+
+
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Kreiraj polisu" }).ClickAsync();
 
                 await _page.GetByText("Da li ste sigurni da želite").ClickAsync();
