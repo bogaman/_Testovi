@@ -113,7 +113,15 @@ namespace Razvoj
 
                 #region Osnovni podaci
                 await _page.Locator("//div[@etitle='Jednogodišnje']").ClickAsync();
-                await _page.Locator("#idTrajanje").GetByText("Više od 2").ClickAsync();
+                if (Okruzenje == "UAT")
+                {
+                    await _page.Locator("#idTrajanje").GetByText("vise od 2").ClickAsync();
+                }
+                else
+                {
+                    await _page.Locator("#idTrajanje").GetByText("Više od 2").ClickAsync();
+                }
+
 
                 await _page.Locator("#idBonus > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.GetByText("Bez bonusa i malusa").ClickAsync();
@@ -738,6 +746,10 @@ namespace Razvoj
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "pretraži" }).FillAsync("11070");
                 await _page.Locator("#selMestaIzdavanja").GetByText("11070 - Beograd (Novi Beograd)").ClickAsync();
 
+                if (Okruzenje == "Više od 2" && trajanje == "Više od 2")
+                {
+                    trajanje = "vise od 2";
+                }
 
                 await _page.Locator("//e-select[@id='idTrajanje']//div[@class='control-main']").ClickAsync();
                 await _page.Locator("//e-select[@id='idTrajanje']").GetByText(trajanje).First.ClickAsync();
