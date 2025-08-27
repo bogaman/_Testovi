@@ -17,11 +17,17 @@ set NACIN_POKRETANJA=automatski
 ::dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila.AO_4_Polisa | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
 
 echo. > Logovi\_log_AO_Proba2.txt
-echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Proba2.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Proba2.txt
-::dotnet test --filter FullyQualifiedName=Proba2.PutnePolise.BO_2_PregledIzmenaPolisePZO >> Logovi\_log_BO_Proba2.txt
-dotnet test --filter FullyQualifiedName=Proba2.PutnePolise.BO_3_KreiranjePolisePZO >> Logovi\_log_BO_Proba2.txt
-
-
+echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Proba2.OsiguranjeVozila... >> Logovi\_log_AO_Proba2.txt
+::dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Proba2.Osiguranje | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Proba2.Autoodgovornost | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Proba2.ZeleniKarton | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Proba2.JavniSaobracaj | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Proba2.DelimicniKasko | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Proba2.KaskoOsiguranje | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+dotnet test --filter FullyQualifiedName=Proba2.PutnePoliseBO | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+echo ==== TEST ZAVRŠEN ==== >> Logovi\_log_AO_Proba2.txt
+echo. >> Logovi\_log_AO_Proba2.txt
 ::echo. > Logovi\_log_AO_Proba2.txt 
 ::echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] AO_3_SE_UlazPrenosObrazaca... >> Logovi\_log_AO_Proba2.txt
 ::dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila.AO_3_SE_UlazPrenosObrazaca | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 

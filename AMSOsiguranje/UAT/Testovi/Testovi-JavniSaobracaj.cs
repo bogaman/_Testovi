@@ -2,7 +2,7 @@
 
 namespace UAT
 {
-    [TestFixture, Order(3)]
+    [TestFixture, Order(5)]
     [Parallelizable(ParallelScope.Self)]
     public partial class JavniSaobracaj : Osiguranje
     {
@@ -15,7 +15,7 @@ namespace UAT
 
 
 
-        [Test, Order(1)]
+        [Test, Order(501)]
         public async Task JS_1_SE_PregledPretragaRazduznihListi()
         {
 
@@ -192,7 +192,7 @@ namespace UAT
         }
 
 
-        [Test, Order(5)]
+        [Test, Order(502)]
         public async Task JS_2_Polisa()
         {
             try
@@ -755,7 +755,7 @@ namespace UAT
 
         }
 
-        [Test, Order(8)]
+        [Test, Order(503)]
         public async Task JS_6_RazduznaLista()
         {
 

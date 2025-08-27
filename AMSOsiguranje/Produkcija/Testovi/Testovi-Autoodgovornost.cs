@@ -2,7 +2,7 @@
 
 namespace Produkcija
 {
-    [TestFixture, Order(1)]
+    [TestFixture, Order(3)]
     [Parallelizable(ParallelScope.Self)]
     public partial class Autoodgovornost : Osiguranje
     {
@@ -455,7 +455,7 @@ namespace Produkcija
             }
         }
 
-        [Test]
+        [Test, Order(104)]
         public async Task AO_03_SE_PregledPretragaObrazaca()
         {
             try
@@ -603,7 +603,7 @@ namespace Produkcija
             }
         }
 
-        [Test]
+        [Test, Order(105)]
         public async Task AO_03_SE_PregledPretragaDokumenata()
         {
             try
@@ -776,7 +776,7 @@ namespace Produkcija
 
         }
 
-        [Test]
+        [Test, Order(106)]
         public async Task AO_04_SE_UlazObrazaca()
         {
             try
@@ -1495,7 +1495,7 @@ namespace Produkcija
 
 
 
-        [Test]
+        [Test, Order(107)]
         public async Task AO_05_SE_PrenosObrazaca()
         {
             try
@@ -2124,7 +2124,7 @@ namespace Produkcija
             }
         }
 
-        [Test]
+        [Test, Order(108)]
         [TestCaseSource(nameof(ProcitajPodatkeZaPolisuAutoodgovornost))]
         public async Task AO_06_Polisa(string _rb, string _tipPolise, string _premijskaGrupa, string _popusti, string _tipUgovaraca, string _tipLica1, string _tipLica2, string _brojDana, string _tegljac, string _podgrupa, string _zapremina, string _snaga, string _nosivost, string _brojMesta, string _oslobodjenPoreza, string _mb1, string _mb2, string _pib1, string _pib2, string _platilac1, string _platilac2)
         {
@@ -3297,7 +3297,7 @@ namespace Produkcija
             }
         }
 
-        [Test]
+        [Test, Order(109)]
         public async Task AO_07_PregledZahtevaZaIzmenomPolisaAO()
         {
             if (_page == null)
@@ -3628,7 +3628,7 @@ namespace Produkcija
 
 
 
-        [Test]
+        [Test, Order(110)]
         public async Task AO_08_ZahtevZaIzmenu_Podaci()
         {
             if (_page == null)
@@ -3960,7 +3960,7 @@ namespace Produkcija
         }
 
 
-        [Test]
+        [Test, Order(111)]
         public async Task AO_09_ZahtevZaIzmenu_PremijskiStepen()
         {
             if (_page == null)
@@ -4280,7 +4280,7 @@ namespace Produkcija
 
 
 
-        [Test]
+        [Test, Order(112)]
         public async Task AO_10_RazduznaLista()
         {
             try
@@ -4485,7 +4485,7 @@ namespace Produkcija
         }
 
 
-        [Test]
+        [Test, Order(113)]
         public async Task AO_11_Otpis()
         {
             try
@@ -4775,7 +4775,7 @@ namespace Produkcija
         }
 
 
-        [Test]
+        [Test, Order(114)]
         public async Task AO_12_InformativnoKalkulisanje()
         {
             try
@@ -4859,10 +4859,6 @@ namespace Produkcija
                 throw;
             }
         }
-
-
-
-
 
 
         #endregion Testovi

@@ -122,6 +122,7 @@ namespace Razvoj
                     "Pregled polisa PZO" => "//e-grid[@id='grid_dokumenti']", //OK
                     "Pregled polisa Kasko Osiguranja" => "//e-grid[@id='grid_dokumenti']",//OK
                     "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']", //OK
+                    "Zahtevi za izmenu jedne kasko polise" => "//div[@class='pregled-zahteva-dole']",
                     "Pregled polisa AO" => "//e-grid[@id='grid_dokumenti']",
                     "Obrasci polisa AO" => "//e-grid[@id='grid_obrasci']",
                     "Dokumenta stroge evidencije za polise AO" => "//e-grid[@id='grid_dokumenti']",
@@ -823,7 +824,9 @@ namespace Razvoj
                 konekcija.Open();
                 using (SqlCommand command = new(qPoslednjiDokumentKasko, konekcija))
                 {
-                    PoslednjiDokumentKasko = (int)command.ExecuteScalar();
+                    object rezultat = command.ExecuteScalar();
+                    PoslednjiDokumentKasko = rezultat as int? ?? 0;
+                    //PoslednjiDokumentKasko = (int)command.ExecuteScalar();
                 }
                 konekcija.Close();
             }
@@ -834,7 +837,9 @@ namespace Razvoj
                 konekcija.Open();
                 using (SqlCommand command = new(qPoslednjiDokumentKaskoMtplHistory, konekcija))
                 {
-                    PoslednjiDokumentKaskoHistory = (int)command.ExecuteScalar();
+                    object rezultat = command.ExecuteScalar();
+                    //PoslednjiDokumentKaskoHistory = (int)command.ExecuteScalar();
+                    PoslednjiDokumentKaskoHistory = rezultat as int? ?? 0;
                 }
                 konekcija.Close();
             }

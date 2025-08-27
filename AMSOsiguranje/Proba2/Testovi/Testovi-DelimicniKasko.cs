@@ -2,7 +2,7 @@
 
 namespace Proba2
 {
-    [TestFixture, Order(8)]
+    [TestFixture, Order(6)]
     [Parallelizable(ParallelScope.Self)]
     public partial class DelimicniKasko : Osiguranje
     {
@@ -14,7 +14,7 @@ namespace Proba2
 
 
 
-        [Test]
+        [Test, Order(601)]
         public async Task DK_1_SE_PregledPretragaRazduznihListi()
         {
 
@@ -190,7 +190,7 @@ namespace Proba2
 
 
 
-        [Test]
+        [Test, Order(602)]
         public async Task DK_2_Polisa()
         {
             try
@@ -472,7 +472,7 @@ namespace Proba2
 
         }
 
-        [Test]
+        [Test, Order(603)]
         public async Task DK_6_SE_RazduznaLista()
         {
 

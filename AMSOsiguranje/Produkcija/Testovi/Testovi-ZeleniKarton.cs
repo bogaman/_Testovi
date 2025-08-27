@@ -2,7 +2,7 @@
 
 namespace Produkcija
 {
-    [TestFixture, Order(2)]
+    [TestFixture, Order(4)]
     [Parallelizable(ParallelScope.Self)]
     public partial class ZeleniKarton : Osiguranje
     {
@@ -12,10 +12,9 @@ namespace Produkcija
         #region Testovi
 
 
-        [Test, Order(1)]
+        [Test, Order(401)]
         public async Task ZK_1_SE_PregledPretragaObrazaca()
         {
-
             try
             {
                 if (_page == null)
@@ -172,7 +171,7 @@ namespace Produkcija
         }
 
 
-        [Test, Order(3)]
+        [Test, Order(402)]
         public async Task ZK_2_SE_PregledPretragaDokumenata()
         {
             try
@@ -343,7 +342,7 @@ namespace Produkcija
             }
         }
 
-        [Test, Order(5)]
+        [Test, Order(403)]
         public async Task ZK_3_SE_UlazPrenosObrazaca()
         {
 
@@ -627,7 +626,7 @@ namespace Produkcija
         }
 
 
-        [Test, Order(8)]
+        [Test, Order(404)]
         public async Task ZK_4_Polisa()
         {
 
@@ -891,7 +890,7 @@ namespace Produkcija
         }
 
 
-        [Test, Order(10)]
+        [Test, Order(405)]
         public async Task ZK_6_RazduznaLista()
         {
 
@@ -1058,7 +1057,7 @@ namespace Produkcija
 
 
 
-        [Test, Order(15)]
+        [Test, Order(406)]
         public async Task ZK_7_Otpis()
         {
 

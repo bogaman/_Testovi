@@ -1,10 +1,10 @@
 namespace Proba2
 {
-    [TestFixture, Order(3)]
+    [TestFixture, Order(1)]
     [Parallelizable(ParallelScope.Self)]
     public partial class WebShop : Osiguranje
     {
-        [Test, Order(1)]
+        [Test, Order(101)]
         public async Task IndividualnoPutno()
         {
             try
@@ -70,7 +70,7 @@ namespace Proba2
                                      "Petar-DaCovid", "IndividualniPetrović",
                                      "2612962710096", "Japanska", "442",
                                      "111", "- Rušanj", "Pasoš br. 1",
-                                     "+381123456789", "amso.bogdan@mail.eonsystem.com");
+                                     "+381123456789", "amso.mario@mail.eonsystem.com");
 
                 //Ugovarač je osigurano lice i prekopiraj podatke
                 await UgovaracJeOsiguranoLice(_page);
@@ -116,7 +116,7 @@ namespace Proba2
             }
         }
 
-        [Test, Order(2)]
+        [Test, Order(102)]
         public async Task PorodicnoPutno()
         {
             try
@@ -183,7 +183,7 @@ namespace Proba2
                                      "Mitar-NoCovid", "PorodičnoMirić",
                                      "2612962710096", "Kojekude", "100",
                                      "111", "- Kaluđerica", "Pasoš br. 123",
-                                     "+3819876543216789", "amso.bogdan@mail.eonsystem.com");
+                                     "+3819876543216789", "amso.mario@mail.eonsystem.com");
 
                 //Ugovarač je osigurano lice i prekopiraj podatke
                 await UgovaracJeOsiguranoLice(_page);
@@ -235,7 +235,7 @@ namespace Proba2
 
         }
 
-        [Test, Order(3)]
+        [Test, Order(103)]
         public async Task SaViseUlazaka()
         {
             try
@@ -304,7 +304,7 @@ namespace Proba2
                                      "Zoki-DaCovid", "VišeUlazaka Zorić",
                                      "2612962710096", "Kineska", "bb",
                                      "111", "- Rušanj", "Pasoš br. 333",
-                                     "+381123456789", "amso.bogdan@mail.eonsystem.com");
+                                     "+381123456789", "amso.mario@mail.eonsystem.com");
 
                 //Ugovarač je osigurano lice i prekopiraj podatke
                 await UgovaracJeOsiguranoLice(_page);
@@ -358,7 +358,7 @@ namespace Proba2
 
         }
 
-        [Test, Order(4)]
+        [Test, Order(104)]
         public async Task IndividualnoPutno_nedovrsena()
         {
             try
@@ -424,7 +424,7 @@ namespace Proba2
                                      "Petar-DaCovid", "IndividualniPetrović",
                                      "2612962710096", "Japanska", "442",
                                      "111", "- Rušanj", "Pasoš br. 1",
-                                     "+381123456789", "amso.bogdan@mail.eonsystem.com");
+                                     "+381123456789", "amso.mario@mail.eonsystem.com");
 
                 //Ugovarač je osigurano lice i prekopiraj podatke
                 await UgovaracJeOsiguranoLice(_page);

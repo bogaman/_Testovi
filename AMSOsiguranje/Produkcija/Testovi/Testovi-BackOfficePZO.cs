@@ -7,7 +7,7 @@ namespace Produkcija
     {
         #region Testovi
 
-        [Test, Order(101)]
+        [Test, Order(201)]
         public async Task BO_01_PretragaPolisaPZO()
         {
             try
@@ -82,7 +82,7 @@ namespace Produkcija
 
         }
 
-        [Test, Order(102)]
+        [Test, Order(202)]
         public async Task BO_02_PregledIzmenaPolisePZO()
         {
             try
@@ -155,7 +155,7 @@ namespace Produkcija
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(2) > .editabilno > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(2) > .editabilno > .control-wrapper > .control > .control-main > .input").First.FillAsync("IzmenaPrezime" + DateTime.Now.ToString());
                     await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.ClickAsync();
-                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.bogdan@mail.eonsystem.com");
+                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.mario@mail.eonsystem.com");
                     await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
                     await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                     await _page.GetByText("Podaci uspešno sačuvani").ClickAsync();
@@ -200,7 +200,7 @@ namespace Produkcija
         }
 
 
-        [Test, Order(103)]
+        [Test, Order(203)]
         public async Task BO_03_KreiranjePolisePZO()
         {
             try
@@ -315,8 +315,8 @@ namespace Produkcija
 
 
                     await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.ClickAsync();
-                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.bogdan@mail.eonsystem.com");
-                    //await _page.Locator("#inpEmail input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
+                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.mario@mail.eonsystem.com");
+                    //await _page.Locator("#inpEmail input[type=\"text\"]").FillAsync("amso.mario@mail.eonsystem.com");
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.FillAsync("Kreirano Novo Ime");
                     await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
@@ -648,7 +648,7 @@ namespace Produkcija
                         await _page.Locator("#inpJmbg input[type=\"text\"]").PressAsync("ArrowRight");
                         await _page.Locator("#inpJmbg input[type=\"text\"]").PressAsync("ArrowRight");
                         await _page.Locator("#inpJmbg input[type=\"text\"]").PressAsync("ArrowRight");
-                        await _page.Locator("#inpJmbg input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
+                        await _page.Locator("#inpJmbg input[type=\"text\"]").FillAsync("amso.mario@mail.eonsystem.com");
                         await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
                         await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.FillAsync("Kreirano Ime");
                         await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
@@ -739,7 +739,7 @@ namespace Produkcija
                         await _page.Locator("#inpJmbg input[type=\"text\"]").PressAsync("ArrowRight");
                         await _page.Locator("#inpJmbg input[type=\"text\"]").PressAsync("ArrowRight");
                         await _page.Locator("#inpJmbg input[type=\"text\"]").PressAsync("ArrowRight");
-                        await _page.Locator("#inpJmbg input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
+                        await _page.Locator("#inpJmbg input[type=\"text\"]").FillAsync("amso.mario@mail.eonsystem.com");
                         await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
 
                         await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();

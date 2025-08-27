@@ -28,7 +28,7 @@ echo ==== TEST POKRETANJE %DATE% %TIME% ==== >> Logovi\_log_AO_Proba2.txt
 echo. > Logovi\_log_AO_Proba2.txt
 echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Proba2.OsiguranjeVozila... >> Logovi\_log_AO_Proba2.txt
 ::dotnet test --filter FullyQualifiedName=Proba2.OsiguranjeVozila | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
-dotnet test --filter FullyQualifiedName=Proba2.Osiguranje | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
+::dotnet test --filter FullyQualifiedName=Proba2.Osiguranje | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
 dotnet test --filter FullyQualifiedName=Proba2.Autoodgovornost | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
 dotnet test --filter FullyQualifiedName=Proba2.ZeleniKarton | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 
 dotnet test --filter FullyQualifiedName=Proba2.JavniSaobracaj | findstr /i "Passed" >> Logovi\_log_AO_Proba2.txt 2>&1 

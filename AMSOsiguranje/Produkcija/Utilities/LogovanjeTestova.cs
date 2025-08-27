@@ -30,7 +30,7 @@ namespace Produkcija
         public static string ConnectionStringLogovi { get; set; } = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={PutanjaDoBazeIzvestaja};";
         public static string PutanjaDoBazeAcces { get; set; } = Path.Combine(OsnovniFolder, @"dbLogoviTestova.accdb");
         public static string ConnectionStringAccess { get; set; } = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={PutanjaDoBazeAcces};";
-        public static string ConnectionString { get; set; } = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+        public static string ConnectionString { get; set; } = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout=60";
         public static int FailedTests => TestContext.CurrentContext.Result.FailCount;
         public static int PassTests => TestContext.CurrentContext.Result.PassCount;
         public static int SkippedTests => TestContext.CurrentContext.Result.SkipCount;
