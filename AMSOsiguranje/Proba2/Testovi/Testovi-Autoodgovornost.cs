@@ -302,7 +302,7 @@ namespace Proba2
                     throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
                 await Pauziraj(_page);
 
-                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
+                await UlogujSe(_page, AkorisnickoIme, Alozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
                 //Pređi mišem preko teksta Osiguranje vozila
@@ -399,7 +399,7 @@ namespace Proba2
                 await _page.GetByText("U izradi").First.ClickAsync();
                 await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
                 //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").FillAsync("Davor");
-                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync("90200");
+                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync(Asaradnik);
                 //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").PressAsync("Tab");
                 await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
 
