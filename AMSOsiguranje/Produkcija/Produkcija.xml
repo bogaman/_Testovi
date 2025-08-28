@@ -201,6 +201,24 @@
             <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
         </member>
+        <member name="M:Produkcija.Autoodgovornost.AO_01_PregledPretragaPolisa">
+            <summary>
+            Testira se vidljivost i funkcionalnost grida koji prikazuje polise AO
+            </summary>
+            <remarks>
+            <para><b>1.</b> Korisnik je ulogovan kao BO</para>
+            <para>2. Otvara se stranica za rad sa polisama Autoodgovornosti.</para>
+            <para>3. Proveri da li stranica sadrži grid sa polisama AO i da li radi filter na gridu sa polisama AO</para>
+            <para>4. Proveri da li radi filter na gridu sa polisama AO</para>
+            <para>5. Proveri da li radi sortiranje na gridu sa polisama AO</para>
+            </remarks>
+            <example>
+            Primer pokretanja testa:
+            <code>
+            dotnet test --filter "TestDodavanjaDokumenta"
+            </code>
+            </example> 
+        </member>
         <member name="M:Produkcija.Alati.PokreniVpnAkoTreba">
             <summary>
             Proverava da li je OpenVPN GUI pokrenut, ako nije, pokreće ga i uspostavlja VPN konekciju.

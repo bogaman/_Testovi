@@ -225,7 +225,7 @@ namespace Proba2
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 string istekla = DateTime.Now.ToString("yyyy-MM-dd");
                 Console.WriteLine(istekla);
@@ -533,7 +533,7 @@ namespace Proba2
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {

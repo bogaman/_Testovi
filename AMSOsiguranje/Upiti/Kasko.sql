@@ -5,7 +5,7 @@ SELECT * FROM [CascoDB].[casco].[ZahtevZaIzmenu]
 
 SELECT TOP 1 [Dokument].[idDokument] FROM [CascoDB].[casco].[Dokument]
 					LEFT JOIN [CascoDB].[casco].[ZahtevZaIzmenu] ON [CascoDB].[casco].[Dokument].[idDokument] = [CascoDB].[casco].[ZahtevZaIzmenu].[idDokument] 
-					WHERE [Dokument].[idStatus] = 2 AND [Dokument].[idKorisnik] = 1001 AND [datumIsteka] > DATEADD(day, -30, CAST(GETDATE() AS DATE))
+					WHERE [Dokument].[idStatus] = 2 AND [Dokument].[idKorisnik] = 1001 AND [rokTrajanjaOsiguranja] = 2 AND [datumIsteka] > DATEADD(day, -30, CAST(GETDATE() AS DATE))
 					GROUP BY [CascoDB].[casco].[Dokument].[idDokument] 
 					ORDER BY COUNT([CascoDB].[casco].[ZahtevZaIzmenu].[idDokument]) ASC;
 

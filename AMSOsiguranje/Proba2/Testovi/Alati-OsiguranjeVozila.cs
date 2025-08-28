@@ -122,6 +122,7 @@ namespace Proba2
                     "Pregled polisa PZO" => "//e-grid[@id='grid_dokumenti']", //OK
                     "Pregled polisa Kasko Osiguranja" => "//e-grid[@id='grid_dokumenti']",//OK
                     "Razdužne liste Kasko" => "//e-grid[@id='grid_dokumenti']", //OK
+                    "Istorija obrasca polise AO" => "//e-grid[@id='grid_istorija']",
                     "Zahtevi za izmenu jedne kasko polise" => "//div[@class='pregled-zahteva-dole']",
                     "Pregled polisa AO" => "//e-grid[@id='grid_dokumenti']",
                     "Obrasci polisa AO" => "//e-grid[@id='grid_obrasci']",
@@ -451,7 +452,7 @@ namespace Proba2
             try
             {
                 Server = OdrediServer(Okruzenje);
-                string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 //string qryPoslednjiMejl = "SELECT TOP 1 * FROM [NotificationsDB].[mail].[MailDeliveryStatus] ORDER BY [ID] DESC;";
                 string qryPoslednjiMejl = "SELECT TOP 1 [NotificationsDB].[mail].[MailDeliveryStatus].*, [NotificationsDB].[mail].[MailHeaders].[Subject] " +
                                           "FROM [NotificationsDB].[mail].[MailDeliveryStatus] " +
@@ -591,7 +592,7 @@ namespace Proba2
             };
             */
             Server = OdrediServer(Okruzenje);
-            string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+            string connectionString = $"Server = {Server}; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
             string qryPoslednjiMejl = "SELECT TOP 1 * FROM [NotificationsDB].[mail].[MailDeliveryStatus] ORDER BY ID DESC;";
 
             /*  
@@ -2201,7 +2202,7 @@ namespace Proba2
                 long MaksimalniSerijskiTest;
                 long MaksimalniSerijskiUAT;
                 string connectionStringStroga;
-                connectionStringStroga = $"Server = 10.5.41.99; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                connectionStringStroga = $"Server = 10.5.41.99; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
@@ -2213,7 +2214,7 @@ namespace Proba2
                 }
 
                 // Konekcija sa bazom StrictEvidenceDB - Test
-                connectionStringStroga = $"Server = 49.13.25.19; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                connectionStringStroga = $"Server = 49.13.25.19; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
@@ -2226,7 +2227,7 @@ namespace Proba2
                 }
 
                 // Konekcija sa bazom StrictEvidenceDB - UAT
-                connectionStringStroga = $"Server = 10.41.5.5; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                connectionStringStroga = $"Server = 10.41.5.5; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
@@ -2274,7 +2275,7 @@ namespace Proba2
                 };
                 */
                 Server = OdrediServer(Okruzenje);
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {

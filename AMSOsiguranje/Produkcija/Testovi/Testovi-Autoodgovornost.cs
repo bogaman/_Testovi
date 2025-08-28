@@ -31,6 +31,22 @@ namespace Produkcija
 
         #region Testovi
 
+        /// <summary>
+        /// Testira se vidljivost i funkcionalnost grida koji prikazuje polise AO
+        /// </summary>
+        /// <remarks>
+        /// <para><b>1.</b> Korisnik je ulogovan kao BO</para>
+        /// <para>2. Otvara se stranica za rad sa polisama Autoodgovornosti.</para>
+        /// <para>3. Proveri da li stranica sadrži grid sa polisama AO i da li radi filter na gridu sa polisama AO</para>
+        /// <para>4. Proveri da li radi filter na gridu sa polisama AO</para>
+        /// <para>5. Proveri da li radi sortiranje na gridu sa polisama AO</para>
+        /// </remarks>
+        /// <example>
+        /// Primer pokretanja testa:
+        /// <code>
+        /// dotnet test --filter "TestDodavanjaDokumenta"
+        /// </code>
+        /// </example> 
         [Test, Order(101)]
         public async Task AO_01_PregledPretragaPolisa()
         {
@@ -40,25 +56,59 @@ namespace Produkcija
                     throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
                 await Pauziraj(_page);
 
+                // 1. Loguje se BO i proverava otvaranje stranice Dashboard
                 await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
 
+                //2. Otvara se stranica za rad sa polisama Autoodgovornosti.
                 //Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
                 //Klikni na tekst Osiguranje vozila
                 await _page.GetByText("Osiguranje vozila").ClickAsync();
                 //Klikni u meniju na Autoodgovornost
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Autoodgovornost" }).First.ClickAsync();
+
                 //Provera da li se otvorila stranica sa gridom polisa AO
                 DodatakNaURL = "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
-                // Proveri da li stranica sadrži grid Obrasci i da li radi filter na gridu Obrasci
+                // Klik na Pregled / Pretraga polisa
+                await _page.GetByText("Pregled / Pretraga polisa").ClickAsync();
+                // Provera da li se otvorila stranica sa gridom pregled polisa
+                DodatakNaURL = "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                // 3. Proveri da li stranica sadrži grid sa polisama AO i da li radi filter na gridu sa polisama AOObrasci
                 string tipGrida = "Pregled polisa AO";
                 await ProveraPostojiGrid(_page, tipGrida);
-
+                // 4. Proveri da li  radi filter na gridu Obrasci
                 string kriterijumFiltera = "KreiranRaskinutStorniranU izradi";
                 await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 10, "Lista", 0);
+
+                //5. Proveri da li radi sortiranje na gridu sa polisama AO
+                //Sortiraj po broju dokumenta - Rastuće
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Br. dok. -$") }).Locator("div").Nth(1).ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                string brojDokumentaMin = await ProcitajCeliju(1, 1);
+                string BrojPolise = await ProcitajCeliju(1, 2);
+
+                //Sortiraj po broju dokumenta - Opadajuće
+                await _page.Locator("//div[@class='sort active']//div[@class='sortDir']").ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                BrojPolise = await ProcitajCeliju(1, 2);
+                //Pročitaj datum isteka MAX
+                string brojDokumentaMax = await ProcitajCeliju(1, 1);
+
+                if (int.Parse(brojDokumentaMin) < int.Parse(brojDokumentaMax))
+                {
+                    Trace.WriteLine($"OK");
+                }
+                else
+                {
+                    Trace.WriteLine($"Sortiranje po Broju dokumenta ne radi.");
+                    await LogovanjeTesta.LogException($"Sortiranje po Broju dokumenta ne radi..", new Exception("Sortiranje po Broju dokumenta ne radi."));
+                    throw new Exception("Sortiranje po Broju dokumenta ne radi.");
+                }
 
                 // Izbroj koliko ima redova u gridu
                 var redovi = _page.Locator("//div[@class='podaci']//div[contains(@class, 'grid-row')]");
@@ -142,7 +192,13 @@ namespace Produkcija
                 DodatakNaURL = "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
-                // Proveri da li stranica sadrži grid Obrasci i da li radi filter na gridu Obrasci
+                // Klik na Pregled / Pretraga polisa
+                await _page.GetByText("Pregled / Pretraga polisa").ClickAsync();
+                // Provera da li se otvorila stranica sa gridom pregled polisa
+                DodatakNaURL = "/Osiguranje-vozila/1/Autoodgovornost/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                // Proveri da li stranica sadrži grid sa polisama AO i da li radi filter na gridu Obrasci
                 string tipGrida = "Pregled polisa AO";
                 await ProveraPostojiGrid(_page, tipGrida);
 
@@ -217,13 +273,12 @@ namespace Produkcija
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
                 await ProveriStampu404(_page, "Štampaj prepis polise", "Prepis polise AO");
 
-
-
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Pregled zahteva ka UOS-u" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Prethodne verzije" }).ClickAsync();
-                await _page.Locator("e-sidenav").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Skloni panel" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Pregled zahteva ka UOS-u" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Prethodne verzije" }).ClickAsync();
+                //await _page.Locator("e-sidenav").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                await _page.Locator("//div[@class='sidenav']//i[@class='ico-xmark']").ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Skloni panel" }).ClickAsync();
 
                 //Brisanje polise koja je u izradi
                 await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
@@ -237,7 +292,7 @@ namespace Produkcija
                 await _page.GetByText("U izradi").First.ClickAsync();
                 await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").ClickAsync();
                 //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").FillAsync("Davor");
-                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync("90200");
+                await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").FillAsync("8888");
                 //await _page.Locator(".control-wrapper.field.no-content.info-text-field.focus > .control > .control-main > .input").PressAsync("Tab");
                 await _page.Locator(".column.column_11 > .filterItem > .control-wrapper > .control > .control-main > .input").PressAsync("Enter");
 
@@ -250,7 +305,11 @@ namespace Produkcija
                 {
                     System.Windows.Forms.MessageBox.Show($"Redova ima-1: {brojRedova}", "Informacija", MessageBoxButtons.OK);
                 }
+                /****************************************************************************
+                Ovo je deo za brisanje polise, izkomentarisan je jer je napisan poseban test
+                ****************************************************************************/
 
+                /***********************************************************************************************************
                 if (brojRedova > 0)
                 {
                     // Pročitaj broj dokumenta (sadržaj ćelije u prvom redu i prvoj koloni)
@@ -258,8 +317,8 @@ namespace Produkcija
 
                     await _page.GetByRole(AriaRole.Link, new() { Name = $"{brojDokumenta}" }).First.ClickAsync();
                     await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}");
-                    await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
-                    await _page.GetByRole(AriaRole.Button, new() { Name = " Obriši dokument" }).ClickAsync();
+                    await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                    await _page.GetByRole(AriaRole.Button, new() { Name = "Obriši dokument" }).ClickAsync();
                     await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
                     await _page.GetByText("Dokument uspešno obrisan").ClickAsync();
                     await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
@@ -269,7 +328,7 @@ namespace Produkcija
                 {
                     await LogovanjeTesta.LogException($"{NazivTekucegTesta}", new Exception("Nema polisa AO za brisanje"));
                 }
-
+                ************************************************************************************************************/
                 await IzlogujSe(_page);
                 // Proveri da li si uspešno izlogovan
                 DodatakNaURL = "/Login";
@@ -420,8 +479,8 @@ namespace Produkcija
 
                     await _page.GetByRole(AriaRole.Link, new() { Name = $"{brojDokumenta}" }).First.ClickAsync();
                     await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{brojDokumenta}");
-                    await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
-                    await _page.GetByRole(AriaRole.Button, new() { Name = " Obriši dokument" }).ClickAsync();
+                    await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                    await _page.GetByRole(AriaRole.Button, new() { Name = "Obriši dokument" }).ClickAsync();
                     await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
                     await _page.GetByText("Dokument uspešno obrisan").ClickAsync();
                     await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
@@ -456,7 +515,7 @@ namespace Produkcija
         }
 
         [Test, Order(104)]
-        public async Task AO_03_SE_PregledPretragaObrazaca()
+        public async Task AO_04_SE_PregledPretragaObrazaca()
         {
             try
             {
@@ -486,6 +545,30 @@ namespace Produkcija
                 string kriterijumFiltera = RucnaUloga;
                 await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 3);
 
+
+                //Sortiraj po serijskom broju obrasca - Rastuće
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Serijski broj obrasca -$") }).Locator("div").Nth(1).ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                string brojObrascaMin = await ProcitajCeliju(1, 1);
+                string BrojPolise = await ProcitajCeliju(1, 2);
+
+                //Sortiraj po broju dokumenta - Opadajuće
+                await _page.Locator("//div[@class='sort active']//div[@class='sortDir']").ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                BrojPolise = await ProcitajCeliju(1, 2);
+                //Pročitaj datum isteka MAX
+                string brojObrascaMax = await ProcitajCeliju(1, 1);
+
+                if (int.Parse(brojObrascaMin) < int.Parse(brojObrascaMax))
+                {
+                    Trace.WriteLine($"OK");
+                }
+                else
+                {
+                    Trace.WriteLine($"Sortiranje po Broju obrasca polise AO ne radi.");
+                    await LogovanjeTesta.LogException($"Sortiranje po Broju obrasca polise AO ne radi.", new Exception("Sortiranje po Broju dokumenta ne radi."));
+                    throw new Exception("Sortiranje po Broju obrasca polise AO ne radi.");
+                }
                 /***********************************************************************************************
                 // Izbroj koliko ima redova u gridu
                 var redovi = _page.Locator("//div[@class='podaci']//div[contains(@class, 'grid-row')]");
@@ -583,6 +666,44 @@ namespace Produkcija
                 {
                     await LogovanjeTesta.LogException("Greška prilikom provere tekst boksova sa vrednostima prom1–prom4.", ex);
                 }
+
+                // Proveri da li stranica sadrži grid Obrasci i da li radi filter na gridu Obrasci
+                tipGrida = "Istorija obrasca polise AO";
+                await ProveraPostojiGrid(_page, tipGrida);
+
+                kriterijumFiltera = "trenutno";
+                await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 2);
+                kriterijumFiltera = "";
+                await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 2);
+
+
+                //Sortiraj po Period do - Rastuće
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Period do -$") }).Locator("div").Nth(1).ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                string periodDoMin = await ProcitajCeliju(1, 2);
+                //string BrojPolise = await ProcitajCeliju(1, 2);
+
+                //Sortiraj po broju dokumenta - Opadajuće
+                await _page.Locator("//div[@class='sort active']//div[@class='sortDir']").ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                //BrojPolise = await ProcitajCeliju(1, 2);
+                //Pročitaj datum isteka MAX
+                string periodDoMax = await ProcitajCeliju(1, 2);
+
+                if (periodDoMax != periodDoMin)
+                {
+                    Trace.WriteLine($"OK");
+                }
+                else
+                {
+                    Trace.WriteLine($"Sortiranje po Period do obrasca polise AO ne radi.");
+                    await LogovanjeTesta.LogException($"Sortiranje po Period do obrasca polise AO ne radi.", new Exception("Sortiranje po Broju dokumenta ne radi."));
+                    throw new Exception("Sortiranje po Period do obrasca polise AO ne radi.");
+                }
+
+
+
+
                 await IzlogujSe(_page);
                 if (NacinPokretanjaTesta == "ručno")
                 {
@@ -604,7 +725,7 @@ namespace Produkcija
         }
 
         [Test, Order(105)]
-        public async Task AO_03_SE_PregledPretragaDokumenata()
+        public async Task AO_05_SE_PregledPretragaDokumenata()
         {
             try
             {
@@ -634,6 +755,33 @@ namespace Produkcija
 
                 string kriterijumFiltera = "Verifikovan";
                 await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 5);
+
+                //Sortiraj po Tipu dokumenta - Rastuće
+                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Tip dokumenta -$") }).Locator("div").Nth(1).ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                string tipDokumentaMin = await ProcitajCeliju(1, 2);
+                //string BrojPolise = await ProcitajCeliju(1, 2);
+
+                //Sortiraj po broju dokumenta - Opadajuće
+                await _page.Locator("//div[@class='sort active']//div[@class='sortDir']").ClickAsync();
+                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
+                //BrojPolise = await ProcitajCeliju(1, 2);
+                //Pročitaj datum isteka MAX
+                string tipDokumentaMax = await ProcitajCeliju(1, 2);
+
+                if (tipDokumentaMin != tipDokumentaMax)
+                {
+                    Trace.WriteLine($"OK");
+                }
+                else
+                {
+                    Trace.WriteLine($"Sortiranje po Tip dokumenta ne radi.");
+                    await LogovanjeTesta.LogException($"Sortiranje po Broju dokumenta ne radi..", new Exception("Sortiranje po Broju dokumenta ne radi."));
+                    throw new Exception("Sortiranje po Broju dokumenta ne radi.");
+                }
+
+
+
 
                 /***********************************************************************************************
                 // Izbroj koliko ima redova u gridu
@@ -756,6 +904,8 @@ namespace Produkcija
                 }
 
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Štampa dokumenta Stroge evidencije za AO:");
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
                 if (NacinPokretanjaTesta == "ručno")
                 {
                     PorukaKrajTesta();
@@ -777,7 +927,7 @@ namespace Produkcija
         }
 
         [Test, Order(106)]
-        public async Task AO_04_SE_UlazObrazaca()
+        public async Task AO_06_SE_UlazObrazaca()
         {
             try
             {
@@ -923,17 +1073,18 @@ namespace Produkcija
                 //Pošalji na verifikaciju
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
 
-                //Proveri štampu neverifikovanog dokumenta
-                await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran neverifikovan dokument stroge evidencije AO:");
+
 
                 //Provera mejla za BO da je dokument poslat na verifikaciju
                 await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl ka BO da ima ulaz za verifikaciju nije poslat");
                 //Pročitaj oznaku novog dokumenta
                 oznakaDokumenta = await _page.Locator("//div[@class='obrazac-container commonBox']//div[@class='col-3']//input[@class='input']").InputValueAsync();
-
+                //Proveri štampu neverifikovanog dokumenta
+                await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran neverifikovan dokument stroge evidencije AO:");
                 //provara da li vest postoji i radi li link
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
+
 
                 /*
                 ocekivaniTekst = $"Imate novi dokument \"Ulaz u centralni magacin\" za verifikaciju" +
@@ -984,7 +1135,7 @@ namespace Produkcija
                 ocekivaniTekst = $"{oznakaDokumenta}";
                 await ProveraVestNijeObrisana(_page, ocekivaniTekst);
                 await ArhivirajVest(_page, ocekivaniTekst, oznakaDokumenta);
-
+                await Pauziraj(_page);
                 /****************************
                 ocekivaniTekst = $"Dokument \"Ulaz u centralni magacin\" je vraćen u izradu.\n" +
                                  $"Dokument možete pogledati klikom na link: {oznakaDokumenta}";
@@ -1001,7 +1152,7 @@ namespace Produkcija
                 **************************************************/
 
                 /********************************************************
-                Napravi novi ulaz u Centralni magacin koji će ići agentu
+                Napravi novi ulaz u Centralni magacin koji će biti verifikovan
                 ********************************************************/
                 await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Autoodgovornost" }).ClickAsync();
@@ -1036,7 +1187,7 @@ namespace Produkcija
 
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 //Provera mejla za BO da je dokument poslat na verifikaciju
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl ka agentu da ima dokument za verifikaciju nije poslat");
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl ka BO da ima dokument za verifikaciju nije poslat");
 
 
                 //Provera da li se vidi novi dokument za verifikaciju u gridu
@@ -1047,14 +1198,18 @@ namespace Produkcija
                 await _page.Locator("a").Filter(new() { HasText = $"{oznakaDokumenta}" }).ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/1/{PoslednjiDokument + 1}");
                 LogovanjeTesta.LogMessage($"✅ Otvaranje dokumenta iz grida: {PoslednjiDokument + 1} - {oznakaDokumenta}.", false);
-                //PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
+                PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
                 //LogovanjeTesta.LogMessage($"✅ Poslednji mejl -> ID: {PrethodniZapisMejla.PoslednjiID}, IDMail: {PrethodniZapisMejla.PoslednjiIDMail}, Status: {PrethodniZapisMejla.Status}, Opis: {PrethodniZapisMejla.Opis}, Datum: {PrethodniZapisMejla.Datum}, Subject: {PrethodniZapisMejla.Subject}", false);
                 await _page.Locator("button").Filter(new() { HasText = "Verifikuj" }).ClickAsync();
-
+                //Provera mejla za BO da je dokument verifikovan
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl da je verifikovan Ulaz u CM nije poslat.");
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran verifikovan dokument stroge evidencije AO:");
 
-                //Provera mejla za BO da je dokument verifikovan
-                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla,"------------------");
+                await _page.Locator(".ico-ams-logo").ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
+                await ProveraVestNijeObrisana(_page, ocekivaniTekst);
+                await ArhivirajVest(_page, ocekivaniTekst, oznakaDokumenta);
+                await Pauziraj(_page);
 
 
 
@@ -1388,7 +1543,7 @@ namespace Produkcija
                             "Produkcija" => "",
                             _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                         };
-                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                         //string brojZaduzenihObrazaca = IzvrsiUpit(connectionStringStroga, qBrojZaduzenihObrazacaBogdan);
                         //Console.WriteLine($"U bazi je broj zaduženih obrazaca: {brojZaduzenihObrazaca}. To je broj obrazaca kod korisnika Bogdan Mandarić.\n");
 
@@ -1402,7 +1557,7 @@ namespace Produkcija
 
 
 
-                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                         using SqlConnection konekcija = new(connectionStringMtpl);
                         Console.WriteLine($"Initial State konekcije sa MtplDB: {konekcija.State}");
                         konekcija.Open();
@@ -1496,7 +1651,7 @@ namespace Produkcija
 
 
         [Test, Order(107)]
-        public async Task AO_05_SE_PrenosObrazaca()
+        public async Task AO_07_SE_PrenosObrazaca()
         {
             try
             {
@@ -1565,7 +1720,6 @@ namespace Produkcija
 
 
                 //Nalaženje prvog serijskog broja obrasca u Centralnom magacinu
-
                 string qPrviSlobodanUCM = $"SELECT MIN([SerijskiBroj]) AS PrviSlobodanUCentralnomMagacinu " +
                                           $"FROM (" +
                                                   $"SELECT [SerijskiBroj] " +
@@ -1576,7 +1730,7 @@ namespace Produkcija
                                                   $") AS Podskup;";
 
                 Server = OdrediServer(Okruzenje);
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
@@ -1592,7 +1746,7 @@ namespace Produkcija
 
                 //PoslednjiSerijski = PoslednjiSerijskiStroga(1, $" AND [SerijskiBroj] BETWEEN {MinSerijskiAO} AND {MaxSerijskiAO}");
                 //Console.WriteLine($"Poslednji serijski broj obrasca polise AO na svim okruženjima je: {PoslednjiSerijski}.\n");
-
+                await Pauziraj(_page);
                 // Unesi broj polise Od i Do i testiraj dodavanje, brisanje i izmenu
                 await _page.Locator("#inpOdBroja input[type=\"text\"]").ClickAsync();
                 await _page.Locator("#inpOdBroja input[type=\"text\"]").FillAsync($"{PrviSlobodanObrazac}");
@@ -1705,7 +1859,7 @@ namespace Produkcija
                 //Pošalji na verifikaciju
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();
                 //Provera mejla za BO da je dokument poslat na verifikaciju
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Nije poslat mejl ka agentu za verifikaciju");
                 //Proveri štampu neverifikovanog dokumenta
                 await ProveriStampuPdf(_page, "Štampaj dokument", "Kreiran neverifikovan dokument stroge evidencije AO:");
 
@@ -1713,9 +1867,17 @@ namespace Produkcija
                 //Pročitaj oznaku novog dokumenta
                 oznakaDokumenta = await _page.Locator("//div[@class='obrazac-container commonBox']//div[@class='col-3']//input[@class='input']").InputValueAsync();
 
-                //provara da li vest postoji i radi li link
+
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
+
+                //provera da li vest postoji i radi li link
+
+
+                //await ProveraVestNijeObrisana(_page, oznakaDokumenta);
+                //await ArhivirajVest(_page, oznakaDokumenta, oznakaDokumenta);
+                await Pauziraj(_page);
+
 
 
 
@@ -1755,7 +1917,7 @@ namespace Produkcija
                 await _page.Locator("button").Filter(new() { HasText = "Vrati u izradu" }).ClickAsync();
 
                 //Provera mejla za BO da je dokument vraćen u izradu
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Nije poslat mejl ka BO da je vraćen u izradu");
 
 
                 //Provera da li je vest obrisana za agenta
@@ -1986,7 +2148,7 @@ namespace Produkcija
                             "Produkcija" => "",
                             _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                         };
-                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                         //string brojZaduzenihObrazaca = IzvrsiUpit(connectionStringStroga, qBrojZaduzenihObrazacaBogdan);
                         //Console.WriteLine($"U bazi je broj zaduženih obrazaca: {brojZaduzenihObrazaca}. To je broj obrazaca kod korisnika Bogdan Mandarić.\n");
 
@@ -2000,7 +2162,7 @@ namespace Produkcija
 
 
 
-                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                         using SqlConnection konekcija = new(connectionStringMtpl);
                         Console.WriteLine($"Initial State konekcije sa MtplDB: {konekcija.State}");
                         konekcija.Open();
@@ -2126,7 +2288,7 @@ namespace Produkcija
 
         [Test, Order(108)]
         [TestCaseSource(nameof(ProcitajPodatkeZaPolisuAutoodgovornost))]
-        public async Task AO_06_Polisa(string _rb, string _tipPolise, string _premijskaGrupa, string _popusti, string _tipUgovaraca, string _tipLica1, string _tipLica2, string _brojDana, string _tegljac, string _podgrupa, string _zapremina, string _snaga, string _nosivost, string _brojMesta, string _oslobodjenPoreza, string _mb1, string _mb2, string _pib1, string _pib2, string _platilac1, string _platilac2)
+        public async Task AO_08_Polisa(string _rb, string _tipPolise, string _premijskaGrupa, string _popusti, string _tipUgovaraca, string _tipLica1, string _tipLica2, string _brojDana, string _tegljac, string _podgrupa, string _zapremina, string _snaga, string _nosivost, string _brojMesta, string _oslobodjenPoreza, string _mb1, string _mb2, string _pib1, string _pib2, string _platilac1, string _platilac2)
         {
             try
             {
@@ -2195,7 +2357,7 @@ namespace Produkcija
                  */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 string Lokacija = "(7, 8)";
 
@@ -3298,7 +3460,7 @@ namespace Produkcija
         }
 
         [Test, Order(109)]
-        public async Task AO_07_PregledZahtevaZaIzmenomPolisaAO()
+        public async Task AO_09_PregledZahtevaZaIzmenomPolisaAO()
         {
             if (_page == null)
                 throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
@@ -3428,8 +3590,8 @@ namespace Produkcija
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
                                         $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
-                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -3629,7 +3791,7 @@ namespace Produkcija
 
 
         [Test, Order(110)]
-        public async Task AO_08_ZahtevZaIzmenu_Podaci()
+        public async Task AO_10_ZahtevZaIzmenu_Podaci()
         {
             if (_page == null)
                 throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
@@ -3760,7 +3922,7 @@ namespace Produkcija
                                         $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -3961,7 +4123,7 @@ namespace Produkcija
 
 
         [Test, Order(111)]
-        public async Task AO_09_ZahtevZaIzmenu_PremijskiStepen()
+        public async Task AO_11_ZahtevZaIzmenu_PremijskiStepen()
         {
             if (_page == null)
                 throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
@@ -4091,8 +4253,8 @@ namespace Produkcija
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
                                         $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
-                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -4281,7 +4443,7 @@ namespace Produkcija
 
 
         [Test, Order(112)]
-        public async Task AO_10_RazduznaLista()
+        public async Task AO_12_SE_RazduznaLista()
         {
             try
             {
@@ -4353,7 +4515,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
@@ -4486,7 +4648,7 @@ namespace Produkcija
 
 
         [Test, Order(113)]
-        public async Task AO_11_Otpis()
+        public async Task AO_13_SE_Otpis()
         {
             try
             {
@@ -4537,7 +4699,7 @@ namespace Produkcija
                  */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 /*
                                 string Lokacija = "(7,8)";
 
@@ -4682,7 +4844,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
@@ -4776,7 +4938,7 @@ namespace Produkcija
 
 
         [Test, Order(114)]
-        public async Task AO_12_InformativnoKalkulisanje()
+        public async Task AO_14_InformativnoKalkulisanje()
         {
             try
             {

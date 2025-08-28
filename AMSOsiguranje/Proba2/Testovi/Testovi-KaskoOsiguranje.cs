@@ -15,8 +15,10 @@ namespace Proba2
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
                 await Pauziraj(_page);
+
                 await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
                 // Klikni na tekst Osiguranje vozila
@@ -33,12 +35,11 @@ namespace Proba2
                 DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
-                // Proveri da li stranica sadrži grid sa polisama i da li radi filter na gridu 
+                // Proveri da li stranica sadrži grid sa polisama Kasko i da li radi filter na gridu 
                 string tipGrida = "Pregled polisa Kasko Osiguranja";
                 await ProveraPostojiGrid(_page, tipGrida);
 
                 string kriterijumFiltera = RucnaUloga;
-                //await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 9);
                 await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 9, "TekstBoks", 0);
 
                 //Sortiraj po broju dokumenta - Rastuće
@@ -122,7 +123,8 @@ namespace Proba2
                 DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
-                await _page.GetByRole(AriaRole.Link, new() { Name = " Nova polisa" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Link, new() { Name = " Nova polisa" }).ClickAsync();
+                await _page.Locator("//a[normalize-space()='Nova polisa']").ClickAsync();
                 DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Dokument/0";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
@@ -150,6 +152,7 @@ namespace Proba2
                 {
                     await _page.Locator("#idBonus > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.GetByText("Bez bonusa i malusa").ClickAsync();
+                    //Locator("div").Filter(new() { HasTextRegex = new Regex("^Bez bonusa i malusa$") })
                     await _page.Locator("span").Filter(new() { HasText = "Bez bonusa i malusa" }).ClickAsync();
                     await _page.Locator("#idBonus").GetByText("Tehnički rezultat 90-120% ").ClickAsync();
                 }
@@ -1324,8 +1327,8 @@ namespace Proba2
                                         $"GROUP BY [CascoDB].[casco].[Dokument].[idDokument] " +
                                         $"ORDER BY COUNT([CascoDB].[casco].[ZahtevZaIzmenu].[idDokument]) ASC;";
                 // Konekcija sa bazom
-                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout=60";
+                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -1655,7 +1658,7 @@ namespace Proba2
                 }
 
                 // Konekcija sa bazom
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 string qBrojDokumenta = $"SELECT TOP 1 idDokument AS IdDokument " +
                                         $"FROM [CascoDB].[casco].[Dokument] " +
@@ -1905,7 +1908,7 @@ namespace Proba2
 
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
