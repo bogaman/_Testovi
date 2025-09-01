@@ -93,8 +93,8 @@ namespace Proba2
                 await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Putno zdravstveno
-                //await _page.GetByText("Putno zdravstveno  osiguranje").HoverAsync();
-                await _page.GetByText("Putno zdravstveno  osiguranje").ClickAsync();
+                //await _page.GetByText("Putno zdravstveno osiguranje").HoverAsync();
+                await _page.GetByText("Putno zdravstveno osiguranje").ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Webshop backoffice" }).ClickAsync();
                 DodatakNaURL = "/Backoffice/Backoffice/1/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
@@ -159,6 +159,9 @@ namespace Proba2
                     await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
                     await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                     await _page.GetByText("Podaci uspešno sačuvani").ClickAsync();
+                    //Provera da li je poslat mejl ka BO da je polisa izmenjena
+                    await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa izmenjena nije poslat.");
+
                 }
                 catch (Exception ex)
                 {
@@ -167,8 +170,7 @@ namespace Proba2
                     throw;
                 }
 
-                //Provera da li je poslat mejl ka BO da je polisa izmenjena
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa izmenjena nije poslat.");
+
 
                 await ProveriStampu404(_page, "Štampaj polisu", "Greška u štampi izmenjene polise posle klika na Štampaj polisu.");
 
@@ -233,7 +235,7 @@ namespace Proba2
                 Trace.WriteLine($"Proveri zašto postoji dugme Štampaj polisu za polisu koja nije kreirana?");
                 if (Okruzenje == "Razvoj")
                 {
-                    grBrojdokumenta = 1566;
+                    grBrojdokumenta = 1569;
                 }
 
                 // Konekcija sa bazom
@@ -315,13 +317,13 @@ namespace Proba2
 
 
                     await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.ClickAsync();
-                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.mario@mail.eonsystem.com");
+                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.bogdan@mail.eonsystem.com");
                     //await _page.Locator("#inpEmail input[type=\"text\"]").FillAsync("amso.mario@mail.eonsystem.com");
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.FillAsync("Kreirano Novo Ime");
                     await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
-                    await _page.GetByText("Podaci uspešno sačuvani").WaitForAsync(new() { Timeout = 4000 });
-                    //await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
+                    //await _page.GetByText("Podaci uspešno sačuvani").WaitForAsync(new() { Timeout = 4000 });
+                    await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                     await _page.GetByText("Podaci uspešno sačuvani").ClickAsync();
 
 
@@ -340,7 +342,7 @@ namespace Proba2
 
                     // Čekanje na promenu sadržaja
                     await porukaLocator.WaitForAsync(new() { Timeout = 14000 });
-                    //await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
+                    await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
 
 
 
@@ -372,6 +374,8 @@ namespace Proba2
                         //await _page.WaitForTimeoutAsync(1000);
                         throw (new Exception("Nepoznata greška"));
                     }
+                    //Provera da li je poslat mejl ka BO da je polisa kreirana
+                    await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa kreirana nije poslat.");
                     //await _page.PauseAsync();
                     //await _page.GetByText("Polisa uspešno kreirana").ClickAsync();
 

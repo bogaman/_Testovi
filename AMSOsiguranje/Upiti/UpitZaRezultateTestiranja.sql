@@ -2,6 +2,7 @@ SELECT *
   FROM [TestLogDB].[test].[tReportSumary]
   --where IdTestiranje = 10 
   ORDER BY [IdTestiranje] DESC;
+  --ORDER BY [IdTestiranje] ASC;
 
 
   SELECT [IdTestiranje], 
@@ -17,12 +18,14 @@ SELECT *
   FROM [TestLogDB].[test].[tReportIndividual]
   --where IdTestiranje = 3
   ORDER BY [IdTestiranje] DESC, [IdTest] ASC;
+  --ORDER BY [IdTestiranje] ASC, [IdTest] ASC;
 
 
   SELECT *
     FROM [TestLogDB].[test].[tErrorLog] 
 	--where IdTestiranje = 3
-ORDER BY [IdTestiranje] DESC, [IdGreske] ASC;
+    ORDER BY [IdTestiranje] DESC, [IdGreske] ASC;
+	--ORDER BY [IdTestiranje] ASC, [IdGreske] ASC;
 
 
 

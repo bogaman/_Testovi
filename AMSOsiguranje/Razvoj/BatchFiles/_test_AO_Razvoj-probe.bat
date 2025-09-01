@@ -25,6 +25,7 @@ echo [%DATE:~4,2%.%DATE:~7,2%.%DATE:~10,4%. %TIME%] Razvoj.OsiguranjeVozila... >
 ::dotnet test --filter FullyQualifiedName=Razvoj.JavniSaobracaj | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 ::dotnet test --filter FullyQualifiedName=Razvoj.DelimicniKasko | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 ::dotnet test --filter FullyQualifiedName=Razvoj.KaskoOsiguranje | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
+dotnet test --filter FullyQualifiedName=Razvoj.WebShop | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 dotnet test --filter FullyQualifiedName=Razvoj.PutnePoliseBO | findstr /i "Passed" >> Logovi\_log_AO_Razvoj.txt 2>&1 
 echo ==== TEST ZAVRŠEN ==== >> Logovi\_log_AO_Razvoj.txt
 echo. >> Logovi\_log_AO_Razvoj.txt
