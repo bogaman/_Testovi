@@ -93,7 +93,7 @@ namespace Razvoj
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Nazad" }).ClickAsync();
 
                 // Na stranici Plaćanje
-                await Placanje(_page, "5342230500001234", "08", "2025");
+                await Placanje(_page, BrojKartice, MesecIsteka, GodinaIsteka, cvvKartice);
 
                 await ProveriURL(_page, PocetnaStrana, "/Uspesno");
                 await ProveriTitlStranice(_page, "Uspešna kupovina");
@@ -211,7 +211,7 @@ namespace Razvoj
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Nazad" }).ClickAsync();
 
                 // Na stranici Plaćanje
-                await Placanje(_page, "5342230500001234", "08", "2025");
+                await Placanje(_page, BrojKartice, MesecIsteka, GodinaIsteka, cvvKartice);
 
                 await ProveriURL(_page, PocetnaStrana, "/Uspesno");
                 await ProveriTitlStranice(_page, "Uspešna kupovina");
@@ -334,7 +334,7 @@ namespace Razvoj
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Nazad" }).ClickAsync();
 
                 // Na stranici Plaćanje
-                await Placanje(_page, "5342230500001234", "08", "2025");
+                await Placanje(_page, BrojKartice, MesecIsteka, GodinaIsteka, cvvKartice);
 
                 await ProveriURL(_page, PocetnaStrana, "/Uspesno");
                 await ProveriTitlStranice(_page, "Uspešna kupovina");
@@ -447,7 +447,7 @@ namespace Razvoj
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Nazad" }).ClickAsync();
                 /**************************************************
                 // Na stranici Plaćanje
-                await Placanje(_page, "5342230500001234", "08", "2025");
+                await Placanje(_page, BrojKartice, MesecIsteka, GodinaIsteka, cvvKartice);
 
                 await ProveriURL(_page, PocetnaStrana, "/Uspesno");
                 await ProveriTitlStranice(_page, "Uspešna kupovina");

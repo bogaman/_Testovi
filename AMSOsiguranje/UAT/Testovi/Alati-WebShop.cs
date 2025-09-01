@@ -2,6 +2,10 @@ namespace UAT
 {
     public partial class WebShop
     {
+        string BrojKartice = "5342230500001234";
+        string MesecIsteka = "08";
+        string GodinaIsteka = "2026";
+        string cvvKartice = "111";
         /*******************************************************************************
         //Bira se početna strana Web shopa na osnovu zadatog okruženja - Razvoj, test, ...
         private static string DefinisiPocetnuStranuWS(string okruzenje)
@@ -330,7 +334,7 @@ namespace UAT
             await _page.Locator("#container i").Nth(1).ClickAsync();
         }
 
-        private static async Task Placanje(IPage _page, string BrojKartice, string mesecVazenja, string godinaVazenja)
+        private static async Task Placanje(IPage _page, string BrojKartice, string mesecVazenja, string godinaVazenja, string cvvKartice)
         {
             await _page.GetByRole(AriaRole.Img, new() { Name = "MasterCard" }).ClickAsync();
             await _page.Locator("#cardRadioDiv label").Nth(1).ClickAsync();
@@ -345,7 +349,7 @@ namespace UAT
             await _page.GetByLabel("Godina").ClickAsync();
             await _page.GetByLabel("Godina").SelectOptionAsync(godinaVazenja);
 
-            await _page.Locator("id=input-card-cvv").FillAsync("111");
+            await _page.Locator("id=input-card-cvv").FillAsync(cvvKartice);
             await _page.Locator("id=input-card-holder").FillAsync("BM");
 
             await _page.GetByRole(AriaRole.Button, new() { Name = "POTVRDITI" }).ClickAsync();
