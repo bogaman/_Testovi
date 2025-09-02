@@ -150,16 +150,22 @@ namespace Razvoj
                 #region Bonus i malus
                 if (nivo == "nivo I")
                 {
-                    await _page.Locator("#idBonus > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                    await _page.GetByText("Bez bonusa i malusa").ClickAsync();
+                    //await _page.Locator("#idBonus > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                    await _page.Locator("//div[@etitle='Bez bonusa i malusa']").ClickAsync();
+                    //await _page.Locator("//e-select[@id='idBonus']//div[@class='control-main']").ClickAsync();
+                    //await _page.GetByText("Bez bonusa i malusa").First.ClickAsync();
                     //Locator("div").Filter(new() { HasTextRegex = new Regex("^Bez bonusa i malusa$") })
                     await _page.Locator("span").Filter(new() { HasText = "Bez bonusa i malusa" }).ClickAsync();
                     await _page.Locator("#idBonus").GetByText("Tehnički rezultat 90-120% ").ClickAsync();
                 }
                 if (nivo == "nivo II")
                 {
-                    await _page.Locator("#idBonus > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                    await _page.GetByText("Bez bonusa i malusa").ClickAsync();
+                    //await _page.Locator("#idBonus > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                    //await _page.GetByText("Bez bonusa i malusa").ClickAsync();
+                    //await _page.Locator("span").Filter(new() { HasText = "Bez bonusa i malusa" }).ClickAsync();
+                    //await _page.Locator("#idBonus").GetByText("1 godina").ClickAsync();
+
+                    await _page.Locator("//div[@etitle='Bez bonusa i malusa']").ClickAsync();
                     await _page.Locator("span").Filter(new() { HasText = "Bez bonusa i malusa" }).ClickAsync();
                     await _page.Locator("#idBonus").GetByText("1 godina").ClickAsync();
                 }
@@ -175,7 +181,9 @@ namespace Razvoj
                 #endregion Bonus i malus
 
                 #region Teritorijalno pokriće
-                await _page.GetByText("---EvropaCela TurskaTurska, Gruzija, Jermenija, AzerbejdžanCela AzijaSrbija ---").ClickAsync();
+                //await _page.GetByText("---EvropaCela TurskaTurska, Gruzija, Jermenija, AzerbejdžanCela AzijaSrbija ---").ClickAsync();
+                await _page.Locator("#idTeritorijalno > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+
                 if (nivo == "nivo I")
                 {
                     //await _page.GetByText("---EvropaCela TurskaTurska, Gruzija, Jermenija, AzerbejdžanCela AzijaSrbija ---").ClickAsync();
@@ -197,12 +205,16 @@ namespace Razvoj
 
                 if (nivo == "nivo I")
                 {
-                    await _page.GetByText("---do 10od 11 do 20od 21 do 50od 51 do 100preko 100 ---").ClickAsync();
+                    //await _page.GetByText("---do 10od 11 do 20od 21 do 50od 51 do 100preko 100 ---").ClickAsync();
+                    await _page.Locator("#idBrojOsiguranihVozila > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+
                     await _page.GetByText("od 11 do 20").ClickAsync();
                 }
                 else if (nivo == "nivo II")
                 {
-                    await _page.GetByText("---do 10od 11 do 20od 21 do 50od 51 do 100preko 100 ---").ClickAsync();
+                    //await _page.GetByText("---do 10od 11 do 20od 21 do 50od 51 do 100preko 100 ---").ClickAsync();
+                    await _page.Locator("#idBrojOsiguranihVozila > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+
                     await _page.GetByText("51 do 100").ClickAsync();
                 }
                 else
@@ -213,7 +225,8 @@ namespace Razvoj
                 #endregion Broj osiguranih vozila
 
                 #region Godina vozačkog staža
-                await _page.GetByText("---Do 10 godOd 10 do 14 godinaViše od 15 godina ---").ClickAsync();
+                //await _page.GetByText("---Do 10 godOd 10 do 14 godinaViše od 15 godina ---").ClickAsync();
+                await _page.Locator("//e-select[@id='idGodineVozStaza']//div[@class='multiselect-dropdown input']").ClickAsync();
                 if (nivo == "nivo I")
                 {
                     //await _page.GetByText("---Do 10 godOd 10 do 14 godinaViše od 15 godina ---").ClickAsync();
@@ -227,20 +240,22 @@ namespace Razvoj
                 else
                 {
                     //await _page.GetByText("---Do 10 godOd 10 do 14 godinaViše od 15 godina ---").ClickAsync();
-                    await _page.GetByText("Do 10 god").ClickAsync();
+                    await _page.GetByText("Do 10 god").Nth(1).ClickAsync();
                 }
                 #endregion Godina vozačkog staža
 
+
+
                 #region Zemlja porekla registracije
-                //await _page.GetByText("---Domaće tableInostrane table ---").ClickAsync();
+                await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
                 if (nivo == "nivo I")
                 {
-                    await _page.GetByText("---Domaće tableInostrane table ---").ClickAsync();
+                    //await _page.GetByText("---Domaće tableInostrane table ---").ClickAsync();
                     await _page.GetByText("Inostrane table").ClickAsync();
                 }
                 else if (nivo == "nivo II")
                 {
-                    await _page.GetByText("---Domaće tableInostrane table ---").ClickAsync();
+                    //await _page.GetByText("---Domaće tableInostrane table ---").ClickAsync();
                     await _page.GetByText("Domaće table").ClickAsync();
                 }
                 else
@@ -253,13 +268,14 @@ namespace Razvoj
 
 
 
-                await _page.GetByText("---MesečnoTromesečnoPolugodišnjeGodišnjeU celosti ---").ClickAsync();
+                //await _page.GetByText("---MesečnoTromesečnoPolugodišnjeGodišnjeU celosti ---").ClickAsync();
+                await _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.GetByText("Mesečno", new() { Exact = true }).ClickAsync();
 
                 #endregion Osnovni podaci
 
 
-
+                //await _page.PauseAsync();
 
                 #region Podaci o vozilu
 
@@ -282,7 +298,8 @@ namespace Razvoj
                     await _page.Locator("#selTipovi > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.GetByText("100 E 18", new() { Exact = true }).ClickAsync();
                     await _page.Locator("#selModeli > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                    await _page.GetByText("Eu.Cargo EU1'94 (zapremina:5861.00, snaga:130.00)", new() { Exact = true }).First.ClickAsync();
+                    //await _page.GetByText("Eu.Cargo EU1'94 (zapremina:5861.00, snaga:130.00)", new() { Exact = false }).First.ClickAsync();
+                    await _page.Locator(".control-wrapper.field.info-text-field.inner-label-field.focus > .control > .control-main > .multiselect-dropdown > .multiselect-dropdown-list-wrapper > .multiselect-dropdown-list > div:nth-child(7)").ClickAsync();
 
                     await _page.GetByText("Godina proizvodnje").ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "Godina proizvodnje" }).GetByRole(AriaRole.Textbox).FillAsync((DateTime.Now.Year - 14).ToString());
@@ -382,7 +399,7 @@ namespace Razvoj
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Posebna napomena - zabeležba" }).FillAsync("1. Ovo je posebna napomena - Zabeležba\n2. Ovo je posebna napomena - Zabeležba");
 
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).FillAsync("1. Ovo je zatečeno stanje vozila - oštećenje\n2. Ovo je zatečeno stanje vozila - oštećenje");
+                await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).FillAsync("1. Ovo je zatečeno stanje vozila - oštećenje 2. Ovo je zatečeno stanje vozila - oštećenje");
 
                 await _page.Locator("//textarea[@placeholder='Napomena']").ClickAsync();
                 await _page.Locator("//textarea[@placeholder='Napomena']").FillAsync("1- Ovo je napomena\n2- Ovo je napomena");
@@ -616,18 +633,33 @@ namespace Razvoj
                     await _page.GetByRole(AriaRole.Button, new() { Name = "Dodaj" }).ClickAsync();
                     await _page.GetByText("---StandardStandard + ---").First.ClickAsync();
                     await _page.GetByText("Standard +").Nth(2).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("200000");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("200000");
+
+
+
+
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).FillAsync("200000");
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
+
+
+
 
                     await _page.Locator(".multiselect-dropdown").First.ClickAsync();
                     await _page.GetByText("Osiguranje reklamnih i drugih").ClickAsync();
                     await _page.GetByRole(AriaRole.Button, new() { Name = "Dodaj" }).ClickAsync();
                     await _page.GetByText("---StandardStandard + ---").ClickAsync();
                     await _page.GetByText("Standard", new() { Exact = true }).Nth(2).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("100000");
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Tab");
+
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("100000");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Tab");
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).Nth(1).ClickAsync();
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).Nth(1).FillAsync("200000");
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).Nth(1).PressAsync("Enter");
+
 
 
 
@@ -651,20 +683,32 @@ namespace Razvoj
                     await _page.GetByRole(AriaRole.Button, new() { Name = "Dodaj" }).ClickAsync();
                     await _page.GetByText("---StandardStandard + ---").ClickAsync();
                     await _page.GetByText("Standard +").Nth(2).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("200000");
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Tab");
+
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("200000");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard + Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Tab");
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).FillAsync("150000");
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
+
+
+
 
                     await _page.Locator(".multiselect-dropdown").First.ClickAsync();
                     await _page.GetByText("Osiguranje reklamnih i drugih").ClickAsync();
                     await _page.GetByRole(AriaRole.Button, new() { Name = "Dodaj" }).ClickAsync();
                     await _page.GetByText("---StandardStandard + ---").ClickAsync();
                     await _page.GetByText("Standard", new() { Exact = true }).Nth(2).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("100000");
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
-                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Tab");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).FillAsync("100000");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
+                    //await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa osiguranja ---StandardStandard + Standard Paket Po sumi" }).GetByRole(AriaRole.Textbox).PressAsync("Tab");
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).Nth(1).ClickAsync();
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).Nth(1).FillAsync("200000");
+                    await _page.Locator("e-predmet-osiguranja").Filter(new() { HasText = "Odabir paketa dopunskog" }).GetByRole(AriaRole.Textbox).Nth(1).PressAsync("Enter");
+
+
 
                     await _page.Locator(".multiselect-dropdown").First.ClickAsync();
                     await _page.GetByText("Osiguranje troškova").ClickAsync();
@@ -740,7 +784,7 @@ namespace Razvoj
                 //nalaženje poslednjeg broja dokumenta u Kasko polisama
                 int PoslednjiBrojDokumenta = OdrediBrojDokumentaKasko();
 
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Kalkuliši" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Kalkuliši" }).ClickAsync();
                 //await _page.GetByText("Podaci uspešno snimljeni").ClickAsync();
                 await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                 await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + (PoslednjiBrojDokumenta + 1).ToString());
@@ -758,7 +802,7 @@ namespace Razvoj
                 //await _page.PauseAsync();
                 //Info ponuda
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Izmeni" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Izmeni" }).ClickAsync();
                 await _page.Locator(".no-content > .control-wrapper > .control > .control-main > .multiselect-dropdown").First.ClickAsync();
                 await _page.Locator("e-tab-group").GetByText("učešće 10% min. 300€").ClickAsync();
                 await _page.Locator("e-tab-group").GetByText("učešće 10% min. 500€").ClickAsync();
@@ -780,12 +824,12 @@ namespace Razvoj
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Opšti podaci" }).ClickAsync();
 
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Prethodne verzije" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Link, new() { Name = "1 " }).ClickAsync();
-                await _page.GetByRole(AriaRole.Link, new() { Name = "2 " }).ClickAsync();
-                await _page.Locator("e-sidenav").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
-
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Prethodne verzije" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Link, new() { Name = "1" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Link, new() { Name = "2" }).ClickAsync();
+                //await _page.Locator("e-sidenav").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                await _page.Locator("//e-button[@class='btn-close']").ClickAsync();
                 await IzlogujSe(_page);
                 if (NacinPokretanjaTesta == "ručno")
                 {
@@ -855,10 +899,10 @@ namespace Razvoj
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
 
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = " Obriši dokument" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = " Obriši dokument" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
                 await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
@@ -1079,7 +1123,8 @@ namespace Razvoj
                 //await _page.Locator("div:nth-child(2) > .col-4 > .vrednostRsd > .control-wrapper > .control > .control-main > .input").ClickAsync();
                 //await _page.Locator("div:nth-child(2) > .col-4 > .vrednostRsd > .control-wrapper > .control > .control-main > .input").FillAsync("100000");
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).FillAsync("Vozilo je u\nveoma dobrom stanju\nVlasnik je odlično održavao.\n");
+                //await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).FillAsync("Vozilo je u\nveoma dobrom stanju\nVlasnik je odlično održavao.\n");
+                await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).FillAsync("Vozilo je u veoma dobrom stanju Vlasnik je odlično održavao.");
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).ClickAsync();
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).FillAsync("Ovo je prvi red napomene\nOvo je drugi red napomene");
                 await _page.Locator(".row.div_paket_header > div > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").First.ClickAsync();
@@ -1138,11 +1183,11 @@ namespace Razvoj
 
                 //Info ponuda
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Izmeni" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Izmeni" }).ClickAsync();
                 await _page.Locator(".no-content > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator("e-tab-group").GetByText("učešće 10% min. 300€").ClickAsync();
                 await _page.Locator("e-tab-group").GetByText("učešće 10% min. 500€").ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Snimi i kalkuliši" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Snimi i kalkuliši" }).ClickAsync();
                 await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                 await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + (PoslednjiBrojDokumenta + 1).ToString());
                 await _page.GetByText("Podaci uspešno snimljeni").ClickAsync();
@@ -1160,22 +1205,22 @@ namespace Razvoj
                 /******************************
                 var page1 = await page.RunAndWaitForPopupAsync(async () =>
                 {
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj polisu" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new() { Name = "Štampaj polisu" }).ClickAsync();
                 });
                 await page1.CloseAsync();
                 var page2 = await page.RunAndWaitForPopupAsync(async () =>
                 {
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj uplatnicu/fakturu" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new() { Name = "Štampaj uplatnicu/fakturu" }).ClickAsync();
                 });
                 await page2.CloseAsync();
                 var page3 = await page.RunAndWaitForPopupAsync(async () =>
                 {
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj zapisnik" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new() { Name = "Štampaj zapisnik" }).ClickAsync();
                 });
                 await page3.CloseAsync();
-                await page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
-                await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj ponudu" }).ClickAsync();
-                await page.GetByRole(AriaRole.Button, new() { Name = " Štampaj ponudu" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = "Štampaj ponudu" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = "Štampaj ponudu" }).ClickAsync();
                 await page.GetByRole(AriaRole.Link, new() { Name = "" }).ClickAsync();
                 await page.GetByRole(AriaRole.Button, new() { Name = " Odjavljivanje" }).ClickAsync();
                 *********************************/
@@ -2879,7 +2924,7 @@ public async Task KA_02_KalkulisanjeIzmenaPolise_nivo_I()
 
         //Info ponuda
         await _page.GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
-        await _page.GetByRole(AriaRole.Button, new() { Name = " Izmeni" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Izmeni" }).ClickAsync();
         await _page.Locator(".no-content > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
         await _page.Locator("e-tab-group").GetByText("učešće 0% min. 0€").ClickAsync();
         await _page.Locator("e-tab-group").GetByText("učešće 20% min. 200€").ClickAsync();
@@ -2907,10 +2952,10 @@ public async Task KA_02_KalkulisanjeIzmenaPolise_nivo_I()
         await _page.GetByRole(AriaRole.Button, new() { Name = "Aneksi / Obračuni" }).ClickAsync();
         await _page.GetByRole(AriaRole.Button, new() { Name = "Opšti podaci" }).ClickAsync();
 
-        await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
-        await _page.GetByRole(AriaRole.Button, new() { Name = " Prethodne verzije" }).ClickAsync();
-        await _page.GetByRole(AriaRole.Link, new() { Name = "1 " }).ClickAsync();
-        await _page.GetByRole(AriaRole.Link, new() { Name = "2 " }).ClickAsync();
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Prethodne verzije" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Link, new() { Name = "1" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Link, new() { Name = "2" }).ClickAsync();
         await _page.Locator("e-sidenav").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
 
         await IzlogujSe(_page);
@@ -3146,7 +3191,7 @@ public async Task KA_03_KalkulisanjeIzmenaPolise_nivo_III()
 
         //Info ponuda
         await _page.GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
-        await _page.GetByRole(AriaRole.Button, new() { Name = " Izmeni" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Izmeni" }).ClickAsync();
         await _page.Locator(".no-content > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
         await _page.Locator("e-tab-group").GetByText("učešće 10% min. 300€").ClickAsync();
         await _page.Locator("e-tab-group").GetByText("učešće 10% min. 500€").ClickAsync();
@@ -3168,10 +3213,10 @@ public async Task KA_03_KalkulisanjeIzmenaPolise_nivo_III()
         await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
         await _page.GetByRole(AriaRole.Button, new() { Name = "Opšti podaci" }).ClickAsync();
 
-        await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije " }).ClickAsync();
-        await _page.GetByRole(AriaRole.Button, new() { Name = " Prethodne verzije" }).ClickAsync();
-        await _page.GetByRole(AriaRole.Link, new() { Name = "1 " }).ClickAsync();
-        await _page.GetByRole(AriaRole.Link, new() { Name = "2 " }).ClickAsync();
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Prethodne verzije" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Link, new() { Name = "1" }).ClickAsync();
+        await _page.GetByRole(AriaRole.Link, new() { Name = "2" }).ClickAsync();
         await _page.Locator("e-sidenav").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
 
         await IzlogujSe(_page);

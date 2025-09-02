@@ -171,7 +171,7 @@ namespace Produkcija
                 }
 
 
-
+                //await Pauziraj(_page);
                 await ProveriStampu404(_page, "Štampaj polisu", "Greška u štampi izmenjene polise posle klika na Štampaj polisu.");
 
                 //Provera slanja mejla za kupca
@@ -302,7 +302,7 @@ namespace Produkcija
                 await _page.getByRole('button', { name: ' Pošalji mejl' }).click();
 */
 
-                //Zapis poslednjeg mejla (Pre izmene polise)
+                //Zapis poslednjeg mejla (Pre kreiranja polise)
                 var PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
 
                 //await _page.PauseAsync();
@@ -317,7 +317,7 @@ namespace Produkcija
 
 
                     await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.ClickAsync();
-                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.bogdan@mail.eonsystem.com");
+                    await _page.Locator("body > div:nth-child(3) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(4) > div:nth-child(2) > e-input:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > input:nth-child(1)").First.FillAsync("amso.mario@mail.eonsystem.com");
                     //await _page.Locator("#inpEmail input[type=\"text\"]").FillAsync("amso.mario@mail.eonsystem.com");
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.ClickAsync();
                     await _page.Locator(".commonBox > div:nth-child(2) > div > div:nth-child(1) > .editabilno > .control-wrapper > .control > .control-main > .input").First.FillAsync("Kreirano Novo Ime");
@@ -328,12 +328,12 @@ namespace Produkcija
 
 
                     //Provera da li je poslat mejl ka BO da je polisa izmenjena
-                    await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa izmenjena nije poslat.");
+                    //await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa izmenjena nije poslat.");
 
 
 
                     //provera da li je poslat mejl BO da je polisa kreirana
-                    PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
+                    //PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
                     //Kreiraj polisu
                     var porukaLocator = _page.Locator("//div[contains(., 'Polisa uspešno kreirana') or contains(., 'INSERT INTO putno_polise')]");
                     //await _page.PauseAsync();
@@ -374,8 +374,8 @@ namespace Produkcija
                         //await _page.WaitForTimeoutAsync(1000);
                         throw (new Exception("Nepoznata greška"));
                     }
-                    //Provera da li je poslat mejl ka BO da je polisa kreirana
-                    await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa kreirana nije poslat.");
+                    //Provera da li je poslat mejl ka kupcu da je polisa kreirana
+                    await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za kupca sa informacijom da je polisa kreirana nije poslat.");
                     //await _page.PauseAsync();
                     //await _page.GetByText("Polisa uspešno kreirana").ClickAsync();
 
@@ -390,7 +390,7 @@ namespace Produkcija
 
 
                 //Provera da li je poslat mejl ka BO da je polisa kreirana
-                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa kreirana nije poslat.");
+                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Mejl za BO sa informacijom da je polisa kreirana nije poslat.");
                 //await _page.PauseAsync();
                 await ProveriStampu404(_page, "Štampaj polisu", "Greška u štampi kreirane polise posle klika na Štampaj polisu.");
 

@@ -280,6 +280,14 @@ namespace UAT
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Skloni panel" }).ClickAsync();
 
+
+
+
+
+                /****************************************************************************
+                Ovo je deo za brisanje polise, izkomentarisan je jer je napisan poseban test
+                ****************************************************************************/
+                /***********************************************************************************************************
                 //Brisanje polise koja je u izradi
                 await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
                 // Provera da li se otvorila stranica sa pregledom polisa AO
@@ -305,11 +313,7 @@ namespace UAT
                 {
                     System.Windows.Forms.MessageBox.Show($"Redova ima-1: {brojRedova}", "Informacija", MessageBoxButtons.OK);
                 }
-                /****************************************************************************
-                Ovo je deo za brisanje polise, izkomentarisan je jer je napisan poseban test
-                ****************************************************************************/
-
-                /***********************************************************************************************************
+                
                 if (brojRedova > 0)
                 {
                     // Pročitaj broj dokumenta (sadržaj ćelije u prvom redu i prvoj koloni)

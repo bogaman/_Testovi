@@ -1200,7 +1200,8 @@ namespace Proba2
 
                         // Zatvori pop-up
                         await _page.GetByText("Servis nije pokrenut!").ClickAsync();
-                        await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                        //await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                        await _page.Locator("//div[@id='notify0']//e-button[@type='icon']").ClickAsync();
                     }
                     else if (tekstNotifikacije.Contains("U čitaču/ima nije pronađena "))
                     {
@@ -1209,7 +1210,8 @@ namespace Proba2
 
                         // Zatvori pop-up
                         await _page.GetByText("U čitaču/ima nije pronađena ").ClickAsync();
-                        await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
+                        //await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync(); 
+                        await _page.Locator("//div[@id='notify0']//e-button[@type='icon']").ClickAsync();
                     }
                     else
                     {
