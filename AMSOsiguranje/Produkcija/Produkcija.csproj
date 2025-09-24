@@ -8,12 +8,13 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
     <!-- Info o assembly-ju -->
     <AssemblyTitle>Testovi-AMSS</AssemblyTitle>
     <AssemblyProduct>Testovi-AMSS</AssemblyProduct>
     <Company>Evolution Online – EON</Company>
-    <Authors>Bogdan MandarićJa</Authors>
+    <Authors>Bogdan Mandarić</Authors>
     <Version>1.0.0</Version>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
