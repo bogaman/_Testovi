@@ -216,7 +216,7 @@ namespace Produkcija
                 int GranicniBrojdokumenta = 0;
                 if (Okruzenje == "Razvoj")
                 {
-                    GranicniBrojdokumenta = 0;
+                    GranicniBrojdokumenta = 5410;
                 }
                 else if (Okruzenje == "Proba2")
                 {
@@ -858,7 +858,7 @@ namespace Produkcija
                 //await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
                 //await ProveriURL(_page, PocetnaStrana, $"/Stroga-Evidencija/1/Autoodgovornost/Dokument/4/0");
 
-                //await Pauziraj(_page);
+                await Pauziraj(_page);
 
                 await _page.Locator("button").Filter(new() { HasText = "Snimi" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Pošalji na verifikaciju" }).ClickAsync();

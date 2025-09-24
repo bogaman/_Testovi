@@ -2944,12 +2944,15 @@ namespace Proba2
                 #region VOZILO
 
                 #region Vrsta vozila - premijska grupa
+                /*
                 if (_premijskaGrupa != "Putničko vozilo")
                 {
                     await _page.Locator("#selVrstaVozila > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.GetByText(_premijskaGrupa).ClickAsync();
                 }
-
+                */
+                await _page.Locator("#selVrstaVozila > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+                await _page.GetByText(_premijskaGrupa).First.ClickAsync();
                 //await _page.GetByText("Teretno vozilo").ClickAsync();
                 //await _page.Locator("#selVrstaVozila > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 //await _page.GetByText("Autobusi").ClickAsync();
@@ -4807,13 +4810,14 @@ namespace Proba2
                 //await _page.GetByText("Brojevi obrazaca: ").ClickAsync();
                 //await _page.Locator("#notify0 button").ClickAsync();
                 await Pauziraj(_page);
-                await _page.Locator("#inpDoBroja input[type=\"text\"]").ClickAsync();
-                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync(strSerijskiBrojAO);
-                konCifraDo = IzracunajKontrolnuCifru($"{SerijskiBrojAO}");
-                await _page.Locator("#inpDoBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraDo);
-                //await _page.Locator("button").Filter(new() { HasText = "Dodaj" }).ClickAsync();
-                await _page.Locator("//e-button[@id='btnDodaj']").ClickAsync();
-
+                /*
+                                await _page.Locator("#inpDoBroja input[type=\"text\"]").ClickAsync();
+                                await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync(strSerijskiBrojAO);
+                                konCifraDo = IzracunajKontrolnuCifru($"{SerijskiBrojAO}");
+                                await _page.Locator("#inpDoBrojaKontrolna input[type=\"text\"]").FillAsync(konCifraDo);
+                                //await _page.Locator("button").Filter(new() { HasText = "Dodaj" }).ClickAsync();
+                                await _page.Locator("//e-button[@id='btnDodaj']").ClickAsync();
+                */
                 await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();
                 //await _page.Locator("button").Filter(new() { HasText = "Dodaj" }).ClickAsync();
                 await _page.Locator("//e-button[@id='btnDodaj']").ClickAsync();

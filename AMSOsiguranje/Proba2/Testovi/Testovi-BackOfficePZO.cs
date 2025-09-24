@@ -341,7 +341,7 @@ namespace Proba2
                     //await _page.Locator("//e-button[@id='createPolicy']//button[@class='left primary flat flex-center-center']").First.ClickAsync();
 
                     // Čekanje na promenu sadržaja
-                    await porukaLocator.WaitForAsync(new() { Timeout = 14000 });
+                    await porukaLocator.WaitForAsync(new() { Timeout = 20000 });
                     await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
 
 

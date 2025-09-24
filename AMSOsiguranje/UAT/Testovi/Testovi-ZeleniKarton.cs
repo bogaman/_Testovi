@@ -20,6 +20,7 @@ namespace UAT
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
                 await Pauziraj(_page);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -179,6 +180,7 @@ namespace UAT
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
                 await Pauziraj(_page);
+                await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -911,8 +913,8 @@ namespace UAT
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/4/Zeleni-karton/Pregled-dokumenata");
 
                 // Klik na Pregled / Pretraga razdužnih listi i provera da li se otvorila odgovarajuća stranica
-                await _page.GetByText("Pregled / Pretraga razdužnih listi").ClickAsync();
-                await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Pregled-dokumenata");
+                await _page.GetByText("Pregled / Pretraga razdužnih listi (OSK)").ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, "/Stroga-Evidencija/4/Zeleni-karton/Pregled-dokumenata/4");
 
                 // Proveri da li stranica sadrži grid Obrasci
                 string tipGrida = "grid Dokumenti";
