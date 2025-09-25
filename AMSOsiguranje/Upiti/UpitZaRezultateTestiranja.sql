@@ -16,7 +16,7 @@ SELECT [IdTestiranje], [Okruzenje], [NazivKlaseTestova], [UkupnoTestova], [Uspes
 				  [StackTrace],
 				  [BackOffice]
   FROM [TestLogDB].[test].[tReportIndividual]
-  --where IdTestiranje = 3
+  where IdTestiranje = 1
   ORDER BY [IdTestiranje] DESC, [IdTest] ASC;
   --ORDER BY [IdTestiranje] ASC, [IdTest] ASC;
 
