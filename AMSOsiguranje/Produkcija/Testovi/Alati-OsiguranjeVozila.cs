@@ -1102,6 +1102,33 @@ namespace Produkcija
         protected static async Task OcitajDokument(IPage _page, string tipDokumenta)
         {
 
+            string nazivProcesa = "CitacEdoc";
+
+            // 1. Provera da li je proces vec pokrenut
+            // GetProcesses() vraca sve aktivne procese na sistemu.
+            bool aplikacijaAktivna = Process.GetProcesses()
+                                           .Any(p => p.ProcessName.Equals(nazivProcesa, System.StringComparison.OrdinalIgnoreCase));
+            if (aplikacijaAktivna)
+            {
+                Console.WriteLine($"Aplikacija '{nazivProcesa}' je već aktivna.");
+            }
+            else
+            {
+                try
+                {
+                    // 2. Ako aplikacija nije aktivna, pokreni je
+                    Process.Start(@"C:\Users\bogdan.mandaric\AppData\Local\Apps\2.0\2LRG08ZX.N6J\JO5A516J.KMK\cita..tion_2fca89819740be51_0001.0000_6c66621e7342d7e9\CitacEdoc.exe");
+                    //Console.WriteLine($"Aplikacija '{nazivAplikacije}' je uspešno pokrenuta sa putanje: {putanjaDoExe}");
+                }
+                catch (Exception ex)
+
+                {
+                    Console.WriteLine($"Greška prilikom pokretanja aplikacije '{nazivProcesa}': {ex.Message}");
+                    // U slučaju greške (npr. pogrešna putanja), možete ovde baciti izuzetak
+                    // throw;
+                }
+            }
+
             if (tipDokumenta == "Saobracajna")
             {
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Očitaj saobraćajnu" }).ClickAsync();
