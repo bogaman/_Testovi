@@ -220,17 +220,19 @@ namespace UAT
         /// <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
         /// <param name="UkupnoTestova">Ukupan broj testova.</param>
         /// <param name="krajTestiranja">Vreme završetka testiranja.</param>    
-        /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
+        /// <param name="nazivTestiranja">Naziv testiranja.</param>
+        /// /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
         /// <exception cref="SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
         /// <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
-        public static void UnesiRezultatTestiranja(int newRecordId, int paliTestovi, int prosliTestovi, int preskoceniTestovi, int UkupnoTestova, DateTime krajTestiranja)
+        public static void UnesiRezultatTestiranja(int newRecordId, int paliTestovi, int prosliTestovi, int preskoceniTestovi, int UkupnoTestova, DateTime krajTestiranja, string nazivTestiranja)
         {
             string updateCommand = @"UPDATE test.tReportSumary 
                                      SET NeuspesnihTestova = @failedTests, 
                                          UspesnihTestova = @passTests, 
                                          PreskocenihTestova = @skippedTests, 
                                          UkupnoTestova = @ukupnoTests, 
-                                         KrajTestiranja = @krajTestiranja 
+                                         KrajTestiranja = @krajTestiranja,
+                                         NazivKlaseTestova = @nazivTestiranja
                                      WHERE IDTestiranje = @IDTestiranje;";
 
             using SqlConnection connection = new(ConnectionString);
@@ -245,6 +247,7 @@ namespace UAT
                 command.Parameters.AddWithValue("@ukupnoTests", UkupnoTestova);
                 command.Parameters.AddWithValue("@krajTestiranja", krajTestiranja);
                 command.Parameters.AddWithValue("@IDTestiranje", newRecordId);
+                command.Parameters.AddWithValue("@nazivTestiranja", nazivTestiranja ?? string.Empty);
                 int rowsAffected = command.ExecuteNonQuery();
                 Console.WriteLine($"{rowsAffected} red je uspešno unet.");
             }

@@ -1,4 +1,4 @@
-SELECT *
+SELECT [IdTestiranje], [Okruzenje], [NazivKlaseTestova], [UkupnoTestova], [UspesnihTestova], [NeuspesnihTestova], [PreskocenihTestova], [PocetakTestiranja], [KrajTestiranja], [NacinTestiranja], [NazivKompjutera]
   FROM [TestLogDB].[test].[tReportSumary]
   --where IdTestiranje = 10 
   ORDER BY [IdTestiranje] DESC;

@@ -326,7 +326,7 @@
             <exception cref="T:System.Data.OleDb.OleDbException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
         </member>
-        <member name="M:UAT.LogovanjeTesta.UnesiRezultatTestiranja(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime)">
+        <member name="M:UAT.LogovanjeTesta.UnesiRezultatTestiranja(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.DateTime,System.String)">
             <summary>
             Unosi se rezultat svih testiranja u bazu podataka.
             </summary>  
@@ -336,7 +336,8 @@
             <param name="preskoceniTestovi">Broj testova koji su preskočeni.</param>    
             <param name="UkupnoTestova">Ukupan broj testova.</param>
             <param name="krajTestiranja">Vreme završetka testiranja.</param>    
-            <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
+            <param name="nazivTestiranja">Naziv testiranja.</param>
+            /// <returns>Ne vraća ništa, samo ažurira postojeći zapis u tabeli tblSumarniIzvestajTestiranja.</returns>
             <exception cref="T:Microsoft.Data.SqlClient.SqlException">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda se koristi za ažuriranje rezultata testiranja u bazi podataka.</remarks>
         </member>

@@ -13,6 +13,8 @@ namespace Proba2
         protected IPlaywright _playwright;
         protected IBrowserContext context;
 
+        string nazivKlaseTesta = string.Empty;
+
         public string BOkorisnickoIme = string.Empty;
         public string BOlozinka = string.Empty;
         public string AkorisnickoIme = string.Empty;
@@ -87,6 +89,22 @@ namespace Proba2
         {
             try
             {
+                // 1. Pristupi trenutnom kontekstu testa
+                var trenutniKontekst = TestContext.CurrentContext;
+
+                // 2. Preuzmi puno ime klase (ukljucuje namespace)
+                string punoImeKlase = trenutniKontekst.Test.ClassName ?? string.Empty;
+
+                // 3. Izdvoj samo naziv klase (opciono, ali često korisno)
+                // Ako je punoImeKlase: MojProjekat.Testovi.Klasa2
+                nazivKlaseTesta = punoImeKlase.Substring(punoImeKlase.LastIndexOf('.') + 1);
+
+
+
+                // Dodeli promenljivoj
+                //string MojaPromenljiva = nazivKlaseTesta;
+
+
                 // Odredi kada je počeo trenutni test
                 LogovanjeTesta.PocetakTesta = DateTime.Now;
                 // Odredi naziv trenutnog testa
@@ -234,7 +252,8 @@ namespace Proba2
                                                        $"Agent je: {Akorisnik_?.Ime}\n" +
                                                        $"Korisničko ime: {AkorisnickoIme}\n" +
                                                        $"Lozinka: {Alozinka}\n\n" +
-                                                       $"Saradnik: {Akorisnik_?.Saradnik1}\n",
+                                                       $"Saradnik: {Akorisnik_?.Saradnik1}\n" +
+                                                       $"Naziv klase testova: {nazivKlaseTesta}\n",
                                                        $"Ko će Testirati", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
@@ -356,7 +375,7 @@ namespace Proba2
                 //LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranja, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
                 //Unosi se u bazu vreme završetka testiranja i podaci o uspešnosti testiranja
                 //LogovanjeTesta.UnesiRezultatTestiranja2(LogovanjeTesta.IDTestiranja1, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
-                LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja);
+                LogovanjeTesta.UnesiRezultatTestiranja(LogovanjeTesta.IDTestiranje, LogovanjeTesta.FailedTests, LogovanjeTesta.PassTests, LogovanjeTesta.SkippedTests, LogovanjeTesta.UkupnoTests, LogovanjeTesta.KrajTestiranja, nazivKlaseTesta);
 
                 LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {(LogovanjeTesta.KrajTestiranja - LogovanjeTesta.PocetakTestiranja).TotalSeconds} sekundi.", false);
                 LogovanjeTesta.LogMessage($"[{LogovanjeTesta.KrajTestiranja:dd.MM.yyyy. HH:mm:ss}] Kraj testiranja, trajanje: {TrajanjeTestiranja} sekundi.", false);
