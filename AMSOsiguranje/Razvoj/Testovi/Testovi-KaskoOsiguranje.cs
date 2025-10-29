@@ -131,7 +131,8 @@ namespace Razvoj
                 await _page.Locator("//div[@etitle='Jednogodišnje']").ClickAsync();
                 if (Okruzenje == "UAT")
                 {
-                    await _page.Locator("#idTrajanje").GetByText("vise od 2").ClickAsync();
+                    //await _page.Locator("#idTrajanje").GetByText("vise od 2").ClickAsync();
+                    await _page.Locator("#idTrajanje").GetByText("5 godina").ClickAsync();
                 }
                 else
                 {
@@ -798,17 +799,17 @@ namespace Razvoj
 
                 await _page.Locator("#selMestaIzdavanja > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "pretraži" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Textbox, new() { Name = "pretraži" }).FillAsync("11070");
-                await _page.Locator("#selMestaIzdavanja").GetByText("11070 - Beograd (Novi Beograd)").ClickAsync();
+                await _page.GetByRole(AriaRole.Textbox, new() { Name = "pretraži" }).FillAsync("24430");
+                await _page.Locator("#selMestaIzdavanja").GetByText("24430 - Ada").ClickAsync();
 
 
                 //await _page.PauseAsync();
-
+                /*
                 if (Okruzenje == "UAT" && trajanje == "Više od 2")
                 {
                     trajanje = "vise od 2";
                 }
-
+                */
                 await _page.Locator("//e-select[@id='idTrajanje']//div[@class='control-main']").ClickAsync();
                 await _page.Locator("//e-select[@id='idTrajanje']").GetByText(trajanje).First.ClickAsync();
 
@@ -1285,7 +1286,7 @@ namespace Razvoj
                 int rowIndex = 0; // Definiši brojač
 
                 string brojDokumenta = "abc";
-                //string brojPolise = "abc";
+                string brojPolise = "abc";
 
                 foreach (var row in rows)
                 {
@@ -1300,9 +1301,19 @@ namespace Razvoj
                     {
                         brojZahteva = await valueInColumn1.EvaluateAsync<string>("el => el.innerText");
                         brojDokumenta = await valueInColumn3.EvaluateAsync<string>("el => el.innerText");
+                        // Protect against possible null for column 4
+                        if (valueInColumn4 != null)
+                        {
+                            brojPolise = await valueInColumn4.EvaluateAsync<string>("el => el.innerText");
+                        }
+                        else
+                        {
+                            brojPolise = string.Empty;
+                        }
+
                         if (NacinPokretanjaTesta == "ručno")
                         {
-                            System.Windows.MessageBox.Show($"U redu {rowIndex} kolona \nBroj zahteva ima vrednost:: #{brojZahteva}#, a \nBroj dokumenta je:: #{brojDokumenta}#");
+                            System.Windows.MessageBox.Show($"U redu {rowIndex} kolona \nBroj zahteva ima vrednost:: #{brojZahteva}#, \nBroj dokumenta je:: #{brojDokumenta}#, \nBroj polise je:: #{brojPolise}#");
                         }
                         break;
                     }

@@ -452,6 +452,7 @@ namespace Razvoj
                     LogovanjeTesta.LogMessage($"✅ {Poruka} ima 'HTTP ERROR 404'", false);
                     Exception ex = new PlaywrightException();
                     await LogovanjeTesta.LogException($"✅ {Poruka} ima 'HTTP ERROR 404'", ex);
+                    System.Windows.MessageBox.Show("Žao mi je, detektovan je HTTP ERROR 404 na štampi.");
                 }
                 else
                 {
@@ -498,6 +499,7 @@ namespace Razvoj
                     LogovanjeTesta.LogMessage($"✅ {Poruka} ima 'HTTP ERROR 404'", false);
                     Exception ex = new PlaywrightException();
                     await LogovanjeTesta.LogException($"✅ {Poruka} ima 'HTTP ERROR 404'", ex);
+                    System.Windows.MessageBox.Show("Žao mi je, detektovan je HTTP ERROR 404 na štampi.");
                 }
                 else
                 {
