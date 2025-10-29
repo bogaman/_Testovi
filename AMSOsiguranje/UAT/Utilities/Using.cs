@@ -47,6 +47,7 @@ global using FlaUI.Core.Conditions;
 global using FlaUI.Core.Definitions;
 global using FlaUI.UIA3;
 global using FlaUI.Core.Tools;
+global using FlaUI.Core.WindowsAPI;
 //global using FlaUI.UIA2;
 //global using Microsoft.VisualStudio.TestTools.UnitTesting; --------- ovo verovatno ne treba
 //global using FlaUI.Core.Conditions;

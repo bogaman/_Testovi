@@ -5,6 +5,85 @@ namespace UAT
     public class ZTestDevelopment : Osiguranje
     {
 
+        // Glavni izvor podataka
+        public static IEnumerable<TestCaseData> GetTestPodaci()
+        {
+            string FilterBrojaPolisa = "";
+            if (NacinPokretanjaTesta != "ručno")
+            {
+                FilterBrojaPolisa = "AND [Id] IN (1, 2)";
+            }
+            string connectionString = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = $"SELECT [Id], [RB], [tipPolise], [premijskaGrupa], [premijskaPodgrupa], [popustiDoplaci], " +
+                                  $"[tegljac], [tipUgovaraca], [oslobodjenPoreza], [tipLica1], [tipLica2], [maticniBroj1], " +
+                                  $"[maticniBroj2], [PIB1], [PIB2], [platilac], [jbkjs]" +
+                           $"FROM [TestLogDB].[test].[tUlazniParametri] " +
+                           $"WHERE ([tipPolise] IS NOT NULL " + FilterBrojaPolisa + ") ORDER BY [Id];";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int Id = reader.GetInt32(0);
+                        int RB = reader.GetInt32(1);
+                        string tipPolise = reader.GetString(2);
+                        string premijskaGrupa = reader.GetString(3);
+                        string premijskaPodgrupa = reader.GetString(4);
+                        string popustiDoplaci = reader.GetString(5);
+                        bool tegljac = reader.GetBoolean(6);
+                        string tipUgovaraca = reader.GetString(7);
+                        string oslobodjenPoreza = reader.GetString(8);
+                        string tipLica1 = reader.GetString(9);
+                        string tipLica2 = reader.GetString(10);
+                        string maticniBroj1 = reader.GetString(11);
+                        string maticniBroj2 = reader.GetString(12);
+                        string pib1 = reader.GetString(13);
+                        string pib2 = reader.GetString(14);
+                        string platilac = reader.GetString(15);
+                        string jbkjs = reader.GetString(16);
+
+                        yield return new TestCaseData(Id, RB, tipPolise, premijskaGrupa, premijskaPodgrupa, popustiDoplaci,
+                                                      tegljac, tipUgovaraca, oslobodjenPoreza, tipLica1, tipLica2,
+                                                      maticniBroj1, maticniBroj2, pib1, pib2, platilac, jbkjs)
+                            .SetName($"Test_{tipPolise}_RB{RB}");
+                    }
+                }
+            }
+        }
+
+        // Wrapper metode (filtracija po tipu)
+        public static IEnumerable<TestCaseData> GetTestPodaciTipA() =>
+            GetTestPodaci().Where(tc => (string)tc.Arguments[2] == "Regularna");
+
+        public static IEnumerable<TestCaseData> GetTestPodaciTipB() =>
+            GetTestPodaci().Where(tc => (string)tc.Arguments[2] == "Granično osiguranje");
+
+        public static IEnumerable<TestCaseData> GetTestPodaciTipC() =>
+            GetTestPodaci().Where(tc => (string)tc.Arguments[2] == "Privremeno osiguranje");
+
+        [Test, TestCaseSource(typeof(ZTestDevelopment), nameof(ZTestDevelopment.GetTestPodaciTipA))]
+        public void TestZaTipA(string url, string naslov, string tip)
+        {
+            TestContext.WriteLine($"Pokrećem TEST TIP A: {url}, Naslov: {naslov}");
+            //Assert.AreEqual("TipA", tip);
+        }
+        [Test, TestCaseSource(typeof(ZTestDevelopment), nameof(ZTestDevelopment.GetTestPodaciTipB))]
+        public void TestZaTipB(string url, string naslov, string tip)
+        {
+            TestContext.WriteLine($"Pokrećem TEST TIP B: {url}, Naslov: {naslov}");
+            //Assert.AreEqual("TipB", tip);
+        }
+
+        [Test, TestCaseSource(typeof(ZTestDevelopment), nameof(ZTestDevelopment.GetTestPodaciTipC))]
+        public void TestZaTipC(string url, string naslov, string tip)
+        {
+            TestContext.WriteLine($"Pokrećem TEST TIP C: {url}, Naslov: {naslov}");
+            //Assert.AreEqual("TipC", tip);
+        }
 
 
         [Test]
@@ -1473,118 +1552,119 @@ namespace UAT
 
 
 
+                /*
+                                #region Sertifikat
 
-                #region Sertifikat
+                                var process = Process.GetProcessesByName(AppName).FirstOrDefault();
+                                if (process != null)
+                                {
+                                    //Ako je aplikacija pokrenuta, pridruži se postojećem procesu
+                                    _application = FlaUI.Core.Application.Attach(process);
+                                    Console.WriteLine($"Aplikacija '{AppName}' je već pokrenuta.");
+                                }
+                                else
+                                {
+                                    // Ako aplikacija nije pokrenuta, pokreni je
+                                    Console.WriteLine($"Aplikacija '{AppName}' nije pokrenuta.");
+                                    _application = FlaUI.Core.Application.Launch(AppPath);
+                                }
 
-                var process = Process.GetProcessesByName(AppName).FirstOrDefault();
-                if (process != null)
-                {
-                    //Ako je aplikacija pokrenuta, pridruži se postojećem procesu
-                    _application = FlaUI.Core.Application.Attach(process);
-                    Console.WriteLine($"Aplikacija '{AppName}' je već pokrenuta.");
-                }
-                else
-                {
-                    // Ako aplikacija nije pokrenuta, pokreni je
-                    Console.WriteLine($"Aplikacija '{AppName}' nije pokrenuta.");
-                    _application = FlaUI.Core.Application.Launch(AppPath);
-                }
+                                await _page.PauseAsync();
 
-                await _page.PauseAsync();
+                                // Inicijalizacija FlaUI
+                                _automation = new UIA3Automation();
+                                // Dohvatanje glavnog prozora aplikacije
+                                var mainWindow = _application.GetMainWindow(_automation);
 
-                // Inicijalizacija FlaUI
-                _automation = new UIA3Automation();
-                // Dohvatanje glavnog prozora aplikacije
-                var mainWindow = _application.GetMainWindow(_automation);
+                                // Provera da li je mainWindow null
+                                if (mainWindow == null)
+                                {
+                                    throw new Exception("Main window of the application was not found.");
+                                }
 
-                // Provera da li je mainWindow null
-                if (mainWindow == null)
-                {
-                    throw new Exception("Main window of the application was not found.");
-                }
+                                //Pronalazak TreeView elementa
+                                var treeView = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree))?.AsTree();
+                                //Assert.IsNotNull(treeView, "TreeView not found");
 
-                //Pronalazak TreeView elementa
-                var treeView = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree))?.AsTree();
-                //Assert.IsNotNull(treeView, "TreeView not found");
+                                // Pronalazak TreeItem sa tekstom "Petrović Petar"
+                                //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
+                                var SertifikatName_ = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
+                                var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(SertifikatName_))).AsTreeItem();
+                                //Assert.IsNotNull(treeItem, "TreeItem 'Bogdan Mandarić' not found");
 
-                // Pronalazak TreeItem sa tekstom "Petrović Petar"
-                //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
-                var SertifikatName_ = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
-                var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(SertifikatName_))).AsTreeItem();
-                //Assert.IsNotNull(treeItem, "TreeItem 'Bogdan Mandarić' not found");
+                                // Klik na TreeItem
+                                if (treeItem != null)
+                                {
+                                    treeItem.Click();
+                                }
+                                else
+                                {
+                                    throw new Exception($"TreeItem '{SertifikatName_}' not found.");
+                                }
 
-                // Klik na TreeItem
-                if (treeItem != null)
-                {
-                    treeItem.Click();
-                }
-                else
-                {
-                    throw new Exception($"TreeItem '{SertifikatName_}' not found.");
-                }
+                                // Pronalazak dugmeta "Cancel"
+                                //var cancelButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("Cancel"))).AsButton();
+                                //Assert.IsNotNull(quitButton, "Quit button not found");
+                                // Klik na dugme Quit
+                                //cancelButton.Click();
 
-                // Pronalazak dugmeta "Cancel"
-                //var cancelButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("Cancel"))).AsButton();
-                //Assert.IsNotNull(quitButton, "Quit button not found");
-                // Klik na dugme Quit
-                //cancelButton.Click();
+                                // Pronalazak dugmeta "OK"
+                                var okButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK Enter"))).AsButton();
+                                //Assert.IsNotNull(okButton, "OK button not found");
+                                // Klik na dugme OK
+                                if (okButton != null)
+                                {
+                                    okButton.Click();
+                                }
+                                else
+                                {
+                                    throw new Exception("OK button not found in the application window.");
+                                }
 
-                // Pronalazak dugmeta "OK"
-                var okButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK Enter"))).AsButton();
-                //Assert.IsNotNull(okButton, "OK button not found");
-                // Klik na dugme OK
-                if (okButton != null)
-                {
-                    okButton.Click();
-                }
-                else
-                {
-                    throw new Exception("OK button not found in the application window.");
-                }
+                                var process2 = Process.GetProcessesByName(AppName2).FirstOrDefault();
+                                if (process2 != null)
+                                {
+                                    // Ako je aplikacija pokrenuta, pridruži se postojećem procesu
+                                    _application2 = FlaUI.Core.Application.Attach(process2);
+                                    // Inicijalizacija FlaUI
+                                    _automation2 = new UIA3Automation();
+                                    // Dohvatanje glavnog prozora aplikacije
+                                    var mainWindow2 = _application2.GetMainWindow(_automation2);
 
-                var process2 = Process.GetProcessesByName(AppName2).FirstOrDefault();
-                if (process2 != null)
-                {
-                    // Ako je aplikacija pokrenuta, pridruži se postojećem procesu
-                    _application2 = FlaUI.Core.Application.Attach(process2);
-                    // Inicijalizacija FlaUI
-                    _automation2 = new UIA3Automation();
-                    // Dohvatanje glavnog prozora aplikacije
-                    var mainWindow2 = _application2.GetMainWindow(_automation2);
+                                    // Pronalazak TextBox elementa
+                                    if (mainWindow2 == null)
+                                    {
+                                        throw new Exception("Main window of the second application was not found.");
+                                    }
+                                    var treeElement = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree));
+                                    var textBox = treeElement?.AsTextBox();
+                                    //Assert.IsNotNull(textBox, "textBox not found");
+                                    // Unos teksta u TextBox
+                                    if (textBox != null)
+                                    {
+                                        textBox.Enter("73523");
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("TextBox not found in the second application window.");
+                                    }
+                                    // Pronalazak dugmeta "OK"
+                                    var okButton2 = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK"))).AsButton();
+                                    //Assert.IsNotNull(okButton2, "OK button not found");
+                                    // Klik na dugme OK
+                                    if (okButton2 != null)
+                                    {
+                                        okButton2.Click();
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("OK button not found in the second application window.");
+                                    }
 
-                    // Pronalazak TextBox elementa
-                    if (mainWindow2 == null)
-                    {
-                        throw new Exception("Main window of the second application was not found.");
-                    }
-                    var treeElement = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree));
-                    var textBox = treeElement?.AsTextBox();
-                    //Assert.IsNotNull(textBox, "textBox not found");
-                    // Unos teksta u TextBox
-                    if (textBox != null)
-                    {
-                        textBox.Enter("73523");
-                    }
-                    else
-                    {
-                        throw new Exception("TextBox not found in the second application window.");
-                    }
-                    // Pronalazak dugmeta "OK"
-                    var okButton2 = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK"))).AsButton();
-                    //Assert.IsNotNull(okButton2, "OK button not found");
-                    // Klik na dugme OK
-                    if (okButton2 != null)
-                    {
-                        okButton2.Click();
-                    }
-                    else
-                    {
-                        throw new Exception("OK button not found in the second application window.");
-                    }
+                                }
 
-                }
-
-                #endregion Sertifikat
+                                #endregion Sertifikat
+                             */
                 await _page.PauseAsync();
                 //return;
 

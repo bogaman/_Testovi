@@ -155,15 +155,7 @@ namespace Produkcija
         public static string FilePath { get; set; } = "C:/_Projekti/AutoMotoSavezSrbije/ulazniPodaci/PoliseAutoodgovornost-test.csv";
 
         public static string CurrentUrl { get; set; } = "";
-        public static FlaUI.Core.Application? _application;
-        public static FlaUI.Core.Application? _application2;
-        public static AutomationBase? _automation;
-        public static AutomationBase? _automation2;
-        public const string AppName = "proxsign"; // Bez ekstenzije .exe
-        public const string AppName2 = "CredentialUIBroker"; // Bez ekstenzije .exe
-        public const string AppPath = @"C:\Program Files (x86)\SETCCE\proXSign\bin\proxsign.exe";
-        public const string AppPath2 = @"C:\Windows\System32\CredentialUIBroker.exe";
-        public static string PartialTitle = @"SETCCE";
+
 
 
         /// <summary>
@@ -252,7 +244,7 @@ namespace Produkcija
         {
             try
             {
-                await _page.WaitForURLAsync(new Regex($"{osnovnaStrana + dodatak}", RegexOptions.IgnoreCase));
+                await _page.WaitForURLAsync(new Regex($"{osnovnaStrana + dodatak}", RegexOptions.IgnoreCase), new() { Timeout = 120000 });
                 //System.Windows.MessageBox.Show($"Učitana: {osnovnaStrana + dodatak}...", "Proveri URL", MessageBoxButton.OK, MessageBoxImage.Information);
                 await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded); // čekaj dok se DOM ne učita
                 await _page.WaitForLoadStateAsync(LoadState.Load); // čekaj da se završi celo učitavanje stranice, uključujući sve resurse poput slika i stilova.

@@ -26,3 +26,4 @@ SELECT *
 
   SELECT *
   FROM [MtplDB].[mtpl].[DokumentFaktura]
+

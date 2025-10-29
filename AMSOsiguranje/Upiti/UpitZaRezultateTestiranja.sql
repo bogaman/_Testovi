@@ -16,7 +16,7 @@ SELECT [IdTestiranje], [Okruzenje], [NazivKlaseTestova], [UkupnoTestova], [Uspes
 				  [StackTrace],
 				  [BackOffice]
   FROM [TestLogDB].[test].[tReportIndividual]
-  where IdTestiranje = 1
+  --where IdTestiranje = 1
   ORDER BY [IdTestiranje] DESC, [IdTest] ASC;
   --ORDER BY [IdTestiranje] ASC, [IdTest] ASC;
 
@@ -31,3 +31,5 @@ SELECT [IdTestiranje], [Okruzenje], [NazivKlaseTestova], [UkupnoTestova], [Uspes
 
 --DELETE FROM [TestLogDB].[test].[tReportSumary] 
 --WHERE IdTestiranje IN (2,3, 4);
+
+

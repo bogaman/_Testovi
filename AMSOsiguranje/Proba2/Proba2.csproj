@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -9,21 +10,22 @@
     <DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-
-    <!-- Info o assembly-ju -->
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <AssemblyTitle>Testovi-AMSS</AssemblyTitle>
     <AssemblyProduct>Testovi-AMSS</AssemblyProduct>
-    <Company>Evolution Online – EON</Company>
+    <Company>Evolution Online-EON</Company>
     <Authors>Bogdan Mandarić</Authors>
     <Version>1.0.0</Version>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4"/>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0"/>
     <PackageReference Include="NUnit" Version="4.4.0"/>
     <PackageReference Include="NUnit.Analyzers" Version="4.10.0"/>
-    <PackageReference Include="NUnit3TestAdapter" Version="5.1.0"/>
+    <PackageReference Include="NUnit3TestAdapter" Version="5.2.0"/>
     <PackageReference Include="FlaUI.Core" Version="5.0.0"/>
     <PackageReference Include="FlaUI.UIA2" Version="5.0.0"/>
     <PackageReference Include="FlaUI.UIA3" Version="5.0.0"/>
@@ -32,9 +34,9 @@
     <PackageReference Include="Microsoft.Playwright.TestAdapter" Version="1.55.0"/>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0"/>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4"/>
-    <PackageReference Include="System.Data.OleDb" Version="9.0.9"/>
-    <PackageReference Include="HtmlAgilityPack" Version="1.12.3"/>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1"/>
+    <PackageReference Include="System.Data.OleDb" Version="9.0.10"/>
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.4"/>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2"/>
   </ItemGroup>
   <ItemGroup>
     <Using Include="NUnit.Framework"/>

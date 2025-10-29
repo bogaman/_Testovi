@@ -4,6 +4,73 @@
         <name>Razvoj</name>
     </assembly>
     <members>
+        <member name="M:Razvoj.Osiguranje.UnesiSerijskiBrojPoliseAO(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Određuje se i unosi serijski broj obrasca polise AO
+            </summary>
+            <param name="_page"></param>
+            <param name="korisnickoIme">Na osnovu njega se određuje magacin</param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.Osiguranje.UnesiMestoIzdavanjaPoliseAO(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Unosi se mesto izdavanja polise AO.
+            </summary>
+            <param name="_page"></param>
+            <param name="_rb">Redni broj polise AO</param>
+        </member>
+        <member name="M:Razvoj.Osiguranje.UnesiBrojDanaZaPolisuAO(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Unosi se broj dana za polisu AO.
+            </summary>
+            <param name="_page"></param>
+            <param name="_tipPolise"></param>
+        </member>
+        <member name="M:Razvoj.Osiguranje.UnesiTipUgovaracaZaPolisuAO(Microsoft.Playwright.IPage,System.String,System.String)">
+            <summary>
+            Unosi se tip ugovarača za polisu AO.
+            </summary>
+            <param name="_page"></param>
+            <param name="_tipPolise"></param>
+            <param name="_tipUgovaraca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.Osiguranje.UnesiTipPoliseAO(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Unosi tip polise za Autoodgovornost
+            </summary>
+            <param name="_page"></param>
+            <param name="_tipPolise"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.Osiguranje.DatumOd(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Unosi datum od
+            </summary>
+            <param name="_page"></param>
+            <param name="Lokator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.Osiguranje.UnesiPorez(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Unosi porez na osnovu stanja kontrole i vrednosti iz baze
+            </summary>
+            <param name="_page"></param>
+            <param name="_oslobodjenPoreza"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.Osiguranje.UnesiTipLicaZaPolisuAO(Microsoft.Playwright.IPage,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Unosi tip lica za polisu AO na osnovu vrednosti iz baze
+            </summary>
+            <param name="_page"></param>
+            <param name="_tipPolise"></param>
+            <param name="_tipUgovaraca"></param>
+            <param name="_tipLica1">Fizičko ili Pravno </param>
+            <param name="_tipLica2">Fizičko, Pravno ili 0</param>
+            <param name="_platilac"></param>
+            <returns></returns>
+        </member>
         <member name="M:Razvoj.Osiguranje.UlogujSe(Microsoft.Playwright.IPage,System.String,System.String)">
             <summary>
             Uloguj se koristeći korisničko ime i lozinku.
@@ -11,6 +78,14 @@
             <param name="_page"></param>
             <param name="korisnickoIme">Može biti BOkorisnickoIme/AkorisnickoIme</param>
             <param name="lozinka">Može biti BOlozinka/Alozinka</param>
+        </member>
+        <member name="M:Razvoj.Osiguranje.NovaPolisa(Microsoft.Playwright.IPage,System.String)">
+            <summary>
+            Kreira novu polisu osiguranja.
+            </summary>
+            <param name="_page"></param>
+            <param name="tipOsiguranja"></param>
+            <returns></returns>
         </member>
         <member name="M:Razvoj.Osiguranje.IzlogujSe(Microsoft.Playwright.IPage)">
             <summary>
@@ -60,6 +135,26 @@
             <exception cref="T:System.ArgumentNullException">Baca grešku ako je _page instanca null.</exception>
         </member>
         <member name="M:Razvoj.Osiguranje.ProveriStampu404(Microsoft.Playwright.IPage,System.String,System.String)">
+            <summary>
+            Proverava da li se otvara stranica sa greškom 404 prilikom štampe.
+            Ako se otvori, upisuje u log fajl i baca grešku
+            </summary>
+            <param name="_page"></param>
+            <param name="Dugme">Dugme na koje treba kliknuti da bi se otvorio printout</param>
+            <param name="Poruka">Poruka koja sadrži šta se otvara (koja štampa)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.Osiguranje.ProveriStampu404_2(Microsoft.Playwright.IPage,System.String,System.String)">
+            <summary>
+            Proverava da li se otvara stranica sa greškom 404 prilikom štampe.
+            Ako se otvori, upisuje u log fajl i baca grešku
+            </summary>
+            <param name="_page"></param>
+            <param name="Dugme">Dugme na koje treba kliknuti da bi se otvorio printout</param>
+            <param name="Poruka">Poruka koja sadrži šta se otvara (koja štampa)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Razvoj.Osiguranje.ProveriStampu404_3(Microsoft.Playwright.IPage,System.String,System.String)">
             <summary>
             Proverava da li se otvara stranica sa greškom 404 prilikom štampe.
             Ako se otvori, upisuje u log fajl i baca grešku
