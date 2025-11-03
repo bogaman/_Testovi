@@ -296,6 +296,12 @@
             <exception cref="T:System.Exception">Baca grešku ako dođe do problema prilikom unosa podataka.</exception>
             <remarks>Ova metoda čeka da se stranica učita i proverava da li je trenutni URL jednak očekivanom URL-u.</remarks>
         </member>
+        <member name="M:Razvoj.Osiguranje.UploadFileRobust(System.String,FlaUI.UIA3.UIA3Automation,System.Int32)">
+            <summary>
+            Pokušava da pronađe "Open" (ili lokalizovano "Otvori") dijalog i unese filePath u polje "File name",
+            pa klikne dugme Open. Vraća true ako je uspešno, ili baca exception sa detaljima.
+            </summary>
+        </member>
         <member name="M:Razvoj.Autoodgovornost.AO_01_PregledPretragaPolisa">
             <summary>
             Testira se vidljivost i funkcionalnost grida koji prikazuje polise AO

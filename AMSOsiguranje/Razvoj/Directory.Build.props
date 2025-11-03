@@ -1,6 +1,35 @@
+
+
+
+
+
+
+<Project>
+  <PropertyGroup>
+    
+    <BaseOutputPath>$(MSBuildThisFileDirectory)Build\$(Configuration)\bin\</BaseOutputPath>
+
+    
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)Build\$(Configuration)\obj\</BaseIntermediateOutputPath>
+
+    
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+  </PropertyGroup>
+</Project>
+
+
+
+
+
+
+
+
+<!--
 <Project>
   <PropertyGroup>
     <BaseOutputPath>$(MSBuildProjectDirectory)\Build\bin\</BaseOutputPath>
     <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)\Build\obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
 </Project>
+-->
