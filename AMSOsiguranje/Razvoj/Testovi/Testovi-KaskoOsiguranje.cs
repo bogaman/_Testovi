@@ -784,7 +784,7 @@ namespace Razvoj
 
                     {
                         Console.WriteLine("Iskačući prozor je vidljiv. Podaci su uneti ručno.");
-                        await _page.Locator("#notify0 button").ClickAsync();
+                        //await _page.Locator("#notify0 button").ClickAsync();
 
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "JMBG" }).Locator("input[type=\"text\"]").ClickAsync();
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "JMBG" }).Locator("input[type=\"text\"]").FillAsync("3001985710098");
@@ -2312,7 +2312,8 @@ namespace Razvoj
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Storniraj", Exact = true }).ClickAsync();
                 await _page.Locator("//e-button[@id='btnRaskid']").ClickAsync();
-                await _page.PauseAsync();
+
+                //await _page.PauseAsync();
 
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Raskini" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Otkaži" }).ClickAsync();
@@ -2338,9 +2339,9 @@ namespace Razvoj
                 await _page.GetByText("uspešno raskinuta").ClickAsync(new() { Timeout = 120000 });
                 await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
 
-                await _page.GetByText($"Polisa broj {BrojDokumenta} uspešno raskinuta").ClickAsync();
+                //await _page.GetByText($"Polisa broj {BrojDokumenta} uspešno raskinuta").ClickAsync();
 
-                await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
 
 
                 //await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();

@@ -600,7 +600,15 @@ namespace Produkcija
 
                         Console.WriteLine("Servis nije pokrenut. Pokrećem CitacEdoc.exe.");
                         // Pokreće eksterni program
-                        Process.Start(@"C:\Users\bogdan.mandaric\AppData\Local\Apps\2.0\2LRG08ZX.N6J\JO5A516J.KMK\cita..tion_2fca89819740be51_0001.0000_6c66621e7342d7e9\CitacEdoc.exe");
+                        if (DeviceName == "BOGDANM")
+
+                        {
+                            Process.Start(@"C:\Users\bogdan.mandaric\AppData\Local\Apps\2.0\2LRG08ZX.N6J\JO5A516J.KMK\cita..tion_2fca89819740be51_0001.0000_6c66621e7342d7e9\CitacEdoc.exe");
+                        }
+                        else if (DeviceName == "LT-TESTER")
+                        {
+                            Process.Start(@"C:\Users\amsotest\AppData\Local\Apps\2.0\REDBD7PZ.NY1\OG72MP2Z.EJX\cita..tion_2fca89819740be51_0001.0000_6c66621e7342d7e9\CitacEdoc.exe");
+                        }
 
                         // Zatvori pop-up
                         await _page.GetByText("Servis nije pokrenut!").ClickAsync();
@@ -615,7 +623,9 @@ namespace Produkcija
                         // Zatvori pop-up
                         await _page.GetByText("U čitaču/ima nije pronađena ").ClickAsync();
                         //await _page.Locator("#notify0").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync(); 
-                        await _page.Locator("//div[@id='notify0']//e-button[@type='icon']").ClickAsync();
+                        //await _page.Locator("//div[@id='notify0']//e-button[@type='icon']").ClickAsync();
+                        await _page.Locator("//div[@id='notify0']//i[@class='ico-xmark']").ClickAsync();
+
                     }
                     else
                     {
