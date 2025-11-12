@@ -239,7 +239,7 @@ namespace UAT
                 }
 
                 // Konekcija sa bazom
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                 string qBrojDokumenta = $"SELECT  [idDokument], [brojPonude], [brojUgovora] " +
                                         $"FROM [WebshopDB].[webshop].[Dokument] " +
                                         $"WHERE [brojUgovora] = '' " +
@@ -530,8 +530,8 @@ namespace UAT
             //Server = OdrediServer(Okruzenje);
 
             // Konekcija sa bazom
-            //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
-            //connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+            //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
+            //connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
             //using (SqlConnection konekcija = new(connectionString))
             //{
             //konekcija.Open();

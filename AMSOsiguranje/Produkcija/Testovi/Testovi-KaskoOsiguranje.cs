@@ -25,7 +25,7 @@ namespace Produkcija
                 await _page.GetByText("Osiguranje vozila").ClickAsync();
                 // Klikni u meniju na Kasko
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Kasko" }).First.ClickAsync();
-                // Provera da li se otvorila stranica sa pregledom polisa AO
+                // Provera da li se otvorila stranica sa pregledom kasko polisa
                 DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
@@ -86,8 +86,7 @@ namespace Produkcija
             }
         }
 
-
-        [Test, Order(702)]
+        [Test, Order(710)]
         [TestCase("nivo I")]
         [TestCase("nivo II")]
         [TestCase("nivo III")]
@@ -108,16 +107,15 @@ namespace Produkcija
                 {
                     await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
                 }
-
-
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
                 // Klikni na tekst Osiguranje vozila
                 await _page.GetByText("Osiguranje vozila").ClickAsync();
                 // Klikni u meniju na Kasko
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Kasko" }).First.ClickAsync(new() { Timeout = 120000 });
-                // Provera da li se otvorila stranica sa pregledom polisa AO
+                // Provera da li se otvorila stranica sa pregledom kasko polisa
                 DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
@@ -129,16 +127,7 @@ namespace Produkcija
 
                 #region Trajanje osiguranja
                 await _page.Locator("//div[@etitle='Jednogodišnje']").ClickAsync();
-                if (Okruzenje == "UAT")
-                {
-                    //await _page.Locator("#idTrajanje").GetByText("vise od 2").ClickAsync();
-                    await _page.Locator("#idTrajanje").GetByText("5 godina").ClickAsync();
-                }
-                else
-                {
-                    await _page.Locator("#idTrajanje").GetByText("5 godina").ClickAsync();
-                }
-
+                await _page.Locator("#idTrajanje").GetByText("5 godina").ClickAsync();
                 #endregion Trajanje osiguranja
 
                 #region Bonus i malus
@@ -154,7 +143,6 @@ namespace Produkcija
                     await _page.Locator("span").Filter(new() { HasText = "Bez bonusa i malusa" }).ClickAsync();
                     await _page.Locator("#idBonus").GetByText("1 godina").ClickAsync();
                 }
-
                 #endregion Bonus i malus
 
                 #region Teritorijalno pokriće
@@ -188,7 +176,6 @@ namespace Produkcija
                 {
                     //await _page.GetByText("---do 10od 11 do 20od 21 do 50od 51 do 100preko 100 ---").ClickAsync();
                 }
-
                 #endregion Broj osiguranih vozila
 
                 #region Godina vozačkog staža
@@ -207,14 +194,11 @@ namespace Produkcija
                 }
                 #endregion Godina vozačkog staža
 
-
-
                 #region Zemlja porekla registracije
                 await _page.Locator("//e-select[@id='idInostraneTable']//div[@class='multiselect-dropdown input']").ClickAsync();
                 if (nivo == "nivo I")
                 {
                     await _page.GetByText("Inostrane table").ClickAsync();
-                    //await _page.GetByText("Domaće table").ClickAsync();
                     await _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
                     await _page.GetByText("Godišnje (-5%)", new() { Exact = true }).ClickAsync();
 
@@ -230,11 +214,7 @@ namespace Produkcija
                     await _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
                     await _page.GetByText("Mesečno", new() { Exact = true }).ClickAsync();
                 }
-
                 #endregion Zemlja porekla registracije
-
-                //wait _page.Locator("//e-select[@id='idDinamikaPlacanja']//div[@class='multiselect-dropdown input']").ClickAsync();
-                //await _page.GetByText("Mesečno", new() { Exact = true }).ClickAsync();
 
                 #endregion Osnovni podaci
 
@@ -257,24 +237,17 @@ namespace Produkcija
                     await _page.GetByRole(AriaRole.Textbox, new() { Name = "pretraži" }).ClickAsync();
                     await _page.GetByRole(AriaRole.Textbox, new() { Name = "pretraži" }).FillAsync("fiat");
                     await _page.GetByText("IVECO-FIAT").ClickAsync();
-                    //await _page.Locator("#selTipovi > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
+
                     await _page.Locator("//e-input[contains(@inner-label,'Tip')]//input[contains(@type,'text')]").ClickAsync();
-                    //await _page.GetByText("100 E 18", new() { Exact = true }).ClickAsync();
                     await _page.Locator("//e-input[contains(@inner-label,'Tip')]//input[contains(@type,'text')]").FillAsync("100 E 18");
 
-                    //await _page.Locator("#selModeli > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.Locator("//e-input[contains(@inner-label,'Model')]//input[contains(@type,'text')]").ClickAsync();
-                    //await _page.Locator(".control-wrapper.field.info-text-field.inner-label-field.focus > .control > .control-main > .multiselect-dropdown > .multiselect-dropdown-list-wrapper > .multiselect-dropdown-list > div:nth-child(7)").ClickAsync();
                     await _page.Locator("//e-input[contains(@inner-label,'Model')]//input[contains(@type,'text')]").FillAsync("EU Cargo EU 1'94");
 
-
-                    //await _page.PauseAsync();
 
                     await _page.GetByText("Zapr. motora [ccm]").ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "Zapr. motora [ccm]" }).GetByRole(AriaRole.Textbox).ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "Zapr. motora [ccm]" }).GetByRole(AriaRole.Textbox).FillAsync("6000");
-
-
 
                     await _page.GetByText("Snaga motora [kw]").ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "Snaga motora [kw]" }).GetByRole(AriaRole.Textbox).ClickAsync();
@@ -288,8 +261,6 @@ namespace Produkcija
                     await _page.Locator("e-input").Filter(new() { HasText = "Nosivost [kg]" }).GetByRole(AriaRole.Textbox).ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "Nosivost [kg]" }).GetByRole(AriaRole.Textbox).FillAsync("10000");
 
-                    //await _page.Locator("#vrednostRsdOsn").GetByRole(AriaRole.Textbox).ClickAsync();
-                    //await _page.Locator("//e-input[@id='vrednostRsdOsn']//input[contains(@type,'text')]").ClickAsync();
                     await _page.Locator("#vrednostRsdOsn").GetByRole(AriaRole.Textbox).FillAsync("5000000");
 
                 }
@@ -348,10 +319,8 @@ namespace Produkcija
                     await _page.Locator("e-input").Filter(new() { HasText = "Godina proizvodnje" }).GetByRole(AriaRole.Textbox).FillAsync((DateTime.Now.Year - 3).ToString());
                 }
 
-
                 #endregion Podaci o vozilu
 
-                //await _page.PauseAsync();
                 #region Osnovni paket osiguranja
                 await _page.Locator(".col-5 > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 if (nivo == "nivo I")
@@ -364,14 +333,11 @@ namespace Produkcija
                     await _page.GetByText("Po sumi osiguranja").ClickAsync();
 
                     await _page.Locator(".div_rizici > .row > .col-3 > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
-                    //await _page.Locator(".row > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.Locator(".prihvacenaPonudatrueInvisible > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.GetByText("učešće 0% min. 150€").First.ClickAsync();
                     await _page.GetByText("učešće 5% min. 150€").First.ClickAsync();
 
                     await _page.GetByText("učešće 10% min. 150€").First.ClickAsync();
-
-
 
                     // Simulacija Escape tastera na celoj stranici
                     await _page.Keyboard.PressAsync("Escape");
@@ -390,13 +356,9 @@ namespace Produkcija
                     await _page.Locator("e-input").Filter(new() { HasText = "min 10, max 20" }).GetByRole(AriaRole.Textbox).PressAsync("Enter");
                     await _page.Locator("e-input").Filter(new() { HasText = "min 10, max 20" }).GetByRole(AriaRole.Textbox).PressAsync("Tab");
 
-
-
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za članove AMSS" }).Locator("i").ClickAsync();
 
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Drugi automobil porodice" }).Locator("i").ClickAsync();
-
-
 
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za ostvareni rezultat po vrsti vozila" }).Locator("i").ClickAsync();
                     await _page.Locator("e-predmet-osiguranja").GetByRole(AriaRole.Textbox).Nth(3).FillAsync("20");
@@ -404,7 +366,6 @@ namespace Produkcija
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za invalide" }).Locator("i").ClickAsync();
 
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za zaposlene u AMSO i AMSS" }).Locator("i").ClickAsync();
-
 
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za ekološka vozila" }).Locator("i").ClickAsync();
 
@@ -417,9 +378,6 @@ namespace Produkcija
                     await _page.Locator("e-input").Filter(new() { HasText = "min 0, max 30" }).GetByRole(AriaRole.Textbox).ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "min 0, max 30" }).GetByRole(AriaRole.Textbox).FillAsync("30");
                 }
-
-
-
                 else if (nivo == "nivo II")
                 {
                     await _page.GetByText("Standard +", new() { Exact = true }).ClickAsync();
@@ -431,7 +389,6 @@ namespace Produkcija
 
                     await _page.Locator(".div_rizici > .row > .col-3 > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
 
-                    //await _page.Locator(".row > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.Locator(".prihvacenaPonudatrueInvisible > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.GetByText("učešće 0% min. 150€").First.ClickAsync();
                     await _page.GetByText("učešće 5% min. 150€").First.ClickAsync();
@@ -474,12 +431,6 @@ namespace Produkcija
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust po osnovu procenjenog rizika" }).Locator("i").ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "min 0, max 30" }).GetByRole(AriaRole.Textbox).ClickAsync();
                     await _page.Locator("e-input").Filter(new() { HasText = "min 0, max 30" }).GetByRole(AriaRole.Textbox).FillAsync("30");
-
-
-
-
-
-
                 }
                 else if (nivo == "nivo III")
                 {
@@ -487,7 +438,6 @@ namespace Produkcija
 
                     await _page.Locator(".div_rizici > .row > .col-3 > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
 
-                    //await _page.Locator(".row > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.Locator(".prihvacenaPonudatrueInvisible > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                     await _page.GetByText("učešće 10% min. 150€").First.ClickAsync();
                     await _page.GetByText("učešće 20% min. 150€").First.ClickAsync();
@@ -499,30 +449,17 @@ namespace Produkcija
 
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Doplatak po osnovu starosti osiguranika (vlasnika vozila)" }).Locator("i").ClickAsync();
 
-
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za članove AMSS" }).Locator("i").ClickAsync();
 
                     await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za invalide" }).Locator("i").ClickAsync();
-
-
-
                 }
-
                 else
                 {
                     //
                 }
-
-
-
-
                 #endregion Osnovni paket osiguranja
 
-
-
-
                 #region Dopunska osiguranja
-
                 if (nivo == "nivo I")
                 {
                     await _page.Locator(".multiselect-dropdown").First.ClickAsync();
@@ -555,7 +492,6 @@ namespace Produkcija
                     await _page.GetByText("Niža klasa – cena novog").ClickAsync();
                     await _page.GetByText("---Standard + ---").ClickAsync();
                     await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Standard \\+$") }).Nth(3).ClickAsync();
-
                 }
                 else if (nivo == "nivo II")
                 {
@@ -594,13 +530,10 @@ namespace Produkcija
                 {
                     //
                 }
-
-
                 #endregion Dopunska osiguranja
 
                 //nalaženje poslednjeg broja dokumenta u Kasko polisama
                 int PoslednjiBrojDokumenta = OdrediBrojDokumentaKasko();
-                //await _page.PauseAsync();
                 //Kalkulacija
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Kalkuliši" }).ClickAsync();
 
@@ -614,8 +547,6 @@ namespace Produkcija
                 //Proveri štampu
                 await ProveriStampu404_3(_page, "//button[@class='left primary default stampa flex-center-center']//text[contains(text(),'Info ponuda')]", "Štampa info ponude polise kasko osiguranja");
 
-
-
                 //Zahtevi ka administraciji
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
 
@@ -625,7 +556,7 @@ namespace Produkcija
                 await _page.Locator("//e-button[@label='Plan otplate']//button[@class='left basic default flex-center-center']").ClickAsync();
 
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Prilozi" }).ClickAsync();
-                //await _page.PauseAsync();
+
                 //Info ponuda
                 await _page.Locator("#container").GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).Nth(0).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Izmeni" }).ClickAsync();
@@ -640,8 +571,6 @@ namespace Produkcija
                 await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + (PoslednjiBrojDokumenta + 1).ToString());
                 await _page.GetByText("Podaci uspešno snimljeni").ClickAsync(new() { Timeout = 120000 });
 
-
-                //await _page.Locator("#container").GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
                 await _page.Locator("#container").GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).Nth(0).ClickAsync();
 
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Prethodne verzije i aneksi" }).ClickAsync();
@@ -655,7 +584,7 @@ namespace Produkcija
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Opšti podaci" }).ClickAsync();
 
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Prethodne verzije i aneksi" }).ClickAsync();
-                //await _page.PauseAsync();
+
                 await _page.GetByRole(AriaRole.Link, new() { Name = "Nova info ponuda" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Prethodne verzije i aneksi" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Link, new() { Name = "Izmena info ponude" }).First.ClickAsync();
@@ -663,13 +592,10 @@ namespace Produkcija
 
                 await IzlogujSe(_page);
                 if (NacinPokretanjaTesta == "ručno")
-                {
                     PorukaKrajTesta();
-                }
 
                 //Assert.Pass();
                 LogovanjeTesta.LogMessage($"✅ Uspešan test {NazivTekucegTesta} ");
-
             }
             catch (Exception ex)
             {
@@ -680,97 +606,7 @@ namespace Produkcija
             }
         }
 
-
-
-        /*****************************************************************
-        [Test, Order(703)]
-        public async Task KA_04_BrisanjePolise()
-        {
-            try
-            {
-                if (_page == null)
-                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
-                await Pauziraj(_page);
-                await UlogujSe(_page, "mario.radomir@eonsystem.com", "Lozinka1!");
-                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
-                // Pređi mišem preko teksta Osiguranje vozila
-                //await _page.GetByText("Osiguranje vozila").HoverAsync();
-                // Klikni na tekst Osiguranje vozila
-                await _page.GetByText("Osiguranje vozila").ClickAsync();
-                // Klikni u meniju na Kasko
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Kasko" }).First.ClickAsync();
-                // Provera da li se otvorila stranica sa pregledom polisa AO
-                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
-                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
-
-                // Klik na Pregled / Pretraga polisa
-                await _page.GetByText("Pregled / Pretraga polisa").ClickAsync();
-                // Provera da li se otvorila stranica sa gridom pregled polisa
-                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
-                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
-
-                // Proveri da li stranica sadrži grid sa polisama i da li radi filter na gridu 
-                string tipGrida = "Pregled polisa Kasko Osiguranja";
-                await ProveraPostojiGrid(_page, tipGrida);
-
-                string kriterijumFiltera = "KreiranRaskinutStorniranU izradi";
-                await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 8, "Lista", 3);
-
-                kriterijumFiltera = "8888 - Mario Radomir";
-                await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 9, "TekstBoks", 0);
-
-                //Sortiraj po datumu izdavanja - Rastuće
-                await _page.Locator("div").Filter(new() { HasTextRegex = new Regex("^Datum izdavanja -$") }).Locator("div").Nth(1).ClickAsync();
-                await Task.Delay(2000); // Pauza od 2 sekunde (2000 ms)
-                string brojDokumentaMin = await ProcitajCeliju(1, 1);
-                string DatumIzdavanja = await ProcitajCeliju(1, 3);
-
-                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + brojDokumentaMin;
-
-                await _page.GetByText(DatumIzdavanja).First.ClickAsync();
-                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
-
-
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Obriši dokument" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Obriši dokument" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
-                await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
-                await _page.GetByText("Dokument uspešno obrisan").ClickAsync();
-                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/0");
-
-
-
-
-
-
-                await IzlogujSe(_page);
-                if (NacinPokretanjaTesta == "ručno")
-                {
-                    PorukaKrajTesta();
-                }
-                //await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
-
-                //Assert.Pass();
-                LogovanjeTesta.LogMessage($"✅ Uspešan test {NazivTekucegTesta} ");
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
-                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
-                throw;
-            }
-        }
-
-        ******************************************************************/
-
-
-
-        [Test, Order(704)]
+        [Test, Order(712)]
         [TestCase("Jednogodišnje")]
         [TestCase("2 godine")]
         [TestCase("3 godine")]
@@ -788,12 +624,12 @@ namespace Produkcija
                 //await _page.GetByText("Osiguranje vozila").HoverAsync(); //Pređi mišem preko teksta Osiguranje vozila
                 await _page.GetByText("Osiguranje vozila").ClickAsync(); //Klikni na tekst Osiguranje vozila
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Kasko" }).First.ClickAsync(); //Klikni u meniju na Kasko
-                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata"); //Provera da li se otvorila stranica sa pregledom polisa AO
+                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata"); //Provera da li se otvorila stranica sa pregledom kasko polisa
 
                 await _page.GetByRole(AriaRole.Link, new() { Name = "Nova ponuda" }).ClickAsync();
-                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/0"); //Provera da li se otvorila stranica Nova polisa
+                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/0"); //Provera da li se otvorila stranica Nova ponuda
 
-                //Ovde proveri padajuće liste Partner, Tender
+                //Ovde proveri padajuće liste Korisnik, Partner i Tenderza kreiranu polisu
                 //await ProveriPadajucuListu(_page, "//e-select[@id='selPartner']//div[@class='multiselect-dropdown input']");
                 //await ProveriPadajucuListu(_page, "//e-select[@id='selTarife']//div[@class='multiselect-dropdown input']");
 
@@ -802,14 +638,6 @@ namespace Produkcija
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "pretraži" }).FillAsync("24430");
                 await _page.Locator("#selMestaIzdavanja").GetByText("24430 - Ada").ClickAsync();
 
-
-                //await _page.PauseAsync();
-                /*
-                if (Okruzenje == "UAT" && trajanje == "Više od 2")
-                {
-                    trajanje = "vise od 2";
-                }
-                */
                 await _page.Locator("//e-select[@id='idTrajanje']//div[@class='control-main']").ClickAsync();
                 await _page.Locator("//e-select[@id='idTrajanje']").GetByText(trajanje).First.ClickAsync();
 
@@ -826,12 +654,8 @@ namespace Produkcija
                 await _page.Locator("//e-select[@id='idDinamikaPlacanja']").GetByText("Mesečno", new() { Exact = true }).ClickAsync();
 
 
-
-
                 #region Podaci o vozilu
-
                 await _page.GetByText("Vrsta vozila").ClickAsync();
-                //await _page.Locator(".control-wrapper.field.info-text-field.inner-label-field.focus > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator("//e-select[@id='selVrstaVozila']//div[@class='multiselect-dropdown input']").ClickAsync();
                 await _page.GetByText("Putničko vozilo").ClickAsync();
 
@@ -859,18 +683,15 @@ namespace Produkcija
 
                 await _page.Locator(".div_rizici > .row > .col-3 > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
 
-                //await _page.Locator(".row > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator(".prihvacenaPonudatrueInvisible > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.GetByText("učešće 10% min. 150€").First.ClickAsync();
                 await _page.GetByText("učešće 20% min. 150€").First.ClickAsync();
-
                 await _page.GetByText("učešće 30% min. 300€").First.ClickAsync();
 
                 // Simulacija Escape tastera na celoj stranici
                 await _page.Keyboard.PressAsync("Escape");
 
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Doplatak po osnovu starosti osiguranika (vlasnika vozila)" }).Locator("i").ClickAsync();
-
 
                 await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za članove AMSS" }).Locator("i").ClickAsync();
 
@@ -880,7 +701,6 @@ namespace Produkcija
                 //nalaženje poslednjeg broja dokumenta u Kasko polisama
                 int PoslednjiBrojDokumenta = OdrediBrojDokumentaKasko();
 
-                //await _page.PauseAsync();
                 //Kalkulacija
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Kalkuliši" }).ClickAsync();
                 await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
@@ -888,12 +708,10 @@ namespace Produkcija
 
                 await _page.GetByText("Podaci uspešno snimljeni").ClickAsync(new() { Timeout = 120000 });
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Izmeni" }).ClickAsync();
-                //await _page.Locator(".row > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator(".prihvacenaPonudatrueInvisible > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator("e-predmet-osiguranja").GetByText("učešće 10% min. 150€").First.ClickAsync();
                 await _page.GetByText("učešće 30% min. 500€").First.ClickAsync();
                 await _page.Locator("e-select").Filter(new() { HasText = "---učešće 0% min. 0€učešće 0" }).First.PressAsync("Escape");
-                //await _page.Locator("e-select").Filter(new() { HasText = "---učešće 0% min. 0€učešće 0" }).First.PressAsync("Escape");
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Snimi i kalkuliši" }).ClickAsync();
                 await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                 await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + (PoslednjiBrojDokumenta + 1).ToString());
@@ -903,17 +721,10 @@ namespace Produkcija
 
                 //Proveri štampu
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Štampa" }).ClickAsync(new() { Timeout = 120000 });
-                //await _page.Locator("//e-button[@id='btnStampa']").ClickAsync(new() { Timeout = 120000 });
-                //await ProveriStampu404_3(_page, "//button[@class='left primary default stampa flex-center-center']//text[contains(text(),'Info ponuda')]", "Štampa info ponude polise kasko osiguranja");
                 await ProveriStampu404_3(_page, "e-button[id='btnStampajInfoPonudu'] text", "Štampa info ponude polise kasko osiguranja");
 
-
-
-                //await _page.PauseAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Prihvaćena ponuda" }).ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
-
-                //await _page.PauseAsync();
 
                 await _page.Locator(".div_rizici > .row > .col-3 > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").ClickAsync();
                 await _page.Locator(".control-wrapper.field.info-text-field.inner-label-field.focus > .control > .control-main > .multiselect-dropdown").ClickAsync();
@@ -927,30 +738,18 @@ namespace Produkcija
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Izmeni" }).ClickAsync();
 
 
-                //await _page.PauseAsync();
-
                 //await _page.GetByText("Nosivost").ClickAsync();
                 //await _page.Locator("//e-input[contains(@inner-label,'Nosivost')]//input[contains(@type,'text')]").FillAsync("2023");
 
                 await _page.GetByText("Reg oznaka").ClickAsync();
-                //await _page.Locator("e-input").Filter(new() { HasText = "Reg oznaka" }).GetByRole(AriaRole.Textbox).ClickAsync();
                 string RegistarskaOznaka = DefinisiRegistarskuOznaku();
 
-                //await _page.Locator("e-input").Filter(new() { HasText = "Reg oznaka" }).GetByRole(AriaRole.Textbox).FillAsync("BG" + RegistarskaOznaka);
                 await _page.Locator("//e-input[contains(@inner-label,'Reg oznaka')]//input[contains(@type,'text')]").FillAsync("BG" + RegistarskaOznaka);
                 await _page.Locator("e-input").Filter(new() { HasText = "Broj šasije" }).GetByRole(AriaRole.Textbox).ClickAsync();
                 string _brojSasije = DefinisiBrojSasije();
                 await _page.Locator("e-input").Filter(new() { HasText = "Broj šasije" }).GetByRole(AriaRole.Textbox).FillAsync(_brojSasije);
 
-
-
-
-
                 #endregion Podaci o vozilu
-
-
-
-
 
 
 
@@ -978,20 +777,19 @@ namespace Produkcija
 
                     //var notifyPopupLK = _page.Locator("//div[@class='notify greska']");
                     //bool isPopupVisibleLK = await notifyPopupLK.IsVisibleAsync();
-                    //await _page.GetByRole(AriaRole.Button, new() { Name = " Očitaj ličnu kartu" }).ClickAsync();
+                    //await _page.GetByRole(AriaRole.Button, new() { Name = "Očitaj ličnu kartu" }).ClickAsync();
                     //await _page.Locator("#notify1").ClickAsync();
                     //await _page.Locator("#notify1").GetByRole(AriaRole.Button, new() { Name = "" }).ClickAsync();
 
 
                     {
                         Console.WriteLine("Iskačući prozor je vidljiv. Podaci su uneti ručno.");
-                        //await _page.Locator("#notify0 button").ClickAsync();
+                        await _page.Locator("#notify0 button").ClickAsync();
 
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "JMBG" }).Locator("input[type=\"text\"]").ClickAsync();
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "JMBG" }).Locator("input[type=\"text\"]").FillAsync("3001985710098");
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "JMBG" }).Locator("input[type=\"text\"]").PressAsync("Tab");
 
-                        //await _page.Locator(".col-6 > e-select > .control-wrapper > .control > .control-main > .multiselect-dropdown").First.ClickAsync();
                         await _page.Locator("//div[@data-obj='ugovarac']//e-select[@value='0']//div[@class='control-main']").First.ClickAsync();
                         await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").ClickAsync();
                         await _page.Locator("#ugovarac e-select").Filter(new() { HasText = "---24430 - Ada22244 - Adaš" }).GetByPlaceholder("pretraži").FillAsync("1107");
@@ -1014,25 +812,7 @@ namespace Produkcija
 
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 #endregion Lične karte
-
-
 
 
                 await _page.Locator("e-input").Filter(new() { HasText = "Dodatna oprema 1" }).GetByRole(AriaRole.Textbox).ClickAsync();
@@ -1045,10 +825,8 @@ namespace Produkcija
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Posebna napomena - zabeležba" }).FillAsync("Ovo je zabeležba za:\nOzvučenje 1000W i \nFelne");
                 await _page.Locator("e-input").Filter(new() { HasText = "Dodatna oprema 2" }).GetByRole(AriaRole.Textbox).ClickAsync();
                 await _page.Locator("e-input").Filter(new() { HasText = "Dodatna oprema 2" }).GetByRole(AriaRole.Textbox).FillAsync("Pojačalo 800W");
-                //await _page.Locator("div:nth-child(2) > .col-4 > .vrednostRsd > .control-wrapper > .control > .control-main > .input").ClickAsync();
-                //await _page.Locator("div:nth-child(2) > .col-4 > .vrednostRsd > .control-wrapper > .control > .control-main > .input").FillAsync("100000");
+
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).ClickAsync();
-                //await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).FillAsync("Vozilo je u\nveoma dobrom stanju\nVlasnik je odlično održavao.\n");
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Zatečeno stanje vozila - ošte" }).FillAsync("Vozilo je u veoma dobrom stanju.\nVlasnik je odlično održavao svog mezimca.");
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).ClickAsync();
                 await _page.GetByRole(AriaRole.Textbox, new() { Name = "Napomena", Exact = true }).FillAsync("Ovo je prvi red napomene\nOvo je drugi red napomene");
@@ -1061,29 +839,10 @@ namespace Produkcija
                 //await _page.Locator("e-checkbox").Filter(new() { HasText = "Popust za invalide" }).Locator("i").ClickAsync();
 
 
-
-                //nalaženje poslednjeg broja dokumenta u Kasko polisama
-                //PoslednjiBrojDokumenta = OdrediBrojDokumentaKasko();
-
-                //await _page.GetByRole(AriaRole.Button, new() { Name = "Dodatne opcije" }).ClickAsync();
-
-
-                //await _page.GetByRole(AriaRole.Button, new() { Name = "Snimi" }).ClickAsync();
-
-                //await _page.PauseAsync();
-                //var popupLocator = _page.Locator("//div[contains(text(),'Podaci uspešno snimljeni')]");
-                //#endregion Dopunska osiguranja
-
-
-                //await _page.GetByText("Podaci uspešno snimljeni").ClickAsync(new() { Timeout = 120000 });
-
-
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Snimi i kalkuliši" }).ClickAsync();
                 await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
                 await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + (PoslednjiBrojDokumenta + 1).ToString());
                 await _page.GetByText("Podaci uspešno snimljeni").ClickAsync(new() { Timeout = 120000 });
-                //await _page.WaitForFunctionAsync("() => document.readyState === 'complete'");
-                //await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + (PoslednjiBrojDokumenta + 1).ToString());
 
                 //await _page.GetByText("Podaci uspešno snimljeni").ClickAsync(new() { Timeout = 120000 });
 
@@ -1135,21 +894,21 @@ namespace Produkcija
 
                 //var page4 = await _page.RunAndWaitForPopupAsync(async () =>
                 //{
-                //await Page.GetByRole(AriaRole.Button, new() { Name = "Uplatnica / Faktura" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Uplatnica / Faktura" }).ClickAsync();
                 //});
-                //var page5 = await Page.RunAndWaitForPopupAsync(async () =>
+                //var page5 = await _page.RunAndWaitForPopupAsync(async () =>
                 //{
-                //await Page.Locator("#btnStampajInfoPonudu").GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
+                //await _page.Locator("#btnStampajInfoPonudu").GetByRole(AriaRole.Button, new() { Name = "Info ponuda" }).ClickAsync();
                 //});
-                //var page6 = await Page.RunAndWaitForPopupAsync(async () =>
+                //var page6 = await _page.RunAndWaitForPopupAsync(async () =>
                 //{
-                //await Page.GetByRole(AriaRole.Button, new() { Name = "Zapisnik" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Zapisnik" }).ClickAsync();
                 //});
-                //var page7 = await Page.RunAndWaitForPopupAsync(async () =>
+                //var page7 = await _page.RunAndWaitForPopupAsync(async () =>
                 //{
-                //await Page.Locator("#btnStampajPlanOtplate").GetByRole(AriaRole.Button, new() { Name = "Plan otplate" }).ClickAsync();
+                //await _page.Locator("#btnStampajPlanOtplate").GetByRole(AriaRole.Button, new() { Name = "Plan otplate" }).ClickAsync();
                 //});
-                //await Page.GetByRole(AriaRole.Button, new() { Name = " Štampa" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = " Štampa" }).ClickAsync();
 
                 // Sačekaj da se popup pojavi (timeout 5 sekundi)
                 //bool isPopupVisible = await popupLocator.WaitForAsync(new() { Timeout = 15000 }).ContinueWith(t => !t.IsFaulted);
@@ -1243,17 +1002,16 @@ namespace Produkcija
         }
 
 
-
-        [Test, Order(705)]
+        [Test, Order(721)]
         public async Task KA_07_ZahtevZaIzmenu_32()
         {
-            //if (_page == null) throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
-
+            string brojZahteva = "";
+            Osiguranje.ZapisOSlanjuMejla? PrethodniZapisMejla = null;
             try
             {
                 await Pauziraj(_page);
-                string brojZahteva = "";
-                var PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
+
+
 
                 await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
@@ -1346,7 +1104,7 @@ namespace Produkcija
                                         $"GROUP BY [CascoDB].[casco].[Dokument].[idDokument] " +
                                         $"ORDER BY COUNT([CascoDB].[casco].[ZahtevZaIzmenu].[idDokument]) ASC;";
                 // Konekcija sa bazom i izvršavanje upita
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -1402,7 +1160,7 @@ namespace Produkcija
                 await fileChooser.SetFilesAsync(filePath);
 
 
-
+                PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
 
                 //await _page.PauseAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Pošalji zahtev" }).ClickAsync();
@@ -1437,7 +1195,7 @@ namespace Produkcija
                 await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
                 await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
 
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
 
                 try
                 {
@@ -1487,8 +1245,8 @@ namespace Produkcija
                     await _page.GotoAsync(PocetnaStrana + "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + brojDokumenta);
                 }
 
-                await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
-                await _page.GetByRole(AriaRole.Link, new() { Name = brojZahteva }).First.ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Link, new() { Name = brojZahteva }).First.ClickAsync();
                 //await _page.GetByRole(AriaRole.Link, new() { Name = "" }).ClickAsync();
                 //await _page.GetByRole(AriaRole.Button, new() { Name = " Odjavljivanje" }).ClickAsync();
 
@@ -1681,45 +1439,571 @@ namespace Produkcija
         }
 
 
+        [Test, Order(722)]
+        public async Task KA_07_ZahtevZaIzmenu_21()
+        {
+            string brojZahteva = "";
+            Osiguranje.ZapisOSlanjuMejla? PrethodniZapisMejla = null;
+            try
+            {
+                await Pauziraj(_page);
 
-        [Test, Order(706)]
-        public async Task KA_08_Storno()
+
+
+                await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+
+                //Otvori Kasko
+                await _page.Locator("button").Filter(new() { HasText = "Osiguranje vozila" }).ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Kasko" }).ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata");
+
+                //Otvori grid Pregled / pretraga zahteva za izmenu
+                await _page.GetByText("Pregled / Pretraga zahteva za izmenu polisa").ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Pregled-zahteva/Izmene-polisa");
+
+                //Proveri da li postoji grid, da li stranica sadrži grid sa zahtevima za izmenu kasko polisa
+                string tipGrida = "Zahtevi za izmenu polisa Kasko osiguranja";
+                await ProveraPostojiGrid(_page, tipGrida);
+
+                //Izbroj koliko ima redova u gridu
+                var rows = await _page.QuerySelectorAllAsync("div.podaci div.row.grid-row.row-click");
+                if (NacinPokretanjaTesta == "ručno")
+                    System.Windows.MessageBox.Show($"Redova ima:: {rows.Count}", "Informacija");
+
+
+                // Traži prvi red koji ima broj polise
+                int rowIndex = 0; // Definiši brojač
+
+                string brojDokumenta = string.Empty;
+                string brojPolise = string.Empty;
+
+                foreach (var row in rows)
+                {
+                    // Inkrementiraj brojač
+                    rowIndex++;
+                    var valueInColumn1 = await row.QuerySelectorAsync("div.column_1");
+                    var valueInColumn3 = await row.QuerySelectorAsync("div.column_3");
+                    var valueInColumn4 = await row.QuerySelectorAsync("div.column_4");
+
+                    // Pročitajte vrednost iz ćelije
+                    if (valueInColumn1 != null && valueInColumn3 != null)
+                    {
+                        brojZahteva = await valueInColumn1.EvaluateAsync<string>("el => el.innerText");
+                        brojDokumenta = await valueInColumn3.EvaluateAsync<string>("el => el.innerText");
+                        // Protect against possible null for column 4
+                        if (valueInColumn4 != null)
+                        {
+                            brojPolise = await valueInColumn4.EvaluateAsync<string>("el => el.innerText");
+                        }
+
+                        if (NacinPokretanjaTesta == "ručno")
+                            System.Windows.MessageBox.Show($"U redu {rowIndex} kolona \nBroj zahteva ima vrednost:: #{brojZahteva}#, \nBroj dokumenta je:: #{brojDokumenta}#, \nBroj polise je:: #{brojPolise}#");
+
+                        break;
+                    }
+                    else
+                    {
+                        if (NacinPokretanjaTesta == "ručno")
+                            System.Windows.MessageBox.Show($"Proveri grid", "Informacija");
+
+                        break;
+                    }
+                }
+
+                //Klikni na prvi koji ima broj polise i proveri da li se otvrila odgovarajuća stranica
+                await _page.GetByRole(AriaRole.Link, new() { Name = brojZahteva + " " + brojDokumenta }).First.ClickAsync();
+                //Provera da li se otvorio desni panel sa detaljima zahteva za izmenu
+                await _page.GetByRole(AriaRole.Heading, new() { Name = "Detalji zahteva za izmenu" }).ClickAsync();
+                //Klikni na zaflavlje Broj zahteva u prvoj koloni
+                await _page.GetByText("Br. zah.").ClickAsync();
+                //Klikni na naslov u panelu za pregled zahteva
+                await _page.Locator("//h3[@id='pregled-zahteva-naslov']").ClickAsync();
+
+                //Proveri da li  radi filter na gridu sa polisama AO, filtriraj po statusu zahteva
+                string kriterijumFiltera = "Delimično realizovanNa realizacijiOdbijenRealizovan";
+                tipGrida = "Zahtevi za izmenu polisa Kasko osiguranja";
+                await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 7, "Lista", 1);
+
+                //Proveri da li  radi filter na gridu sa polisama AO, filtriraj po imenu i prezimenu Korisnika koji je kreirao zahtev
+                kriterijumFiltera = "Davor";
+                await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 8, "TekstBoks", 0);
+
+                //Zatvori panel sa detaljima zahteva za izmenu
+                await _page.Locator("//div[@class='pregled-zahteva-otvoren commonBox']//e-button[@type='icon']").ClickAsync();
+
+                // Nađi prvu kreiranu polisu koja nema zahtev za izmenu
+                // Pročitaj iz baze idDokument za odgovarajući broj ugovora
+                Server = OdrediServer(Okruzenje);
+                string qBrojDokumenta = $"SELECT TOP 1 [Dokument].[idDokument] FROM [CascoDB].[casco].[Dokument] " +
+                                        $"LEFT JOIN [CascoDB].[casco].[ZahtevZaIzmenu] ON [CascoDB].[casco].[Dokument].[idDokument] = [CascoDB].[casco].[ZahtevZaIzmenu].[idDokument] " +
+                                        $"WHERE [Dokument].[idStatus] = 2 AND [Dokument].[idKorisnik] IN (1000, 1001) AND [datumIsteka] > DATEADD(day, -30, CAST(GETDATE() AS DATE)) " +
+                                        $"GROUP BY [CascoDB].[casco].[Dokument].[idDokument] " +
+                                        $"ORDER BY COUNT([CascoDB].[casco].[ZahtevZaIzmenu].[idDokument]) ASC;";
+                // Konekcija sa bazom i izvršavanje upita
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
+                using (SqlConnection konekcija = new(connectionString))
+                {
+                    konekcija.Open();
+                    using (SqlCommand command = new(qBrojDokumenta, konekcija))
+                    {
+                        object BrojDokumenta1 = command.ExecuteScalar();
+                        // Safely handle possible null or DBNull values
+                        brojDokumenta = BrojDokumenta1?.ToString() ?? "";
+                    }
+                    konekcija.Close();
+                }
+                if (brojDokumenta == string.Empty)
+                {
+                    LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - Nema dokumenata za izmenu.");
+                    throw new Exception("Nema dokumenata za izmenu.");
+                }
+                //Treba ubaciti proveru o ostalih slučajeva. kada je u izradi.... i ako nema polisa ....
+                Console.WriteLine($"ID dokumenta je na okruženju '{Okruzenje}' je: {brojDokumenta}.\n");
+
+                //Otvori dokument sa tim brojem i pokreni zahtev za izmenu
+                await _page.GotoAsync(PocetnaStrana + "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + brojDokumenta);
+                await ProveriURL(_page, PocetnaStrana, $"/Kasko-osiguranje-vozila/9/Kasko/Dokument/{brojDokumenta}");
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Novi zahtev za izmenu" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Novi zahtev za izmenu" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
+                await _page.Locator("//div[@class='pregled-zahteva-otvoren commonBox']//i[@class='ico-xmark']").ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Novi zahtev za izmenu" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
+                var (naslovZahteva, tekstZahteva) = IzaberiPodatkeZaZahtev();
+
+                await _page.Locator("#inpNaslov").GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.Locator("#inpNaslov").GetByRole(AriaRole.Textbox).FillAsync(naslovZahteva);
+                await _page.Locator("e-text").Filter(new() { HasText = "Tekst zahteva" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.Locator("e-text").Filter(new() { HasText = "Tekst zahteva" }).GetByRole(AriaRole.Textbox).FillAsync(tekstZahteva);
+
+                // 1. Definiši putanju do fajla koji želiš da upload-uješ
+                string filePath = @"C:\_Testovi\AMSOsiguranje\Razvoj\Podaci\milk.png";
+
+                // U Playwrightu, File Chooser (Windows dijalog) mora biti presretnut.
+                // Metoda RunAndWaitForFileChooserAsync radi upravo to:
+                var fileChooser = await _page.RunAndWaitForFileChooserAsync(async () =>
+                {
+                    // 2. Klikni na dugme koje pokreće Windows dijalog
+                    // Ovaj klik će aktivirati dijalog, koji Playwright presreće.
+                    await _page.GetByRole(AriaRole.Button, new() { Name = "Dodaj priloge" }).ClickAsync();
+                });
+
+                // 3. Predaj Playwrightu putanju do fajla.
+                // Ovo automatski popunjava "File name" polje i klikne na "Open".
+                await fileChooser.SetFilesAsync(filePath);
+
+
+                PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
+
+                //await _page.PauseAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Pošalji zahtev" }).ClickAsync();
+
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Nivo I nije dobio mejl sa zahtevom za izmenu");
+
+                //Otvori grid Pregled / pretraga zahteva za izmenu
+                await _page.GetByText("Pregled / Pretraga zahteva za izmenu polisa").ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, "/Kasko-osiguranje-vozila/9/Kasko/Pregled-zahteva/Izmene-polisa");
+                //Proveri da li postoji grid
+                // Proveri da li stranica sadrži grid sa zahtevima za izmenu kasko polisa
+                tipGrida = "Zahtevi za izmenu polisa Kasko osiguranja";
+                await ProveraPostojiGrid(_page, tipGrida);
+
+                brojZahteva = await ProcitajCeliju(1, 1);
+
+                if (NacinPokretanjaTesta == "ručno")
+                    System.Windows.MessageBox.Show(brojZahteva, "Info", MessageBoxButton.OK, MessageBoxImage.Error);
+
+
+
+
+
+                await _page.Locator(".ico-ams-logo").ClickAsync();
+                await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
+
+                await IzlogujSe(_page);
+                // Proveri da li si uspešno izlogovan
+                DodatakNaURL = "/Login";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                await UlogujSe(_page, "mario.radomir@eonsystem.com", "Lozinka1!");
+                await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
+
+                //await _page.PauseAsync();
+
+                try
+                {
+                    //await _page.GetByText($"Imate novi zahtev za izmenomDokument možete pogledati klikom na link: {brojDokumenta}").First.ClickAsync();
+                    await _page.GetByText($"Imate novi zahtev za izmenomDokument možete pogledati klikom na link: {brojDokumenta}").First.ClickAsync();
+                    await _page.GetByRole(AriaRole.Link, new() { Name = $"{brojDokumenta}" }).First.ClickAsync(new() { Timeout = 5000 });
+                }
+                catch (Exception ex)
+                {
+                    await LogovanjeTesta.LogException("Nivo I nije dobio vest da ima zahtev", ex);
+                    await _page.GotoAsync(PocetnaStrana + "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + brojDokumenta + "/" + brojZahteva);
+                }
+
+                await ProveriURL(_page, PocetnaStrana, $"/Kasko-osiguranje-vozila/9/Kasko/Dokument/{brojDokumenta}/{brojZahteva}");
+
+                PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla(); //Poslednji zapis o poslatim mejlovima pre prvog slanja novog mejla
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Link, new() { Name = brojZahteva }).First.ClickAsync();
+                await _page.GetByText("---RealizovanDelimično realizovanOdbijen ---").ClickAsync();
+                await _page.Locator("#selStatusZahteva").GetByText("Odbijen").ClickAsync();
+                await _page.Locator("e-text").Filter(new() { HasText = "Odgovor" }).GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.Locator("e-text").Filter(new() { HasText = "Odgovor" }).GetByRole(AriaRole.Textbox).FillAsync("Odbijen zahtev jer je nekompletan");
+                //await _page.GetByRole(AriaRole.Button, new() { Name = " Pošalji odgovor" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Pošalji odgovor" }).ClickAsync();
+
+
+                await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "Nivo II nije dobio mejl sa odgovorom na zahtev za izmenu");
+
+                await IzlogujSe(_page);
+                // Proveri da li si uspešno izlogovan
+                DodatakNaURL = "/Login";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                await ProveriURL(_page, PocetnaStrana, $"/Dashboard");
+
+                try
+                {
+                    //await _page.GetByRole(AriaRole.Link, new() { Name = $"{brojZahteva}" }).First.ClickAsync(new() { Timeout = 5000 });
+                    await _page.GetByText($"Odogovoreno je na zahtev za izmenom. Dokument možete pogledati klikom na link: {brojDokumenta}").First.HoverAsync();
+                    await ArhivirajVest(_page, $"Odogovoreno je na zahtev za izmenom. Dokument možete pogledati klikom na link: {brojDokumenta}", brojDokumenta);
+                }
+                catch (Exception ex)
+                {
+                    await LogovanjeTesta.LogException("BO - nivo II nije dobio vest da je na zahtev odgovoreno", ex);
+                    await _page.GotoAsync(PocetnaStrana + "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + brojDokumenta);
+                }
+
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Zahtevi ka administraciji" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Link, new() { Name = brojZahteva }).First.ClickAsync();
+                //await _page.GetByRole(AriaRole.Link, new() { Name = "" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = " Odjavljivanje" }).ClickAsync();
+
+
+                //await _page.PauseAsync();
+                //return;
+
+
+
+
+
+                /*************************************************************************************
+                //await Pauziraj(_page);
+                //await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).First.ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Novi zahtev za izmenu" }).ClickAsync();
+                await _page.GetByText("Da li ste sigurni da želite").ClickAsync();
+                await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
+                //await _page.PauseAsync();
+                //await _page.GetByText("---Izmena podatakaIzmena premijskog stepenaDigitalno odobrenje ---").ClickAsync();
+                //await _page.Locator("#selTipZahteva").GetByText("Izmena podataka").ClickAsync();
+                //await _page.GetByText("Tip zahteva", new() { Exact = true }).ClickAsync();
+                await _page.Locator("//e-select[@id='selTipZahteva']//div[@class='multiselect-dropdown input']").ClickAsync();
+                //await _page.Locator("#selTipZahteva span").Filter(new() { HasText = "---" }).ClickAsync();
+                //await _page.Locator(".zahtev > div:nth-child(5)").ClickAsync();
+                //await _page.GetByText("---Izmena podatakaIzmena premijskog stepena ---").ClickAsync();
+                //await _page.Locator(".zahtev > div:nth-child(5)").ClickAsync();
+                //await _page.GetByText("---Izmena podatakaIzmena premijskog stepena ---").ClickAsync();
+                await _page.Locator("#selTipZahteva").GetByText("Izmena podataka").ClickAsync();
+
+                //await _page.Locator("#inpNaslov input[type=\"text\"]").ClickAsync();
+
+                await _page.Locator("#inpNaslov input[type=\"text\"]").ClickAsync();
+                await _page.Locator("#inpNaslov input[type=\"text\"]").FillAsync("Menjam opšte podatke");
+                await _page.GetByText("Tekst zahteva").ClickAsync();
+                await _page.Locator("e-text").Filter(new() { HasText = "Tekst zahteva" }).Locator("textarea").FillAsync($"Ovo je tekst zahteva za dokument br. {BrojDokumenta}");
+
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    await _page.Locator("button").Filter(new() { HasText = "Dodaj priloge" }).ClickAsync();
+
+                    System.Windows.MessageBox.Show("Dodaj prilog", "Info", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                *****************************************************************************************/
+
+                /****************************************
+                Provera da li je BO dobio mejl da je dokument prenos obrazaca vraćen u izradu
+                *****************************************/
+                //PrethodniZapisMejla = await ProcitajPoslednjiZapisMejla();
+                //LogovanjeTesta.LogMessage($"✅ Poslednji mejl -> ID: {PrethodniZapisMejla.PoslednjiID}, IDMail: {PrethodniZapisMejla.PoslednjiIDMail}, Status: {PrethodniZapisMejla.Status}, Opis: {PrethodniZapisMejla.Opis}, Datum: {PrethodniZapisMejla.Datum}, Subject: {PrethodniZapisMejla.Subject}", false);
+
+                //await _page.Locator("button").Filter(new() { HasText = "Pošalji zahtev" }).ClickAsync();
+
+
+                //brojZahteva = (int.Parse(brojZahteva) + 1).ToString();
+
+                //await _page.GetByText("Broj dokumenta:").ClickAsync();
+                //await _page.Locator("#grid_zahtevi_za_izmenu").GetByText("2313").ClickAsync();
+                //await _page.Locator("#grid_zahtevi_za_izmenu").GetByText("2313").ClickAsync();
+                //await _page.Locator("#grid_zahtevi_za_izmenu button").First.ClickAsync();
+
+                //await _page.Locator("#grid_zahtevi_za_izmenu button").First.ClickAsync();
+                //await _page.GetByText("Izmena podataka").Nth(3).ClickAsync();
+                //await _page.Locator("#grid_zahtevi_za_izmenu").GetByText("21.01.2025").ClickAsync();
+                //await _page.GetByText("Menjam opšte podatke").ClickAsync();
+                //await _page.Locator("#grid_zahtevi_za_izmenu").GetByText("2321").ClickAsync();
+                //await _page.Locator($"column column_1 txt-center").ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).First.ClickAsync();
+
+                /******************************************************
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.MessageBox.Show("Proveri da li je i kome otišao mejl", "Info", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                **********************************************/
+                //await ProveriStatusSlanjaMejla(PrethodniZapisMejla, "------------------");
+                //Sada se izloguj, pa uloguj kao BackOffice
+                //await IzlogujSe(_page);
+                //await ProveriURL(_page, PocetnaStrana, "/Login");
+
+                //uloguj se kao BO
+                //await UlogujSe(_page, BOkorisnickoIme, BOlozinka);
+                //await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
+                //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("davor.bulic@eonsystem.com");
+                //await _page.Locator("input[type=\"password\"]").ClickAsync();
+                //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
+                //await _page.Locator("a").First.ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+
+                //await _page.PauseAsync();
+                //await _page.Locator("a").Filter(new() { HasText = "Imate novi zahtev za izmenom" }).ClickAsync();
+                //await _page.Locator("h3").Filter(new() { HasText = "Izmena vesti broj: 964 (" }).Locator("button").ClickAsync();
+                //await _page.Locator("a").Filter(new() { HasText = "Imate novi zahtev za izmenom" }).ClickAsync();
+                //await _page.Locator("h3").Filter(new() { HasText = "Izmena vesti broj: 964 (" }).Locator("button").ClickAsync();
+                //string dok = BrojDokumenta.ToString();
+                //await _page.GetByText($"Imate novi zahtev za izmenomDokument možete pogledati klikom na link: {dok}").HoverAsync();
+
+
+                //await _page.Locator($"//a[.='{dok}']").ClickAsync();
+
+                //await Pauziraj(_page);
+                //await _page.GetByText(BrojDokumenta.ToString()).ClickAsync();
+                //await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{dok}/{brojZahteva}");
+
+
+                //await _page.GetByText("---RealizovanDelimično realizovanOdbijen ---").ClickAsync();
+                //await _page.Locator("#selStatusZahteva").GetByText("Delimično realizovan").ClickAsync();
+                //await _page.Locator("e-text").Filter(new() { HasText = "Odgovor" }).Locator("textarea").ClickAsync();
+                //await _page.Locator("e-text").Filter(new() { HasText = "Odgovor" }).Locator("textarea").FillAsync("Ovo je odgovor.");
+                //await _page.Locator("button").Filter(new() { HasText = "Pošalji odgovor" }).ClickAsync();
+
+                /******************************
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    System.Windows.MessageBox.Show("Proveri da li je agentu stigao mejl", "Info", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                ******************************/
+                //await _page.Locator(".ico-ams-logo").ClickAsync();
+                //await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                //await ArhivirajVest(_page, "Imate novi zahtev za izmenomDokument možete pogledati klikom na link:", dok);
+
+                //await IzlogujSe(_page);
+                //await ProveriURL(_page, PocetnaStrana, "/Login");
+
+                //await UlogujSe(_page, AkorisnickoIme, Alozinka);
+                //await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                //await _page.Locator("#rightBox input[type=\"text\"]").ClickAsync();
+                //await _page.Locator("#rightBox input[type=\"text\"]").FillAsync("bogdan.mandaric@eonsystem.com");
+                //await _page.Locator("input[type=\"password\"]").ClickAsync();
+                //await _page.Locator("input[type=\"password\"]").FillAsync("Lozinka1!");
+                //await _page.Locator("button").Filter(new() { HasText = "Prijava" }).ClickAsync();
+
+
+
+                //await _page.Locator("a").Filter(new() { HasText = "Odogovoreno na zahtev za" }).First.ClickAsync();
+                //await _page.Locator("a").Filter(new() { HasText = "Odogovoreno na zahtev za" }).First.ClickAsync();
+                //await _page.GetByText("Odogovoreno je na zahtev za").First.ClickAsync();
+                //await _page.GetByText($"{dok}").First.ClickAsync();
+                //await _page.GotoAsync(PocetnaStrana + $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{dok}/{brojZahteva}");
+                //await ProveriURL(_page, PocetnaStrana, $"/Osiguranje-vozila/1/Autoodgovornost/Dokument/{dok}/{brojZahteva}");
+                //await _page.PauseAsync();
+
+                //await _page.Locator(".pregled-zahteva-gore").ClickAsync();
+                //await _page.Locator("#grid_zahtevi_za_izmenu button").First.ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Dodatne opcije" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Skloni panel" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Pregled zahteva" }).First.ClickAsync();
+                //await _page.Locator(".ico-ams-logo").ClickAsync();
+                //await _page.Locator("a").Filter(new() { HasText = "Odogovoreno na zahtev za" }).First.ClickAsync();
+                //await _page.Locator(".btnArhiviraj > .left").First.ClickAsync();
+                //await _page.GetByText("Da li ste sigurni da želite").ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
+                //await _page.Locator(".korisnik > a").ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Odjavljivanje" }).ClickAsync();
+
+
+
+
+
+
+
+
+
+
+
+
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    PorukaKrajTesta();
+                }
+                await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
+
+                //Assert.Pass();
+
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
+            }
+
+        }
+
+
+        [Test, Order(731)]
+        public async Task KA_08_StornirajPolisu()
         {
             try
             {
                 //pronađi Kasko polisu koja je Kreirana i nije istekla
                 int BrojDokumenta = 0;
-                int BrojPonude = 0;
-                int grBrojdokumenta = 0;
+                int IDKorisnik = 0;
+
+                string Oznaka = string.Empty;
+                int IDKorisnikPoslednjeIzmene = 0;
+                //int BrojDokumenta = 0;
+                //int BrojPonude = 0;
+                //int grBrojdokumenta = 0;
 
                 Server = OdrediServer(Okruzenje);
-
+                /*
                 if (Okruzenje == "Razvoj")
                 {
                     grBrojdokumenta = 0;
                 }
-
+                */
                 // Konekcija sa bazom
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
-                string qBrojDokumenta = $"SELECT TOP 1 idDokument AS IdDokument " +
+                string qBrojDokumenta = $";WITH Parsirano AS (" +
+                                            "SELECT T1.idDokument, T2.Oznaka, T1.idStatus, " + //"-- deo pre prve crtice (BrUgovora)" +
+
+                                                "TRY_CAST(LEFT(T2.Oznaka, CHARINDEX('-', T2.Oznaka + '-') - 1) AS INT) AS BrUgovora, " +
+
+                                                "TRY_CAST(" + //"-- deo između -O i sledeće crtice (BrObracuna)" +
+                                                    "SUBSTRING(" +
+                                                        "T2.Oznaka, " +
+                                                        "CHARINDEX('-O', T2.Oznaka) + 2, " +
+                                                        "CASE " +
+                                                            "WHEN CHARINDEX('-A', T2.Oznaka) > 0 " +
+                                                                "THEN CHARINDEX('-A', T2.Oznaka) - (CHARINDEX('-O', T2.Oznaka) + 2) " +
+                                                            "ELSE LEN(T2.Oznaka) " +
+                                                        "END " +
+                                                    ") AS INT " +
+                                                ") AS BrObracuna, " +
+
+                                                "TRY_CAST(" + //"-- deo posle -A (BrAneksa), može i da ne postoji " +
+                                                    "CASE " +
+                                                        "WHEN CHARINDEX('-A', T2.Oznaka) > 0 " +
+                                                            "THEN SUBSTRING(T2.Oznaka, CHARINDEX('-A', T2.Oznaka) + 2, LEN(T2.Oznaka)) " +
+                                                        "ELSE NULL " +
+                                                    "END AS INT " +
+                                                ") AS BrAneksa, " +
+                                                "T1.datumIsteka, T2.DOKraj, T1.idKorisnik, T1.idPartner, T1.idZastupnik, " +
+                                                "T1.IDKorisnikPoslednjeIzmene " +
+                                            "FROM CascoDB.casco.Dokument T1 " +
+                                            "INNER JOIN CascoDB.casco.DokumentPoddokument T2 ON T1.idDokument = T2.IdDokument " +
+                                            "WHERE T1.idStatus = 2 AND T1.datumIsteka >= CAST(GETDATE() AS DATE) AND T2.DOKraj >= CAST(GETDATE() AS DATE) AND " +
+                                            "(NOT EXISTS(" +
+                                            "SELECT 1 " +
+                                            "FROM CascoDB.casco.Dokument T3 " +
+                                            "WHERE T3.brojUgovora = T1.brojUgovora AND T3.idStatus IN(1, 3, 4)" +
+                                        ")" +
+                                            ")" +
+                                        ")" +
+                                        "SELECT TOP 1 * " + //"--SELECT * " +
+
+                                        "FROM Parsirano " +
+                                        "ORDER BY " + //"--idDokument ASC, " +
+
+                                            "BrUgovora ASC,   " + //--najmanji BrUgovora 
+                                            "BrObracuna DESC,  " + //--najveći BrObracuna 
+                                            "BrAneksa DESC;"; //--najveći BrAneksa(ako postoji)
+
+
+
+
+                /*
+                string qBrojDokumenta_stari_1 = $"SELECT TOP 1 idDokument AS IdDokument " +
                                         $"FROM [CascoDB].[casco].[Dokument] " +
-                                        $"WHERE ([Dokument].[idDokument] > '{grBrojdokumenta}' AND [idKorisnik] = 1001 AND [idProizvod] = 9 AND [idStatus] = 2  AND [datumIsteka] > CAST(GETDATE() AS DATE)) " +
+                                        $"WHERE ([Dokument].[idDokument] > '{grBrojdokumenta}' AND [idKorisnik] IN (1000, 1001, 1002) AND [idProizvod] = 9 AND [idStatus] = 2  AND [datumIsteka] > CAST(GETDATE() AS DATE)) " +
                                         $"ORDER BY [brojUgovora] DESC, [idDokument] DESC;";
 
-                string qBrojDokumentastari = $"SELECT MIN(idDokument) AS IdDokument " +
+                string qBrojDokumenta_stari_2 = $"SELECT MIN(idDokument) AS IdDokument " +
                                              $"FROM [CascoDB].[casco].[Dokument] " +
                                              $"WHERE ([Dokument].[idDokument] > '{grBrojdokumenta}' AND [idKorisnik] = 1001 AND [idProizvod] = 9 AND [idStatus] = 2  AND [datumIsteka] > CAST(GETDATE() AS DATE));";
+                */
+
+
                 using SqlConnection konekcija = new(connectionString);
                 konekcija.Open();
-
                 using SqlCommand SqlKomanda = new(qBrojDokumenta, konekcija);
-                object rezultat = SqlKomanda.ExecuteScalar();
-                //BrojDokumenta = (Int32)(SqlKomanda.ExecuteScalar() ?? 0);
-                BrojDokumenta = rezultat as int? ?? 0;
-                konekcija.Close();
+
+                // Pokrećemo upit i čitamo rezultat
+                using SqlDataReader reader = SqlKomanda.ExecuteReader();
+
+                if (reader.Read()) // čita prvi red iz rezultata
+                {
+                    {
+                        BrojDokumenta = reader["idDokument"] != DBNull.Value ? Convert.ToInt32(reader["idDokument"]) : 0;
+                        IDKorisnik = reader["idKorisnik"] != DBNull.Value ? Convert.ToInt32(reader["idKorisnik"]) : 0;
+                        object oznakaObj = reader["Oznaka"];
+                        Oznaka = (oznakaObj != null && oznakaObj != DBNull.Value) ? Convert.ToString(oznakaObj) ?? string.Empty : string.Empty;
+                        IDKorisnikPoslednjeIzmene = reader["IDKorisnikPoslednjeIzmene"] != DBNull.Value ? Convert.ToInt32(reader["IDKorisnikPoslednjeIzmene"]) : 0;
+
+
+                        /*
+                        // Primer čitanja po nazivu (čitljivije, ali malo sporije):
+                        BrojDokumenta = reader.GetInt32(reader.GetOrdinal("BrojDokumenta")),
+                        IDKorisnik = reader.GetInt32(reader.GetOrdinal("IDKorisnik")),
+                        Oznaka = reader.GetString(reader.GetOrdinal("Oznaka"))
+                        */
+                    }
+                ;
+
+                    // Dodaj objekat u listu rezultata
+                    //rezultati.Add(podatak);
+
+                    // reader.Dispose() i reader.Close() se pozivaju ovde
+                    // konekcija.Close() i Dispose() se pozivaju ovde
+                    reader.Dispose();
+                    konekcija.Close();
+                }
+
+
                 if (NacinPokretanjaTesta == "ručno")
-                    System.Windows.Forms.MessageBox.Show($"BrojDokumenta je: {BrojDokumenta}", "Informacija", MessageBoxButtons.OK);
+                {
+                    if (System.OperatingSystem.IsWindows())
+                    {
+                        System.Windows.MessageBox.Show($"BrojDokumenta: {BrojDokumenta}, IDKorisnik: {IDKorisnik}, Oznaka: {Oznaka}, IDKorisnikPoslednjeIzmene. {IDKorisnikPoslednjeIzmene} ", "Informacija", System.Windows.MessageBoxButton.OK);
+                    }
+                }
                 if (BrojDokumenta == 0)
                 {
                     await LogovanjeTesta.LogException("Nema polisa za storniranje", new Exception("Nema polisa za storniranje"));
@@ -1732,7 +2016,27 @@ namespace Produkcija
                 if (_page == null)
                     throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
                 await Pauziraj(_page);
-                await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+
+                switch (IDKorisnikPoslednjeIzmene)
+                {
+                    case 1000:
+                        // Blok koda koji se izvršava ako je izraz jednak vrednost1
+                        await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                        break;
+                    case 1001:
+                        // Blok koda koji se izvršava ako je izraz jednak vrednost2
+                        await UlogujSe(_page, "bogdan.mandaric@eonsystem.com", "Lozinka1!");
+                        break;
+                    // ...
+                    case 1002:
+                        // Blok koda koji se izvršava ako je izraz jednak vrednostN
+                        await UlogujSe(_page, "mario.radomir@eonsystem.com", "Lozinka1!");
+                        break;
+                        //default:
+                        // Blok koda koji se izvršava ako izraz ne odgovara nijednoj vrednosti
+                        //break;
+                }
+                //await UlogujSe(_page, "mario.radomir@eonsystem.com", "Lozinka1!");
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 // Pređi mišem preko teksta Osiguranje vozila
                 //await _page.GetByText("Osiguranje vozila").HoverAsync();
@@ -1758,26 +2062,301 @@ namespace Produkcija
 
 
 
-                //await _page.PauseAsync();
+
 
                 // Filtriraj grid po Id dokument
-                await FiltrirajGrid(_page, BrojDokumenta.ToString(), tipGrida, 1, "TekstBoks", 0);
+                await FiltrirajGrid(_page, Oznaka, tipGrida, 2, "TekstBoks", 0);
 
                 //await _page.GetByText(BrojDokumenta.ToString()).First.ClickAsync();
                 //await _page.Locator("//body/div[@id='container']/div[contains(@class,'row content proizvod-0')]/div[contains(@class,'page-content')]/e-grid[@id='grid_dokumenti']/div[contains(@class,'grid field no-content')]/div[contains(@class,'podaci')]/a/div[contains(@class,'row grid-row dokumentStatus2 row-click')]/div[2]").ClickAsync();
-                await _page.Locator($"//div[contains(@class,'column column_1')][normalize-space()='{BrojDokumenta.ToString()}']").ClickAsync();
+                //await _page.Locator($"//div[contains(@class,'column column_1')][normalize-space()='{BrojDokumenta.ToString()}']").ClickAsync();
+                await _page.Locator($"//div[normalize-space()='{Oznaka}']").ClickAsync();
                 DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + BrojDokumenta.ToString();
                 await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
 
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Storniraj" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Storniraj", Exact = true }).ClickAsync();
+                await _page.Locator("//e-button[@id='btnStorniraj']").ClickAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
-                await _page.GetByRole(AriaRole.Button, new() { Name = " Storniraj" }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Storniraj", Exact = true }).ClickAsync();
+                await _page.Locator("//e-button[@id='btnStorniraj']").ClickAsync();
+                //await _page.PauseAsync();
                 await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
                 var porukaLocator = _page.Locator($"//div[contains(., 'Polisa broj {BrojDokumenta} uspešno stornirana')]");
-                await porukaLocator.WaitForAsync(new() { Timeout = 5000 });
+                //await porukaLocator.WaitForAsync(new() { Timeout = 5000 });
+                //await porukaLocator.ClickAsync();
+                await _page.GetByText("uspešno stornirana").ClickAsync(new() { Timeout = 120000 });
+                await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
 
-                await _page.GetByRole(AriaRole.Link, new() { Name = " Pregled / Pretraga polisa" }).ClickAsync();
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    PorukaKrajTesta();
+                }
+                await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
 
+
+                //string kriterijumFiltera = RucnaUloga;
+                //await ProveriFilterGrida(_page, kriterijumFiltera, tipGrida, 9);
+                //await FiltrirajGrid(_page, kriterijumFiltera, tipGrida, 9, "TekstBoks", 0);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                throw;
+            }
+        }
+
+        [Test, Order(735)]
+        public async Task KA_08_RaskiniPolisu()
+        {
+            try
+            {
+                //pronađi Kasko polisu koja je Kreirana i nije istekla
+                int BrojDokumenta = 0;
+                int IDKorisnik = 0;
+
+                string Oznaka = string.Empty;
+                int IDKorisnikPoslednjeIzmene = 0;
+                //int BrojDokumenta = 0;
+                //int BrojPonude = 0;
+                //int grBrojdokumenta = 0;
+
+                Server = OdrediServer(Okruzenje);
+                /*
+                if (Okruzenje == "Razvoj")
+                {
+                    grBrojdokumenta = 0;
+                }
+                */
+                // Konekcija sa bazom
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
+
+                string qBrojDokumenta = $";WITH Parsirano AS (" +
+                                            "SELECT T1.idDokument, T2.Oznaka, T1.idStatus, " + //"-- deo pre prve crtice (BrUgovora)" +
+
+                                                "TRY_CAST(LEFT(T2.Oznaka, CHARINDEX('-', T2.Oznaka + '-') - 1) AS INT) AS BrUgovora, " +
+
+                                                "TRY_CAST(" + //"-- deo između -O i sledeće crtice (BrObracuna)" +
+                                                    "SUBSTRING(" +
+                                                        "T2.Oznaka, " +
+                                                        "CHARINDEX('-O', T2.Oznaka) + 2, " +
+                                                        "CASE " +
+                                                            "WHEN CHARINDEX('-A', T2.Oznaka) > 0 " +
+                                                                "THEN CHARINDEX('-A', T2.Oznaka) - (CHARINDEX('-O', T2.Oznaka) + 2) " +
+                                                            "ELSE LEN(T2.Oznaka) " +
+                                                        "END " +
+                                                    ") AS INT " +
+                                                ") AS BrObracuna, " +
+
+                                                "TRY_CAST(" + //"-- deo posle -A (BrAneksa), može i da ne postoji " +
+                                                    "CASE " +
+                                                        "WHEN CHARINDEX('-A', T2.Oznaka) > 0 " +
+                                                            "THEN SUBSTRING(T2.Oznaka, CHARINDEX('-A', T2.Oznaka) + 2, LEN(T2.Oznaka)) " +
+                                                        "ELSE NULL " +
+                                                    "END AS INT " +
+                                                ") AS BrAneksa, " +
+                                                "T1.datumIsteka, T2.DOKraj, T1.idKorisnik, T1.idPartner, T1.idZastupnik, " +
+                                                "T1.IDKorisnikPoslednjeIzmene " +
+                                            "FROM CascoDB.casco.Dokument T1 " +
+                                            "INNER JOIN CascoDB.casco.DokumentPoddokument T2 ON T1.idDokument = T2.IdDokument " +
+                                            "WHERE T1.idStatus = 2 AND T1.datumIsteka >= CAST(GETDATE() AS DATE) AND T2.DOKraj >= CAST(GETDATE() AS DATE) AND " +
+                                            "(NOT EXISTS(" +
+                                            "SELECT 1 " +
+                                            "FROM CascoDB.casco.Dokument T3 " +
+                                            "WHERE T3.brojUgovora = T1.brojUgovora AND T3.idStatus IN(1, 3, 4)" +
+                                        ")" +
+                                            ")" +
+                                        ")" +
+                                        "SELECT TOP 1 * " + //"--SELECT * " +
+
+                                        "FROM Parsirano " +
+                                        "ORDER BY " + //"--idDokument ASC, " +
+
+                                            "BrUgovora ASC,   " + //--najmanji BrUgovora 
+                                            "BrObracuna DESC,  " + //--najveći BrObracuna 
+                                            "BrAneksa DESC;"; //--najveći BrAneksa(ako postoji)
+
+
+
+
+                /*
+                string qBrojDokumenta_stari_1 = $"SELECT TOP 1 idDokument AS IdDokument " +
+                                        $"FROM [CascoDB].[casco].[Dokument] " +
+                                        $"WHERE ([Dokument].[idDokument] > '{grBrojdokumenta}' AND [idKorisnik] IN (1000, 1001, 1002) AND [idProizvod] = 9 AND [idStatus] = 2  AND [datumIsteka] > CAST(GETDATE() AS DATE)) " +
+                                        $"ORDER BY [brojUgovora] DESC, [idDokument] DESC;";
+
+                string qBrojDokumenta_stari_2 = $"SELECT MIN(idDokument) AS IdDokument " +
+                                             $"FROM [CascoDB].[casco].[Dokument] " +
+                                             $"WHERE ([Dokument].[idDokument] > '{grBrojdokumenta}' AND [idKorisnik] = 1001 AND [idProizvod] = 9 AND [idStatus] = 2  AND [datumIsteka] > CAST(GETDATE() AS DATE));";
+                */
+
+
+                using SqlConnection konekcija = new(connectionString);
+                konekcija.Open();
+                using SqlCommand SqlKomanda = new(qBrojDokumenta, konekcija);
+
+                // Pokrećemo upit i čitamo rezultat
+                using SqlDataReader reader = SqlKomanda.ExecuteReader();
+
+                if (reader.Read()) // čita prvi red iz rezultata
+                {
+                    {
+                        BrojDokumenta = reader["idDokument"] != DBNull.Value ? Convert.ToInt32(reader["idDokument"]) : 0;
+                        IDKorisnik = reader["idKorisnik"] != DBNull.Value ? Convert.ToInt32(reader["idKorisnik"]) : 0;
+                        object oznakaObj = reader["Oznaka"];
+                        Oznaka = (oznakaObj != null && oznakaObj != DBNull.Value) ? Convert.ToString(oznakaObj) ?? string.Empty : string.Empty;
+                        IDKorisnikPoslednjeIzmene = reader["IDKorisnikPoslednjeIzmene"] != DBNull.Value ? Convert.ToInt32(reader["IDKorisnikPoslednjeIzmene"]) : 0;
+
+
+                        /*
+                        // Primer čitanja po nazivu (čitljivije, ali malo sporije):
+                        BrojDokumenta = reader.GetInt32(reader.GetOrdinal("BrojDokumenta")),
+                        IDKorisnik = reader.GetInt32(reader.GetOrdinal("IDKorisnik")),
+                        Oznaka = reader.GetString(reader.GetOrdinal("Oznaka"))
+                        */
+                    }
+                ;
+
+                    // Dodaj objekat u listu rezultata
+                    //rezultati.Add(podatak);
+
+                    // reader.Dispose() i reader.Close() se pozivaju ovde
+                    // konekcija.Close() i Dispose() se pozivaju ovde
+                    reader.Dispose();
+                    konekcija.Close();
+                }
+
+
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    if (System.OperatingSystem.IsWindows())
+                    {
+                        System.Windows.MessageBox.Show($"BrojDokumenta: {BrojDokumenta}, IDKorisnik: {IDKorisnik}, Oznaka: {Oznaka}, IDKorisnikPoslednjeIzmene. {IDKorisnikPoslednjeIzmene} ", "Informacija", System.Windows.MessageBoxButton.OK);
+                    }
+                }
+                if (BrojDokumenta == 0)
+                {
+                    await LogovanjeTesta.LogException("Nema polisa za storniranje", new Exception("Nema polisa za storniranje"));
+                    return;
+                    //throw new Exception("Nema polisa za storniranje");
+                }
+
+
+
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                await Pauziraj(_page);
+
+                switch (IDKorisnikPoslednjeIzmene)
+                {
+                    case 1000:
+                        // Blok koda koji se izvršava ako je izraz jednak vrednost1
+                        await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                        break;
+                    case 1001:
+                        // Blok koda koji se izvršava ako je izraz jednak vrednost2
+                        await UlogujSe(_page, "davor.bulic@eonsystem.com", "Lozinka1!");
+                        break;
+                    // ...
+                    case 1002:
+                        // Blok koda koji se izvršava ako je izraz jednak vrednostN
+                        await UlogujSe(_page, "mario.radomir@eonsystem.com", "Lozinka1!");
+                        break;
+                        //default:
+                        // Blok koda koji se izvršava ako izraz ne odgovara nijednoj vrednosti
+                        //break;
+                }
+                //await UlogujSe(_page, "mario.radomir@eonsystem.com", "Lozinka1!");
+                await ProveriURL(_page, PocetnaStrana, "/Dashboard");
+                // Pređi mišem preko teksta Osiguranje vozila
+                //await _page.GetByText("Osiguranje vozila").HoverAsync();
+                // Klikni na tekst Osiguranje vozila
+                await _page.GetByText("Osiguranje vozila").ClickAsync();
+                // Klikni u meniju na Kasko
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Kasko" }).First.ClickAsync();
+                // Provera da li se otvorila stranica sa pregledom polisa AO
+                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                // Klik na Pregled / Pretraga polisa
+                await _page.GetByText("Pregled / Pretraga polisa").ClickAsync();
+                // Provera da li se otvorila stranica sa gridom pregled polisa
+                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Pregled-dokumenata";
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                // Proveri da li stranica sadrži grid sa polisama i da li radi filter na gridu 
+                string tipGrida = "Pregled polisa Kasko Osiguranja";
+                await ProveraPostojiGrid(_page, tipGrida);
+
+                //body/div[@id='container']/div[contains(@class,'row content proizvod-0')]/div[contains(@class,'page-content')]/e-grid[@id='grid_dokumenti']/div[contains(@class,'grid field no-content')]/div[contains(@class,'podaci')]/a/div[contains(@class,'row grid-row dokumentStatus2 row-click')]/div[2]
+
+
+
+
+
+                // Filtriraj grid po Id dokument
+                await FiltrirajGrid(_page, Oznaka, tipGrida, 2, "TekstBoks", 0);
+
+                //await _page.GetByText(BrojDokumenta.ToString()).First.ClickAsync();
+                //await _page.Locator("//body/div[@id='container']/div[contains(@class,'row content proizvod-0')]/div[contains(@class,'page-content')]/e-grid[@id='grid_dokumenti']/div[contains(@class,'grid field no-content')]/div[contains(@class,'podaci')]/a/div[contains(@class,'row grid-row dokumentStatus2 row-click')]/div[2]").ClickAsync();
+                //await _page.Locator($"//div[contains(@class,'column column_1')][normalize-space()='{BrojDokumenta.ToString()}']").ClickAsync();
+                await _page.Locator($"//div[normalize-space()='{Oznaka}']").ClickAsync();
+                DodatakNaURL = "/Kasko-osiguranje-vozila/9/Kasko/Dokument/" + BrojDokumenta.ToString();
+                await ProveriURL(_page, PocetnaStrana, DodatakNaURL);
+
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Storniraj", Exact = true }).ClickAsync();
+                await _page.Locator("//e-button[@id='btnRaskid']").ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Ne", Exact = true }).ClickAsync();
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Storniraj", Exact = true }).ClickAsync();
+                await _page.Locator("//e-button[@id='btnRaskid']").ClickAsync();
+                await _page.PauseAsync();
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Raskini" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Otkaži" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Raskini" }).ClickAsync();
+                await _page.Locator("#cal_calDatumRaskida").GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.GetByLabel("Novembar 30,").ClickAsync();
+                await _page.Locator("#cal_calDatumRaskida").GetByRole(AriaRole.Textbox).FillAsync("30.11.2025.");
+                await _page.Locator("#inpNapomena").GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.Locator("#inpNapomena").GetByRole(AriaRole.Textbox).FillAsync("Nisam zadovoljan!");
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Kalkulacija raskida" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Otkaži" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Raskini" }).ClickAsync();
+                await _page.Locator("#cal_calDatumRaskida").GetByRole(AriaRole.Textbox).ClickAsync();
+                await _page.GetByLabel("Novembar 30,").ClickAsync();
+                await _page.Locator("#cal_calDatumRaskida").GetByRole(AriaRole.Textbox).FillAsync("30.11.2025.");
+                await _page.Locator("#inpNapomena").GetByRole(AriaRole.Textbox).ClickAsync();
+
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Kalkulacija raskida" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Raskini" }).ClickAsync();
+                await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
+
+                await _page.GetByText("uspešno raskinuta").ClickAsync(new() { Timeout = 120000 });
+                await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+
+                await _page.GetByText($"Polisa broj {BrojDokumenta} uspešno raskinuta").ClickAsync();
+
+                await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+
+
+                //await _page.GetByRole(AriaRole.Button, new() { Name = "Da!" }).ClickAsync();
+                //var porukaLocator = _page.Locator($"//div[contains(., 'Polisa broj {BrojDokumenta} uspešno raskinuta')]");
+                //await porukaLocator.WaitForAsync(new() { Timeout = 5000 });
+                //await porukaLocator.ClickAsync();
+                //await _page.GetByText("uspešno stornirana").ClickAsync(new() { Timeout = 120000 });
+                //await _page.GetByRole(AriaRole.Link, new() { Name = "Pregled / Pretraga polisa" }).ClickAsync();
+
+                await IzlogujSe(_page);
+                await ProveriURL(_page, PocetnaStrana, "/Login");
+                if (NacinPokretanjaTesta == "ručno")
+                {
+                    PorukaKrajTesta();
+                }
+                await _page.ScreenshotAsync(new PageScreenshotOptions { Path = $"C:\\_Projekti\\AutoMotoSavezSrbije\\Logovi\\screenshot_{TestContext.CurrentContext.Test.Name}_{DateTime.Now.ToString("yyyy-MM-dd")}.png" });
 
 
 
@@ -1795,13 +2374,7 @@ namespace Produkcija
         }
 
 
-
-
-
-
-
-
-        [Test, Order(707)]
+        [Test, Order(741)]
         public async Task KA_09_SE_PregledPretragaRazduznihListi()
         {
             try
@@ -1898,7 +2471,7 @@ namespace Produkcija
         }
 
 
-        [Test, Order(708)]
+        [Test, Order(745)]
         public async Task KA_10_SE_NovaRazduznaLista()
         {
             try
@@ -1950,7 +2523,7 @@ namespace Produkcija
 
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {

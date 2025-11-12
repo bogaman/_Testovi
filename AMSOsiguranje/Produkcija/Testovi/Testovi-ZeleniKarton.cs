@@ -433,7 +433,7 @@ namespace Produkcija
                 Server = OdrediServer(Okruzenje);
 
                 // Konekcija sa bazom StrictEvidenceDB
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
@@ -490,7 +490,7 @@ namespace Produkcija
                 string qPoslednjiDokumentZKStroga = "SELECT MAX ([IdDokument]) FROM [StrictEvidenceDB].[strictevidence].[tDokumenta];";
                 int PoslednjiDokumentStroga;
 
-                //connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                //connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
@@ -659,7 +659,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 string istekla = DateTime.Now.ToString("yyyy-MM-dd");
                 Console.WriteLine(istekla);
@@ -754,7 +754,7 @@ namespace Produkcija
                     Lokacija = "(11)";
                 }
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                 //Nalaženje poslednjeg serijskog broja koji je u sistemu
                 string qSlobodniSerijskiZK = $"SELECT [tObrasci].[SerijskiBroj] FROM [StrictEvidenceDB].[strictevidence].[tObrasci] " +
                                              $"LEFT JOIN [StrictEvidenceDB].[strictevidence].[tIzdatePolise] ON [tObrasci].[SerijskiBroj] = [tIzdatePolise].[SerijskiBroj] " +
@@ -954,7 +954,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
@@ -1111,7 +1111,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 string Lokacija = "(7, 8)";
 
@@ -1243,7 +1243,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {

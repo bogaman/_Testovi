@@ -57,7 +57,7 @@ namespace Proba2
             }
 
             openWindow.WaitUntilClickable();
-            FlaUI.Core.AutomationElements.TextBox fileNameBox = null;
+            FlaUI.Core.AutomationElements.TextBox? fileNameBox = null;
             // 2️⃣ Pronađi polje "File name" (Edit kontrola)
             // strategija C: edit unutar comboBox (često File name je ComboBox sa edit delom)
             if (fileNameBox == null)
@@ -140,7 +140,7 @@ namespace Proba2
             openWindow.WaitUntilClickable();
 
             // 2) pokušaj nekoliko strategija da pronađeš "file name" edit kontrolu
-            FlaUI.Core.AutomationElements.TextBox fileNameBox = null;
+            FlaUI.Core.AutomationElements.TextBox? fileNameBox = null;
 
             // strategija A: po poznatom AutomationId (često "1148" u standardnim Windows dialog)
             var byId = openWindow.FindFirstDescendant(cf => cf.ByAutomationId("1148").And(cf.ByControlType(ControlType.Edit)));

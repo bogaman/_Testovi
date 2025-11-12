@@ -6,36 +6,36 @@
 05;Regularna;Putničko vozilo;Rent a car;Vlasnik nije korisnik;Pravno;Fizičko;;0;0;1400;50;0;5;Da;17408933;;100270693;;0;1
 06;Regularna;Putničko vozilo;Rent a car;Vlasnik nije korisnik;Pravno;Pravno;;0;0;1400;50;0;5;Da;07700393;17457284;101158054;102624786;1;0
 07;Regularna;Teretno vozilo;0;Vlasnik nije korisnik;Fizičko;Pravno;;0;0;1300;200;18;5;Da;;08855919;;103697344;0;1
-08;Regularna;Teretno vozilo;Taxi vozilo;Vlasnik je i korisnik;Pravno;;;1;0;1300;200;25;2;Ne;08855919;;103697344;
-09;Regularna;Teretno vozilo;Rent a car;Vlasnik je lizing kuća;Pravno;Fizičko;;1;0;1300;200;19;2;Da;21877379;;113495202;
+08;Regularna;Teretno vozilo;Taxi vozilo;Vlasnik je i korisnik;Pravno;;;1;0;1300;200;25;2;Ne;08855919;;103697344;;;
+09;Regularna;Teretno vozilo;Rent a car;Vlasnik je lizing kuća;Pravno;Fizičko;;1;0;1300;200;19;2;Da;21877379;;113495202;;;
 10;Regularna;Autobusi;0;Vlasnik nije korisnik;Fizičko;Pravno;;0;Autobusi za međugradski;2000;300;0;5;Ne;;17408933;;100270693;0;1
-11;Regularna;Autobusi;0;Vlasnik je i korisnik;Pravno;;;0;Autobuske prikolice za međugradski;2000;300;0;10;Da;21104329;;108977445;
-12;Regularna;Vučna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;;0;0;0;15;0;0;Ne;17492713;17488104;103023875;102941384
+11;Regularna;Autobusi;0;Vlasnik je i korisnik;Pravno;;;0;Autobuske prikolice za međugradski;2000;300;0;10;Da;21104329;;108977445;;;
+12;Regularna;Vučna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;;0;0;0;15;0;0;Ne;17492713;17488104;103023875;102941384;;
 13;Regularna;Specijalna motorna vozila;0;Vlasnik nije korisnik;Fizičko;Fizičko;;0;Pogrebni automobili koji;0;200;0;0;Da;;;;;1;0
-14;Regularna;Motocikli;0;Vlasnik je i korisnik;Fizičko;;;0;0;40;300;0;2;Ne;;;;
-15;Regularna;Motocikli;Rent a car;Vlasnik je lizing kuća;Pravno;Fizičko;;0;0;50;300;0;2;Da;17518844;;103156991;
+14;Regularna;Motocikli;0;Vlasnik je i korisnik;Fizičko;;;0;0;40;300;0;2;Ne;;;;;;
+15;Regularna;Motocikli;Rent a car;Vlasnik je lizing kuća;Pravno;Fizičko;;0;0;50;300;0;2;Da;17518844;;103156991;;;
 16;Regularna;Priključna vozila;0;Vlasnik nije korisnik;Pravno;Pravno;;0;0;0;0;0,5;0;Ne;17457284;21104329;102624786;108977445;0;1
-17;Regularna;Priključna vozila;Prevoz eksplozivnih i zapaljivih;Vlasnik je i korisnik;Fizičko;;;0;0;0;0;1;0;Da;;;;
-18;Regularna;Radna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;;0;Vozila za servisnu službu sa;0;0;0;0;Ne;20116161;17544004;104219657;103334127
+17;Regularna;Priključna vozila;Prevoz eksplozivnih i zapaljivih;Vlasnik je i korisnik;Fizičko;;;0;0;0;0;1;0;Da;;;;;;
+18;Regularna;Radna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;;0;Vozila za servisnu službu sa;0;0;0;0;Ne;20116161;17544004;104219657;103334127;;
 19;Privremeno osiguranje;Putničko vozilo;0;Vlasnik nije korisnik;Pravno;Fizičko;2;0;0;1300;20;0;5;Ne;17408933;;100270693;;1;0
-20;Privremeno osiguranje;Putničko vozilo;Taxi vozilo;Vlasnik je i korisnik;Pravno;;3;0;0;1300;22;0;5;Da;07700393;;101158054;
-21;Privremeno osiguranje;Teretno vozilo;Prevoz eksplozivnih;Vlasnik je lizing kuća;Pravno;Fizičko;7;1;0;1300;200;22;5;Ne;08855919;;103697344;
+20;Privremeno osiguranje;Putničko vozilo;Taxi vozilo;Vlasnik je i korisnik;Pravno;;3;0;0;1300;22;0;5;Da;07700393;;101158054;;;
+21;Privremeno osiguranje;Teretno vozilo;Prevoz eksplozivnih;Vlasnik je lizing kuća;Pravno;Fizičko;7;1;0;1300;200;22;5;Ne;08855919;;103697344;;;
 22;Privremeno osiguranje;Teretno vozilo;Prevoz sladoleda;Vlasnik nije korisnik;Fizičko;Pravno;15;0;0;1300;200;18;5;Da;;17464272;;102789279;0;1
-23;Privremeno osiguranje;Autobusi;0;Vlasnik je i korisnik;Pravno;;250;0;Autobuske prikolice preduzeća i ustanova;2000;300;0;100;Ne;17544004;;103334127;
-24;Privremeno osiguranje;Vučna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;2;0;0;0;15;0;0;Da;17544004;08855919;103334127;103697344
+23;Privremeno osiguranje;Autobusi;0;Vlasnik je i korisnik;Pravno;;250;0;Autobuske prikolice preduzeća i ustanova;2000;300;0;100;Ne;17544004;;103334127;;;
+24;Privremeno osiguranje;Vučna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;2;0;0;0;15;0;0;Da;17544004;08855919;103334127;103697344;;
 25;Privremeno osiguranje;Specijalna motorna vozila;0;Vlasnik nije korisnik;Fizičko;Fizičko;7;0;Pogrebni automobili koji;0;200;0;0;Ne;;;;;1;0
-26;Privremeno osiguranje;Motocikli;0;Vlasnik je i korisnik;Fizičko;;2;0;0;40;300;0;2;Da;;;;
-27;Privremeno osiguranje;Motocikli;Invalidska kolica sa motorom;Vlasnik je lizing kuća;Pravno;Fizičko;15;0;0;175;300;0;2;Ne;17457284;;102624786;
+26;Privremeno osiguranje;Motocikli;0;Vlasnik je i korisnik;Fizičko;;2;0;0;40;300;0;2;Da;;;;;;
+27;Privremeno osiguranje;Motocikli;Invalidska kolica sa motorom;Vlasnik je lizing kuća;Pravno;Fizičko;15;0;0;175;300;0;2;Ne;17457284;;102624786;;;
 28;Privremeno osiguranje;Priključna vozila;0;Vlasnik nije korisnik;Pravno;Pravno;210;0;0;0;0;0,5;0;Da;17464272;21104329;102789279;108977445;0;1
-29;Privremeno osiguranje;Priključna vozila;Prikolice na dva točka;Vlasnik je lizing kuća;Pravno;Fizičko;7;0;0;0;0;15;0;Ne;21504378;;111573243;
-30;Privremeno osiguranje;Radna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;180;0;Bageri;0;0;0;0;Da;17556797;20768541;103374714;107175484
-31;Granično osiguranje;Putničko vozilo;0;;Pravno;;90;0;0;1300;55;0;5;Da;07700393;;101158054;
-32;Granično osiguranje;Teretno vozilo;0;;Pravno;;250;0;0;1300;200;0,3;5;Ne;08855919;;103697344;
-33;Granično osiguranje;Teretno vozilo;0;;Fizičko;;2;1;0;1300;200;0,25;5;Da;21104329;;108977445;
-34;Granično osiguranje;Teretno vozilo;0;;Fizičko;;2;0;0;1300;200;26;5;Ne;17544004;;103334127;
-35;Granično osiguranje;Autobusi;0;;Pravno;;3;0;0;2000;300;0;5;Da;20768541;;107175484;
-36;Granično osiguranje;Vučna vozila;0;;Pravno;;240;0;0;0;114;0;0;Ne;17457284;;102624786;
-37;Granično osiguranje;Specijalna motorna vozila;0;;Fizičko;;30;0;0;0;200;0;0;Da;17464272;;102789279;
-38;Granično osiguranje;Motocikli;0;;Fizičko;;2;0;0;40;300;0;2;Ne;;;;
-39;Granično osiguranje;Priključna vozila;0;;Pravno;;210;0;0;0;0;0,5;0;Da;17408933;;100270693;
-40;Granično osiguranje;Radna vozila;0;;Pravno;;60;0;0;0;0;0;0;Ne;07700393;;101158054;
+29;Privremeno osiguranje;Priključna vozila;Prikolice na dva točka;Vlasnik je lizing kuća;Pravno;Fizičko;7;0;0;0;0;15;0;Ne;21504378;;111573243;;;
+30;Privremeno osiguranje;Radna vozila;0;Vlasnik je lizing kuća;Pravno;Pravno;180;0;Bageri;0;0;0;0;Da;17556797;20768541;103374714;107175484;;
+31;Granično osiguranje;Putničko vozilo;0;;Pravno;;90;0;0;1300;55;0;5;Da;07700393;;101158054;;;
+32;Granično osiguranje;Teretno vozilo;0;;Pravno;;250;0;0;1300;200;0,3;5;Ne;08855919;;103697344;;;
+33;Granično osiguranje;Teretno vozilo;0;;Fizičko;;2;1;0;1300;200;0,25;5;Da;21104329;;108977445;;;
+34;Granično osiguranje;Teretno vozilo;0;;Fizičko;;2;0;0;1300;200;26;5;Ne;17544004;;103334127;;;
+35;Granično osiguranje;Autobusi;0;;Pravno;;3;0;0;2000;300;0;5;Da;20768541;;107175484;;;
+36;Granično osiguranje;Vučna vozila;0;;Pravno;;240;0;0;0;114;0;0;Ne;17457284;;102624786;;;
+37;Granično osiguranje;Specijalna motorna vozila;0;;Fizičko;;30;0;0;0;200;0;0;Da;17464272;;102789279;;;
+38;Granično osiguranje;Motocikli;0;;Fizičko;;2;0;0;40;300;0;2;Ne;;;;;;
+39;Granično osiguranje;Priključna vozila;0;;Pravno;;210;0;0;0;0;0,5;0;Da;17408933;;100270693;;;
+40;Granično osiguranje;Radna vozila;0;;Pravno;;60;0;0;0;0;0;0;Ne;07700393;;101158054;;;

@@ -225,7 +225,7 @@ namespace Proba2
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 string istekla = DateTime.Now.ToString("yyyy-MM-dd");
                 Console.WriteLine(istekla);
@@ -267,10 +267,17 @@ namespace Proba2
                         BrojPoliseAO = Convert.ToInt32(reader["brojUgovora"]); // Čitanje kao int
                         BrojPoliseAOstring = Convert.ToInt32(reader["brojUgovora"]).ToString("D8"); // Čitanje kao string
                         DateTime DatumIsteka = Convert.ToDateTime(reader["DatumIsteka"]); // Čitanje kao DateTime
-                        premijskaGrupa_1 = Convert.ToString(reader["oznakaPremijskaGrupaPodgrupa"]);
-                        premijskaGrupa = "01." + premijskaGrupa_1.Substring(0, premijskaGrupa_1.Length - 3);
-                        taksi = Convert.ToInt32(reader["taksiVozilo"]);
-                        rentacar = Convert.ToInt32(reader["rentacar"]);
+                        premijskaGrupa_1 = Convert.ToString(reader["oznakaPremijskaGrupaPodgrupa"]) ?? string.Empty;
+                        if (!string.IsNullOrEmpty(premijskaGrupa_1) && premijskaGrupa_1.Length > 3)
+                        {
+                            premijskaGrupa = string.Concat("01.", premijskaGrupa_1.AsSpan(0, premijskaGrupa_1.Length - 3));
+                        }
+                        else
+                        {
+                            premijskaGrupa = string.Empty;
+                        }
+                        taksi = reader["taksiVozilo"] != DBNull.Value ? Convert.ToInt32(reader["taksiVozilo"]) : -1;
+                        rentacar = reader["rentacar"] != DBNull.Value ? Convert.ToInt32(reader["rentacar"]) : -1;
                         string qPolisaAONemaDK = $"SELECT * FROM [MtplDB].[mtpl].[Dokument] INNER JOIN [MtplDB].[mtpl].[DokumentPodaci] ON [Dokument].[idDokument] = [DokumentPodaci].[idDokument] WHERE ([idProizvod] = 7 AND [idStatus] = 2 AND [registarskiBroj] = {BrojPoliseAO});";
 
                         using SqlConnection konekcija2 = new SqlConnection(connectionStringMtpl);
@@ -533,7 +540,7 @@ namespace Proba2
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {

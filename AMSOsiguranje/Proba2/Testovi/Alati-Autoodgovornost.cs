@@ -19,7 +19,7 @@ namespace Proba2
 
             Server = OdrediServer(Okruzenje);
 
-            string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+            string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
             string Lokacija = "(7, 8)";
 
@@ -263,7 +263,7 @@ namespace Proba2
             };
             */
             Server = OdrediServer(Okruzenje);
-            string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
+            string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
             using (SqlConnection konekcija = new(connectionStringStroga))
             {
@@ -303,7 +303,7 @@ namespace Proba2
             int PoslednjiDokumentKaskoHistory;
 
             Server = OdrediServer(Okruzenje);
-            string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+            string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
             using (SqlConnection konekcija = new(connectionStringStroga))
             {

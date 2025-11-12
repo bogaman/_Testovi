@@ -209,7 +209,7 @@ namespace Produkcija
                 // Pronađi odgovarajuću polisu AO koja nema ZK
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringMtpl = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 string istekla = DateTime.Now.ToString("yyyy-MM-dd");
                 Console.WriteLine(istekla);
@@ -334,7 +334,7 @@ namespace Produkcija
                 //await _page.PauseAsync();
                 //await _page.Locator("button").Filter(new() { HasText = "Snimi i kalkuliši" }).ClickAsync();
                 //await _page.Locator("e-input").Filter(new() { HasText = "Email Obavezan podatak" }).Locator("input[type=\"text\"]").ClickAsync();
-                //await _page.Locator("e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
+                //await _page.Locator("e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
                 await _page.Locator("button").Filter(new() { HasText = "Snimi i kalkuliši" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Izmeni" }).ClickAsync();
                 await _page.Locator("button").Filter(new() { HasText = "Snimi i kalkuliši" }).ClickAsync();
@@ -816,7 +816,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {

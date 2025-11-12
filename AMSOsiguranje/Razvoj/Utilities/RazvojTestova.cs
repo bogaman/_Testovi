@@ -13,75 +13,81 @@ namespace Razvoj
             {
                 FilterBrojaPolisa = "AND [Id] IN (1, 2)";
             }
-            string connectionString = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            string connectionString = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
+            using SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
+            string query = $"SELECT [Id], [RB], [tipPolise], [premijskaGrupa], [premijskaPodgrupa], [popustiDoplaci], " +
+                              $"[tegljac], [tipUgovaraca], [oslobodjenPoreza], [tipLica1], [tipLica2], [maticniBroj1], " +
+                              $"[maticniBroj2], [PIB1], [PIB2], [platilac], [jbkjs]" +
+                       $"FROM [TestLogDB].[test].[tUlazniParametri] " +
+                       $"WHERE ([tipPolise] IS NOT NULL " + FilterBrojaPolisa + ") ORDER BY [Id];";
+
+            using SqlCommand cmd = new(query, conn);
+            using SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
-                conn.Open();
-                string query = $"SELECT [Id], [RB], [tipPolise], [premijskaGrupa], [premijskaPodgrupa], [popustiDoplaci], " +
-                                  $"[tegljac], [tipUgovaraca], [oslobodjenPoreza], [tipLica1], [tipLica2], [maticniBroj1], " +
-                                  $"[maticniBroj2], [PIB1], [PIB2], [platilac], [jbkjs]" +
-                           $"FROM [TestLogDB].[test].[tUlazniParametri] " +
-                           $"WHERE ([tipPolise] IS NOT NULL " + FilterBrojaPolisa + ") ORDER BY [Id];";
+                int Id = reader.GetInt32(0);
+                int RB = reader.GetInt32(1);
+                string tipPolise = reader.GetString(2);
+                string premijskaGrupa = reader.GetString(3);
+                string premijskaPodgrupa = reader.GetString(4);
+                string popustiDoplaci = reader.GetString(5);
+                bool tegljac = reader.GetBoolean(6);
+                string tipUgovaraca = reader.GetString(7);
+                string oslobodjenPoreza = reader.GetString(8);
+                string tipLica1 = reader.GetString(9);
+                string tipLica2 = reader.GetString(10);
+                string maticniBroj1 = reader.GetString(11);
+                string maticniBroj2 = reader.GetString(12);
+                string pib1 = reader.GetString(13);
+                string pib2 = reader.GetString(14);
+                string platilac = reader.GetString(15);
+                string jbkjs = reader.GetString(16);
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int Id = reader.GetInt32(0);
-                        int RB = reader.GetInt32(1);
-                        string tipPolise = reader.GetString(2);
-                        string premijskaGrupa = reader.GetString(3);
-                        string premijskaPodgrupa = reader.GetString(4);
-                        string popustiDoplaci = reader.GetString(5);
-                        bool tegljac = reader.GetBoolean(6);
-                        string tipUgovaraca = reader.GetString(7);
-                        string oslobodjenPoreza = reader.GetString(8);
-                        string tipLica1 = reader.GetString(9);
-                        string tipLica2 = reader.GetString(10);
-                        string maticniBroj1 = reader.GetString(11);
-                        string maticniBroj2 = reader.GetString(12);
-                        string pib1 = reader.GetString(13);
-                        string pib2 = reader.GetString(14);
-                        string platilac = reader.GetString(15);
-                        string jbkjs = reader.GetString(16);
-
-                        yield return new TestCaseData(Id, RB, tipPolise, premijskaGrupa, premijskaPodgrupa, popustiDoplaci,
-                                                      tegljac, tipUgovaraca, oslobodjenPoreza, tipLica1, tipLica2,
-                                                      maticniBroj1, maticniBroj2, pib1, pib2, platilac, jbkjs)
-                            .SetName($"Test_{tipPolise}_RB{RB}");
-                    }
-                }
+                yield return new TestCaseData(Id, RB, tipPolise, premijskaGrupa, premijskaPodgrupa, popustiDoplaci,
+                                              tegljac, tipUgovaraca, oslobodjenPoreza, tipLica1, tipLica2,
+                                              maticniBroj1, maticniBroj2, pib1, pib2, platilac, jbkjs)
+                    .SetName($"Test_{tipPolise}_RB{RB}");
             }
+            conn.Close();
         }
 
         // Wrapper metode (filtracija po tipu)
         public static IEnumerable<TestCaseData> GetTestPodaciTipA() =>
-            GetTestPodaci().Where(tc => (string)tc.Arguments[2] == "Regularna");
+            GetTestPodaci().Where(tc =>
+                tc?.Arguments != null &&
+                tc.Arguments.Length > 2 &&
+                (tc.Arguments[2] as string) == "Regularna");
 
         public static IEnumerable<TestCaseData> GetTestPodaciTipB() =>
-            GetTestPodaci().Where(tc => (string)tc.Arguments[2] == "Granično osiguranje");
+            GetTestPodaci().Where(tc =>
+                tc?.Arguments != null &&
+                tc.Arguments.Length > 2 &&
+                (tc.Arguments[2] as string) == "Granično osiguranje");
 
         public static IEnumerable<TestCaseData> GetTestPodaciTipC() =>
-            GetTestPodaci().Where(tc => (string)tc.Arguments[2] == "Privremeno osiguranje");
+            GetTestPodaci().Where(tc =>
+                tc?.Arguments != null &&
+                tc.Arguments.Length > 2 &&
+                (tc.Arguments[2] as string) == "Privremeno osiguranje");
 
         [Test, TestCaseSource(typeof(ZTestDevelopment), nameof(ZTestDevelopment.GetTestPodaciTipA))]
         public void TestZaTipA(string url, string naslov, string tip)
         {
-            TestContext.WriteLine($"Pokrećem TEST TIP A: {url}, Naslov: {naslov}");
+            TestContext.Out.WriteLine($"Pokrećem TEST TIP A: {url}, Naslov: {naslov}");
             //Assert.AreEqual("TipA", tip);
         }
         [Test, TestCaseSource(typeof(ZTestDevelopment), nameof(ZTestDevelopment.GetTestPodaciTipB))]
         public void TestZaTipB(string url, string naslov, string tip)
         {
-            TestContext.WriteLine($"Pokrećem TEST TIP B: {url}, Naslov: {naslov}");
+            TestContext.Out.WriteLine($"Pokrećem TEST TIP B: {url}, Naslov: {naslov}");
             //Assert.AreEqual("TipB", tip);
         }
 
         [Test, TestCaseSource(typeof(ZTestDevelopment), nameof(ZTestDevelopment.GetTestPodaciTipC))]
         public void TestZaTipC(string url, string naslov, string tip)
         {
-            TestContext.WriteLine($"Pokrećem TEST TIP C: {url}, Naslov: {naslov}");
+            TestContext.Out.WriteLine($"Pokrećem TEST TIP C: {url}, Naslov: {naslov}");
             //Assert.AreEqual("TipC", tip);
         }
 
@@ -1730,7 +1736,7 @@ namespace Razvoj
                 bool isVisible = await _page.IsVisibleAsync(kontrola);
 
 
-                string disabledAttr = await _page.Locator(kontrola).GetAttributeAsync("disabled");
+                string? disabledAttr = await _page.Locator(kontrola).GetAttributeAsync("disabled");
 
 
                 string className1 = await _page.EvalOnSelectorAsync<string>(kontrola, "el => el.className");

@@ -2,11 +2,13 @@
 
 namespace Produkcija
 {
+
+
     [TestFixture, Order(3)]
     [Parallelizable(ParallelScope.Self)]
     public partial class Autoodgovornost : Osiguranje
     {
-
+        private new static readonly string NazivNamespace = typeof(Autoodgovornost).Namespace!;
         //private static string NacinPokretanjaTesta = Environment.GetEnvironmentVariable("BASE_URL") ?? "ručno";
         //private static string logFilePath = "C:/_Projekti/AutoMotoSavezSrbije/Logovi/test_log.txt";
         //private static string logFilePath = Path.Combine("C:/_Projekti/AutoMotoSavezSrbije/Logovi/", "test_log.txt");
@@ -52,8 +54,8 @@ namespace Produkcija
         {
             try
             {
-                //if (_page == null)
-                //throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
+                if (_page == null)
+                    throw new ArgumentNullException(nameof(_page), $"_page cannot be null when calling test {NazivTekucegTesta}.");
                 await Pauziraj(_page);
 
                 // 1. Loguje se BO i proverava otvaranje stranice Dashboard
@@ -427,12 +429,14 @@ namespace Produkcija
                 {
                     // Pronađi lokator za ćeliju koja sadrži broj dokumenta polise AO
                     var celijaBrojDokumenta = _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{brojDokumenta}']");
+                    var celijaBrojPolise = _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{brojPolise}']");
+                    var celijaSerijskiBrojObrasca = _page.Locator($"//div[@class='podaci']//div[contains(@class, 'column') and normalize-space(text())='{serijskiBrojObrasca}']");
 
                     // Provera da li je element vidljiv
                     if (await celijaBrojDokumenta.IsVisibleAsync())
                     {
-                        await celijaBrojDokumenta.ClickAsync();
-                        Console.WriteLine($"Kliknuto na ćeliju sa vrednošću: {brojDokumenta}");
+                        await celijaSerijskiBrojObrasca.First.ClickAsync();
+                        Console.WriteLine($"Kliknuto na ćeliju sa vrednošću: {celijaSerijskiBrojObrasca}");
                         //TestLogger.LogMessage($"Kliknuto na ćeliju sa vrednošću: {prom2}");
                     }
                     else
@@ -1549,7 +1553,7 @@ namespace Produkcija
                             "Produkcija" => "",
                             _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                         };
-                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                         //string brojZaduzenihObrazaca = IzvrsiUpit(connectionStringStroga, qBrojZaduzenihObrazacaBogdan);
                         //Console.WriteLine($"U bazi je broj zaduženih obrazaca: {brojZaduzenihObrazaca}. To je broj obrazaca kod korisnika Bogdan Mandarić.\n");
 
@@ -1563,7 +1567,7 @@ namespace Produkcija
 
 
 
-                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                         using SqlConnection konekcija = new(connectionStringMtpl);
                         Console.WriteLine($"Initial State konekcije sa MtplDB: {konekcija.State}");
                         konekcija.Open();
@@ -1736,7 +1740,7 @@ namespace Produkcija
                                                   $") AS Podskup;";
 
                 Server = OdrediServer(Okruzenje);
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
                     konekcija.Open();
@@ -2155,7 +2159,7 @@ namespace Produkcija
                             "Produkcija" => "",
                             _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
                         };
-                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                        //string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 1200";
                         //string brojZaduzenihObrazaca = IzvrsiUpit(connectionStringStroga, qBrojZaduzenihObrazacaBogdan);
                         //Console.WriteLine($"U bazi je broj zaduženih obrazaca: {brojZaduzenihObrazaca}. To je broj obrazaca kod korisnika Bogdan Mandarić.\n");
 
@@ -2169,7 +2173,7 @@ namespace Produkcija
 
 
 
-                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                        string connectionStringMtpl = $"Server = {Server}; Database = MtplDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120000";
                         using SqlConnection konekcija = new(connectionStringMtpl);
                         Console.WriteLine($"Initial State konekcije sa MtplDB: {konekcija.State}");
                         konekcija.Open();
@@ -2267,11 +2271,12 @@ namespace Produkcija
             string IzvorPodataka;
             if (NacinPokretanjaTesta == "ručno")
             {
-                IzvorPodataka = ProjektFolder + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-hand.csv";
+                IzvorPodataka = ProjektFolder + "/" + NazivNamespace + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-hand.csv";
+                //"C:\_Testovi\AMSOsiguranje\Razvoj\Podaci\UlazniPodaci\PoliseAutoodgovornost-auto.csv"
             }
             else
             {
-                IzvorPodataka = ProjektFolder + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-auto.csv";
+                IzvorPodataka = ProjektFolder + "/" + NazivNamespace + "/Podaci/UlazniPodaci/PoliseAutoodgovornost-auto.csv";
             }
             // Čitanje podataka iz CSV fajla
             //string[] lines = File.ReadAllLines(Variables.FilePath);
@@ -2307,42 +2312,14 @@ namespace Produkcija
                 await _page.Locator(".ico-ams-logo").ClickAsync();
                 await ProveriURL(_page, PocetnaStrana, "/Dashboard");
                 await _page.FocusAsync("body");
-                //await _page.ReloadAsync(new PageReloadOptions { WaitUntil = WaitUntilState.Load });
                 await _page.EvaluateAsync("location.reload(true);");
-
-                //await _page.Locator("body").PressAsync("ControlOrMeta+F5");
-                //await _page.Keyboard.PressAsync("Control+F5");
-                //await _page.Keyboard.DownAsync("Control");
-                //await _page.Keyboard.DownAsync("F5");
-                //await _page.Keyboard.UpAsync("F5");
-                //await _page.Keyboard.UpAsync("Control");
 
                 await NovaPolisa(_page, "Nova polisa AO");
                 await ProveriURL(_page, PocetnaStrana, "/Osiguranje-vozila/1/Autoodgovornost/Dokument/0");
 
-                //await ProveriStanjeKontrole(_page, "//e-select[@id='selPartner']//div[@class='multiselect-dropdown input']");
-
-                //await ProveriPadajucuListu(_page, "[id*='selPartner']");
-                //await ProveriStanjeKontrole(_page, "[id*='selPartner']");
-                //MessageBox.Show($"Za Partnera vraćena je vrednost {StanjeKontrole}.", "Informacija", MessageBoxButtons.OK);
-                //if (StanjeKontrole == 0)
-                //{
-                //await ProveriPartnera(_page);
-                //}
-
-
-
-
-
                 await ProveriPadajucuListu(_page, "//e-select[@id='selPartner']//div[@class='multiselect-dropdown input']");
                 await ProveriPadajucuListu(_page, "//e-select[@id='selTarife']//div[@class='multiselect-dropdown input']");
 
-                //await ProveriStanjeKontrole(_page, "[id*='selTarife']");
-                //MessageBox.Show($"Za Tarifu vraćena je vrednost {StanjeKontrole}.", "Informacija", MessageBoxButtons.OK);
-                //if (StanjeKontrole == 0)
-                //{
-                //await ProveriTarifu(_page);
-                //}
                 if (_rb == "01" || _rb == "19" || _rb == "31")
                 {
                     //await ProveriPrethodnuPolisu(_page);
@@ -2350,28 +2327,15 @@ namespace Produkcija
                     await ObradiPomoc(_page, "#selOsiguranik-help");
                 }
 
-
-
                 #region OSNOVNI PODACI
                 #region Serijski broj obrasca polise
 
                 // Pronađi prvi slobodan serijski broj za polisu AO
-                /*
-                 Server = Okruzenje switch
-                 {
-                     "Razvoj" => "10.5.41.99",
-                     "Proba2" => "49.13.25.19",
-                     "UAT" => "10.41.5.5",
-                     "Produkcija" => "",
-                     _ => throw new ArgumentException("Nepoznata uloga: " + Okruzenje),
-                 };
-                 */
-                Server = OdrediServer(Okruzenje);
 
-                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                Server = OdrediServer(Okruzenje);
+                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 string Lokacija = "(7, 8)";
-
                 if (AkorisnickoIme == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
                 {
                     Lokacija = "(3)";
@@ -2380,23 +2344,16 @@ namespace Produkcija
                 {
                     Lokacija = "(11)";
                 }
-
-
-
-                //else throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
+                else
+                {
+                    //throw new ArgumentException("Nepoznata uloga: " + AkorisnickoIme);
+                }
 
                 if (NacinPokretanjaTesta == "automatski" && (Okruzenje == "Razvoj" || Okruzenje == "Proba2"))
                 {
                     Lokacija = "(11)";
                 }
 
-
-                /*
-                            if (OsnovnaUloga == "BackOffice")
-                            {
-                                Lokacija = "(4)";
-                            }
-                            */
                 //Nalaženje poslednjeg serijskog broja koji je u sistemu
                 string qZaduženiObrasciAOBezPolise = $"SELECT [tObrasci].[SerijskiBroj] FROM [StrictEvidenceDB].[strictevidence].[tObrasci] " +
                                                      $"LEFT JOIN [StrictEvidenceDB].[strictevidence].[tIzdatePolise] ON [tObrasci].[SerijskiBroj] = [tIzdatePolise].[SerijskiBroj] " +
@@ -2407,7 +2364,7 @@ namespace Produkcija
                 {
                     using SqlConnection konekcija = new(connectionString);
                     konekcija.Open();
-                    using SqlCommand cmd = new SqlCommand(qZaduženiObrasciAOBezPolise, konekcija);
+                    using SqlCommand cmd = new(qZaduženiObrasciAOBezPolise, konekcija);
                     // Izvršavanje upita i dobijanje SqlDataReader objekta
                     using SqlDataReader reader = cmd.ExecuteReader();
 
@@ -2466,8 +2423,6 @@ namespace Produkcija
                     //System.Windows.Forms.MessageBox.Show($"Text Content elementa je: {labelaText}", "Informacija", MessageBoxButtons.OK);
                     Assume.That(labelaText, Is.EqualTo(""), $"Test se preskače jer: {labelaText}. \n");
                 }
-                //Assert.That(labelaText, Is.EqualTo(""), $"Test se preskače jer: {labelaText}. \n");
-                //Assert.Ignore($"Test se preskače jer: {labelaText}.");
 
                 #endregion Serijski broj obrasca polise
 
@@ -2612,7 +2567,7 @@ namespace Produkcija
                     await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                     await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("123456");
                     await _page.Locator("#ugovarac").GetByText("Email").ClickAsync();
-                    await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
+                    await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
 
                     if (_tipPolise == "Granično osiguranje")
                     {
@@ -2702,7 +2657,7 @@ namespace Produkcija
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("123456789");
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").ClickAsync();
-                        await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
+                        await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
 
                     }
                     else
@@ -2766,7 +2721,7 @@ namespace Produkcija
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("123456789");
                         await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").ClickAsync();
-                        await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
+                        await _page.Locator("#ugovarac e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
                         if (_platilac1 != "")
                         {
                             await _page.Locator("//e-checkbox[@id='chkPlatilacU']").ClickAsync();
@@ -2791,7 +2746,7 @@ namespace Produkcija
                     await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                     await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("654321");
                     await _page.Locator("#korisnik").GetByText("Email").ClickAsync();
-                    await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
+                    await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
 
                     await OcitajDokument(_page, "Licna2");
                     var notifyPopupLK = _page.Locator("//div[@class='notify greska']");
@@ -2884,7 +2839,7 @@ namespace Produkcija
                     await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").ClickAsync();
                     await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Telefon" }).Locator("input[type=\"text\"]").FillAsync("987654321");
                     await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").ClickAsync();
-                    await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("bogaman@hotmail.com");
+                    await _page.Locator("#korisnik e-input").Filter(new() { HasText = "Email" }).Locator("input[type=\"text\"]").FillAsync("amso.bogdan@mail.eonsystem.com");
 
                     if (_platilac1 != "")
                     {
@@ -3259,16 +3214,17 @@ namespace Produkcija
 
 
 
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
+                ProveriProxSignStatusAsync();
                 await KreirajPolisuAO(_page, SertifikatName);
+                /*
+                                await _page.PauseAsync();
+                                return;
 
-                await _page.PauseAsync();
-                return;
+                                await _page.Locator("button").Filter(new() { HasText = "Kreiraj polisu" }).ClickAsync();
 
-                await _page.Locator("button").Filter(new() { HasText = "Kreiraj polisu" }).ClickAsync();
-
-                await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
-
+                                await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
+                */
 
 
                 //await _page.PauseAsync();
@@ -3315,157 +3271,157 @@ namespace Produkcija
 
 
 
+                /*
+                                #region Sertifikat
 
-                #region Sertifikat
+                                await _page.PauseAsync();
+                                try
+                                {
+                                    // Inicijalizacija FlaUI
+                                    _automation = new UIA3Automation();
+                                    var mainWindow = _application.GetMainWindow(_automation);
+                                    var process = Process.GetProcessesByName(AppName).FirstOrDefault();
+                                    if (process != null)
+                                    {
+                                        //Ako je aplikacija pokrenuta, pridruži se postojećem procesu
+                                        _application = FlaUI.Core.Application.Attach(process);
 
-                await _page.PauseAsync();
-                try
-                {
-                    // Inicijalizacija FlaUI
-                    _automation = new UIA3Automation();
-                    var mainWindow = _application.GetMainWindow(_automation);
-                    var process = Process.GetProcessesByName(AppName).FirstOrDefault();
-                    if (process != null)
-                    {
-                        //Ako je aplikacija pokrenuta, pridruži se postojećem procesu
-                        _application = FlaUI.Core.Application.Attach(process);
+                                        // Dohvatanje glavnog prozora aplikacije
+                                        //var mainWindow = _application.GetMainWindow(_automation);
+                                        mainWindow = Retry.WhileNull(
+                                            () => _application.GetMainWindow(_automation),
+                                            TimeSpan.FromSeconds(10)).Result;
+                                        // Provera da li je mainWindow null
+                                        if (mainWindow == null)
+                                        {
+                                            throw new Exception("Main window of the application was not found.");
+                                        }
 
-                        // Dohvatanje glavnog prozora aplikacije
-                        //var mainWindow = _application.GetMainWindow(_automation);
-                        mainWindow = Retry.WhileNull(
-                            () => _application.GetMainWindow(_automation),
-                            TimeSpan.FromSeconds(10)).Result;
-                        // Provera da li je mainWindow null
-                        if (mainWindow == null)
-                        {
-                            throw new Exception("Main window of the application was not found.");
-                        }
-
-                    }
-                    else
-                    {
-                        // Ako aplikacija nije pokrenuta, pokreni je
-                        //_application = FlaUI.Core.Application.Launch(AppPath);
-                        await Sertifikat(_page, SertifikatName);
-                    }
-
-
-                    await _page.PauseAsync();
+                                    }
+                                    else
+                                    {
+                                        // Ako aplikacija nije pokrenuta, pokreni je
+                                        //_application = FlaUI.Core.Application.Launch(AppPath);
+                                        await Sertifikat(_page, SertifikatName);
+                                    }
 
 
-
-                    //Pronalazak TreeView elementa
-                    //var treeView = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree))?.AsTree();
-                    var treeView = Retry.WhileNull(
-                        () => mainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Tree))?.AsTree(),
-                        TimeSpan.FromSeconds(5)).Result;
+                                    await _page.PauseAsync();
 
 
-                    //Assert.IsNotNull(treeView, "TreeView not found");
 
-                    // Pronalazak TreeItem sa tekstom "Petrović Petar"
-                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
-                    //var SertifikatName = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
-                    //var SertifikatName = AKorisnik_?.Sertifikat ?? string.Empty;
-                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(SertifikatName))).AsTreeItem();
-
-
-                    var treeItem = Retry.WhileNull(
-                        () => treeView?.FindFirstDescendant(cf =>
-                            cf.ByControlType(ControlType.TreeItem).And(cf.ByName(SertifikatName)))?.AsTreeItem(),
-                        TimeSpan.FromSeconds(5)).Result;
+                                    //Pronalazak TreeView elementa
+                                    //var treeView = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree))?.AsTree();
+                                    var treeView = Retry.WhileNull(
+                                        () => mainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Tree))?.AsTree(),
+                                        TimeSpan.FromSeconds(5)).Result;
 
 
-                    //Assert.IsNotNull(treeItem, "TreeItem 'Bogdan Mandarić' not found");
+                                    //Assert.IsNotNull(treeView, "TreeView not found");
 
-                    // Klik na TreeItem
-                    if (treeItem != null)
-                    {
-                        treeItem.Click();
-                    }
-                    else
-                    {
-                        throw new Exception($"TreeItem '{SertifikatName}' not found.");
-                    }
-
-                    // Pronalazak dugmeta "Cancel"
-                    //var cancelButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("Cancel"))).AsButton();
-                    //Assert.IsNotNull(quitButton, "Quit button not found");
-                    // Klik na dugme Quit
-                    //cancelButton.Click();
-
-                    // Pronalazak dugmeta "OK"
-                    var okButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK Enter"))).AsButton();
-                    //Assert.IsNotNull(okButton, "OK button not found");
-                    // Klik na dugme OK
-                    //if (okButton != null)
-                    //{
-                    //okButton.Click();
-                    //}
-                    //else
-                    //{
-                    //throw new Exception("OK button not found in the application window.");
-                    //}
-                    if (okButton == null)
-                        throw new Exception("OK button not found in the application window.");
-                    okButton.WaitUntilClickable(TimeSpan.FromSeconds(5));
-                    okButton.Click();
+                                    // Pronalazak TreeItem sa tekstom "Petrović Petar"
+                                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName("Bogdan Mandarić 200035233"))).AsTreeItem();
+                                    //var SertifikatName = KorisnikLoader5.Korisnik3?.Sertifikat ?? string.Empty;
+                                    //var SertifikatName = AKorisnik_?.Sertifikat ?? string.Empty;
+                                    //var treeItem = treeView?.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.TreeItem).And(cf.ByName(SertifikatName))).AsTreeItem();
 
 
-                    var process2 = Process.GetProcessesByName(AppName2).FirstOrDefault();
-                    if (process2 != null)
-                    {
-                        // Ako je aplikacija pokrenuta, pridruži se postojećem procesu
-                        _application2 = FlaUI.Core.Application.Attach(process2);
-                        // Inicijalizacija FlaUI
-                        _automation2 = new UIA3Automation();
-                        // Dohvatanje glavnog prozora aplikacije
-                        var mainWindow2 = _application2.GetMainWindow(_automation2);
-
-                        // Pronalazak TextBox elementa
-                        if (mainWindow2 == null)
-                        {
-                            throw new Exception("Main window of the second application was not found.");
-                        }
-                        var treeElement = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree));
-                        var textBox = treeElement?.AsTextBox();
-                        //Assert.IsNotNull(textBox, "textBox not found");
-                        // Unos teksta u TextBox
-                        if (textBox != null)
-                        {
-                            textBox.Enter("73523");
-                        }
-                        else
-                        {
-                            throw new Exception("TextBox not found in the second application window.");
-                        }
-                        // Pronalazak dugmeta "OK"
-                        var okButton2 = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK"))).AsButton();
-                        //Assert.IsNotNull(okButton2, "OK button not found");
-                        // Klik na dugme OK
-                        if (okButton2 != null)
-                        {
-                            okButton2.Click();
-                        }
-                        else
-                        {
-                            throw new Exception("OK button not found in the second application window.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
-                    await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
-                    await LogovanjeTesta.LogException("FlaUI Sertifikat Selekcija", ex);
-                    throw; // ili možeš odlučiti da NE baciš grešku dalje
-                }
+                                    var treeItem = Retry.WhileNull(
+                                        () => treeView?.FindFirstDescendant(cf =>
+                                            cf.ByControlType(ControlType.TreeItem).And(cf.ByName(SertifikatName)))?.AsTreeItem(),
+                                        TimeSpan.FromSeconds(5)).Result;
 
 
-                #endregion Sertifikat
+                                    //Assert.IsNotNull(treeItem, "TreeItem 'Bogdan Mandarić' not found");
+
+                                    // Klik na TreeItem
+                                    if (treeItem != null)
+                                    {
+                                        treeItem.Click();
+                                    }
+                                    else
+                                    {
+                                        throw new Exception($"TreeItem '{SertifikatName}' not found.");
+                                    }
+
+                                    // Pronalazak dugmeta "Cancel"
+                                    //var cancelButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("Cancel"))).AsButton();
+                                    //Assert.IsNotNull(quitButton, "Quit button not found");
+                                    // Klik na dugme Quit
+                                    //cancelButton.Click();
+
+                                    // Pronalazak dugmeta "OK"
+                                    var okButton = mainWindow.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK Enter"))).AsButton();
+                                    //Assert.IsNotNull(okButton, "OK button not found");
+                                    // Klik na dugme OK
+                                    //if (okButton != null)
+                                    //{
+                                    //okButton.Click();
+                                    //}
+                                    //else
+                                    //{
+                                    //throw new Exception("OK button not found in the application window.");
+                                    //}
+                                    if (okButton == null)
+                                        throw new Exception("OK button not found in the application window.");
+                                    okButton.WaitUntilClickable(TimeSpan.FromSeconds(5));
+                                    okButton.Click();
 
 
+                                    var process2 = Process.GetProcessesByName(AppName2).FirstOrDefault();
+                                    if (process2 != null)
+                                    {
+                                        // Ako je aplikacija pokrenuta, pridruži se postojećem procesu
+                                        _application2 = FlaUI.Core.Application.Attach(process2);
+                                        // Inicijalizacija FlaUI
+                                        _automation2 = new UIA3Automation();
+                                        // Dohvatanje glavnog prozora aplikacije
+                                        var mainWindow2 = _application2.GetMainWindow(_automation2);
+
+                                        // Pronalazak TextBox elementa
+                                        if (mainWindow2 == null)
+                                        {
+                                            throw new Exception("Main window of the second application was not found.");
+                                        }
+                                        var treeElement = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Tree));
+                                        var textBox = treeElement?.AsTextBox();
+                                        //Assert.IsNotNull(textBox, "textBox not found");
+                                        // Unos teksta u TextBox
+                                        if (textBox != null)
+                                        {
+                                            textBox.Enter("73523");
+                                        }
+                                        else
+                                        {
+                                            throw new Exception("TextBox not found in the second application window.");
+                                        }
+                                        // Pronalazak dugmeta "OK"
+                                        var okButton2 = mainWindow2.FindFirstDescendant(cf => cf.ByControlType(FlaUI.Core.Definitions.ControlType.Button).And(cf.ByName("OK"))).AsButton();
+                                        //Assert.IsNotNull(okButton2, "OK button not found");
+                                        // Klik na dugme OK
+                                        if (okButton2 != null)
+                                        {
+                                            okButton2.Click();
+                                        }
+                                        else
+                                        {
+                                            throw new Exception("OK button not found in the second application window.");
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.Message);
+                                    LogovanjeTesta.LogError($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}");
+                                    await LogovanjeTesta.LogException($"❌ Neuspešan test {NazivTekucegTesta} - {ex.Message}", ex);
+                                    await LogovanjeTesta.LogException("FlaUI Sertifikat Selekcija", ex);
+                                    throw; // ili možeš odlučiti da NE baciš grešku dalje
+                                }
+
+
+                                #endregion Sertifikat
+
+                */
 
 
 
@@ -3515,7 +3471,7 @@ namespace Produkcija
 
             var lista = new List<TestCaseData>();
 
-            string connectionString = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+            string connectionString = $"Server = 10.5.41.99; Database = TestLogDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
             using var connection = new SqlConnection(connectionString);
             //connection.Open();
@@ -4337,11 +4293,12 @@ namespace Produkcija
                 //await _page.Locator("button").Filter(new() { HasText = "Obriši dokument" }).ClickAsync();
 
 
+                await _page.PauseAsync();
+                await KreirajPolisuAO(_page, SertifikatName);
 
+                //await _page.Locator("button").Filter(new() { HasText = "Kreiraj polisu" }).ClickAsync();
 
-                await _page.Locator("button").Filter(new() { HasText = "Kreiraj polisu" }).ClickAsync();
-
-                await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
+                //await _page.Locator("button").Filter(new() { HasText = "Da!" }).ClickAsync();
 
 
 
@@ -4669,7 +4626,7 @@ namespace Produkcija
                */
 
                 await UnesiTipLicaZaPolisuAO(_page, _tipPolise, _tipUgovaraca, _tipLica1, _tipLica2, _platilac);
-                await _page.PauseAsync();
+                //await _page.PauseAsync();
                 #region Lične karte
 
                 if (_tipLica1 == "Fizičko")
@@ -5257,7 +5214,7 @@ namespace Produkcija
                     try
                     {
                         // Klik na dugme Kalkuliši
-                        await _page.Locator("button:has-text('Kalkuliši')").ClickAsync();
+                        await _page.Locator("button:has-text('Kreiraj polisu')").ClickAsync();
                         //await _page.Locator("button").Filter(new() { HasText = "Kalkuliši" }).ClickAsync();
 
                         // Čekaj do 4 sekunde da se pojavi bilo koja poruka
@@ -5330,8 +5287,7 @@ namespace Produkcija
                 //await _page.Locator("button").Filter(new() { HasText = "Obriši dokument" }).ClickAsync();
 
 
-                await _page.PauseAsync();
-                return;
+
 
                 await _page.Locator("button").Filter(new() { HasText = "Kreiraj polisu" }).ClickAsync();
 
@@ -6682,8 +6638,8 @@ namespace Produkcija
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
                                         $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
-                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 12000000000";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -7014,7 +6970,7 @@ namespace Produkcija
                                         $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
                 //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}";
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 12000000000000";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -7345,8 +7301,8 @@ namespace Produkcija
                                         $"LEFT JOIN [MtplDB].[mtpl].[ZahtevZaIzmenu] ON [Dokument].[idDokument] = [ZahtevZaIzmenu].[idDokument] " +
                                         $"WHERE [ZahtevZaIzmenu].[idDokument] IS NULL AND [idProizvod] = 1 AND [Dokument].[idStatus] = 2 AND [Dokument].[idkorisnik] = {IdLice} AND [datumIsteka] > CAST(GETDATE() AS DATE);";
                 // Konekcija sa bazom
-                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
-                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                //string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 1200000";
+                string connectionString = $"Server = {Server}; Database = '' ; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120000";
                 using (SqlConnection konekcija = new(connectionString))
                 {
                     konekcija.Open();
@@ -7607,7 +7563,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120000";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
@@ -7791,7 +7747,7 @@ namespace Produkcija
                  */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
                 /*
                                 string Lokacija = "(7,8)";
 
@@ -7894,7 +7850,7 @@ namespace Produkcija
 
                 //await _page.GetByText("Brojevi obrazaca: ").ClickAsync();
                 //await _page.Locator("#notify0 button").ClickAsync();
-                await Pauziraj(_page);
+                //await Pauziraj(_page);
                 /*
                                 await _page.Locator("#inpDoBroja input[type=\"text\"]").ClickAsync();
                                 await _page.Locator("#inpDoBroja input[type=\"text\"]").FillAsync(strSerijskiBrojAO);
@@ -7937,7 +7893,7 @@ namespace Produkcija
                 */
                 Server = OdrediServer(Okruzenje);
 
-                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 60";
+                string connectionStringStroga = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
 
                 using (SqlConnection konekcija = new(connectionStringStroga))
                 {
