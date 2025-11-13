@@ -1,12 +1,8 @@
 
 namespace Razvoj
 {
-
     public partial class Osiguranje
-
     {
-
-
         /// <summary>
         /// Određuje se i unosi serijski broj obrasca polise AO
         /// </summary>
@@ -16,13 +12,9 @@ namespace Razvoj
         protected static async Task UnesiSerijskiBrojPoliseAO(IPage _page, string korisnickoIme)
         {
             // Pronađi prvi slobodan serijski broj za polisu AO
-
             Server = OdrediServer(Okruzenje);
-
             string connectionString = $"Server = {Server}; Database = StrictEvidenceDB; User ID = {UserID}; Password = {PasswordDB}; TrustServerCertificate = {TrustServerCertificate}; Connection Timeout = 120";
-
             string Lokacija = "(7, 8)";
-
             if (korisnickoIme == "mario.radomir@eonsystem.com" && Okruzenje == "UAT")
             {
                 Lokacija = "(3)";
