@@ -4,6 +4,7 @@
 
 # Ignoriši sve txt fajlove
 *.txt
+*.png
 # Ignoriši VS Code i VS konfiguracione fajlove
 #.vscode/
 #*.user
